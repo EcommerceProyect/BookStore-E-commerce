@@ -1,6 +1,6 @@
-import React from 'react'
-import ButtonHeart from './ButtonHeart'
-import FiveStars from './FiveStars'
+import React from 'react';
+import ButtonHeart from './ButtonHeart';
+import FiveStars from './FiveStars';
 
 function Card({
   id,
@@ -49,6 +49,6 @@ function Card({
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Card
+export default Card;

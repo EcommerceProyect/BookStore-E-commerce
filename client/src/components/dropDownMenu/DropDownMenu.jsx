@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // icons
-import { MdMenu, MdOutlineClose } from 'react-icons/md'
-import { FaUsers, FaQuestion } from 'react-icons/fa'
+import { MdMenu, MdOutlineClose } from 'react-icons/md';
+import { FaUsers, FaQuestion } from 'react-icons/fa';
 
 const DropDownMenu = () => {
-  const [openMenu, setOpenMenu] = useState(false)
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleMenuClick = () => {
-    setOpenMenu(!openMenu)
-  }
+    setOpenMenu(!openMenu);
+  };
 
   return (
     <div
@@ -59,7 +59,7 @@ const DropDownMenu = () => {
         </ul>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default DropDownMenu
+export default DropDownMenu;

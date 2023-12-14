@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 // components
-import SearchButton from '../searchButton/SearchButton'
+import SearchButton from '../searchButton/SearchButton';
 
 // icons
-import Button from '../linkButtons/LinkButtons'
-import { LiaShoppingBagSolid } from 'react-icons/lia'
+import Button from '../linkButtons/LinkButtons';
+import { LiaShoppingBagSolid } from 'react-icons/lia';
 import {
   MdOutlineLogin,
   MdOutlineLogout,
   MdPersonOutline,
   MdPersonAddAlt1,
-} from 'react-icons/md'
+} from 'react-icons/md';
 
 const Navbar = () => {
   return (
@@ -52,7 +52,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
