@@ -28,13 +28,10 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique:true,
         validate:{
-            isPhone(value){
-                if(!/^\d{10}$/g.test(value)){
-                    throw new Error("El número de teléfono debe contener 10 dígitos")
-                }
-            }
+            is: /^\d{10}$/g,
+            msg: "El número de teléfono debe contener 10 dígitos"
         }
-    },
+        },
     email:{
         type: DataTypes.STRING,
         allowNull: false,
