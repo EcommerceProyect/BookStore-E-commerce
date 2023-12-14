@@ -32,6 +32,7 @@ const { Users,
   Orders,
   Productreview ,
   ISBN,
+  OrderDetail,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -49,7 +50,8 @@ ISBN.belongsTo(Products);
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
 
-
+ISBN.hasMany(OrderDetail, {foreignKey: "ISBNid", onDelete:"CASCADE"});
+OrderDetail.belongsTo(ISBN);
 
 
 
