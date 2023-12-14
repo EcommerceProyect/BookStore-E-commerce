@@ -23,6 +23,15 @@ module.exports = (sequelize) => {
             msg: 'El apellido debe tener entre 1 y 30 caracteres'
         }
     },
+    phone:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique:true,
+        validate:{
+            is: /^\d{10}$/g,
+            msg: "El número de teléfono debe contener 10 dígitos"
+        }
+        },
     email:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -45,5 +54,5 @@ module.exports = (sequelize) => {
             }
         }
     }
-   })
+   },{timestamps: false})
 }

@@ -1,11 +1,11 @@
 const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define("Genre",{
+    sequelize.define("Autor",{
         id:{
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
-            primaryKey: true
+            primaryKey:true
         },
         name:{
             type: DataTypes.STRING,
@@ -14,10 +14,6 @@ module.exports = (sequelize) => {
                 notEmpty:{
                     args: true,
                     msg: "El nombre no puede estar vacío"
-                },
-                len:{
-                    args: [1,20],
-                    msg: "La longitud del nombre debe tener entre 1 y 20 caracteres"
                 }
             }
         }

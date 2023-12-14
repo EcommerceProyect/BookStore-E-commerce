@@ -1,25 +1,22 @@
 const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define("ClothingType",{
+    sequelize.define("ISBN",{
         id:{
-            type:DataTypes.UUID,
+            type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
+            primaryKey:true
         },
         name:{
-            type: DataTypes.STRING(20),
+            type: DataTypes.STRING,
             allowNull: false,
+            unique:true,
             validate:{
-                len: {
-                    args: [1,20],
-                    msg: "La longitud del nombre de tener entre 1 y 20 caracteres"
-                },
                 notEmpty:{
-                    args:true,
+                    args: true,
                     msg: "El nombre no puede estar vacío"
                 }
             }
         }
-    })
+    },{timestamps: false})
 }
