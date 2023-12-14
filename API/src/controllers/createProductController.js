@@ -5,7 +5,7 @@ const createProductController = async (data) =>{
     const {name, description, creationDate, price, style, image} = data;
 
     try {
-        
+        console.log(data);
         const [productInstance, created] = await Products.findOrCreate({
 
             where:{

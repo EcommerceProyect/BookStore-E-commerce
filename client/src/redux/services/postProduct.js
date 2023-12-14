@@ -8,6 +8,7 @@ export const postProduct = (product) => {
         'https://bookstore-e-commerce.onrender.com/ebook/products',
         product,
       )
+      console.log(response)
       dispatch(addToProductList(product))
     } catch (error) {
       console.error(error)
