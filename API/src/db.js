@@ -27,13 +27,31 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 Object.assign(sequelize.models, ...capsEntries);
 
-const { Users,Products,Orders,Productreview } = sequelize.models;
+const { Users,
+  Products,
+  Orders,
+  Productreview ,
+  ISBN,
+} = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
 Orders.belongsToMany(Products,{through:Productreview});
 Products.belongsToMany(Orders,{through:Productreview});
 Productreview.belongsTo(Orders);
 Productreview.belongsTo(Products);
+
+// One To One ==> pruducts - ISBN 
+
+Products.hasOne(ISBN);
+ISBN.hasOne(Products);
+Products.belongsTo(ISBN);
+ISBN.belongsTo(Products);
+
+// One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
+
+
+
+
 
 module.exports = {
     Users,
