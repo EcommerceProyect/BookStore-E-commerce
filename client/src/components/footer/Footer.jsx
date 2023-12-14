@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 // import logo from '../../assets/...'
 import { FaFacebook, FaYoutube, FaWhatsapp, FaInstagram } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
@@ -17,11 +18,13 @@ const Footer = () => {
                             ¿Quiénes somos?
                         </h2>
                     </div>
+                    <Link to="/faqs">
                     <div className="mt-6 lg:max-w-xl">
                         <h2 className="font-bold text-xl text-center text-textDark hover:text-accents   transition-colors duration-300 cursor-pointer">
                             Preguntas frecuentes
                         </h2>
                     </div>
+                    </Link>
                 </div>
                 <div className="self-center">
                     <div className="flex flex-col gap-2 text-sm text-center items-center ">
