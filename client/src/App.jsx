@@ -3,6 +3,8 @@ import Navbar from './components/navbar/Navbar'
 import Cards from './components/cards/Cards'
 import Login from './components/login/Login'
 import Footer from './Components/footer/Footer'
+import Registration from './components/registration/Registration'
+import CreateBook from './components/createBook/createBook'
 
 function App() {
   return (
@@ -10,7 +12,9 @@ function App() {
       <Navbar />
       <Login />
       <Cards />
-      <Footer/>
+      <Footer />
+      <Registration />
+      <CreateBook />
     </div>
   )
 }
