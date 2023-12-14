@@ -1,7 +1,7 @@
 const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define("Genre",{
+    sequelize.define("Editorial",{
         id:{
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -13,11 +13,7 @@ module.exports = (sequelize) => {
             validate:{
                 notEmpty:{
                     args: true,
-                    msg: "El nombre no puede estar vacío"
-                },
-                len:{
-                    args: [1,20],
-                    msg: "La longitud del nombre debe tener entre 1 y 20 caracteres"
+                    msg: "El nombre de la editorial no puede estar vacío"
                 }
             }
         }
