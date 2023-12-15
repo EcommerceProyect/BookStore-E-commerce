@@ -2,21 +2,19 @@ const { Products } = require("../db");
 
 const createProductController = async (data) =>{
 
-    const {name, description, creationDate, price, style, image} = data;
+    const {title, synopsis, price, image} = data;
 
     try {
         console.log(data);
         const [productInstance, created] = await Products.findOrCreate({
 
             where:{
-                name,
+                title,
             },
             defaults:{
-                name,
-                description,
-                creationDate,
+                title,
+                synopsis,
                 price,
-                style,
                 image
             }
 
