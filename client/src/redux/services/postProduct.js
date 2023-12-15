@@ -1,13 +1,14 @@
 import axios from 'axios'
-import { setProductList } from '../slices/products'
+import { addToProductList } from '../slices/products'
 
-export const fetchAllProducts = () => {
+export const postProduct = (product) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         'https://bookstore-e-commerce.onrender.com/ebook/products',
+        product,
       )
-      dispatch(setProductList(response.data))
+      dispatch(addToProductList(product))
     } catch (error) {
       console.error(error)
     }
