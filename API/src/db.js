@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
@@ -43,16 +43,19 @@ Productreview.belongsTo(Products);
 
 // One To One ==> pruducts - ISBN 
 
-Products.hasOne(ISBN);
-ISBN.hasOne(Products);
-Products.belongsTo(ISBN);
-ISBN.belongsTo(Products);
+Products.hasOne(ISBN, { foreignKey: 'ISBNId' });
+ISBN.belongsTo(Products, { foreignKey: 'ISBNId' });
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
 
 ISBN.hasMany(OrderDetail, {foreignKey: "ISBNid", onDelete:"CASCADE"});
 OrderDetail.belongsTo(ISBN);
 
+
+// Order - OderDetail ==> One To Many
+
+Orders.hasMany(OrderDetail,{foreignKey:"Ordersid", onDelete:"CASCADE"});
+OrderDetail.belongsTo(Orders);
 
 
 module.exports = {
