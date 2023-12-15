@@ -1,6 +1,16 @@
-import React from 'react'
-import Button from '../linkButtons/LinkButtons'
-import { MdOutlineLogin, MdOutlineShoppingCart } from 'react-icons/md'
+import React from 'react';
+// components
+import SearchButton from '../searchButton/SearchButton';
+
+// icons
+import Button from '../linkButtons/LinkButtons';
+import { LiaShoppingBagSolid } from 'react-icons/lia';
+import {
+  MdOutlineLogin,
+  MdOutlineLogout,
+  MdPersonOutline,
+  MdPersonAddAlt1,
+} from 'react-icons/md';
 
 const Navbar = () => {
   return (
@@ -12,13 +22,21 @@ const Navbar = () => {
         text="Iniciar Sesion"
       />
 
-      <Button
-        link="#"
-        icon={<MdOutlineShoppingCart color="black" size={25} />}
-        text="Carrito de compras"
-      />
-    </nav>
-  )
-}
+          <Button
+            link="#"
+            icon={<LiaShoppingBagSolid color="black" size={20} />}
+            text="Carrito de compras"
+          />
 
-export default Navbar
+          <Button
+            link="#"
+            icon={<MdOutlineLogout color="black" size={20} />}
+            text="Cerrar sesión"
+          />
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

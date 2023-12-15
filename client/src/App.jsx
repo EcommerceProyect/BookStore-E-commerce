@@ -11,6 +11,7 @@ import CreateProduct from './views/createProduct/CreateProduct'
 function App() {
   return (
     <div>
+      <DropDownMenu />
       <Navbar />
       <Routes>
       <Route path="/" element={<Home />} />
@@ -21,6 +22,6 @@ function App() {
       </Routes>
       <Footer/>
     </div>
-  )
+  );
 }
-export default App
+export default App;
