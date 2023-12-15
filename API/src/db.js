@@ -33,6 +33,9 @@ const { Users,
   Productreview ,
   ISBN,
   OrderDetail,
+  Author,
+  Genre,
+  Editorial
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -52,6 +55,19 @@ ISBN.belongsTo(Products);
 
 ISBN.hasMany(OrderDetail, {foreignKey: "ISBNid", onDelete:"CASCADE"});
 OrderDetail.belongsTo(ISBN);
+
+// n:n -- Author - Products 
+Products.belongsToMany(Author),{through:"Author-Products"};
+Author.belongsToMany(Products),{through:"Author-Products"};
+
+// n:n -- Genre - Products
+Products.belongsToMany(Genre),{through: "Genre-Products"};
+Genre.belongsToMany(Products),{through: "Genre-Products"};
+
+// 1:1 --- Editorial - Products 
+Products.belongsTo(Editorial);
+Editorial.hasOne(Products);
+
 
 
 
