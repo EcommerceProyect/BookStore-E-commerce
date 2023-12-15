@@ -9,11 +9,11 @@ import CreateBook from './components/createBook/createBook'
 function App() {
   return (
     <div>
-      {/* <Navbar />
-      <Login /> */}
+      <Navbar />
+      <Login />
       <Cards />
-      {/* <Footer />
-      <Registration /> */}
+      <Footer />
+      <Registration />
       <CreateBook />
     </div>
   )
