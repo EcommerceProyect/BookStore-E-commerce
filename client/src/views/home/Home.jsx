@@ -1,5 +1,5 @@
 import React from 'react'
-import Cards from '../components/cards/Cards'
+import Cards from '../../components/cards/Cards'
 
 const Home = () => {
   return (
