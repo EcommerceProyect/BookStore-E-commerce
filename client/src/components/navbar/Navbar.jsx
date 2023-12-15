@@ -11,15 +11,16 @@ import {
   MdPersonOutline,
   MdPersonAddAlt1,
 } from 'react-icons/md';
+import Filterts from '../filters/Filterts';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <h1 className="w-28 m-auto py-5">Besto-logo</h1>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between">
         <SearchButton />
 
-        <div className="flex items-center justify-between gap-2 pl-10 ml-10">
+        <div className="flex items-center justify-between gap-2 ml-2">
           <Button
             onClick={openLoginModal}
             // link="/login"
@@ -53,6 +54,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           />
         </div>
       </div>
+      <Filterts />
     </nav>
   );
 };

@@ -7,7 +7,6 @@ import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 
-
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
