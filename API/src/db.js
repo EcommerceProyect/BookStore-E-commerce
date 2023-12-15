@@ -56,6 +56,10 @@ ISBN.belongsTo(Products);
 Users.belongsToMany(Products,{through:Cart});
 Products.belongsToMany(Users,{through:Cart});
 
+// One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
+ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBN"});
+OrderDetail.belongsTo(ISBN);
+
 //Relacion entre Cart y Orders de uno a muchos.
 
 Cart.hasMany(Orders);
