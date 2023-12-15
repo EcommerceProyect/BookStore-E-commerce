@@ -57,12 +57,12 @@ ISBN.hasMany(OrderDetail, {foreignKey: "ISBNid", onDelete:"CASCADE"});
 OrderDetail.belongsTo(ISBN);
 
 // n:n -- Author - Products 
-Products.belongsToMany(Author),{through:"Author"};
-Author.belongsToMany(Products),{through:"Author"};
+Products.belongsToMany(Author),{through:"Author-Products"};
+Author.belongsToMany(Products),{through:"Author-Products"};
 
 // n:n -- Genre - Products
-Products.belongsToMany(Genre),{through: "Genre"};
-Genre.belongsToMany(Products),{through: "Genre"};
+Products.belongsToMany(Genre),{through: "Genre-Products"};
+Genre.belongsToMany(Products),{through: "Genre-Products"};
 
 // 1:1 --- Editorial - Products 
 Products.belongsTo(Editorial);
