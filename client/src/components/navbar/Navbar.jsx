@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="flex items-center justify-between gap-2">
       <input type="search" placeholder="Search..." />
       <Button
-        link="#"
+        link="/login"
         icon={<MdOutlineLogin color="black" size={25} />}
         text="Iniciar Sesion"
       />
