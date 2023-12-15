@@ -22,6 +22,9 @@ function App() {
         <Route path="/faqs" element={<Faqs />} />
       </Routes>
       <Footer />
+
+      <Registration />
+      <CreateBook />
     </div>
   );
 }
