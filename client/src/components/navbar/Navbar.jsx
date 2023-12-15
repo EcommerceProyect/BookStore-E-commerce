@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // components
 import SearchButton from '../searchButton/SearchButton';
 
@@ -30,6 +30,7 @@ const Navbar = () => {
             link="#"
             icon={<MdPersonAddAlt1 color="black" size={20} />}
             text="Registrarse"
+            onClick={toggleRegistrationModal}
           />
 
           <Button

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import userValidation from './userValidation'
+import React, { useState } from 'react';
+import userValidation from './userValidation';
 
-import { Button, Label, TextInput } from 'flowbite-react'
+import { Button, Label, TextInput } from 'flowbite-react';
 
 const Registration = () => {
   const [userData, setUserData] = useState({
@@ -10,26 +10,26 @@ const Registration = () => {
     email: '',
     password: '',
     verifyPassword: '',
-  })
+  });
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setUserData({
       ...userData,
       [e.target.name]: e.target.value,
-    })
+    });
     setErrors(
       userValidation({
         ...userData,
         [e.target.name]: e.target.value,
       }),
-    )
-  }
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col max-w-md gap-4">
@@ -105,7 +105,7 @@ const Registration = () => {
         Registrar
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default Registration
+export default Registration;
