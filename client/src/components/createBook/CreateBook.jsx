@@ -1,18 +1,23 @@
 import React from 'react'
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+import { postProduct } from '../../redux/services/postProduct'
+
 import bookValidation from './bookValidation'
 
 const CreateBook = () => {
+  const dispatch = useDispatch()
+
   const [bookData, setBookData] = useState({
     title: '',
     price: null,
     image: '',
-    author: '',
-    genre: '',
+    // author: '',
+    // genre: '',
     synopsis: '',
-    publisher: '',
-    isbn: '',
+    // publisher: '',
+    // isbn: '',
   })
 
   const [errors, setErrors] = useState({})
@@ -32,6 +37,7 @@ const CreateBook = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    dispatch(postProduct(bookData))
   }
 
   return (
@@ -97,7 +103,7 @@ const CreateBook = () => {
           ) : null}
         </div>
 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label
             htmlFor="author"
             className="block text-sm font-semibold text-gray-600 text-center"
@@ -129,7 +135,7 @@ const CreateBook = () => {
             onChange={handleChange}
             className="w-full border p-2 mt-1"
           />
-        </div>
+        </div> */}
 
         <div className="mb-6">
           <label
@@ -148,7 +154,7 @@ const CreateBook = () => {
           />
         </div>
 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label
             htmlFor="publisher"
             className="block text-sm font-semibold text-gray-600 text-center"
@@ -185,7 +191,7 @@ const CreateBook = () => {
               {errors.isbn}
             </a>
           ) : null}
-        </div>
+        </div> */}
 
         <div className="mb-4">
           <button
