@@ -56,25 +56,6 @@ OrderDetail.belongsTo(ISBN);
 Orders.hasMany(OrderDetail,{foreignKey:"Ordersid", onDelete:"CASCADE"});
 OrderDetail.belongsTo(Orders);
 
-// releaseDate - Products
-
-Products.hasOne(ReleasedDate)
-ReleasedDate.belongsTo(Products);
-
-//genaro codeeee
-
-// n:n -- Author - Products 
-Products.belongsToMany(Author),{through:"Author-Products", timestamps: false };
-Author.belongsToMany(Products),{through:"Author-Products", timestamps: false };
-
-// n:n -- Genre - Products
-Products.belongsToMany(Genre),{through: "Genre-Products", timestamps: false  };
-Genre.belongsToMany(Products),{through: "Genre-Products", timestamps: false  };
-
-// 1:1 --- Editorial - Products 
-Products.belongsTo(Editorial);
-Editorial.hasOne(Products);
-
 module.exports = {
     Users,
     Products,
