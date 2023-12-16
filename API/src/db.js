@@ -32,6 +32,7 @@ const { Users,
   Orders,
   Productreview ,
   ISBN,
+  Cart,
   OrderDetail,
   Author,
   Genre,
@@ -41,19 +42,25 @@ const { Users,
 //ManyToMany ==> Orders - "Productreview" - Products
 Orders.belongsToMany(Products,{through:Productreview});
 Products.belongsToMany(Orders,{through:Productreview});
-Productreview.belongsTo(Orders);
-Productreview.belongsTo(Products);
+//redundancia
+// Productreview.belongsTo(Orders);
+// Productreview.belongsTo(Products);
 
 // One To One ==> pruducts - ISBN 
 
 Products.hasOne(ISBN);
-ISBN.hasOne(Products);
-Products.belongsTo(ISBN);
 ISBN.belongsTo(Products);
+//Existe una redundancia.
+// ISBN.hasOne(Products);
+//  Products.belongsTo(ISBN);
+
+//Relacion entre Users y Products de muchos a muchos.
+
+Users.belongsToMany(Products,{through:Cart});
+Products.belongsToMany(Users,{through:Cart});
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
-
-ISBN.hasMany(OrderDetail, {foreignKey: "ISBNid", onDelete:"CASCADE"});
+ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBN"});
 OrderDetail.belongsTo(ISBN);
 
 // n:n -- Author - Products 
@@ -70,6 +77,13 @@ Editorial.hasOne(Products);
 
 
 
+Cart.hasMany(Orders);
+Orders.belongsTo(Cart);
+
+//Relacion entre Orders y OrderDetail de uno a uno.
+
+Orders.hasOne(OrderDetail);
+OrderDetail.belongsTo(Orders);
 
 module.exports = {
     Users,
