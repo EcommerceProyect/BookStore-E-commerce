@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const { Products,ReleasedDate,Autor,Editorial,Genre,ISBN } = require("../db");
+const { Products,ReleasedDate,Author,Editorial,Genre,ISBN } = require("../db");
 
 const createProductController = async (data) => {
 
@@ -42,7 +42,7 @@ const createProductController = async (data) => {
             if (autor) {
                 if (Array.isArray(autor)) {
                     const autorInstances = await Promise.all(autor.map(async (name) => {
-                        const [autorInstance, created] = await Autor.findOrCreate({
+                        const [autorInstance, created] = await Author.findOrCreate({
                             where: {
                                 name,
                             },
@@ -54,7 +54,7 @@ const createProductController = async (data) => {
                     }));
                     await productInstance.setAutors(autorInstances);
                 } else {
-                    const [autorInstance, created] = await Autor.findOrCreate({
+                    const [autorInstance, created] = await Author.findOrCreate({
                         where: {
                             name: autor,
                         },

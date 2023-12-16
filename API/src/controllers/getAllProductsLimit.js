@@ -12,7 +12,7 @@ const getAllProductsLimit = async (page) => {
             offset:page,
             limit:itemPerPage,
             include: [
-                { model: Author, as: 'Author' },
+                { model: Author, as: 'Authors' },
                 { model: Genre, as: 'Genres' },     
                 { model: ISBN, as: 'ISBN' }
               ],

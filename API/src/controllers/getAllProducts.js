@@ -1,11 +1,11 @@
-const { Products,Autor,Editorial,Genre,ISBN,ReleasedDate } = require("../db");
+const { Products,Author,Editorial,Genre,ISBN,ReleasedDate } = require("../db");
 
 const getAllProducts = async () => {
 
     try {
         const response = await Products.findAll({
             include: [
-                { model: Autor, as: 'Autors' },
+                { model: Author, as: 'Authors' },
                 { model: ReleasedDate, as: 'ReleasedDate' },  
                 { model: Editorial, as: 'Editorial' },
                 { model: Genre, as: 'Genres' },     
