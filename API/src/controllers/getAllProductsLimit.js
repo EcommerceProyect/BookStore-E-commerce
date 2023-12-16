@@ -6,10 +6,12 @@ const itemPerPage = 2;// la cantidad de items que se mandaran a partir de la pag
 
 const getAllProductsLimit = async (page) => {
 
+    const offset = page*itemPerPage;
+
     try {
         
         const response = await Products.findAll({
-            offset:page,
+            offset,
             limit:itemPerPage,
             include: [
                 { model: Author, as: 'Authors' },
