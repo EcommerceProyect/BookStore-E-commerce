@@ -32,6 +32,7 @@ const { Users,
   Orders,
   Productreview ,
   ISBN,
+  Cart,
   OrderDetail,
   ReleasedDate,
   Author,
@@ -42,7 +43,8 @@ const { Users,
 //ManyToMany ==> Orders - "Productreview" - Products
 Orders.belongsToMany(Products,{through:Productreview});
 Products.belongsToMany(Orders,{through:Productreview});
-// One To One ==> pruducts - ISBN 
+
+// One To One Products - ISBN
 
 Products.hasOne(ISBN, { foreignKey: 'ISBNId' });
 ISBN.belongsTo(Products, { foreignKey: 'ISBNId' });
@@ -50,7 +52,17 @@ ISBN.belongsTo(Products, { foreignKey: 'ISBNId' });
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
 ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid"});
+
+//Relacion entre Users y Products de muchos a muchos.
+
+Users.belongsToMany(Products,{through:Cart});
+Products.belongsToMany(Users,{through:Cart});
+
+// One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
+
+ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBN"});
 OrderDetail.belongsTo(ISBN);
+
 // Order - OderDetail ==> One To Many
 
 // n:n -- Author - Products 
@@ -67,6 +79,13 @@ Editorial.hasOne(Products);
 
 
 
+Cart.hasMany(Orders);
+Orders.belongsTo(Cart);
+
+//Relacion entre Orders y OrderDetail de uno a uno.
+
+Orders.hasOne(OrderDetail);
+OrderDetail.belongsTo(Orders);
 
 
 
