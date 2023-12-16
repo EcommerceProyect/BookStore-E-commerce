@@ -1,0 +1,93 @@
+
+    [
+        {
+          "id": "d40a60cb-6a51-4b84-9e78-3c14440d437b",
+          "imagen": "https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg",
+          "titulo": "Cien años de soledad",
+          "autor": "Gabriel García Márquez",
+          "genero": "literatura",
+          "sinopsis": "Una saga familiar mágica que abarca siete generaciones en el ficticio Macondo. Amor, guerra y soledad tejen la historia de los Buendía.",
+          "editorial": "Cien años de soledad",
+          "ISBN": "978-3-16-148410-0"
+        },
+        {
+          "id": "0c8601c5-8013-4e0c-8d08-1594a4e0976e",
+          "imagen": "https://images.cdn3.buscalibre.com/fit-in/360x360/c1/d5/c1d562eb8d27c7af22c9f981f4de04f1.jpg",
+          "titulo": "Breve historia del tiempo",
+          "autor": "Stephen Hawking",
+          "genero": "ciencia e historia",
+          "sinopsis": "Una exploración fascinante del cosmos que aborda preguntas sobre el tiempo, el espacio y la naturaleza del universo. Un clásico de la divulgación científica.",
+          "editorial": "Bantam Books",
+          "ISBN": "978-0-553-10953-5"
+        },
+        {
+          "id": "8b683d3a-d4b9-46cc-bf90-9c9aa7ac35e7",
+          "imagen": "https://capitanswing.com/wp-content/uploads/NawalElSaadawi_MujerEnPuntoCero.jpg",
+          "titulo": "Mujer en punto cero",
+          "autor": "Nawal El Saadawi",
+          "genero": "literatura",
+          "sinopsis": "La historia de una prisionera condenada a muerte en una prisión egipcia, una reflexión sobre la opresión de las mujeres en la sociedad.",
+          "editorial": "Zed Books",
+          "ISBN": "978-1-84813-180-3"
+        },
+        {
+          "id": "fcf3d8f8-1c0b-4bfb-b5f0-176eb3db9b37",
+          "imagen": "https://hispamer.com.ni/wp-content/uploads/2023/02/9780718076375.jpg",
+          "titulo": "Matar un ruiseñor",
+          "autor": "Harper Lee",
+          "genero": "literatura",
+          "sinopsis": "La lucha por la justicia racial en el sur de Estados Unidos, narrada a través de los ojos de una niña. Un clásico atemporal.",
+          "editorial": "J.B. Lippincott & Co.",
+          "ISBN": "978-0-06-112008-4"
+        },
+        {
+          "id": "21f7c2f3-53eb-4597-9d8a-9c9e1c58d730",
+          "imagen": "url_imagen_5.jpg",
+          "titulo": "Sapiens: De animales a dioses",
+          "autor": "Yuval Noah Harari",
+          "genero": "ciencia e historia",
+          "sinopsis": "Una exploración de la evolución humana desde los primeros homínidos hasta la era moderna. Un relato fascinante de la historia de nuestra especie.",
+          "editorial": "Debate",
+          "ISBN": "978-84-9988-460-5"
+        },
+        {
+          "id": "9186c151-0c0a-4b74-9f9b-95227a57a7a5",
+          "imagen": "url_imagen_6.jpg",
+          "titulo": "El poder del ahora",
+          "autor": "Eckhart Tolle",
+          "genero": "salud y bienestar",
+          "sinopsis": "Una guía espiritual que invita a vivir en el presente y liberarse de la carga del pasado y las preocupaciones del futuro. Un camino hacia la paz interior.",
+          "editorial": "Gaia Ediciones",
+          "ISBN": "978-8484452242"
+        },
+        {
+          "id": "1f8641b9-67c1-4a7e-83f1-67ff66d51a76",
+          "imagen": "url_imagen_7.jpg",
+          "titulo": "Harry Potter y la piedra filosofal",
+          "autor": "J.K. Rowling",
+          "genero": "libros infantiles",
+          "sinopsis": "La primera entrega de la mágica serie de Harry Potter, donde un joven aprendiz de mago descubre su destino en el mundo de la magia.",
+          "editorial": "Bloomsbury",
+          "ISBN": "978-0-7475-3269-6"
+        },
+        {
+          "id": "585245d9-e7f1-4c01-8246-74a3f4a6be0b",
+          "imagen": "url_imagen_8.jpg",
+          "titulo": "El señor de los anillos: La comunidad del anillo",
+          "autor": "J.R.R. Tolkien",
+          "genero": "libros juveniles",
+          "sinopsis": "Una épica aventura fantástica que sigue la búsqueda del anillo único. Un viaje que enfrenta a la comunidad contra las fuerzas oscuras de Mordor.",
+          "editorial": "George Allen & Unwin",
+          "ISBN": "978-84-450-7598-8"
+        },
+        {
+          "id": "b3e0f051-c2f4-4d27-a9bf-66cf3853eb62",
+          "imagen": "url_imagen_9.jpg",
+          "titulo": "Maus",
+          "autor": "Art Spiegelman",
+          "genero": "cómic y novela gráfica",
+          "sinopsis": "Una conmovedora novela gráfica que narra la historia del autor y su padre, sobrevivientes del Holocausto, a través de la representación de animales antropomórficos.",
+          "editorial": "Pantheon Books",
+          "ISBN": "978-0-394-74723-1"
+        }
+    ]
