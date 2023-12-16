@@ -41,8 +41,8 @@ const createProductController = async (data) => {
             //si manda un arreglo lo mapea si no lo agrega de una
             if (autor) {
                 if (Array.isArray(autor)) {
-                    const autorInstances = await Promise.all(autor.map(async (name) => {
-                        const [autorInstance, created] = await Author.findOrCreate({
+                    const authorInstances = await Promise.all(autor.map(async (name) => {
+                        const [authorInstance, created] = await Author.findOrCreate({
                             where: {
                                 name,
                             },
@@ -50,9 +50,9 @@ const createProductController = async (data) => {
                                 name,
                             }
                         });
-                        return autorInstance;
+                        return authorInstance;
                     }));
-                    await productInstance.setAutors(autorInstances);
+                    await productInstance.setAuthors(authorInstances);
                 } else {
                     const [autorInstance, created] = await Author.findOrCreate({
                         where: {
@@ -62,7 +62,7 @@ const createProductController = async (data) => {
                             name: autor,
                         }
                     });
-                    await productInstance.setAutors([autorInstance]);
+                    await productInstance.setAuthors([autorInstance]);
                 }
             }
             
@@ -124,8 +124,7 @@ const createProductController = async (data) => {
                     }
                 });
 
-                if(created) await productInstance.setISBN(ISBNinstance);
-                else throw new Error("Error al crear o buscar el ISBN");
+                await productInstance.setISBN(ISBNinstance);
                 
             }
 

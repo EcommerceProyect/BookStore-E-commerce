@@ -54,7 +54,7 @@ OrderDetail.belongsTo(ISBN);
 // Order - OderDetail ==> One To Many
 
 // n:n -- Author - Products 
-Products.belongsToMany(Author, { through: "AuthorProduct", timestamps:false }); // Cambiado 'Author' por 'AuthorProduct'
+Products.belongsToMany(Author, { through: "AuthorProduct", timestamps:false });
 Author.belongsToMany(Products, { through: "AuthorProduct", timestamps:false });
 
 // n:n -- Genre - Products
