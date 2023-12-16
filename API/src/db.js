@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
@@ -64,6 +64,9 @@ Genre.belongsToMany(Products,{through: "GenreProducts", timestamps:false });
 // 1:1 --- Editorial - Products 
 Products.belongsTo(Editorial);
 Editorial.hasOne(Products);
+
+
+
 
 
 
