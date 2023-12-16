@@ -1,13 +1,19 @@
-// import axios from 'axios'
-// import { setProductList } from '../slices/products'
+import axios from 'axios'
+import {
+  setProductList,
+  setProductListLoading,
+  setProductListError,
+} from '../slices/products'
 
-// export const fetchAllProducts = () => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await axios.get('https://fakestoreapi.com/products/')
-//       dispatch(setProductList(response.data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
+const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products'
+
+export const getProducts = (page) => async (dispatch) => {
+  dispatch(setProductListLoading())
+
+  try {
+    const response = await axios.get(`${apiUrl}`)
+    dispatch(setProductList(response.data))
+  } catch (error) {
+    dispatch(setProductListError(error.message))
+  }
+}
