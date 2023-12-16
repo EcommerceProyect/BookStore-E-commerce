@@ -21,12 +21,12 @@ function App() {
   return (
     <div>
       <DropDownMenu />
-      <Navbar openLoginModal={openLoginModal} /> {/* Pasar la función al Navbar */}
+      <Navbar openLoginModal={openLoginModal} /> 
       <Cards />
       <Footer />
       <Registration />
       <CreateBook />
-      {showLoginModal && <Login onClose={closeLoginModal} />} {/* Mostrar el Login si showModal es true */}
+      {showLoginModal && <Login onClose={closeLoginModal} />}
     </div>
   );
 }
