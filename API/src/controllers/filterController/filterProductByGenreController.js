@@ -1,22 +1,22 @@
-// const {Products,Genre} = require("../../db");
+const {Products,Genre} = require("../../db");
 
-// const filterProductByGenreController = async (genre) => {
+const filterProductByGenreController = async (genre) => {
 
-//     try {
+    try {
         
-//         const response = await Genre.findAll({
-//             where:{
-//                 name:genre,
-//             },
-//             include:[{
-//               model:Products,
-//               as:"Product",
+        const response = await Genre.findAll({
+            where:{
+                name:genre,
+            },
+            include:[{
+              model:Products,
+              as:"Product",
 
-//             }]
-//         })
+            }]
+        })
 
-//     } catch (error) {
+    } catch (error) {
         
-//     }
+    }
 
-// }
+}
