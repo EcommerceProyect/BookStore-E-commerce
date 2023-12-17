@@ -9,6 +9,7 @@ const filterProductByGenreController = async (genre) => {
                 { model: Editorial, as: "Editorial" },    
                 { model: ISBN, as: "ISBN" }, 
                 {
+                    
                     model: Genre,
                     through: {
                         model: GenreProducts,

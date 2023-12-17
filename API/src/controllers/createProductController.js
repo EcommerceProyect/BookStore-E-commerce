@@ -129,21 +129,12 @@ const createProductController = async (data) => {
                             name: genre,
                         }
                     });
-                    await productInstance.setGenres(genreInstance);
+                    await productInstance.setGenres([genreInstance]);
                 }
             }
             
 
             if(ISBNname){
-
-                const [ ISBNinstance, created] = await ISBN.findOrCreate({
-                    where:{
-                        name:ISBNname
-                    },
-                    defaults:{
-                        name:ISBNname
-                    }
-                });
 
                 await productInstance.setISBN(ISBNinstance);
                 
