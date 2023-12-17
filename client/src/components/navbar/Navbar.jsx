@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 // components
 import SearchButton from '../searchButton/SearchButton';
 
@@ -14,7 +13,7 @@ import {
 } from 'react-icons/md';
 import Filterts from '../filters/Filterts';
 
-const Navbar = () => {
+const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className="bg-primary p-3 sticky top-0 z-20">
       <Link to="/">
@@ -25,13 +24,15 @@ const Navbar = () => {
 
         <div className="flex items-center justify-between gap-2 ml-2">
           <Button
-            link="/login"
+            onClick={openLoginModal}
+            // link="/login"
             icon={<MdOutlineLogin color="black" size={20} />}
             text="Iniciar Sesión"
           />
 
           <Button
-            link="/registration"
+            onClick={openRegistrationModal}
+            // link="#"
             icon={<MdPersonAddAlt1 color="black" size={20} />}
             text="Registrarse"
           />
