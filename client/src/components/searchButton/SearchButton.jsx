@@ -11,8 +11,8 @@ const SearchButton = () => {
   return (
     <div className="flex items-center ml-auto">
       <div
-        className={`transition-all duration-500 overflow-hidden origin-right ${
-          search ? 'w-48' : 'w-0 ml-0'
+        className={`transition-all duration-500 overflow-hidden ${
+          search ? 'w-48' : 'w-0'
         } `}
       >
         {search ? (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // components
 import SearchButton from '../searchButton/SearchButton';
 
@@ -15,8 +16,10 @@ import Filterts from '../filters/Filterts';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
-    <nav className=" bg-primary p-3">
-      <h1 className="w-28 m-auto py-5">Besto-logo</h1>
+    <nav className="bg-primary p-3 sticky top-0 z-20">
+      <Link to="/">
+        <h1 className="w-28 m-auto py-5">Besto-logo</h1>
+      </Link>
       <div className="flex items-center justify-between">
         <SearchButton />
 

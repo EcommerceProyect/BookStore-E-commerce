@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, getTotalProducts } from '../../redux/services/getAllProducts';
+import {
+  getProducts,
+  getTotalProducts,
+} from '../../redux/services/getAllProducts';
 import Card from '../card/Card';
 
 function Cards() {
@@ -62,7 +65,10 @@ function Cards() {
           </div>
         ))}
       </div>
-      <nav className="flex justify-center p-5" aria-label="Page navigation example">
+      <nav
+        className="flex justify-center p-5"
+        aria-label="Page navigation example"
+      >
         <ul className="inline-flex -space-x-px text-sm">
           <li>
             <button
