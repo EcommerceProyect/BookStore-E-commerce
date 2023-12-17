@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
@@ -37,7 +37,7 @@ const { Users,
   ReleasedDate,
   Author,
   Genre,
-  Editorial
+  Editorial,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -56,18 +56,20 @@ Products.belongsToMany(Users,{through:Cart});
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
 
-ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBN"});
+ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBNs"});
 OrderDetail.belongsTo(ISBN);
 
 // Order - OderDetail ==> One To Many
 
 // n:n -- Author - Products 
-Products.belongsToMany(Author, { through: "AuthorProduct", timestamps:false });
-Author.belongsToMany(Products, { through: "AuthorProduct", timestamps:false });
+const AuthorProducts = sequelize.define("AuthorProducts", {},{timestamps:false});
+Products.belongsToMany(Author, { through: AuthorProducts, timestamps:false });
+Author.belongsToMany(Products, { through: AuthorProducts, timestamps:false });
 
 // n:n -- Genre - Products
-Products.belongsToMany(Genre,{through: "GenreProducts", timestamps:false });
-Genre.belongsToMany(Products,{through: "GenreProducts", timestamps:false });
+const GenreProducts = sequelize.define("GenreProducts", {},{timestamps:false});
+Products.belongsToMany(Genre,{through: GenreProducts, timestamps:false });
+Genre.belongsToMany(Products,{through: GenreProducts, timestamps:false });
 
 // 1:1 --- Editorial - Products 
 Products.belongsTo(Editorial);

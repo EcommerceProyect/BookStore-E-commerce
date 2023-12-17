@@ -1,46 +1,34 @@
+const { Products,Author,Editorial,Genre,ISBN,ReleasedDate } = require("../../db");
 
-const {ReleasedDate,Products} = require("../../db");
-const { filterProductByPk } = require("./filterProductByPk");
+const filterProductByDateController = async (specificDate) => {
+  try {
 
-const filterProductByDateController = async (rDate) =>{
+    const response = await Products.findAll({
 
-    try {
-        console.log(new Date(rDate))
-
-
-
-        const response = await ReleasedDate.findAll({
-            where:{
-                date:new Date(rDate),
+        include: [
+            { model: Author, as: "Authors" },
+            { model: Editorial, as: "Editorial" },
+            { model: Genre, as: "Genres" },
+            { model: ISBN, as: "ISBN" },
+            {
+                model: ReleasedDate,
+                where: {
+                    date: new Date(specificDate),
+                },
             },
-            include:[{
-                model:Products,
-                as:"Product",
-                attributes:["id"],
-            }]
-        })
+        ],
+    });
 
-        
-        const productsId= response.map((releasedDate) => releasedDate.dataValues.ProductId);
+    console.log(response);
 
-        const resProducts = await Promise.all(
-            productsId.map(async (id) => {
+    return response;
 
-                const product = await filterProductByPk(id);
-                return product;
+  } catch (error) {
+    console.error("Error en filterProductByDateController:", error);
+    throw error;
+  }
+};
 
-            })
-        );
-
-        console.log(resProducts);
-        return await resProducts;
-
-    } catch (error) {
-        return error;
-    }
-
-}
-
-module.exports ={
-    filterProductByDateController,
-}
+module.exports = {
+  filterProductByDateController,
+};
