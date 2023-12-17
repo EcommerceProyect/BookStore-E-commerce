@@ -14,6 +14,7 @@ import {
 
 const Navbar = () => {
   return (
+    <div>
     <nav className="flex items-center justify-between gap-2">
       <input type="search" placeholder="Search..." />
       <Button
@@ -33,9 +34,8 @@ const Navbar = () => {
             icon={<MdOutlineLogout color="black" size={20} />}
             text="Cerrar sesión"
           />
-        </div>
-      </div>
     </nav>
+    </div>
   );
 };
 

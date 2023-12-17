@@ -7,6 +7,7 @@ import Faqs from './components/footer/Faqs';
 import Login from './components/login/Login'
 import Home from './views/home/Home'
 import CreateProduct from './views/createProduct/CreateProduct'
+import DropDownMenu from './components/dropDownMenu/DropDownMenu'
 
 function App() {
   return (
