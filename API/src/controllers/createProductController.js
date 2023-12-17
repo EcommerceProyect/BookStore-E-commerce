@@ -8,11 +8,30 @@ const createProductController = async (data) => {
     try {
 
 
+        //mas de un producto no puede tener un mismo isbn
+        const existingISBN = await ISBN.findOne({
+            where: {
+                name: ISBNname
+            }
+        });
+
+        if (existingISBN) {
+            throw new Error("El ISBN ya existe en la base de datos");
+        }
+        
+        const [ISBNinstance, createdISBN] = await ISBN.findOrCreate({
+            where: {
+                name: ISBNname
+            },
+            defaults: {
+                name: ISBNname
+            }
+        });
+
         const [productInstance, created] = await Products.findOrCreate({
 
             where:{
                 title,
-                ISBN:{name:ISBNname},
             },
             defaults:{
                 title,
