@@ -11,9 +11,11 @@ router.get("/products",getProducts);
 
 //filter by releaseDate
 
-router.get("/products/filter",filterProductByDate);
-
-router.get("/products/filter/genre",filterProductByGenre);
+router.get("/products/filter",(req,res) =>{
+    const {rDate,genre} = req.query;
+    if(rDate)filterProductByDate(req,res);
+    else if(genre)filterProductByGenre(req,res);
+});
 
 // router.get("/user",getUser());
 

@@ -19,7 +19,6 @@ const filterProductByDateController = async (specificDate) => {
         ],
     });
 
-    console.log(response);
 
     return response;
 
