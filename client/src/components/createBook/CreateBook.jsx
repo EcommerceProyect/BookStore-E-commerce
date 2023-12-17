@@ -25,6 +25,7 @@ const CreateBook = () => {
     synopsis: '',
     editorial: '',
     ISBNname: '',
+    stock: '',
   });
 
   const [errors, setErrors] = useState({
@@ -36,6 +37,7 @@ const CreateBook = () => {
     synopsis: '',
     editorial: '',
     ISBNname: '',
+    stock: '',
   });
 
   const handleChange = (e) => {
@@ -90,6 +92,11 @@ const CreateBook = () => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col max-w-md gap-4">
       <div>
+        <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          Creación de libro
+        </h3>
+      </div>
+      <div>
         <div className="mb-2 block">
           <Label htmlFor="title" value="Título" />
         </div>
@@ -99,7 +106,7 @@ const CreateBook = () => {
           name="title"
           value={bookData.title}
           onChange={handleChange}
-          color={errors.title ? 'failure' : 'white'}
+          color={errors.title ? 'failure' : 'gray'}
           helperText={errors.title ? errors.title : null}
         />
       </div>
@@ -115,7 +122,7 @@ const CreateBook = () => {
           pattern="\d+(\.\d{1,2})?"
           value={bookData.price}
           onChange={handleChange}
-          color={errors.price ? 'failure' : 'white'}
+          color={errors.price ? 'failure' : 'gray'}
           helperText={errors.price ? errors.price : null}
         />
       </div>
@@ -130,7 +137,7 @@ const CreateBook = () => {
           id="image"
           value={bookData.image}
           onChange={handleChange}
-          color={errors.image ? 'failure' : 'white'}
+          color={errors.image ? 'failure' : 'gray'}
           helperText={errors.image ? errors.image : null}
         />
       </div>
@@ -144,7 +151,7 @@ const CreateBook = () => {
           name="releaseDate"
           id="releaseDate"
           value={bookData.releaseDate}
-          color="white"
+          color="gray"
           onChange={handleChange}
         />
       </div>
@@ -197,7 +204,7 @@ const CreateBook = () => {
           id="synopsis"
           value={bookData.synopsis}
           onChange={handleChange}
-          color={errors.synopsis ? 'failure' : 'white'}
+          color={errors.synopsis ? 'failure' : 'gray'}
           helperText={errors.synopsis ? errors.synopsis : null}
         />
       </div>
@@ -233,13 +240,29 @@ const CreateBook = () => {
           id="ISBNname"
           value={bookData.ISBNname}
           onChange={handleChange}
-          color={errors.ISBNname ? 'failure' : 'white'}
+          color={errors.ISBNname ? 'failure' : 'gray'}
           helperText={errors.ISBNname ? errors.ISBNname : null}
         />
       </div>
 
-      <Button
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="stock" value="Stock"></Label>
+        </div>
+        <TextInput
+          id="stock"
+          type="number"
+          name="stock"
+          value={bookData.stock}
+          onChange={handleChange}
+          color={errors.stock ? 'failure' : 'gray'}
+          helperText={errors.stock ? errors.stock : null}
+        />
+      </div>
+
+      <button
         type="submit"
+        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         disabled={
           bookData.genre.length === 0 ||
           bookData.autor.length === 0 ||
@@ -250,11 +273,12 @@ const CreateBook = () => {
           bookData.image === '' ||
           bookData.ISBNname === '' ||
           bookData.synopsis === '' ||
+          bookData.stock === '' ||
           Object.values(errors).some((error) => error)
         }
       >
-        Crear
-      </Button>
+        Crear libro{' '}
+      </button>
     </form>
   );
 };

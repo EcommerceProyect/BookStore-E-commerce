@@ -5,6 +5,7 @@ const bookValidation = (bookData) => {
     price: '',
     title: '',
     synopsis: '',
+    stock: '',
   };
 
   if (
@@ -33,6 +34,10 @@ const bookValidation = (bookData) => {
 
   if (bookData.synopsis !== '' && !/^[a-zA-Z0-9\s]+$/.test(bookData.synopsis)) {
     errors.synopsis = 'La sinopsis no debe contener caracteres especiales.';
+  }
+
+  if (bookData.stock !== '' && !/^\d+$/.test(bookData.stock)) {
+    errors.stock = 'El stock debe ser un número entero.';
   }
 
   return errors;

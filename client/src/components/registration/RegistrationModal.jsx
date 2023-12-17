@@ -105,6 +105,7 @@ const Registration = ({ onClose }) => {
                   value={userData.email}
                   onChange={handleChange}
                   color={errors.email ? 'failure' : 'gray'}
+                  placeholder="name@company.com"
                   helperText={errors.email ? errors.email : null}
                   required
                 />
