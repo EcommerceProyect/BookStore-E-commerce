@@ -6,7 +6,23 @@ const createProductController = async (data) => {
     const {title, synopsis, price, image, releaseDate, autor, editorial, genre, ISBNname} = data;
 
     try {
-        
+
+        if(ISBNname){
+
+            const [ ISBNinstance, created] = await ISBN.findOrCreate({
+                where:{
+                    name:ISBNname
+                },
+                defaults:{
+                    name:ISBNname
+                }
+            });
+            if(!created) return new Error("Ya se encuentra una ISBN igual en la db");
+            await productInstance.setISBN(ISBNinstance);
+            
+            
+        }
+
         const [productInstance, created] = await Products.findOrCreate({
 
             where:{
@@ -112,20 +128,7 @@ const createProductController = async (data) => {
             }
             
 
-            if(ISBNname){
-
-                const [ ISBNinstance, created] = await ISBN.findOrCreate({
-                    where:{
-                        name:ISBNname
-                    },
-                    defaults:{
-                        name:ISBNname
-                    }
-                });
-
-                await productInstance.setISBN(ISBNinstance);
-                
-            }
+ 
 
             const updatedProductInstance = await productInstance.reload();
             
