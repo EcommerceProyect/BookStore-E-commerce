@@ -17,6 +17,20 @@ module.exports = (sequelize) => {
                     msg: "El nombre no puede estar vacío"
                 }
             }
+        },
+        stock:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                isInt: {
+                    args: true,
+                    msg: "El stock debe ser un número entero"
+                },
+                min:{
+                    args:[0],
+                    msg:"El stock no puede ser negativo"
+                }
+            }
         }
     },{timestamps: false})
 }

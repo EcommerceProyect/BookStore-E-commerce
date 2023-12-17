@@ -1,20 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  list: [],
+  loading: false,
+  error: null,
+};
 
 export const productSlice = createSlice({
   name: 'products',
-  initialState: {
-    productList: [],
-  },
+  initialState,
   reducers: {
-    setProductList: (state, action) => {
-      state.productList = action.payload
+    setProductListLoading: (state) => {
+      state.loading = true;
+      state.error = null;
     },
-    addToProductList: (state, action) => {
-      state.productList = [state.productList, action.payload]
+    setProductList: (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      state.list = action.payload;
+    },
+    setProductListError: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
-})
+});
 
-export const { setProductList, addToProductList } = productSlice.actions
+export const { setProductListLoading, setProductList, setProductListError } =
+  productSlice.actions;
 
-export default productSlice.reducer
+export default productSlice.reducer;

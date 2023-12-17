@@ -10,6 +10,16 @@ import CreateProduct from './views/createProduct/CreateProduct'
 import DropDownMenu from './components/dropDownMenu/DropDownMenu'
 
 function App() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+  };
+
+  const closeLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
   return (
     <div>
       <DropDownMenu />
@@ -25,4 +35,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
