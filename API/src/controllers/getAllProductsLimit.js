@@ -1,4 +1,4 @@
-const { Products,Author,Genre,ISBN } = require("../db");
+const { Products,Author,Genre,ISBN,ReleasedDate,Editorial } = require("../db");
 
 //toma todos los productos pero trae solo los primeros 20 segun la pagina que se encuentre
 
@@ -15,9 +15,11 @@ const getAllProductsLimit = async (page) => {
             limit:itemPerPage,
             include: [
                 { model: Author, as: 'Authors' },
+                { model: ReleasedDate, as: 'ReleasedDate' },  
+                { model: Editorial, as: 'Editorial' },
                 { model: Genre, as: 'Genres' },     
                 { model: ISBN, as: 'ISBN' }
-              ],
+              ]
         });
 
         return response;

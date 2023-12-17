@@ -35,7 +35,6 @@ const createProductController = async (data) => {
 
                 await productInstance.setReleasedDate(releaseDateInst);
 
-
             }
 
             //si manda un arreglo lo mapea si no lo agrega de una
