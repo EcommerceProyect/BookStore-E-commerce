@@ -30,7 +30,6 @@ const Navbar = () => {
             link="#"
             icon={<MdPersonAddAlt1 color="black" size={20} />}
             text="Registrarse"
-            onClick={toggleRegistrationModal}
           />
 
           <Button

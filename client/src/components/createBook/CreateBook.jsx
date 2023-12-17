@@ -1,64 +1,91 @@
-import React from 'react'
-import { useState } from 'react'
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { useDispatch } from 'react-redux'
-import { postProduct } from '../../redux/services/postProduct'
+import { postProduct } from '../../redux/services/postProduct';
+import bookValidation from './bookValidation';
 
-import bookValidation from './bookValidation'
-
-import { Button, Label, TextInput } from 'flowbite-react'
+import { Button, Label, TextInput, Alert } from 'flowbite-react';
+import CreatableSelect from 'react-select/creatable';
 
 const CreateBook = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const generos = ['Ficción', 'Aventura', 'Acción']; // cuando estén disponibles las rutas para hacer
+  const autores = ['max', 'un random']; // GET de géneros, autores y editoriales,
+  const editoriales = ['editorial1', 'editorial2']; // voy a reemplazar esto.
 
   const [bookData, setBookData] = useState({
     title: '',
     price: '',
     image: '',
-    // author: '',
-    // genre: '',
+    releaseDate: '',
+    autor: [],
+    genre: [],
     synopsis: '',
-    // publisher: '',
-    // isbn: '',
-  })
+    editorial: '',
+    ISBNname: '',
+  });
 
   const [errors, setErrors] = useState({
     title: '',
     price: '',
     image: '',
-    // author: '',
-    // genre: '',
+    autor: '',
+    genre: '',
     synopsis: '',
-    // publisher: '',
-    // isbn: '',
-  })
+    editorial: '',
+    ISBNname: '',
+  });
 
   const handleChange = (e) => {
     setBookData({
       ...bookData,
       [e.target.name]: e.target.value,
-    })
+    });
     setErrors(
       bookValidation({
         ...bookData,
         [e.target.name]: e.target.value,
       }),
-    )
-  }
+    );
+  };
+
+  const handleSelectChangeGenre = (e) => {
+    const updatedGenres = e.map((selectedGenre) => selectedGenre.value);
+    setBookData({ ...bookData, genre: updatedGenres });
+  };
+
+  const handleSelectChangeAutor = (e) => {
+    const updatedAutores = e.map((selectedAutor) => selectedAutor.value);
+    setBookData({ ...bookData, autor: updatedAutores });
+  };
+
+  const handleSelectChangeEditorial = (e) => {
+    setBookData({ ...bookData, editorial: e.value });
+  };
+
+  const genresNotInArray = bookData.genre.filter(
+    (genre) => !generos.includes(genre),
+  );
+
+  const autoresNotInArray = bookData.autor.filter(
+    (autor) => !autores.includes(autor),
+  );
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const response = await dispatch(postProduct(bookData))
+      const response = await dispatch(postProduct(bookData));
       if (response && response.status === 201) {
-        alert('Libro creado exitosamente.')
+        alert('Libro creado exitosamente.');
       } else {
-        console.error('Error creando el libro.')
+        console.error('Error creando el libro.');
       }
     } catch (error) {
-      console.error('Error creando libro:', error.message)
+      console.error('Error creando libro:', error.message);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col max-w-md gap-4">
@@ -72,7 +99,7 @@ const CreateBook = () => {
           name="title"
           value={bookData.title}
           onChange={handleChange}
-          color={errors.title ? 'failure' : 'gray'}
+          color={errors.title ? 'failure' : 'white'}
           helperText={errors.title ? errors.title : null}
         />
       </div>
@@ -88,7 +115,7 @@ const CreateBook = () => {
           pattern="\d+(\.\d{1,2})?"
           value={bookData.price}
           onChange={handleChange}
-          color={errors.price ? 'failure' : 'gray'}
+          color={errors.price ? 'failure' : 'white'}
           helperText={errors.price ? errors.price : null}
         />
       </div>
@@ -103,46 +130,62 @@ const CreateBook = () => {
           id="image"
           value={bookData.image}
           onChange={handleChange}
-          color={errors.image ? 'failure' : 'gray'}
+          color={errors.image ? 'failure' : 'white'}
           helperText={errors.image ? errors.image : null}
         />
       </div>
 
-      {/* <div>
+      <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="author"
-            value="Autor"
-          />
+          <Label htmlFor="releaseDate" value="Fecha de lanzamiento"></Label>
         </div>
-          <TextInput
-            type="text"
-            name="author"
-            id="author"
-            value={bookData.author}
-            onChange={handleChange}
-            color={errors.author ? 'failure' : 'gray'}
-            helperText={errors.author ? errors.author : null}
-          />
-        </div>
+        <TextInput
+          type="date"
+          name="releaseDate"
+          id="releaseDate"
+          value={bookData.releaseDate}
+          color="white"
+          onChange={handleChange}
+        />
+      </div>
 
-        <div>
+      <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="genre"
-            value="Género"
-          />
+          <Label htmlFor="autor" value="Autor" />
         </div>
-          <TextInput
-            type="text"
-            name="genre"
-            id="genre"
-            value={bookData.genre}
-            onChange={handleChange}
-            color={errors.genre ? 'failure' : 'gray'}
-            helperText={errors.genre ? errors.genre : null}
-          />
-        </div> */}
+        <CreatableSelect
+          id="autor"
+          onChange={handleSelectChangeAutor}
+          isMulti
+          options={autores.map((autor) => ({ value: autor, label: autor }))}
+        />
+        {autoresNotInArray.length > 0 && (
+          <Alert color="info">
+            <span className="font-medium">Cuidado!</span> Los siguientes autores
+            no se encuentran actualmente en la base de datos, por lo tanto se
+            crearán: {autoresNotInArray.join(', ')}.
+          </Alert>
+        )}
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="genre" value="Género" />
+        </div>
+        <CreatableSelect
+          id="genre"
+          onChange={handleSelectChangeGenre}
+          isMulti
+          options={generos.map((genre) => ({ value: genre, label: genre }))}
+        />
+        {genresNotInArray.length > 0 && (
+          <Alert color="info">
+            <span className="font-medium">Cuidado!</span> Los siguientes géneros
+            no se encuentran actualmente en la base de datos, por lo tanto se
+            crearán: {genresNotInArray.join(', ')}.
+          </Alert>
+        )}
+      </div>
 
       <div>
         <div className="mb-2 block">
@@ -154,57 +197,66 @@ const CreateBook = () => {
           id="synopsis"
           value={bookData.synopsis}
           onChange={handleChange}
-          color={errors.synopsis ? 'failure' : 'gray'}
+          color={errors.synopsis ? 'failure' : 'white'}
           helperText={errors.synopsis ? errors.synopsis : null}
         />
       </div>
 
-      {/* <div>
+      <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="publisher"
-            value="Editorial"
-          />
-          </div>
-          <TextInput
-            type="text"
-            name="publisher"
-            id="publisher"
-            value={bookData.publisher}
-            onChange={handleChange}
-            color={errors.publisher ? 'failure' : 'gray'}
-            helperText={errors.publisher ? errors.publisher : null}
-
-          />
+          <Label htmlFor="editorial" value="Editorial" />
         </div>
+        <CreatableSelect
+          id="editorial"
+          onChange={handleSelectChangeEditorial}
+          options={editoriales.map((editorial) => ({
+            value: editorial,
+            label: editorial,
+          }))}
+        />
+        {!editoriales.includes(bookData.editorial) > 0 &&
+          bookData.editorial !== '' && (
+            <Alert color="info">
+              <span className="font-medium">Cuidado!</span> La editorial no se
+              encuentra actualmente en la base de datos, por lo tanto se creará.
+            </Alert>
+          )}
+      </div>
 
-        <div>
+      <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="isbn"
-            value="ISBN"
-          />
-          </div>
-          <TextInput
-            type="text"
-            name="isbn"
-            id="isbn"
-            value={bookData.isbn}
-            onChange={handleChange}
-            color={errors.isbn ? 'failure' : 'gray'}
-            helperText={errors.isbn ? errors.isbn : null}
-
-          />
-        </div> */}
+          <Label htmlFor="ISBNname" value="ISBN" />
+        </div>
+        <TextInput
+          type="text"
+          name="ISBNname"
+          id="ISBNname"
+          value={bookData.ISBNname}
+          onChange={handleChange}
+          color={errors.ISBNname ? 'failure' : 'white'}
+          helperText={errors.ISBNname ? errors.ISBNname : null}
+        />
+      </div>
 
       <Button
         type="submit"
-        disabled={Object.values(errors).some((error) => error)}
+        disabled={
+          bookData.genre.length === 0 ||
+          bookData.autor.length === 0 ||
+          bookData.title === '' ||
+          bookData.price === '' ||
+          bookData.releaseDate === '' ||
+          bookData.editorial === '' ||
+          bookData.image === '' ||
+          bookData.ISBNname === '' ||
+          bookData.synopsis === '' ||
+          Object.values(errors).some((error) => error)
+        }
       >
         Crear
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default CreateBook
+export default CreateBook;
