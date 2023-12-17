@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
                     args: true,
                     msg: "El nombre no puede estar vacío"
                 }
-            }
+            }        
         },
         stock:{
             type: DataTypes.INTEGER,

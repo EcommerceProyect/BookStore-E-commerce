@@ -34,25 +34,20 @@ const { Users,
   ISBN,
   Cart,
   OrderDetail,
+  ReleasedDate,
   Author,
   Genre,
-  Editorial
+  Editorial,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
 Orders.belongsToMany(Products,{through:Productreview});
 Products.belongsToMany(Orders,{through:Productreview});
-//redundancia
-// Productreview.belongsTo(Orders);
-// Productreview.belongsTo(Products);
 
-// One To One ==> pruducts - ISBN 
+// One To One Products - ISBN
 
-Products.hasOne(ISBN);
-ISBN.belongsTo(Products);
-//Existe una redundancia.
-// ISBN.hasOne(Products);
-//  Products.belongsTo(ISBN);
+Products.hasOne(ISBN, { foreignKey: 'ISBNId' });
+ISBN.belongsTo(Products, { foreignKey: 'ISBNId' });
 
 //Relacion entre Users y Products de muchos a muchos.
 
@@ -60,16 +55,21 @@ Users.belongsToMany(Products,{through:Cart});
 Products.belongsToMany(Users,{through:Cart});
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
-ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBN"});
+
+ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBNs"});
 OrderDetail.belongsTo(ISBN);
 
+// Order - OderDetail ==> One To Many
+
 // n:n -- Author - Products 
-Products.belongsToMany(Author),{through:"Author-Products"};
-Author.belongsToMany(Products),{through:"Author-Products"};
+const AuthorProducts = sequelize.define("AuthorProducts", {},{timestamps:false});
+Products.belongsToMany(Author, { through: AuthorProducts, timestamps:false });
+Author.belongsToMany(Products, { through: AuthorProducts, timestamps:false });
 
 // n:n -- Genre - Products
-Products.belongsToMany(Genre),{through: "Genre-Products"};
-Genre.belongsToMany(Products),{through: "Genre-Products"};
+const GenreProducts = sequelize.define("GenreProducts", {},{timestamps:false});
+Products.belongsToMany(Genre,{through: GenreProducts, timestamps:false });
+Genre.belongsToMany(Products,{through: GenreProducts, timestamps:false });
 
 // 1:1 --- Editorial - Products 
 Products.belongsTo(Editorial);
@@ -85,10 +85,24 @@ Orders.belongsTo(Cart);
 Orders.hasOne(OrderDetail);
 OrderDetail.belongsTo(Orders);
 
+
+
+// releaseDate - Products
+
+Products.hasOne(ReleasedDate)
+ReleasedDate.belongsTo(Products);
+
+
 module.exports = {
     Users,
     Products,
     Orders,
     Productreview,
+    ISBN,
+    ReleasedDate,
+    OrderDetail,
+    Genre,
+    Author,
+    Editorial,
     conn:sequelize,
 }
