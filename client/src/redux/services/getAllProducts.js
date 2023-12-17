@@ -9,7 +9,6 @@ const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products'
 
 export const getProducts = (page) => async (dispatch) => {
   dispatch(setProductListLoading())
-
   try {
     const response = await axios.get(`${apiUrl}`)
     dispatch(setProductList(response.data))

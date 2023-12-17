@@ -30,7 +30,7 @@ function Card({
             Géneros:
           </h5>
           <ul>
-            {Genres.map(genreItem => (
+            {Genres.map((genreItem) => (
               <li key={genreItem.id}>{genreItem.name}</li>
             ))}
           </ul>
@@ -38,7 +38,7 @@ function Card({
             Autores:
           </h5>
           <ul>
-            {Authors.map(author => (
+            {Authors.map((author) => (
               <li key={author.id}>{author.name}</li>
             ))}
           </ul>
@@ -50,7 +50,9 @@ function Card({
           </span>
         </div>
         <div class="flex items-center justify-between">
-          <span class="text-left text-2xl font-bold text-gray-900 dark:text-black">Precio: {price}</span>
+          <span class="text-left text-2xl font-bold text-gray-900 dark:text-black">
+            Precio: {price}
+          </span>
           <a
             href="#"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

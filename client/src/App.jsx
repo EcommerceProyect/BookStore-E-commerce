@@ -3,7 +3,7 @@ import Navbar from './components/navbar/Navbar';
 import Login from './components/login/Login';
 import Cards from './components/cards/Cards';
 import Footer from './Components/footer/Footer';
-import Registration from './components/registration/Registration';
+import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 
@@ -18,14 +18,30 @@ function App() {
     setShowLoginModal(false);
   };
 
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+
+  const openRegistrationModal = () => {
+    closeLoginModal();
+    setShowRegistrationModal(true);
+  };
+
+  const closeRegistrationModal = () => {
+    setShowRegistrationModal(false);
+  };
+
   return (
     <div>
       <DropDownMenu />
-      <Navbar openLoginModal={openLoginModal} /> 
+      <Navbar
+        openLoginModal={openLoginModal}
+        openRegistrationModal={openRegistrationModal}
+      />
       <Cards />
       <Footer />
-      <Registration />
       <CreateBook />
+      {showRegistrationModal && (
+        <RegistrationModal onClose={closeRegistrationModal} />
+      )}
       {showLoginModal && <Login onClose={closeLoginModal} />}
     </div>
   );
