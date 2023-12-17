@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
         },
         stock:{
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             validate: {
                 isInt: {
                     args: true,

@@ -3,7 +3,7 @@ const { Products,ReleasedDate,Author,Editorial,Genre,ISBN } = require("../db");
 
 const createProductController = async (data) => {
 
-    const {title, synopsis, price, image, releaseDate, autor, editorial, genre, ISBNname} = data;
+    const {stock,title, synopsis, price, image, releaseDate, autor, editorial, genre, ISBNname} = data;
 
     try {
 
@@ -24,7 +24,8 @@ const createProductController = async (data) => {
                 name: ISBNname
             },
             defaults: {
-                name: ISBNname
+                name: ISBNname,
+                stock,
             }
         });
 
