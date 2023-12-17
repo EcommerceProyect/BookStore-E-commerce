@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/slices/user';
+import userValidation from './userValidation';
 
-const Login = ({ onClose }) => {
-  const dispatch = useDispatch();
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
 
+const Registration = ({ onClose }) => {
   const [userData, setUserData] = useState({
+    name: '',
+    lastname: '',
     email: '',
     password: '',
-    rememberMe: false,
+    verifyPassword: '',
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+    setErrors(
+      userValidation({
+        ...userData,
+        [e.target.name]: e.target.value,
+      }),
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (userData.rememberMe) {
-      localStorage.setItem('userCredentials', JSON.stringify(userData));
-    } else {
-      localStorage.removeItem('userCredentials');
-    }
-    dispatch(setUser(userData));
-    onClose();
   };
 
   return (
@@ -42,7 +42,7 @@ const Login = ({ onClose }) => {
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-              Iniciar sesión
+              Registro
             </h3>
             <button
               onClick={onClose}
@@ -71,78 +71,88 @@ const Login = ({ onClose }) => {
           <div className="p-4 md:p-5">
             <form className="space-y-4" action="#">
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  E-mail
-                </label>
-                <input
+                <Label htmlFor="name" value="Nombre" />
+                <TextInput
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={userData.name}
                   onChange={handleChange}
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  placeholder="name@company.com"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Contraseña
-                </label>
-                <input
-                  onChange={handleChange}
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  color={errors.name ? 'failure' : 'gray'}
+                  helperText={errors.name ? errors.name : null}
                   required
                 />
               </div>
-              <div className="flex justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      type="checkbox"
-                      checked={userData.rememberMe}
-                      onChange={handleChange}
-                      name="rememberMe"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                    />
-                  </div>
-                  <label
-                    htmlFor="remember"
-                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Recuérdame
-                  </label>
-                </div>
-                <a
-                  href="#"
-                  className="text-sm text-blue-700 hover:underline dark:text-blue-500"
-                >
-                  Has olvidado tu contraseña?
-                </a>
+              <div>
+                <Label htmlFor="lastname" value="Apellido" />
+                <TextInput
+                  id="lastname"
+                  type="text"
+                  name="lastname"
+                  value={userData.lastname}
+                  onChange={handleChange}
+                  color={errors.lastname ? 'failure' : 'gray'}
+                  helperText={errors.lastname ? errors.lastname : null}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="email" value="E-mail" />
+                <TextInput
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  color={errors.email ? 'failure' : 'gray'}
+                  helperText={errors.email ? errors.email : null}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="password" value="Contraseña" />
+                <TextInput
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  onChange={handleChange}
+                  value={userData.password}
+                  color={errors.password ? 'failure' : 'gray'}
+                  helperText={errors.password ? errors.password : null}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="verifyPassword" value="Verificar contraseña" />
+                <TextInput
+                  id="verifyPassword"
+                  type="password"
+                  name="verifyPassword"
+                  onChange={handleChange}
+                  value={userData.verifyPassword}
+                  color={errors.verifyPassword ? 'failure' : 'gray'}
+                  helperText={
+                    errors.verifyPassword ? errors.verifyPassword : null
+                  }
+                  required
+                />
               </div>
               <button
                 onClick={handleSubmit}
                 type="submit"
                 className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                Iniciar sesión
+                Registrar{' '}
               </button>
               <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                No estás registrado?{' '}
+                Ya estás registrado?{' '}
                 <a
                   href="#"
                   className="text-blue-700 hover:underline dark:text-blue-500"
                 >
-                  Crear cuenta
+                  {/* acá haría falta que redireccione al login */}
+                  Iniciar sesión
                 </a>
               </div>
             </form>
@@ -153,4 +163,4 @@ const Login = ({ onClose }) => {
   );
 };
 
-export default Login;
+export default Registration;

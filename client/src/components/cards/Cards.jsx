@@ -29,8 +29,8 @@ function Cards() {
             id={product.id}
             image={product.image || 'Imagen no disponible'}
             title={product.title || 'Título no disponible'}
-            genre={product.genre || 'Género no disponible'}
-            author={product.author || 'Autor no disponible'}
+            Genres={product.Genres || 'Género no disponible'}
+            Authors={product.Authors || 'Autor no disponible'}
             price={product.price || 'Precio no disponible'}
           />
         </div>

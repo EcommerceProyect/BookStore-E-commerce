@@ -12,7 +12,7 @@ import {
   MdPersonAddAlt1,
 } from 'react-icons/md';
 
-const Navbar = () => {
+const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <h1 className="w-28 m-auto py-5">Besto-logo</h1>
@@ -21,13 +21,15 @@ const Navbar = () => {
 
         <div className="flex items-center justify-between gap-2 pl-10 ml-10">
           <Button
-            link="/login"
+            onClick={openLoginModal}
+            // link="/login"
             icon={<MdOutlineLogin color="black" size={20} />}
             text="Iniciar Sesión"
           />
 
           <Button
-            link="#"
+            onClick={openRegistrationModal}
+            // link="#"
             icon={<MdPersonAddAlt1 color="black" size={20} />}
             text="Registrarse"
           />
