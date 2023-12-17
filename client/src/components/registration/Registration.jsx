@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import userValidation from './userValidation'
+import React, { useState } from 'react';
+import userValidation from './userValidation';
 
 const Registration = () => {
   const [userData, setUserData] = useState({
@@ -8,26 +8,26 @@ const Registration = () => {
     email: '',
     password: '',
     verifyPassword: '',
-  })
+  });
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setUserData({
       ...userData,
       [e.target.name]: e.target.value,
-    })
+    });
     setErrors(
       userValidation({
         ...userData,
         [e.target.name]: e.target.value,
       }),
-    )
-  }
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   return (
     <form
@@ -155,7 +155,7 @@ const Registration = () => {
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default Registration
+export default Registration;

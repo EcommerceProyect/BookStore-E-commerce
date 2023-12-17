@@ -1,13 +1,13 @@
-import React from 'react'
-import { useState } from 'react'
+import React from 'react';
+import { useState } from 'react';
 
-import { useDispatch } from 'react-redux'
-import { postProduct } from '../../redux/services/postProduct'
+import { useDispatch } from 'react-redux';
+import { postProduct } from '../../redux/services/postProduct';
 
-import bookValidation from './bookValidation'
+import bookValidation from './bookValidation';
 
 const CreateBook = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [bookData, setBookData] = useState({
     title: '',
@@ -18,27 +18,27 @@ const CreateBook = () => {
     synopsis: '',
     // publisher: '',
     // isbn: '',
-  })
+  });
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setBookData({
       ...bookData,
       [e.target.name]: e.target.value,
-    })
+    });
     setErrors(
       bookValidation({
         ...bookData,
         [e.target.name]: e.target.value,
       }),
-    )
-  }
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(postProduct(bookData))
-  }
+    e.preventDefault();
+    dispatch(postProduct(bookData));
+  };
 
   return (
     <form
@@ -203,7 +203,7 @@ const CreateBook = () => {
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default CreateBook
+export default CreateBook;
