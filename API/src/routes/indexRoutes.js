@@ -14,6 +14,12 @@ router.get("/products/filter/:isbn", (req,res) => {
     if (isbn) filterProductByISBN(req,res);
 })
 
+//get de entidades 
+router.get("/genres",getGenres);
+router.get("/authors",getAuthors);
+router.get("/editorials",getEditorials);
+router.get("/ISBNs",getISBNs);
+
 // router.get("/user",getUser());
 
 module.exports = router;
