@@ -4,10 +4,10 @@ const filterProductByISBNController = async (isbn) => {
     try {
         const response = await Products.findOne({
             include:[
-                {model: Author, as:"Author"},
+                {model: Author, as:"Authors"},
                 {model: Editorial, as:"Editorial"},
                 {model: ReleasedDate, as:"ReleasedDate"},
-                {model: Genre, as: "Genre"},
+                {model: Genre, as: "Genres"},
                 {
                     model: ISBN,
                 as: "ISBN",
