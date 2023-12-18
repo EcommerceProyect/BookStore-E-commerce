@@ -6,6 +6,8 @@ const { filterProductByGenre } = require("../handlers/filterHandler/filterProduc
 //importaciones de filtros Editorial y Author
 const { filterProductByAuthor } = require("../handlers/filterHandler/filterProductByAuthor");
 const { filterProductByEditorial } = require("../handlers/filterHandler/filterProductByEditorial");
+//importacion de deleteProduct
+const { deleteProduct } = require("../handlers/deleteProduct");
 
 const { getGenres } = require("../handlers/Products/getGenres");
 const { getAuthors } = require("../handlers/Products/getAuthors");
@@ -35,5 +37,10 @@ router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
 
 // router.get("/user",getUser());
+
+//delete product
+
+router.delete("/products/:id", deleteProduct);
+
 
 module.exports = router;
