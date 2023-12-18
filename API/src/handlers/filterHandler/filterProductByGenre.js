@@ -2,11 +2,11 @@ const { filterProductByGenreController } = require("../../controllers/filterCont
 
 const filterProductByGenre = async (req,res) => {
 
-    const {genre} = req.query;
+    const {genre,page} = req.query;
 
     try {
         
-        const response = await filterProductByGenreController(genre);
+        const response = await filterProductByGenreController(genre,page);
         
         res.status(200).json(response);
 
