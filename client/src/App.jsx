@@ -1,31 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Navbar from './components/navbar/Navbar';
+import Login from './components/login/Login';
+import Cards from './components/cards/Cards';
+import Footer from './Components/footer/Footer';
+import RegistrationModal from './components/registration/RegistrationModal';
+import CreateBook from './components/createBook/createBook';
+import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 
-import { Route, Routes } from 'react-router-dom';
-
-import Navbar from './components/navbar/Navbar'
-import Cards from './components/cards/Cards'
-import Login from './components/login/Login'
-import Footer from './Components/footer/Footer'
-import Registration from './components/registration/Registration'
-import CreateBook from './components/createBook/createBook'
 
 function App() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+  };
+
+  const closeLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+
+  const openRegistrationModal = () => {
+    closeLoginModal();
+    setShowRegistrationModal(true);
+  };
+
+  const closeRegistrationModal = () => {
+    setShowRegistrationModal(false);
+  };
+
   return (
     <div>
       <DropDownMenu />
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-      </Routes>
-
+      <Navbar
+        openLoginModal={openLoginModal}
+        openRegistrationModal={openRegistrationModal}
+      />
       <Cards />
       <Footer />
-
-
-      <Registration />
       <CreateBook />
-
+      {showRegistrationModal && (
+        <RegistrationModal onClose={closeRegistrationModal} />
+      )}
+      {showLoginModal && <Login onClose={closeLoginModal} />}
     </div>
   );
 }
+
 export default App;
