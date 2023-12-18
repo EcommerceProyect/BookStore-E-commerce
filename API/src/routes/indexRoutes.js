@@ -15,19 +15,15 @@ router.post("/products",createProduct)
 
 router.get("/products",getProducts);
 
+router.put("/products",)
+
 
 router.get("/products/filter",(req,res) =>{
-    const {rDate,genre} = req.query;
+    const {rDate,genre,isbn} = req.query;
     if(rDate)filterProductByDate(req,res);
     else if(genre)filterProductByGenre(req,res);
+    else if(isbn)filterProductByISBN(req,res)
 });
-
-//RUTA DEL FILTRO POR ISBN. Seria algo asi .
-router.get("/products/filter/:isbn", (req,res) => {
-    const {isbn} = req.params;
-    if (isbn) filterProductByISBN(req,res);
-})
-
 //get de entidades 
 router.get("/genres",getGenres);
 router.get("/authors",getAuthors);

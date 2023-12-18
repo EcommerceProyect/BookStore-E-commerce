@@ -2,7 +2,7 @@ const {filterProductByISBNController} = require("../controllers/FilterProductByI
 
 
 const filterProductByISBN = async (req,res) => {
-    const {isbn} = req.params;
+    const {isbn} = req.query;
 
     try{
         if(!isbn){
