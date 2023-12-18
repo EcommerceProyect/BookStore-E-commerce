@@ -27,32 +27,32 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <Button
             onClick={openLoginModal}
             // link="/login"
-            icon={<MdOutlineLogin color="black" size={20} />}
+            icon={<MdOutlineLogin color="black" size={25} />}
             text="Iniciar Sesión"
           />
 
           <Button
             onClick={openRegistrationModal}
             // link="#"
-            icon={<MdPersonAddAlt1 color="black" size={20} />}
+            icon={<MdPersonAddAlt1 color="black" size={25} />}
             text="Registrarse"
           />
 
           <Button
             link="#"
-            icon={<MdPersonOutline color="black" size={20} />}
+            icon={<MdPersonOutline color="black" size={25} />}
             text="Perfil"
           />
 
           <Button
             link="#"
-            icon={<LiaShoppingBagSolid color="black" size={20} />}
+            icon={<LiaShoppingBagSolid color="black" size={25} />}
             text="Carrito de compras"
           />
 
           <Button
             link="#"
-            icon={<MdOutlineLogout color="black" size={20} />}
+            icon={<MdOutlineLogout color="black" size={25} />}
             text="Cerrar sesión"
           />
         </div>
