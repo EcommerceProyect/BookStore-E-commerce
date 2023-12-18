@@ -1,7 +1,7 @@
 require("dotenv").config()
 const app = require("./src/app");
 const {conn} = require("./src/db");
-// eslint-disable-next-line no-undef
+//eslint-disable-next-line no-undef
 const PORT = 3001
 
 
