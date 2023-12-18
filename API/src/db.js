@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
@@ -104,5 +104,9 @@ module.exports = {
     Genre,
     Author,
     Editorial,
+    //exporto Cart y GenreProducts para futuros usos
+    Cart,
+    GenreProducts,
+    AuthorProducts,
     conn:sequelize,
 }
