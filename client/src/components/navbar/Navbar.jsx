@@ -50,8 +50,9 @@ const Navbar = ({ openLoginModal }) => {
             icon={<MdOutlineLogout color="black" size={20} />}
             text="Cerrar sesión"
           />
+        </div>
+      </div>
     </nav>
-    </div>
   );
 };
 
