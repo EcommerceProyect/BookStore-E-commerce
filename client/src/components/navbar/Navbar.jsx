@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // components
 import SearchButton from '../searchButton/SearchButton';
 
@@ -11,48 +12,52 @@ import {
   MdPersonOutline,
   MdPersonAddAlt1,
 } from 'react-icons/md';
+import Filterts from '../filters/Filterts';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
-    <nav className=" bg-primary p-3">
-      <h1 className="w-28 m-auto py-5">Besto-logo</h1>
-      <div className="flex items-center justify-between gap-2">
+    <nav className="bg-primary p-3 sticky top-0 z-20">
+      <Link to="/">
+        <h1 className="w-28 m-auto py-5">Besto-logo</h1>
+      </Link>
+      <div className="flex items-center justify-between">
         <SearchButton />
 
-        <div className="flex items-center justify-between gap-2 pl-10 ml-10">
+        <div className="flex items-center justify-between gap-2 ml-2">
           <Button
             onClick={openLoginModal}
             // link="/login"
-            icon={<MdOutlineLogin color="black" size={20} />}
+            icon={<MdOutlineLogin color="black" size={25} />}
             text="Iniciar Sesión"
           />
 
           <Button
             onClick={openRegistrationModal}
             // link="#"
-            icon={<MdPersonAddAlt1 color="black" size={20} />}
+            icon={<MdPersonAddAlt1 color="black" size={25} />}
             text="Registrarse"
           />
 
           <Button
             link="#"
-            icon={<MdPersonOutline color="black" size={20} />}
+            icon={<MdPersonOutline color="black" size={25} />}
             text="Perfil"
           />
 
           <Button
             link="#"
-            icon={<LiaShoppingBagSolid color="black" size={20} />}
+            icon={<LiaShoppingBagSolid color="black" size={25} />}
             text="Carrito de compras"
           />
 
           <Button
             link="#"
-            icon={<MdOutlineLogout color="black" size={20} />}
+            icon={<MdOutlineLogout color="black" size={25} />}
             text="Cerrar sesión"
           />
         </div>
       </div>
+      <Filterts />
     </nav>
   );
 };

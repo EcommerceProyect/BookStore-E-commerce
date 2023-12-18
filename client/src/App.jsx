@@ -5,8 +5,7 @@ import Cards from './components/cards/Cards';
 import Footer from './Components/footer/Footer';
 import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
-import DropDownMenu from './components/dropDownMenu/DropDownMenu';
-
+import OffCanvasMenu from './components/off-canvasMenu/OffCanvasMenu';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -32,7 +31,7 @@ function App() {
 
   return (
     <div>
-      <DropDownMenu />
+      <OffCanvasMenu />
       <Navbar
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
