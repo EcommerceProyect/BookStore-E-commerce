@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // components
 import SearchButton from '../searchButton/SearchButton';
 
@@ -12,7 +12,7 @@ import {
   MdPersonAddAlt1,
 } from 'react-icons/md';
 
-const Navbar = ({ openLoginModal }) => {
+const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <h1 className="w-28 m-auto py-5">Besto-logo</h1>
@@ -28,7 +28,8 @@ const Navbar = ({ openLoginModal }) => {
           />
 
           <Button
-            link="#"
+            onClick={openRegistrationModal}
+            // link="#"
             icon={<MdPersonAddAlt1 color="black" size={20} />}
             text="Registrarse"
           />

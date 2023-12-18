@@ -9,8 +9,10 @@ export const postProduct = (product) => {
         product,
       )
       dispatch(addToProductList(product))
+      return response
     } catch (error) {
       console.error(error)
+      throw error
     }
   }
 }
