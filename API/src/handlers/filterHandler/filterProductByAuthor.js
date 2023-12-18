@@ -4,7 +4,7 @@ const {filterProductByAuthorController} = require("../../controllers/filterContr
 const filterProductByAuthor = async (req,res) =>{
     try {
         const authorName = req.query.author;
-        const page = parseInt(req.query.page) || 1;
+        const page = parseInt(req.query.page);
 
         const response = await filterProductByAuthorController(authorName, page);
         res.status(200).json(response);
