@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import Navbar from './components/navbar/Navbar';
 import Login from './components/login/Login';
 import Cards from './components/cards/Cards';
-import Footer from './Components/footer/Footer';
+import Footer from './components/footer/Footer';
 import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import DropDownMenu from './components/dropDownMenu/DropDownMenu';
