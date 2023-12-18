@@ -104,7 +104,7 @@ module.exports = {
     Genre,
     Author,
     Editorial,
-    //exporto Cart y GenreProducts para futuros usos
+    //exporto Cart,GenreProducts y AuthorProducts para futuros usos
     Cart,
     GenreProducts,
     AuthorProducts,
