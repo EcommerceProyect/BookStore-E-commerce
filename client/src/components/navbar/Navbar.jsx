@@ -57,7 +57,6 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           />
         </div>
       </div>
-      <Filterts />
     </nav>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './components/navbar/Navbar';
+import Orders from './components/filters/Orders';
+import Filterts from './components/filters/Filterts';
 import Login from './components/login/Login';
 import Cards from './components/cards/Cards';
 import Footer from './Components/footer/Footer';
@@ -36,6 +38,8 @@ function App() {
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
       />
+      <Orders />
+      <Filterts />
       <Cards />
       <Footer />
       <CreateBook />
