@@ -54,5 +54,8 @@ module.exports = (sequelize) => {
                 },
             },
         },
-    },{timestamps: false})
+    }, {
+        timestamps: true,
+        paranoid: true, // mediante esta acción, habilitamos el borrado lógico
+    })
 }
