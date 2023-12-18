@@ -10,7 +10,7 @@ const {
 const filterProductByEditorialController = async (editorial,page) => {
     
     const itemPerPage = 2; // Definir la cantidad de resultados por página
-    const offset = (page - 1) * itemPerPage; // Calcular el desplazamiento
+    const offset = (page) * itemPerPage; // Calcular el desplazamiento
 
     try {
 
