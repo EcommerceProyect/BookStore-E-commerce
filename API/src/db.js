@@ -4,8 +4,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
-
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
@@ -62,14 +61,14 @@ OrderDetail.belongsTo(ISBN);
 // Order - OderDetail ==> One To Many
 
 // n:n -- Author - Products 
-const AuthorProducts = sequelize.define("AuthorProducts", {},{timestamps:false});
-Products.belongsToMany(Author, { through: AuthorProducts, timestamps:false });
-Author.belongsToMany(Products, { through: AuthorProducts, timestamps:false });
+const AuthorProducts = sequelize.define("AuthorProducts", {},{timestamps:true});
+Products.belongsToMany(Author, { through: AuthorProducts, timestamps:true });
+Author.belongsToMany(Products, { through: AuthorProducts, timestamps:true });
 
 // n:n -- Genre - Products
-const GenreProducts = sequelize.define("GenreProducts", {},{timestamps:false});
-Products.belongsToMany(Genre,{through: GenreProducts, timestamps:false });
-Genre.belongsToMany(Products,{through: GenreProducts, timestamps:false });
+const GenreProducts = sequelize.define("GenreProducts", {},{timestamps:true});
+Products.belongsToMany(Genre,{through: GenreProducts, timestamps:true });
+Genre.belongsToMany(Products,{through: GenreProducts, timestamps:true });
 
 // 1:1 --- Editorial - Products 
 Products.belongsTo(Editorial);
@@ -104,5 +103,13 @@ module.exports = {
     Genre,
     Author,
     Editorial,
+    //     //exporto Cart y GenreProducts para futuros usos
+    Cart,
+    GenreProducts,
+    AuthorProducts,
     conn:sequelize,
 }
+
+
+
+
