@@ -10,7 +10,6 @@ import { useState } from 'react';
 import Cards from './components/cards/Cards';
 import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
-import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import Detail from './views/detail/Detail';
 
 function App() {
