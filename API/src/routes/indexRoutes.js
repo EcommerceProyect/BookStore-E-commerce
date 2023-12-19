@@ -8,6 +8,7 @@ const { getGenres } = require("../handlers/Products/getGenres");
 const { getAuthors } = require("../handlers/Products/getAuthors");
 const { getEditorials } = require("../handlers/Products/getEditorials");
 const { getISBNs } = require("../handlers/Products/getISBNs");
+const { updateProductHandler } = require("../handlers/updateProduct");
 
 const router = Router();
 
@@ -15,7 +16,7 @@ router.post("/products",createProduct)
 
 router.get("/products",getProducts);
 
-router.put("/products",)
+router.put("/products/:id",updateProductHandler)
 
 
 router.get("/products/filter",(req,res) =>{
