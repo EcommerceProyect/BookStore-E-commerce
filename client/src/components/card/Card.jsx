@@ -2,6 +2,8 @@ import React from 'react';
 import ButtonHeart from './ButtonHeart';
 import FiveStars from './FiveStars';
 
+import { Badge } from 'flowbite-react';
+
 function Card({
   id,
   image,
@@ -18,7 +20,11 @@ function Card({
       <a href="#">
         <div class="relative p-8">
           <ButtonHeart />
-          <img class="rounded-lg  shadow-md" src={image} alt="product image" />
+          <img
+            class="rounded-lg  shadow-md"
+            src="https://pbs.twimg.com/profile_images/464895051043053568/q2dB15UL_400x400.jpeg"
+            alt="product image"
+          />
         </div>
       </a>
       <div class="px-5 pb-5">
@@ -26,23 +32,15 @@ function Card({
           <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
             {title}
           </h5>
-          <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
-            Géneros:
-          </h5>
-          <ul>
-            {Genres.map((genreItem) => (
-              <li key={genreItem.id}>{genreItem.name}</li>
-            ))}
-          </ul>
-          <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
-            Autores:
-          </h5>
-          <ul>
-            {Authors.map((author) => (
-              <li key={author.id}>{author.name}</li>
-            ))}
-          </ul>
         </a>
+
+        <div className="flex mt-3 mb-3">
+          {Genres.slice(0, 3).map((genreItem) => (
+            <Badge color="gray" key={genreItem.id} className="mr-2">
+              {genreItem.name}
+            </Badge>
+          ))}
+        </div>
         <div class="flex items-center mt-2.5 mb-5">
           <FiveStars />
           <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">
@@ -51,7 +49,7 @@ function Card({
         </div>
         <div class="flex items-center justify-between">
           <span class="text-left text-2xl font-bold text-gray-900 dark:text-black">
-            Precio: {price}
+            ${price}
           </span>
           <a
             href="#"
