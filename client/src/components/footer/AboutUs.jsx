@@ -3,8 +3,8 @@ const AboutUs = () => {
     <section className="py-10 lg:py-20 bg-stone-100 font-poppins dark:bg-gray-800">
       <div className="max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
         <div className="flex flex-wrap ">
-          <div className="w-full px-4 mb-10 lg:w-1/2 lg:mb-0 ">
-            <div className="lg:max-w-md">
+          <div className="w-full px-4 mb-10 lg:mb-0 ">
+            <div>
               <div className="px-4 pl-4 mb-6 border-l-4 border-blue-500">
                 <h1 className="mt-2 text-xl font-black text-gray-700 md:text-4xl dark:text-gray-300">
                   Sobre nosotros
@@ -40,7 +40,7 @@ const AboutUs = () => {
                         height="16"
                         className="w-10 h-10"
                         fill="currentColor"
-                        className="bi bi-file-earmark-text"
+                        class="bi bi-file-earmark-text"
                         viewBox="0 0 16 16"
                       >
                         <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
@@ -115,7 +115,7 @@ const AboutUs = () => {
                         height="16"
                         className="w-10 h-10"
                         fill="currentColor"
-                        className="bi bi-alarm-fill"
+                        class="bi bi-alarm-fill"
                         viewBox="0 0 16 16"
                       >
                         <path d="M6 .5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H9v1.07a7.001 7.001 0 0 1 3.274 12.474l.601.602a.5.5 0 0 1-.707.708l-.746-.746A6.97 6.97 0 0 1 8 16a6.97 6.97 0 0 1-3.422-.892l-.746.746a.5.5 0 0 1-.707-.708l.602-.602A7.001 7.001 0 0 1 7 2.07V1h-.5A.5.5 0 0 1 6 .5zm2.5 5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z" />
@@ -130,14 +130,14 @@ const AboutUs = () => {
                   </div>
                 </div>
               </div>
+              <div className="w-full px-4 mb-10 lg:mb-0">
+                <img
+                  src="https://www.soynorteclub.com/content/bucket/1/2571h550.jpg"
+                  alt=""
+                  className="relative z-40 object-cover w-full h-full rounded"
+                />
+              </div>
             </div>
-          </div>
-          <div className="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
-            <img
-              src="https://www.soynorteclub.com/content/bucket/1/2571h550.jpg"
-              alt=""
-              className="relative z-40 object-cover w-full h-full rounded"
-            />
           </div>
         </div>
       </div>
