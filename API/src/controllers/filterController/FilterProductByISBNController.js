@@ -1,4 +1,4 @@
-const { Products, ISBN, Author, Editorial, Genre, ReleasedDate} = require("../db");
+const { Products, ISBN, Author, Editorial, Genre, ReleasedDate} = require("../../db");
 
 const filterProductByISBNController = async (isbn) => {
     try {

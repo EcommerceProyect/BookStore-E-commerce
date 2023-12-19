@@ -1,4 +1,4 @@
-const {filterProductByISBNController} = require("../controllers/FilterProductByISBNController");
+const {filterProductByISBNController} = require("../../controllers/filterController/FilterProductByISBNController");
 
 
 const filterProductByISBN = async (req,res) => {

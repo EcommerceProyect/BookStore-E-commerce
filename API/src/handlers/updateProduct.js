@@ -7,14 +7,13 @@ const updateProductHandler = async (req,res) => {
 
     try {
         const newProduct = await updateProduct(id,newData);
-        res.status(200).json(newProduct)
+        res.status(200).json({
+            message: "Producto actualizado con éxito", newProduct})
         
     } catch (error) {
         console.log("Error al actualizar producto", error)
         res.status(404).json({error: error.message })
-        
     }
-
 };
 
 module.exports = {updateProductHandler}

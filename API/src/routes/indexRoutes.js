@@ -1,15 +1,12 @@
 const { Router } = require("express");
 const { getProducts } = require("../handlers/getProducts");
 const {createProduct} = require("../handlers/createProduct");
-const {filterProductByISBN} = require("../handlers/filterProductByISBN");
+const {filterProductByISBN} = require("../handlers/filterHandler/filterProductByISBN");
 const {filterProductByGenre} = require("../handlers/filterHandler/filterProductByGenre");
 const {filterProductByDate} = require("../handlers/filterHandler/filterProductByDate");
-const { filterProductByDate } = require("../handlers/filterHandler/filterProductByDate");
-const { filterProductByGenre } = require("../handlers/filterHandler/filterProductByGenre");
 const { filterProductByAuthor } = require("../handlers/filterHandler/filterProductByAuthor");
 const { filterProductByEditorial } = require("../handlers/filterHandler/filterProductByEditorial");
 const { deleteProduct } = require("../handlers/deleteProduct");
-
 const { getGenres } = require("../handlers/Products/getGenres");
 const { getAuthors } = require("../handlers/Products/getAuthors");
 const { getEditorials } = require("../handlers/Products/getEditorials");

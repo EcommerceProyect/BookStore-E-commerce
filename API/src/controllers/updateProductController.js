@@ -16,7 +16,7 @@ const updateProduct = async (id, newData) => {
       throw new Error("No existe el Producto");
     }
 
-    await Products.update(newData,{
+    await productExisting.update(newData,{
         where:{id:id}
     });
 
