@@ -2,8 +2,12 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+//auth
 
+
+//middlewares
 const routes = require("./routes/indexRoutes.js");
+const protectedRouter = require("../src/routes/protectedRoutes.js");
 
 const app = express();
 
@@ -22,7 +26,9 @@ app.use((req, res, next) => {
 });
 
 
-app.use("/ebook",routes)
+app.use("/ebook",routes);
+//protected
+app.use("/protected",protectedRouter);
 
 // error handler
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
