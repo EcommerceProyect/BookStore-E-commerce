@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrderOption } from '../../redux/slices/products';
 import Select from 'react-select';
 
 const Orders = () => {
-  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
+  // const { orderOption } = useSelector((state) => state.products);
 
   const options = [
-    { value: 'AZ', label: 'Nombre A - Z' },
-    { value: 'ZA', label: 'Nombre Z - A' },
-    { value: 'MenorAMayor', label: 'Precio menor a mayor' },
-    { value: 'MayorAMenor', label: 'Precio mayor a menor' },
+    { value: 'asc', label: 'Nombre A - Z' },
+    { value: 'desc', label: 'Nombre Z - A' },
+    { value: 'lowtohigh', label: 'Precio menor a mayor' },
+    { value: 'hightolow', label: 'Precio mayor a menor' },
     { value: 'Reciente', label: 'Más reciente' },
   ];
 
-  const handleSelect = (value) => {
-    setValue(value);
+  const handleSelect = (selectedOption) => {
+    dispatch(setOrderOption(selectedOption ? selectedOption.value : null));
   };
 
   return (

@@ -16,7 +16,7 @@ import Filterts from '../filters/Filterts';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
-    <nav className="bg-primary p-3 sticky top-0 z-20">
+    <nav className="bg-primary p-3 z-20">
       <Link to="/">
         <h1 className="w-28 m-auto py-5">Besto-logo</h1>
       </Link>
