@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   getProducts,
   getTotalProducts,
 } from '../../redux/services/getAllProducts';
+
 import Card from '../card/Card';
 
 function Cards() {
   const dispatch = useDispatch();
+
   const { list, loading, error, orderOption } = useSelector(
     (state) => state.products,
   );
@@ -22,7 +25,7 @@ function Cards() {
     getTotalItems();
   }, [dispatch, currentPage]);
 
-  //funcion de ordenamiento
+  //!funcion de ordenamiento
   const sortedList = [...list].sort((a, b) => {
     if (orderOption === 'asc') {
       return a.title.toLowerCase() > b.title.toLowerCase();

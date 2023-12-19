@@ -45,7 +45,9 @@ function App() {
         openRegistrationModal={openRegistrationModal}
       />
       <Orders />
-      <Filterts />
+      <Filterts
+        filterOptions={['Aventura', 'Accion', 'Misterio', 'Sic-fi', 'Romance']}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
