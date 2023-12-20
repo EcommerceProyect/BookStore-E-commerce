@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import ButtonHeart from './ButtonHeart';
 import FiveStars from './FiveStars';
+
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import { Badge } from 'flowbite-react';
 
@@ -15,32 +20,69 @@ function Card({
   price,
   ISBN,
 }) {
+  const sliderRef = useRef(null);
+
+  const slideLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft -= 100;
+    }
+  };
+
+  const slideRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft += 100;
+    }
+  };
+
   return (
     <div class="relative w-full max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:border-gray-700">
-      <a href="#">
-        <div class="relative p-8">
-          <ButtonHeart />
-          <img
-            class="rounded-lg  shadow-md"
-            src="https://pbs.twimg.com/profile_images/464895051043053568/q2dB15UL_400x400.jpeg"
-            alt="product image"
-          />
-        </div>
-      </a>
+      <div class="relative p-8">
+        <ButtonHeart />
+        <Link to={`/detail/${id}`}>
+          <div className="w-60 h-60">
+            <img
+              className="rounded-lg shadow-md object-contain w-full h-full"
+              src={image}
+              alt={`Foto de ${title}`}
+            />
+          </div>
+        </Link>
+      </div>
+
       <div class="px-5 pb-5">
-        <a href="#">
+        <Link to={`/detail/${id}`}>
           <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
             {title}
           </h5>
-        </a>
+        </Link>
 
-        <div className="flex mt-3 mb-3">
-          {Genres.slice(0, 3).map((genreItem) => (
-            <Badge color="gray" key={genreItem.id} className="mr-2">
-              {genreItem.name}
-            </Badge>
-          ))}
+        <div className="flex mt-3 mb-3" style={{ width: 'auto' }}>
+          <MdChevronLeft
+            onClick={slideLeft}
+            size={25}
+            className="opacity-50 cursor-pointer hover:opacity-100"
+          />
+          <div
+            ref={sliderRef}
+            className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide pr-2 pl-2"
+          >
+            {Genres.map((genreItem) => (
+              <Badge
+                color="gray"
+                key={genreItem.id}
+                className="mr-2 inline-block"
+              >
+                {genreItem.name}
+              </Badge>
+            ))}
+          </div>
+          <MdChevronRight
+            onClick={slideRight}
+            size={25}
+            className="opacity-50 cursor-pointer hover:opacity-100"
+          />
         </div>
+
         <div class="flex items-center mt-2.5 mb-5">
           <FiveStars />
           <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">

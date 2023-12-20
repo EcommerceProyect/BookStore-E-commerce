@@ -3,7 +3,7 @@ const { Products,ReleasedDate,Author,Editorial,Genre,ISBN } = require("../db");
 
 const createProductController = async (data) => {
 
-    const {title, synopsis, price, image, releaseDate, autor, editorial, genre, ISBNname} = data;
+    const {stock,title, synopsis, price, image, releaseDate, autor, editorial, genre, ISBNname} = data;
 
     try {
 
@@ -24,7 +24,8 @@ const createProductController = async (data) => {
                 name: ISBNname
             },
             defaults: {
-                name: ISBNname
+                name: ISBNname,
+                stock,
             }
         });
 
@@ -128,21 +129,12 @@ const createProductController = async (data) => {
                             name: genre,
                         }
                     });
-                    await productInstance.setGenres(genreInstance);
+                    await productInstance.setGenres([genreInstance]);
                 }
             }
             
 
             if(ISBNname){
-
-                const [ ISBNinstance, created] = await ISBN.findOrCreate({
-                    where:{
-                        name:ISBNname
-                    },
-                    defaults:{
-                        name:ISBNname
-                    }
-                });
 
                 await productInstance.setISBN(ISBNinstance);
                 
