@@ -28,7 +28,7 @@ const createProductController = async (data) => {
                 stock,
             }
         });
-
+        
         const [productInstance, created] = await Products.findOrCreate({
 
             where:{

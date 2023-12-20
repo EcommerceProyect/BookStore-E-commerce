@@ -1,8 +1,8 @@
 require("dotenv").config()
 const app = require("./src/app");
 const {conn} = require("./src/db");
-// eslint-disable-next-line no-undef
-const { PORT } = process.env;
+//eslint-disable-next-line no-undef
+const {PORT} = process.env;
 
 
 conn.sync({alter:true})
