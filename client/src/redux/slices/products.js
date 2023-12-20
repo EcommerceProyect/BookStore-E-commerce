@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: null,
   detailProduct: null,
+  totalItems: 0
 };
 
 export const productSlice = createSlice({
@@ -22,6 +23,9 @@ export const productSlice = createSlice({
     setProductListError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
+    },
+    setTotalItems: (state, action) => {
+      state.totalItems = action.payload;
     },
     addToProductList: (state, action) => {
       state.productList = [state.productList, action.payload];
@@ -45,6 +49,7 @@ export const {
   setProductListLoading,
   setProductList,
   setProductListError,
+  setTotalItems,
   addToProductList,
   setProductDetailLoading,
   setProductDetail,

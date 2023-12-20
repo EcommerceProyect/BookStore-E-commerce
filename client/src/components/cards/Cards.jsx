@@ -8,23 +8,10 @@ function Cards() {
   const { list, loading, error } = useSelector((state) => state.products);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
+  const [selectedGenre, setSelectedGenre] = useState([]);
   const itemsPerPage = 2;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  useEffect(() => {
-    dispatch(getProducts(currentPage));
-    getTotalItems();
-  }, [dispatch, currentPage]);
-
-  const getTotalItems = async () => {
-    try {
-      const total = await getTotalProducts();
-      setTotalItems(total);
-    } catch (error) {
-      console.error('Error fetching total items: ', error);
-    }
-  };
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -38,6 +25,49 @@ function Cards() {
     }
   };
 
+  // const handleGenreChange = (event) => {
+  //   const genre = event.target.value;
+  
+  //   if (genre === "") {
+  //     setSelectedGenre([]);
+  //   } else if (!selectedGenre.includes(genre)) {
+  //     setSelectedGenre([...selectedGenre, genre]);
+  //   }
+
+    const handleGenreChange = (event) => {
+      const genre = event.target.value;
+    
+      if (!selectedGenre.includes(genre)) {
+        setSelectedGenre([...selectedGenre, genre]);
+      } else {
+        setSelectedGenre(selectedGenre.filter((g) => g !== genre));
+      }
+    
+      setCurrentPage(0);
+    };
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let total = 0;
+        if (selectedGenre) {
+          await dispatch(getProducts(currentPage, selectedGenre));
+          total = await getTotalProducts(selectedGenre);
+        } else {
+          await dispatch(getProducts(currentPage));
+          const response = await dispatch(getProducts(currentPage));
+          total = response.data.length;
+        }
+        setTotalItems(total);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
+  
+    fetchData();
+  }, [dispatch, currentPage, selectedGenre]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -48,9 +78,30 @@ function Cards() {
 
   return (
     <div>
+            <div>
+        <label>
+          <input
+            type="checkbox"
+            value="Aventura"
+            checked={selectedGenre.includes("Aventura")}
+            onChange={handleGenreChange}
+          />
+          Aventura
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="ciencia%20ficción"
+            checked={selectedGenre.includes("ciencia%20ficción")}
+            onChange={handleGenreChange}
+          />
+          Ciencia Ficción
+        </label>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center">
         {list.map((product) => (
-          <div key={product.id} class="p-4">
+          <div key={product.id} className="p-4">
             <Card
               id={product.id}
               image={product.image || 'Imagen no disponible'}

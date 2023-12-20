@@ -11,6 +11,8 @@ import Cards from './components/cards/Cards';
 import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
+import Statistics from './views/dashboard/Statistics';
+import Users from './views/dashboard/Users';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -46,9 +48,12 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/dashboard" element={<Statistics/>} />
+        <Route path="/dashboard/users" element={<Users/>} />
+        
       </Routes>
       <Footer />
-
+<CreateBook/>
       {showRegistrationModal && (
         <RegistrationModal onClose={closeRegistrationModal} />
       )}
