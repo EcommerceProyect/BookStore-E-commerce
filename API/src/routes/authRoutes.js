@@ -7,14 +7,16 @@ const {requiresAuth} = require("express-openid-connect");
 const { postUser } = require("../handlers/Users/postUser");
 const router = Router();
 
-router.post("/user",(req,res)=>{
+router.get("/login",(req,res) => {
+  console.log(req.oidc.isAuthenticated())
+})
+
+router.post("/user",requiresAuth(),(req,res)=>{
   if(req.oidc.isAuthenticated())postUser(req,res);
   else res.status(500).json({message:"No se a iniciado la secion"})
 });
 
-router.get("/login",(req,res) => {
-  console.log(req.oidc.isAuthenticated())
-})
+
 
 router.get('/profile', requiresAuth(), async (req, res) => {
 
