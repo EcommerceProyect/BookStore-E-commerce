@@ -3,8 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
-import Orders from './components/filters/Orders';
-import Filterts from './components/filters/Filterts';
 import AboutUs from './components/footer/AboutUs';
 import Login from './components/login/Login';
 import Home from './views/home/Home';
@@ -13,7 +11,6 @@ import { useState } from 'react';
 import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
-import OffCanvasMenu from './components/off-canvasMenu/OffCanvasMenu';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -39,15 +36,11 @@ function App() {
 
   return (
     <div>
-      <OffCanvasMenu />
+      <DropDownMenu />
       <Navbar
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
       />
-      {/* <Orders /> */}
-      {/* <Filterts
-        filterOptions={['Aventura', 'Accion', 'Misterio', 'Sic-fi', 'Romance']}
-      /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
