@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import logo from '../../assets/...'
+import Logo from '../../assets/images/Logo.svg';
 import { FaFacebook, FaYoutube, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 
@@ -10,18 +10,20 @@ const Footer = () => {
       <div className=" grid gap-10 row-gap-6 mb-8 sm:grid-cols-1 lg:grid-cols-3 mt-2 p-3 h-auto">
         <div className="grid justify-center self-center">
           <a href="#" className=" justify-self-center inline-flex items-center">
-            <img src="img" alt="logo" className="h-20 w-auto relative " />
+            <div title="Home" className="left-0">
+              <img src={Logo} alt="Logo" className="ml-10" />
+            </div>
           </a>
           <Link to="/aboutUs">
             <div className="lg:max-w-xl pt-10">
-              <h2 className="font-bold text-xl text-center text-textDark hover:text-accents transition-colors duration-300 cursor-pointer">
+              <h2 className="font-bold text-xl text-textLight text-center hover:text-accents transition-colors duration-300 cursor-pointer">
                 ¿Quiénes somos?
               </h2>
             </div>
           </Link>
           <Link to="/faqs">
             <div className="mt-6 lg:max-w-xl">
-              <h2 className="font-bold text-xl text-center text-textDark hover:text-accents   transition-colors duration-300 cursor-pointer">
+              <h2 className="font-bold text-xl text-textLight text-center hover:text-accents   transition-colors duration-300 cursor-pointer">
                 Preguntas frecuentes
               </h2>
             </div>
@@ -29,34 +31,34 @@ const Footer = () => {
         </div>
         <div className="self-center">
           <div className="flex flex-col gap-2 text-sm text-center items-center ">
-            <p className="font-bold text-2xl tracking-wide text-textDark  ">
+            <p className="font-bold text-xl text-textLight tracking-wide">
               Contacto
             </p>
             <div className="inline-flex gap-3 ">
               <FaFacebook
                 href="#"
-                className="text-textDark hover:text-accents h-12 text-4xl cursor-pointer hover:scale-110 duration-300"
+                className="text-textLight hover:text-accents h-12 text-3xl cursor-pointer hover:scale-110 duration-300"
               />
               <FaInstagram
                 href="#"
-                className="text-textDark hover:text-accents h-12 text-4xl cursor-pointer hover:scale-110 duration-300"
+                className="text-textLight hover:text-accents h-12 text-3xl cursor-pointer hover:scale-110 duration-300"
               />
               <FaYoutube
                 href="#"
-                className="text-textDark hover:text-accents h-12 text-4xl cursor-pointer hover:scale-110 duration-300"
+                className="text-textLight hover:text-accents h-12 text-3xl cursor-pointer hover:scale-110 duration-300"
               />
               <FaWhatsapp
                 href="#"
-                className="text-textDark hover:text-accents h-12 text-4xl cursor-pointer hover:scale-110 duration-300"
+                className="text-textLight hover:text-accents h-12 text-3xl cursor-pointer hover:scale-110 duration-300"
               />
               <FiMail
                 href="#"
-                className="text-textDark hover:text-accents h-12 text-4xl cursor-pointer hover:scale-110 duration-300"
+                className="text-textLight hover:text-accents h-12 text-3xl cursor-pointer hover:scale-110 duration-300"
               />
             </div>
           </div>
           <div className="flex flex-col gap-2  text-sm text-center items-center mt-5">
-            <p className="font-bold text-2xl tracking-wide text-textDark">
+            <p className="font-bold text-xl text-textLight tracking-wide">
               Ubicación
             </p>
             <div className="inline-flex gap-3 ">
