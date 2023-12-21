@@ -1,13 +1,30 @@
+/* eslint-disable no-undef */
 const express = require('express');
 const bodyParser = require("body-parser");
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-//auth
+const cookieParser = require('cookie-parser'); 
+const { auth } = require('express-openid-connect');
+const {BASE_URL,SECRET,CLIENT_ID,ISSUER_BASE_URL,CLIENT_SECRET} = process.env;
+//autenticacion para roles
 
-
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: SECRET,
+  baseURL: BASE_URL,
+  clientID: CLIENT_ID,
+  issuerBaseURL: ISSUER_BASE_URL,
+  clientSecret: CLIENT_SECRET,
+  authorizationParams: {
+    response_type: "code",
+    audience: "http://localhost:5432",
+    scope: "openid profile email",
+  },
+};
 //middlewares
 const routes = require("./routes/indexRoutes.js");
-const protectedRouter = require("../src/routes/protectedRoutes.js");
+const authRouter = require("./routes/authRoutes.js");
+const protectedRoutes = require("./routes/protectedRoutes.js");
 
 const app = express();
 
@@ -27,8 +44,15 @@ app.use((req, res, next) => {
 
 
 app.use("/ebook",routes);
+
 //protected
-app.use("/protected",protectedRouter);
+app.use(auth(config));
+
+app.use("/protected",protectedRoutes);
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use("/",authRouter);
+
 
 // error handler
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

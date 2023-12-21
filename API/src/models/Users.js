@@ -44,6 +44,16 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    role:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            isIn: {
+                args: [["admin", "invitado","user"]],
+                msg: 'El rol debe ser "admin","invitado","user".'
+            }
+        }
+    },
     registration_type:{
         type: DataTypes.STRING,
         allowNull: false,
