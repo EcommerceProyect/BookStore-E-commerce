@@ -12,11 +12,13 @@ const Footer = () => {
           <a href="#" className=" justify-self-center inline-flex items-center">
             <img src="img" alt="logo" className="h-20 w-auto relative " />
           </a>
-          <div className="lg:max-w-xl pt-10">
-            <h2 className="font-bold text-xl text-center text-textDark hover:text-accents transition-colors duration-300 cursor-pointer">
-              ¿Quiénes somos?
-            </h2>
-          </div>
+          <Link to="/aboutUs">
+            <div className="lg:max-w-xl pt-10">
+              <h2 className="font-bold text-xl text-center text-textDark hover:text-accents transition-colors duration-300 cursor-pointer">
+                ¿Quiénes somos?
+              </h2>
+            </div>
+          </Link>
           <Link to="/faqs">
             <div className="mt-6 lg:max-w-xl">
               <h2 className="font-bold text-xl text-center text-textDark hover:text-accents   transition-colors duration-300 cursor-pointer">

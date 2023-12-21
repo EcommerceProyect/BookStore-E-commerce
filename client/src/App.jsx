@@ -5,11 +5,11 @@ import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
 import Orders from './components/filters/Orders';
 import Filterts from './components/filters/Filterts';
+import AboutUs from './components/footer/AboutUs';
 import Login from './components/login/Login';
 import Home from './views/home/Home';
 import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
-import Cards from './components/cards/Cards';
 import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
@@ -52,6 +52,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/faqs" element={<Faqs />} />
       </Routes>
       <Footer />

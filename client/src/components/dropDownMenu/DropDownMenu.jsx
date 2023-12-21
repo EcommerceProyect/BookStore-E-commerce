@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import DropDownItems from './DropDownItems';
 
 // icons
 import { MdMenu, MdOutlineClose } from 'react-icons/md';
@@ -14,58 +13,52 @@ const DropDownMenu = () => {
   };
 
   return (
-    <aside
-      className={`bg-green-200 absolute z-50 duration-300 ${
-        openMenu ? 'h-screen w-64' : 'w-0 h-screen'
+    <div
+      className={`bg-green-200 absolute transition-all duration-100 ease-in-out z-50  ${
+        openMenu ? 'h-screen w-80' : ' w-0 '
       }`}
     >
-      <div>
-        <button onClick={handleMenuClick} className="relative top-24 mx-4">
-          {openMenu ? (
-            <MdOutlineClose color="black" size={30} />
-          ) : (
-            <MdMenu
-              size={30}
-              color="black"
-              className="bg-white bg-opacity-50 border border-solid border-black rounded-sm"
+      <button
+        onClick={handleMenuClick}
+        className={`bg-green-200 flex absolute top-24 mx-3 my-2 p-2  ${
+          openMenu ? 'border-none' : 'border-2 border-black rounded-full'
+        }`}
+      >
+        {openMenu ? <MdOutlineClose size={20} /> : <MdMenu size={20} />}
+      </button>
+      {openMenu ? (
+        <ul className={`py-2 `}>
+          <div>
+            <Link
+              className={`flex items-center  absolute  duration-300 ${
+                openMenu ? 'ml-10 my-3 top-36' : ''
+              }`}
+            >
+              <FaUsers
+                size={35}
+                className="p-1 border-2 border-black rounded-full"
+              />
+              <li
+                className={`text-sm ml-2 my-1 pl-2 pr-7 border-2 border-black rounded-md w-40 `}
+              >
+                Quienes somos
+              </li>
+            </Link>
+          </div>
+          <Link className="flex items-center ml-10 my-3 absolute top-48 ">
+            <FaQuestion
+              size={33}
+              className="p-1 border-2 border-black rounded-full"
             />
-          )}
-        </button>
-        {openMenu ? (
-          <ul className="mt-28">
-            <div className="flex flex-col items-center mr-10 overflow-hidden">
-              <Link>
-                <DropDownItems
-                  icon={
-                    <FaUsers
-                      size={35}
-                      color="black"
-                      className="p-1 border-2 border-black rounded-full"
-                    />
-                  }
-                  text="Quienes somos"
-                />
-              </Link>
-            </div>
-
-            <div className="flex flex-col items-center mr-10 overflow-hidden">
-              <Link>
-                <DropDownItems
-                  icon={
-                    <FaQuestion
-                      size={35}
-                      color="black"
-                      className="p-1 border-2 border-black rounded-full"
-                    />
-                  }
-                  text="Preguntas frecuentes"
-                />
-              </Link>
-            </div>
-          </ul>
-        ) : null}
-      </div>
-    </aside>
+            <li
+              className={`text-sm ml-2 my-1 pl-2 pr-7 border-2 border-black rounded-md w-48 `}
+            >
+              Preguntas frecuentes
+            </li>
+          </Link>
+        </ul>
+      ) : null}
+    </div>
   );
 };
 

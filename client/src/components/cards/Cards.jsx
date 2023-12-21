@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import {
   getProducts,
   getTotalProducts,
 } from '../../redux/services/getAllProducts';
-
 import Card from '../card/Card';
 
 function Cards() {
