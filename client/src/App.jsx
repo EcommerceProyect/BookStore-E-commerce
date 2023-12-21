@@ -6,7 +6,7 @@ import Faqs from './components/footer/Faqs';
 import AboutUs from './components/footer/AboutUs';
 import Login from './components/login/Login';
 import Home from './views/home/Home';
-import DropDownMenu from './components/dropDownMenu/DropDownMenu';
+// import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
 import RegistrationModal from './components/registration/RegistrationModal';
 import Detail from './views/detail/Detail';
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div>
-      <DropDownMenu />
+      {/* <DropDownMenu /> */}
       <Navbar
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
