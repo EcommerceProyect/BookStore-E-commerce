@@ -20,7 +20,7 @@ const Orders = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-3 m-3">
+    <div className="flex items-center relative justify-center p-3 m-3">
       <span className="mr-4">Ordernamiento:</span>
       <Select
         options={options}

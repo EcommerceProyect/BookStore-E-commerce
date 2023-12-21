@@ -8,7 +8,7 @@ const Filterts = ({ filterOptions }) => {
   };
 
   return (
-    <div className="bg-slate-500 flex flex-col h-screen w-56">
+    <div className="bg-slate-500 flex flex-col w-56 mr-16">
       <span className="m-2 pt-2">Filtra tu búsqueda</span>
       <div className="border-t border-gray-300 pt-2 mx-4 my-2 w-48"></div>
       <span className="m-2">Genero</span>
