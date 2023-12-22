@@ -12,8 +12,8 @@ const tokenEndpoint = "https://ambient-coder.us.auth0.com/oauth/token";
 
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
-  params.append("client_id", "your-client-id");
-  params.append("client_secret", "your-client-secret")
+  params.append("client_id", "ihbSNJFDpF9CgJC47ykNSKevrzVkb2OR");
+  params.append("client_secret", "BKYauLUaQ2VA7LZw4YXLBq2IW35mmOxBtc2Ghuyex8A5IXyhRLxgiCHcFNvE34ky")
   params.append("code", code);
   params.append("redirect_uri", "http://localhost:5173/challenges");
 
