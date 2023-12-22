@@ -4,8 +4,6 @@ const {
 
 const filterBySearchTerm = async (req, res) => {
   try {
-
-    console.log("entrado a filtro por nombre");
     const searchTerm = req.query.title;
     const page = parseInt(req.query.page) || 0;
     const response = await filterBySearchTermController(searchTerm, page);

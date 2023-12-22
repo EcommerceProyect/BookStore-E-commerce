@@ -14,6 +14,10 @@ const { getGenres } = require("../handlers/Products/getGenres");
 const { getAuthors } = require("../handlers/Products/getAuthors");
 const { getEditorials } = require("../handlers/Products/getEditorials");
 const { getISBNs } = require("../handlers/Products/getISBNs");
+
+//FILTROS COMBINADOS.
+const { filterProducts } = require("../handlers/filterProducts");
+
 const router = Router();
 
 router.post("/products",createProduct)
@@ -31,6 +35,8 @@ router.get("/products/filter",(req,res) =>{
     else if(editorial)filterProductByEditorial(req,res);
     else if(title)filterBySearchTerm(req,res);
 });
+
+router.get("/products/filterPrueba", (req,res) => filterProducts(req, res));
 
 //get de entidades 
 router.get("/genres",getGenres);
