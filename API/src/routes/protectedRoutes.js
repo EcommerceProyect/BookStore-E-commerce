@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const {Router} = require("express");
 const router = Router();
-// const { auth } = require('express-oauth2-jwt-bearer');
+const guard = require("express-jwt-permissions")();//agregar () !!!!!
 const {expressjwt} = require("express-jwt");
 const jwts = require("jwks-rsa");
 
@@ -16,16 +16,10 @@ const jwtCheck = expressjwt({
     issuer: 'https://dev-sxyz47kmh4sumndv.us.auth0.com/',
     algorithms: ['RS256']
 })
-
-  
-router.get('/authorized', jwtCheck, (req, res) => {
-    res.send('Secured Resource');
-});
-
-router.get('/',jwtCheck,(req, res) => {
-
-    console.log("AAAAAAAAA");
-    res.send("Privada");
+router.use(jwtCheck);
+router.get('/',guard.check(["admin:admin"]),(req, res) => {
+    res.json({challenge1: "this is the first challenge",
+    challenge2: "the second challenge"})
 });
 
 module.exports = router;
