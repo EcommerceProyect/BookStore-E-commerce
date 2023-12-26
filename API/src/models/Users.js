@@ -63,6 +63,9 @@ module.exports = (sequelize) => {
                 msg: 'El tipo de registro debe ser "local" o "google".'
             }
         }
+    },
+    status:{
+
     }
-   },{timestamps: true})
+   },{timestamps: true,paranoid: true});
 }
