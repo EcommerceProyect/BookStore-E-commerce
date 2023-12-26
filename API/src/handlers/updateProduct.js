@@ -1,4 +1,4 @@
-const {updateProduct} = require("../controllers/updateProductController");
+const {updateProductController} = require("../controllers/updateProductController");
 
 
 const updateProductHandler = async (req,res) => {
@@ -6,7 +6,7 @@ const updateProductHandler = async (req,res) => {
     const newData = req.body;
 
     try {
-        const newProduct = await updateProduct(id,newData);
+        const newProduct = await updateProductController(id,newData);
         res.status(200).json({
             message: "Producto actualizado con éxito", newProduct})
         
