@@ -1,16 +1,20 @@
 var express = require("express");
 var axios = require("axios");
-var port = 3001;
-var {oAuth} = require("./middlewares/oAuth");
+var port = process.env.PORT || 3001;
+var oAuth = require("./middlewares/oAuth");
 var app = express();
+const cors = require("cors")
 
-const challengesAPIEndpoint = "http://localhost:5432/protected";
+const challengesAPIEndpoint = "http://localhost:5432/authorized";
+const authProfile = "https://dev-s3pcs1ovog464bay.us.auth0.com/userinfo";
 
+app.use(cors())
 app.use(oAuth);
 
-app.get("/challenges", async (req, res) => {
+app.get("/authorized", async (req, res) => {
   try {
     const { access_token } = req.oauth;
+
 
     const response = await axios({
       method: "get",
@@ -30,4 +34,5 @@ app.get("/challenges", async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log("Started",port));
+
+app.listen(port, () => console.log("Started"));

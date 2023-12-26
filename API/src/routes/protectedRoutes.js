@@ -1,25 +1,43 @@
 /* eslint-disable no-undef */
 const {Router} = require("express");
+const axios = require("axios");
 const router = Router();
-const guard = require("express-jwt-permissions")();//agregar () !!!!!
-const {expressjwt} = require("express-jwt");
-const jwts = require("jwks-rsa");
+const cors = require("cors");
+const { auth } = require('express-oauth2-jwt-bearer');
 
-const jwtCheck = expressjwt({
-    secret:jwts.expressJwtSecret({
-        cache:true,
-        rateLimit:true,
-        jwksRequestsPerMinute:5,
-        jwksUri:"https://dev-sxyz47kmh4sumndv.us.auth0.com/.well-known/jwks.json"
-    }),
-    audience:"http://localhost:5432",
-    issuer: 'https://dev-sxyz47kmh4sumndv.us.auth0.com/',
-    algorithms: ['RS256']
-})
-router.use(jwtCheck);
-router.get('/',guard.check(["admin:admin"]),(req, res) => {
-    res.json({challenge1: "this is the first challenge",
-    challenge2: "the second challenge"})
+
+
+router.use(cors());
+
+const jwtCheck = auth({
+  audience: 'https://www.protectAPI.com',
+  issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
+  tokenSigningAlg: 'RS256',
 });
+
+const checkPermissions = (requiredPermissions) => (req, res, next) => {
+  
+  const userPermissions = req.auth.payload.permissions || [];
+
+  if (userPermissions.some(permission => requiredPermissions.includes(permission))) {
+    // El usuario tiene al menos uno de los permisos requeridos
+    next();
+  } else {
+    // El usuario no tiene los permisos necesarios
+    res.status(403).json({ error: 'Forbidden', message: 'Insufficient permissions' });
+  }
+};
+
+router.use(jwtCheck);
+
+router.get("/authorized",checkPermissions(['admin:edit']), function (req, res) {
+  console.log("Y", req.auth);
+  res.json({
+    challenge1: "This is the first challenge",
+    challenge2: "This is another challenge",
+  });
+});
+
+
 
 module.exports = router;

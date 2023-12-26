@@ -1,19 +1,22 @@
-var axios = require("axios");
+require("dotenv").config();
+const axios = require("axios");
 
-const tokenEndpoint = "https://ambient-coder.us.auth0.com/oauth/token";
+const {CLIENT_SECRET} = process.env;
 
- let oAuth = (req, res, next) => {
+
+const tokenEndpoint = "https://dev-s3pcs1ovog464bay.us.auth0.com/oauth/token";
+
+let oAuth = (req, res, next) => {
   var code = req.query.code;
 
   if(!code) {
     res.status(401).send("Missing authorization code");
   }
 
-
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
-  params.append("client_id", "ihbSNJFDpF9CgJC47ykNSKevrzVkb2OR");
-  params.append("client_secret", "BKYauLUaQ2VA7LZw4YXLBq2IW35mmOxBtc2Ghuyex8A5IXyhRLxgiCHcFNvE34ky")
+  params.append("client_id", "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY");
+  params.append("client_secret", "ym8UEKrhfdmcTeNEF7utwMMxgWBWHDYhWoofbuaKyf29SEfs3IP6u9soMtUsByYD")
   params.append("code", code);
   params.append("redirect_uri", "http://localhost:5173/challenges");
 
@@ -28,4 +31,4 @@ const tokenEndpoint = "https://ambient-coder.us.auth0.com/oauth/token";
   })
 }
 
-module.exports = {oAuth};
+module.exports = oAuth;
