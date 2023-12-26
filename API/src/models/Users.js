@@ -64,8 +64,5 @@ module.exports = (sequelize) => {
             }
         }
     },
-    status:{
-
-    }
    },{timestamps: true,paranoid: true});
 }
