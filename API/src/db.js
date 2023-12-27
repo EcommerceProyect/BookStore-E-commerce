@@ -85,7 +85,6 @@ Orders.hasOne(OrderDetail);
 OrderDetail.belongsTo(Orders);
 
 
-
 // releaseDate - Products
 
 Products.hasOne(ReleasedDate)
