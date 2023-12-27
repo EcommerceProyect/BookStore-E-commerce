@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const express = require("express");
 const axios = require("axios");
 const port = process.env.PORT || 3001;
@@ -21,6 +22,7 @@ app.get("/authorized", async (req, res) => {
       url: challengesAPIEndpoint,
       headers: { Authorization: `Bearer ${access_token}` },
     });
+    
     res.json(response.data);
   } catch (error) {
     console.log(error);

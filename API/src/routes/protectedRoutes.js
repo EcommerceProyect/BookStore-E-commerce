@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const {Router} = require("express");
-const axios = require("axios");
 const router = Router();
 const cors = require("cors");
 const { auth } = require('express-oauth2-jwt-bearer');
@@ -13,9 +12,10 @@ router.use(cors());
 const jwtCheck = auth({
   audience: 'https://www.protectAPI.com',
   issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
-  tokenSigningAlg: 'HS256',
+  tokenSigningAlg: 'RS256',
 });
 
+//middleware
 const checkPermissions = (requiredPermissions) => (req, res, next) => {
   
   const userPermissions = req.auth.payload.permissions || [];

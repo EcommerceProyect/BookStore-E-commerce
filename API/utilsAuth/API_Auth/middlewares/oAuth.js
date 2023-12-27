@@ -1,13 +1,13 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const {CLIENT_SECRET} = process.env;
+// const {CLIENT_SECRET} = process.env;
 
 
 const tokenEndpoint = "https://dev-s3pcs1ovog464bay.us.auth0.com/oauth/token";
 
 let oAuth = (req, res, next) => {
-  var code = req.query.code;
+  let code = req.query.code;
 
   if(!code) {
     res.status(401).send("Missing authorization code");
