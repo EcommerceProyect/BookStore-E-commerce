@@ -4,6 +4,7 @@ const axios = require("axios");
 const router = Router();
 const cors = require("cors");
 const { auth } = require('express-oauth2-jwt-bearer');
+const { postUser } = require("../handlers/Users/postUser");
 
 
 
@@ -12,7 +13,7 @@ router.use(cors());
 const jwtCheck = auth({
   audience: 'https://www.protectAPI.com',
   issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
-  tokenSigningAlg: 'HS256',
+  tokenSigningAlg: 'PS512',
 });
 
 const checkPermissions = (requiredPermissions) => (req, res, next) => {
@@ -30,8 +31,16 @@ const checkPermissions = (requiredPermissions) => (req, res, next) => {
 
 router.use(jwtCheck);
 
-router.get("/authorized",checkPermissions(['admin:edit']), function (req, res) {
+router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   console.log("Y", req.auth);
+  try {
+    
+    await postUser(req,res)
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error', message: 'Something went wrong' });
+  }
   res.json({
     challenge1: "This is the first challenge",
     challenge2: "This is another challenge",

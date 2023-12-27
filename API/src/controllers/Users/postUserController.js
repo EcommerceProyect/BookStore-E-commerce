@@ -20,11 +20,11 @@ const postUserController = async (data) => {
                 id,
                 name,
                 last_name,
-                phone,
+                phone:'12345',
                 email,
                 registration_type,
                 password,
-                role:DEFAULT,
+                role,
             }
 
         })

@@ -2,20 +2,20 @@ const { postUserController } = require("../../controllers/Users/postUserControll
 
 const postUser = async (req,res) => {
 
-    const {permissions,name,last_name,phone,password,sub,custom_email_claim} = req.body;
+    const {permissions,custom_email_claim,sub} = req.auth.payload;
 
     if(!custom_email_claim) return false;
 
     try {
         
         const response = await postUserController({
-
+            id:sub,
             registration_type: sub.includes("google") ? "google" : "local",
             email:custom_email_claim,
-            name:custom_email_claim || name,
-            last_name: last_name || " ",
-            phone,
-            password:password||" ",
+            name:custom_email_claim,
+            last_name: " ",
+            phone: "12345" ,
+            password:" ",
             role:[permissions].includes("admin") ? "admin" : "user",
             
         });
