@@ -13,7 +13,7 @@ router.use(cors());
 const jwtCheck = auth({
   audience: 'https://www.protectAPI.com',
   issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
-  tokenSigningAlg: 'PS512',
+  tokenSigningAlg: 'HS256',
 });
 
 const checkPermissions = (requiredPermissions) => (req, res, next) => {
@@ -35,8 +35,8 @@ router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   console.log("Y", req.auth);
   try {
     
-    await postUser(req,res)
-
+    const response = await postUser(req,res)
+    console.log(response);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error', message: 'Something went wrong' });

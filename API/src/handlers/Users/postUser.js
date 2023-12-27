@@ -13,14 +13,14 @@ const postUser = async (req,res) => {
             registration_type: sub.includes("google") ? "google" : "local",
             email:custom_email_claim,
             name:custom_email_claim,
-            last_name: " ",
-            phone: "12345" ,
-            password:" ",
+            last_name: null,
+            phone: null ,
+            password:null,
             role:[permissions].includes("admin") ? "admin" : "user",
             
         });
 
-        res.status(200).json(response);
+        return response
 
     } catch (error) {
         res.status(500).json(error.message)

@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   sequelize.define("Users", {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       }
     },
     phone: {
-        type: DataTypes.STRING(10), // Cambiado a un máximo de 10 caracteres
+        type: DataTypes.STRING(10),
         allowNull: true,
         unique: true,
         validate: {
