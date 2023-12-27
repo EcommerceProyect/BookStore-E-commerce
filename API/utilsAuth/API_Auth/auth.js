@@ -1,12 +1,12 @@
-var express = require("express");
-var axios = require("axios");
-var port = process.env.PORT || 3001;
-var oAuth = require("./middlewares/oAuth");
-var app = express();
+const express = require("express");
+const axios = require("axios");
+const port = process.env.PORT || 3001;
+const oAuth = require("./middlewares/oAuth");
+const app = express();
 const cors = require("cors")
 
 const challengesAPIEndpoint = "http://localhost:5432/authorized";
-const authProfile = "https://dev-s3pcs1ovog464bay.us.auth0.com/userinfo";
+
 
 app.use(cors())
 app.use(oAuth);

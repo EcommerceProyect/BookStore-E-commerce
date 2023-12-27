@@ -2,14 +2,12 @@
 /* eslint-disable no-undef */
 require("dotenv").config();
 
-const {DEFAULT} = process.env;
-
 const {Users} = require("../../db");
 
 
 const postUserController = async (data) => {
 
-    const {name,last_name,phone,email,password,registration_type} = data;
+    const {role,name,last_name,phone,email,password,registration_type,id} = data;
 
     try {
         
@@ -19,6 +17,7 @@ const postUserController = async (data) => {
                 email,
             },
             defaults:{
+                id,
                 name,
                 last_name,
                 phone,

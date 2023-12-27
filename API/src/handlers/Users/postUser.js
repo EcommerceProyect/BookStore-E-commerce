@@ -2,22 +2,21 @@ const { postUserController } = require("../../controllers/Users/postUserControll
 
 const postUser = async (req,res) => {
 
-    const {sub,email,email_verified,given_name} = req.oidc.user;
+    const {permissions,name,last_name,phone,password,sub,custom_email_claim} = req.body;
 
-    const {name,last_name,phone,password} = req.body;
-
-    if(!email_verified) return false;
+    if(!custom_email_claim) return false;
 
     try {
         
         const response = await postUserController({
 
             registration_type: sub.includes("google") ? "google" : "local",
-            email,
-            name:given_name || name,
+            email:custom_email_claim,
+            name:custom_email_claim || name,
             last_name: last_name || " ",
             phone,
-            password:password,
+            password:password||" ",
+            role:[permissions].includes("admin") ? "admin" : "user",
             
         });
 
