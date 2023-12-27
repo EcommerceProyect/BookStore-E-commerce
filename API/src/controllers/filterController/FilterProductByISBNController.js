@@ -4,17 +4,13 @@ const filterProductByISBNController = async (isbn) => {
     try {
         const response = await Products.findOne({
             include:[
-                {model: Author, as:"Authors"},
-                {model: Editorial, as:"Editorial"},
-                {model: ReleasedDate, as:"ReleasedDate"},
-                {model: Genre, as: "Genres"},
                 {
-                    model: ISBN,
+                model: ISBN,
                 as: "ISBN",
                 where:{
                 name: isbn
             }}
-            ]
+            ],
         });
     
         if(!response){
@@ -23,8 +19,8 @@ const filterProductByISBNController = async (isbn) => {
     
         return response;
     } catch (error) {
-        console.log("Error al filtrar por ISBN, error");
-        return error;
+        console.log("Error al filtrar por ISBN", error);
+        throw new Error("Error interno del servidor al filtrar por ISBN");
     }
     
 };
