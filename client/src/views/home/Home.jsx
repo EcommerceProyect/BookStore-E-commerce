@@ -1,12 +1,12 @@
 import React from 'react'
-import Cards from '../../components/cards/Cards'
-import { Carousel } from 'flowbite-react'
+// import Cards from '../../components/cards/Cards'
+import  Carousel  from '../home/carousel/Carousel'
 
 const Home = () => {
   return (
     <div>
       <Carousel/>
-      <Cards/>
+      {/* <Cards/> */}
     </div>
   )
 }
