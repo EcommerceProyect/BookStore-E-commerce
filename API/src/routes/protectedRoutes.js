@@ -12,7 +12,7 @@ router.use(cors());
 const jwtCheck = auth({
   audience: 'https://www.protectAPI.com',
   issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
-  tokenSigningAlg: 'RS256',
+  tokenSigningAlg: 'HS256',
 });
 
 const checkPermissions = (requiredPermissions) => (req, res, next) => {
