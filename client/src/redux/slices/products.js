@@ -6,6 +6,8 @@ const initialState = {
   error: null,
   detailProduct: null,
   orderOption: [],
+  cart: [],
+  cartCount: 0,
 };
 
 export const productSlice = createSlice({
@@ -42,6 +44,17 @@ export const productSlice = createSlice({
     setOrderOption: (state, action) => {
       state.orderOption = action.payload;
     },
+    addToCart: (state, action) => {
+      const existingProduct = state.cart.find(
+        (product) => product.id === action.payload.id,
+      );
+
+      if (!existingProduct) {
+        state.cart.push(action.payload);
+        state.cartCount += 1;
+      }
+      // state.cart = [...state.cart, action.payload];
+    },
   },
 });
 
@@ -54,6 +67,7 @@ export const {
   setProductDetail,
   setProductDetailError,
   setOrderOption,
+  addToCart,
 } = productSlice.actions;
 
 export default productSlice.reducer;

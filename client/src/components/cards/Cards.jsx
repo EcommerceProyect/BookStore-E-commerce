@@ -69,7 +69,7 @@ function Cards() {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center">
-        {sortedList.map((product) => (
+        {list.map((product) => (
           <div key={product.id} class="p-4">
             <Card
               id={product.id}
@@ -78,6 +78,7 @@ function Cards() {
               Genres={product.Genres || 'Género no disponible'}
               Authors={product.Authors || 'Autor no disponible'}
               price={product.price || 'Precio no disponible'}
+              ISBN={product.ISBN}
             />
           </div>
         ))}
