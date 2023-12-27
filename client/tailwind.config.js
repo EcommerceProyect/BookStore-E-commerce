@@ -10,12 +10,12 @@ export default {
     extend: {
       colors: {
         primary: '#590925', //navbar y footer
-        accents: '#E71D3', //botones
+        accents: '#E71D36', //botones
         textLight: '#F6F8FF',
         textDark: '#2E3138',
         textGray: '#6C6F7D', // color gris para textos no importantes
       },
     },
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
 };
