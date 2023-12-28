@@ -5,8 +5,7 @@ const AboutUs = () => {
         <div className="flex flex-wrap ">
           <div className="w-full px-4 mb-10 lg:mb-0 ">
             <div>
-              <div className="px-4 pl-4 mb-6 border-l-4 border-accents">
-                <h1 className="mt-2 text-xl font-black text-textDark md:text-4xl dark:text-gray-300">
+              
               <div className="px-4 pl-4 mb-6 border-l-4 border-accents">
                 <h1 className="mt-2 text-xl font-black text-textDark md:text-4xl dark:text-gray-300">
                   Sobre nosotros
@@ -18,8 +17,7 @@ const AboutUs = () => {
                 literatura, con la doble intención de potenciar la creatividad
                 literaria y fomentar el valor de la lectura en la sociedad.
               </p>
-              <div className="px-4 pl-4 mb-6 border-l-4 border-accents">
-                <h1 className="mt-2 text-xl font-black text-textDark md:text-4xl dark:text-gray-300">
+              
               <div className="px-4 pl-4 mb-6 border-l-4 border-accents">
                 <h1 className="mt-2 text-xl font-black text-textDark md:text-4xl dark:text-gray-300">
                   Nuestra misión

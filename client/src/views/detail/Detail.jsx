@@ -33,10 +33,8 @@ function Detail() {
             />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 class="text-textDark text-2xl title-font font-bold mb-1 pb-2">
-              <h1 class="text-textDark text-2xl title-font font-bold mb-1 pb-2">
                 {detailProduct?.title || 'Título no disponible.'}
               </h1>
-              <h2 class="text-sm title-font text-textGray tracking-widest pb-1">
               <h2 class="text-sm title-font text-textGray tracking-widest pb-1">
                 {detailProduct?.Authors.map((author) => author.name) ||
                   'Autor no disponible.'}
@@ -117,7 +115,6 @@ function Detail() {
                 ISBN: {detailProduct?.ISBN?.name || 'ISBN no disponible.'}
               </h2>
               <div class="flex pt-4">
-                <span class="text-left text-2xl font-medium text-textDark dark:text-black">
                 <span class="text-left text-2xl font-medium text-textDark dark:text-black">
                   Precio: ${detailProduct?.price || 'Precio no disponible.'}
                 </span>
