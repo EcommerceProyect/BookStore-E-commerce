@@ -2,13 +2,11 @@ function Faqs() {
   return (
     <div class="container my-10 mx-auto md:px-6">
       <section class="mb-32">
-        <h2 class="mb-6 text-3xl font-bold">Preguntas Frecuentes</h2>
+        <h2 class="mb-6 text-textDark text-3xl font-bold">Preguntas Frecuentes</h2>
 
         <p class="mb-12 text-textDark">
-          <span class="mr-1">
-            ¿No encontraste respuesta a la pregunta que tenías?
-          </span>
-          <a href="#!" class="text-blue-500">
+          ¿No encontraste respuesta a la pregunta que tenías?
+          <a href="#!" class="text-accents">
             Contáctanos
           </a>
         </p>

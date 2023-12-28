@@ -1,18 +1,12 @@
-import React from 'react';
-import Cards from '../../components/cards/Cards';
-import Filterts from '../../components/filters/Filterts';
-import Orders from '../../components/filters/Orders';
+import React from 'react'
+import Cards from '../../components/cards/Cards'
+import  Carousel  from '../home/carousel/Carousel'
 
 const Home = () => {
   return (
-    <div className="flex">
-      <Filterts
-        filterOptions={['Aventura', 'Accion', 'Misterio', 'Sic-fi', 'Romance']}
-      />
-      <div className="flex flex-col w-full">
-        <Orders />
-        <Cards />
-      </div>
+    <div>
+      <Carousel/>
+      <Cards/>
     </div>
   );
 };

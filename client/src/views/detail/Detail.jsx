@@ -118,7 +118,7 @@ function Detail() {
                 <span class="text-left text-2xl font-medium text-textDark dark:text-black">
                   Precio: ${detailProduct?.price || 'Precio no disponible.'}
                 </span>
-                <button class="flex ml-auto text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-700 rounded">
+                <button class="flex ml-auto text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                   Agregar al carrito
                 </button>
                 <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-textGray ml-4">
