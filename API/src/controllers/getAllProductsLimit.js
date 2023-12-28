@@ -10,7 +10,7 @@ const getAllProductsLimit = async (page) => {
 
     try {
         
-        const response = await Products.findAll({
+        const response = await Products.findAndCountAll({
             offset,
             limit:itemPerPage,
             include: [
@@ -22,7 +22,13 @@ const getAllProductsLimit = async (page) => {
               ]
         });
 
-        return response;
+        const data = {
+            totalPages: Math.ceil(response.count / itemPerPage),
+            currentPage: page,
+            numberOfResults: response.count,
+            data: response,
+        };
+        return data;
 
     } catch (error) {
         

@@ -112,6 +112,7 @@ const {
     
             return {
                 count: data.count,
+                page: page,
                 detailedResults: detailedResults,
             };
     
