@@ -8,7 +8,7 @@ const Home = () => {
       <Carousel/>
       <Cards/>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

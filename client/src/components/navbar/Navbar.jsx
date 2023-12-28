@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Logo from '../../assets/images/Logo.svg';
-// components
-// import SearchButton from '../searchButton/SearchButton';
 
-// icons
+// import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
 import {
@@ -14,6 +13,8 @@ import {
 } from 'react-icons/md';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
+  const { cartCount } = useSelector((state) => state.products);
+
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
