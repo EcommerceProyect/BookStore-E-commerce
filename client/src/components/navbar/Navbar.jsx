@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+// components
 import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
@@ -10,13 +12,15 @@ import {
 } from 'react-icons/md';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
+  const { cartCount } = useSelector((state) => state.products);
+
   return (
     <nav className="bg-primary p-3">
       <h1 className="w-28 m-auto py-5 text-textLight">Besto-logo</h1>
       <div className="flex items-center justify-between gap-2">
         <SearchButton />
 
-        <div className="flex items-center justify-between gap-2 pl-10 ml-10">
+        <div className="flex items-center justify-between gap-2">
           <Button
             onClick={openLoginModal}
             icon={<MdOutlineLogin className="text-textLight" size={20} />}
@@ -35,7 +39,9 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           />
 
           <Button
+            link="/carrito"
             icon={<LiaShoppingBagSolid className="text-textLight" size={20} />}
+            counter={cartCount}
             text="Carrito de compras"
           />
 

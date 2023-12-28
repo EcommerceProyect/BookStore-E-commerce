@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/slices/products';
+
 import ButtonHeart from './ButtonHeart';
 import FiveStars from './FiveStars';
 
@@ -20,6 +23,12 @@ function Card({
   price,
   ISBN,
 }) {
+  const distpatch = useDispatch();
+
+  const handleCart = () => {
+    distpatch(addToCart({ id, image, title, price, ISBN, Authors }));
+  };
+
   const sliderRef = useRef(null);
 
   const slideLeft = () => {

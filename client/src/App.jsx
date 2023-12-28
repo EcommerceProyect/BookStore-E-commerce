@@ -9,7 +9,9 @@ import Home from './views/home/Home';
 import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
 import RegistrationModal from './components/registration/RegistrationModal';
+import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
+import Cart from './views/cart/Cart';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -46,6 +48,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/carrito" element={<Cart />} />
       </Routes>
       <Footer />
 
