@@ -19,14 +19,14 @@ const SearchButton = () => {
           <input
             type="search"
             placeholder=" Buscar..."
-            className="rounded-md border border-black mx-1 py-1 px-2 bg-transparent"
+            className="rounded-md border border-black mx-1 py-1 px-2 bg-textLight "
           />
         ) : null}
       </div>
 
       <button
         onClick={handleSearchClick}
-        className="ml-1 p-3 rounded-full hover:bg-accents hover:duration-150"
+        className="ml-1 text-textLight p-3 rounded-full hover:bg-accents hover:duration-150"
       >
         <FaMagnifyingGlass />
       </button>
