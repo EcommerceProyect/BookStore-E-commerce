@@ -23,7 +23,7 @@ const {
                 includeOptions.push({
                     model: Genre,
                     where: {
-                        name: genre,
+                        id: genre,
                     },
                     through: GenreProducts,
 
@@ -34,7 +34,7 @@ const {
                 includeOptions.push({
                     model: Author,
                     where: {
-                        name: author,
+                        id: author,
                     },
                     through: AuthorProducts
                 })
@@ -44,7 +44,7 @@ const {
                 includeOptions.push({
                     model: Editorial,
                     where: {
-                        name: editorial,
+                        id: editorial,
                     },
                 })
             }
@@ -112,6 +112,7 @@ const {
     
             return {
                 count: data.count,
+                page: page,
                 detailedResults: detailedResults,
             };
     
