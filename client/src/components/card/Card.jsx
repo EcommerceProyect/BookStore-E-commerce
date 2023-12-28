@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 
 import { Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/products';
+
 import ButtonHeart from './ButtonHeart';
 import FiveStars from './FiveStars';
 
