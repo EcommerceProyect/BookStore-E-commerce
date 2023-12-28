@@ -4,6 +4,9 @@ const itemPerPage = 4;
 const getAllProducts = async () => {
 
     try {
+
+        const {count} = await Products.findAndCountAll();
+
         const response = await Products.findAndCountAll({
             include: [
                 { model: Author, as: 'Authors' },
@@ -15,9 +18,9 @@ const getAllProducts = async () => {
         });
 
         const data = {
-            totalPages: Math.ceil(response.count / itemPerPage),
-            numberOfResults: response.count,
-            data: response,
+            totalPages: Math.ceil(count / itemPerPage),
+            numberOfResults: count,
+            data: response.rows,
           };
 
         return data;
