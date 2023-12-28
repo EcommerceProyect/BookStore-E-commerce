@@ -6,17 +6,17 @@ const CardCarousel = ({id,
     price,
     })=>{
     return(
-        <div class="grid grid-cols-2 gap-8 relative w-full h-full bg-white  border border-gray-200 shadow dark:border-gray-700">
+        <div className="grid grid-cols-2 gap-8 relative w-full h-full bg-white  border border-gray-200 shadow dark:border-gray-700">
        
-          <div class="col-span-1 flex p-0">
-            <img class="shadow-md" src={image} alt="product image" />
+          <div className="col-span-1 flex p-0">
+            <img className="shadow-md" src={image} alt="product image" />
           </div>
   
-          <div class="col-span-1 flex flex-col justify-between px-5 pb-5">
-            <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
+          <div className="col-span-1 flex flex-col justify-between px-5 pb-5">
+            <h5 className="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
               {title}
             </h5>
-            <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
+            <h5 className="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
               Géneros:
             </h5>
             {/* <ul>
@@ -24,7 +24,7 @@ const CardCarousel = ({id,
                 <li key={genreItem.id}>{genreItem.name}</li>
               ))}
             </ul> */}
-            <h5 class="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
+            <h5 className="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
               Autores:
             </h5>
             {/* <ul>
@@ -32,8 +32,8 @@ const CardCarousel = ({id,
                 <li key={author.id}>{author.name}</li>
               ))}
             </ul> */}
-            <div class="flex items-center justify-between">
-              <span class="text-left text-2xl font-bold text-gray-900 dark:text-black">
+            <div className="flex items-center justify-between">
+              <span className="text-left text-2xl font-bold text-gray-900 dark:text-black">
                 Precio: {price}
               </span>
             

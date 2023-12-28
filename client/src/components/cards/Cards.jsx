@@ -49,6 +49,7 @@ function Cards() {
     return <div>Error: {error}</div>;
   }
 
+  console.log(list)
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center">

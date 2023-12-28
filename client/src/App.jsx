@@ -48,7 +48,6 @@ function App() {
         <Route path="/faqs" element={<Faqs />} />
       </Routes>
       <Footer />
-
       {showRegistrationModal && (
         <RegistrationModal onClose={closeRegistrationModal} />
       )}
