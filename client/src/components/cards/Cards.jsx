@@ -12,6 +12,7 @@ function Cards() {
   const { list, loading, error, orderOption } = useSelector(
     (state) => state.products,
   );
+
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 2;
