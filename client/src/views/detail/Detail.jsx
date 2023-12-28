@@ -23,7 +23,7 @@ function Detail() {
 
   return (
     <div>
-      <section class="text-gray-700 body-font overflow-hidden bg-white py-2">
+      <section class="text-textGray body-font overflow-hidden bg-white py-2">
         <div class="container px-5 py-24 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img
@@ -33,8 +33,10 @@ function Detail() {
             />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 class="text-textDark text-2xl title-font font-bold mb-1 pb-2">
+              <h1 class="text-textDark text-2xl title-font font-bold mb-1 pb-2">
                 {detailProduct?.title || 'Título no disponible.'}
               </h1>
+              <h2 class="text-sm title-font text-textGray tracking-widest pb-1">
               <h2 class="text-sm title-font text-textGray tracking-widest pb-1">
                 {detailProduct?.Authors.map((author) => author.name) ||
                   'Autor no disponible.'}
@@ -47,7 +49,7 @@ function Detail() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    class="w-4 h-4 text-red-500"
+                    class="w-4 h-4 text-accents"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -58,7 +60,7 @@ function Detail() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    class="w-4 h-4 text-red-500"
+                    class="w-4 h-4 text-accents"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -69,7 +71,7 @@ function Detail() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    class="w-4 h-4 text-red-500"
+                    class="w-4 h-4 text-accents"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -80,7 +82,7 @@ function Detail() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    class="w-4 h-4 text-red-500"
+                    class="w-4 h-4 text-accents"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -91,7 +93,7 @@ function Detail() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    class="w-4 h-4 text-red-500"
+                    class="w-4 h-4 text-accents"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -116,12 +118,13 @@ function Detail() {
               </h2>
               <div class="flex pt-4">
                 <span class="text-left text-2xl font-medium text-textDark dark:text-black">
+                <span class="text-left text-2xl font-medium text-textDark dark:text-black">
                   Precio: ${detailProduct?.price || 'Precio no disponible.'}
                 </span>
                 <button class="flex ml-auto text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                   Agregar al carrito
                 </button>
-                <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-textGray ml-4">
                   <svg
                     fill="currentColor"
                     strokeLinecap="round"

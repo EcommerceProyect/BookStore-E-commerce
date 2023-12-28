@@ -26,7 +26,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <div title="Iniciar Sesión">
             <Button
               onClick={openLoginModal}
-              icon={<MdOutlineLogin color="white" size={20} />}
+              icon={<MdOutlineLogin className="text-textLight" size={20} />}
             />
           </div>
 
@@ -34,25 +34,25 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
             <Button
               onClick={openRegistrationModal}
               // link="#"
-              icon={<MdPersonAddAlt1 color="white" size={20} />}
+              icon={<MdPersonAddAlt1 className="text-textLight" size={20} />}
             />
           </div>
           <div title="Perfil">
             <Button
               link="#"
-              icon={<MdPersonOutline color="white" size={20} />}
+              icon={<MdPersonOutline className="text-textLight" size={20} />}
             />
           </div>
           <div title="Carrito">
             <Button
               link="#"
-              icon={<LiaShoppingBagSolid color="white" size={20} />}
+              icon={<LiaShoppingBagSolid className="text-textLight" size={20} />}
             />
           </div>
           <div title="Cerrar Sesión">
             <Button
               link="#"
-              icon={<MdOutlineLogout color="white" size={20} />}
+              icon={<MdOutlineLogout className="text-textLight" size={20} />}
             />
           </div>
         </div>
