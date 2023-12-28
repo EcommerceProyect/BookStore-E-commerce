@@ -1,58 +1,59 @@
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-   sequelize.define('Users', {
-    id:{
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+  sequelize.define("Users", {
+    id: {
+      type: DataTypes.STRING,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
     },
-    name:{
-        type: DataTypes.STRING(50),
-        allowNull: false,
-        validate:{
-            len:[1, 50],
-            msg: 'El nombre debe tener entre 1 y 50 caracteres'
-        }
+    name: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      validate: {
+        len: [1, 100]
+      }
     },
-    last_name:{
-        type: DataTypes.STRING(30),
-        allowNull: false,
-        validate:{
-            len:[1, 30],
-            msg: 'El apellido debe tener entre 1 y 30 caracteres'
-        }
+    last_name: {
+      type: DataTypes.STRING(30),
+      allowNull: true,
+      validate: {
+        len: [1, 30]
+      }
     },
-    phone:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        unique:true,
-        validate:{
-            is: /^\d{10}$/g,
-            msg: "El número de teléfono debe contener 10 dígitos"
-        }
-        },
-    email:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate:{
-            isEmail: true
-        }
-    },
-    password:{
-        type: DataTypes.STRING,
+    phone: {
+        type: DataTypes.STRING(10),
         allowNull: true,
-    },
-    registration_type:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-            isIn: {
-                args: [['local', 'google']],
-                msg: 'El tipo de registro debe ser "local" o "google".'
-            }
+        unique: true,
+        validate: {
+          len: [0, 10],
         }
-    }
-   },{timestamps: true})
-}
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [["admin", "invitado", "user"]]
+      }
+    },
+    registration_type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [["local", "google"]]
+      }
+    },
+  }, {timestamps:true, paranoid: true});
+};

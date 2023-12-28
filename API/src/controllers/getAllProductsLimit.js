@@ -10,7 +10,9 @@ const getAllProductsLimit = async (page) => {
 
     try {
         
-        const response = await Products.findAll({
+        const {count} = await Products.findAndCountAll();
+
+        const response = await Products.findAndCountAll({
             offset,
             limit:itemPerPage,
             include: [
@@ -21,8 +23,14 @@ const getAllProductsLimit = async (page) => {
                 { model: ISBN, as: 'ISBN' }
               ]
         });
-
-        return response;
+        
+        const data = {
+            totalPages: Math.ceil(count / itemPerPage),
+            currentPage: page,
+            numberOfResults: count,
+            data: response.rows,
+        };
+        return data;
 
     } catch (error) {
         
