@@ -10,7 +10,10 @@ import SortingComponent from './sort/Sort';
 
 function Cards() {
   const dispatch = useDispatch();
-  const { list, loading, error } = useSelector((state) => state.products);
+
+  const { list, loading, error, orderOption } = useSelector(
+    (state) => state.products,
+  );
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const selectedGenre = useSelector((state) => state.genres && state.genres.selectedGenre);
@@ -88,6 +91,7 @@ function Cards() {
     return <div>Error: {error}</div>;
   }
 
+  console.log(list)
   return (
     <div className="flex">
       <div className='absolute m-4 right-4'>
@@ -128,6 +132,7 @@ function Cards() {
       Genres={product.Genres || 'Género no disponible'}
       Authors={product.Authors || 'Autor no disponible'}
       price={product.price || 'Precio no disponible'}
+      ISBN={product.ISBN}
     />
   </div>
 ))}
@@ -138,7 +143,7 @@ function Cards() {
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 0}
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Previous
             </button>
@@ -147,7 +152,7 @@ function Cards() {
             <li key={i}>
               <button
                 onClick={() => setCurrentPage(i)}
-                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'text-blue-600 bg-blue-50' : ''
+                className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'text-blue-600 bg-blue-50' : ''
                   }`}
               >
                 {i + 1}
@@ -158,7 +163,7 @@ function Cards() {
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages - 1}
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Next
             </button>
