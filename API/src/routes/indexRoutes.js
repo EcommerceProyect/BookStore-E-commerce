@@ -21,6 +21,8 @@ const { updateAuthorHandler } = require("../handlers/UpdateInfoHandler/updateAut
 const { updateGenreHandler } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const { updateEditorialHandler } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const { updateReleasedDateHandler } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+const { getUser } = require("../handlers/Users/getUser");
 
 const router = Router();
 
@@ -44,8 +46,6 @@ router.get("/authors",getAuthors);
 router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
 
-// router.get("/user",getUser());
-
 //delete product
 
 router.post("/products",createProduct)
@@ -60,8 +60,12 @@ router.put("/author/:id", updateAuthorHandler);
 router.put("/genre/:id", updateGenreHandler);
 router.put("/editorial/:id", updateEditorialHandler);
 router.put("/releasedDate/:id", updateReleasedDateHandler);
+router.put("/ISBN/:id",updateISBNHandler);
 
 router.delete("/products/:id", deleteProduct);
 
+//Users
+
+router.get("/user",getUser);
 
 module.exports = router;

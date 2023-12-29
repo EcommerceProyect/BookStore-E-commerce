@@ -32,7 +32,7 @@ app.get("/authorized", async (req, res) => {
     queryString = queryString.slice(0, -1);
 
     const response = await axios({
-      method: "get",
+      method: "get",//chequear esto
       url: `${challengesAPIEndpoint}/${route}${queryString}`,
       headers: { Authorization: `Bearer ${access_token}` },
     });
