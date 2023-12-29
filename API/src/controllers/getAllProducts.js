@@ -1,9 +1,13 @@
 const { Products,Author,Editorial,Genre,ISBN,ReleasedDate } = require("../db");
+const itemPerPage = 4;
 
 const getAllProducts = async () => {
 
     try {
-        const response = await Products.findAll({
+
+        const {count} = await Products.findAndCountAll();
+
+        const response = await Products.findAndCountAll({
             include: [
                 { model: Author, as: 'Authors' },
                 { model: ReleasedDate, as: 'ReleasedDate' },  
@@ -13,9 +17,13 @@ const getAllProducts = async () => {
               ]
         });
 
-        
+        const data = {
+            totalPages: Math.ceil(count / itemPerPage),
+            numberOfResults: count,
+            data: response.rows,
+          };
 
-        return response;
+        return data;
 
     } catch (error) {
         
