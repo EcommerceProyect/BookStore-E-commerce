@@ -1,28 +1,20 @@
-const { Products, ReleasedDate } = require("../../db");
+const {ReleasedDate} = require("../../db");
 
-const updateReleasedDateController = async (productId, newReleasedDate) => {
+const updateReleasedDateController = async (releasedDateId, releasedDateData) => {
     try {
-        const product = await Products.findByPk(productId, {
-            include: ReleasedDate,
-        });
-
-        if (!product) {
-            throw new Error("No existe el producto");
-        }
-
-        const releasedDate = product.ReleasedDate;
-
-        if (!releasedDate) {
-            throw new Error("El producto no tiene información de fecha de lanzamiento");
-        }
-
-        // Aca actualizo el dato.
-        await releasedDate.update({ date: newReleasedDate });
-
-        return releasedDate;
+      const releasedDate = await ReleasedDate.findByPk(releasedDateId);
+      if (!releasedDate) {
+        throw new Error("No existe la fecha de lanzamiento");
+      }
+      await releasedDate.update({ date: releasedDateData.date });
+  
+      const updatedReleasedDate = await ReleasedDate.findByPk(releasedDateId);
+      return updatedReleasedDate;
     } catch (error) {
-        throw new Error(error.message);
+      throw new Error(error.message);
     }
-};
-
-module.exports = { updateReleasedDateController };
+  };
+  
+  module.exports = {
+    updateReleasedDateController,
+  };

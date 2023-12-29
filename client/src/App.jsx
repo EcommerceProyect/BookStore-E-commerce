@@ -6,10 +6,12 @@ import Faqs from './components/footer/Faqs';
 import AboutUs from './components/footer/AboutUs';
 import Login from './components/login/Login';
 import Home from './views/home/Home';
-import DropDownMenu from './components/dropDownMenu/DropDownMenu';
+// import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
 import RegistrationModal from './components/registration/RegistrationModal';
+import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
+import Cart from './views/cart/Cart';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -35,7 +37,7 @@ function App() {
 
   return (
     <div>
-      <DropDownMenu />
+      {/* <DropDownMenu /> */}
       <Navbar
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
@@ -46,9 +48,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/carrito" element={<Cart />} />
       </Routes>
       <Footer />
-
       {showRegistrationModal && (
         <RegistrationModal onClose={closeRegistrationModal} />
       )}

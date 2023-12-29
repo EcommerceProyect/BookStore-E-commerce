@@ -5,10 +5,13 @@ import "./Challenges.css";
 import queryString from "query-string";
 
 const Challenges = () => {
+
   const location = useLocation();
   const { search } = location;
   const { code } = queryString.parse(search);
   const [challengesData, setChallengesData] = useState("none");
+
+
 
   useEffect(() => {
     fetch(`http://localhost:3001/authorized?code=${code}`, {

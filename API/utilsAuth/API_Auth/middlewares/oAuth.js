@@ -8,7 +8,7 @@ const tokenEndpoint = "https://dev-s3pcs1ovog464bay.us.auth0.com/oauth/token";
 
 let oAuth = (req, res, next) => {
   let code = req.query.code;
-
+  
   if(!code) {
     res.status(401).send("Missing authorization code");
   }
@@ -16,9 +16,9 @@ let oAuth = (req, res, next) => {
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
   params.append("client_id", "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY");
-  params.append("client_secret", CLIENT_SECRET)
+  params.append("client_secret", `${CLIENT_SECRET}`)
   params.append("code", code);
-  params.append("redirect_uri", "http://localhost:5173/challenges");
+  params.append("redirect_uri", "http://localhost:5173/redirect");
 
   axios.post(tokenEndpoint, params)
   .then(response => {

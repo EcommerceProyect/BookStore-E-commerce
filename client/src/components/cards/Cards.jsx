@@ -8,7 +8,10 @@ import Card from '../card/Card';
 
 function Cards() {
   const dispatch = useDispatch();
-  const { list, loading, error } = useSelector((state) => state.products);
+
+  const { list, loading, error, orderOption } = useSelector(
+    (state) => state.products,
+  );
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 2;
@@ -19,6 +22,20 @@ function Cards() {
     dispatch(getProducts(currentPage));
     getTotalItems();
   }, [dispatch, currentPage]);
+
+  //!funcion de ordenamiento
+  const sortedList = [...list].sort((a, b) => {
+    if (orderOption === 'asc') {
+      return a.title.toLowerCase() > b.title.toLowerCase();
+    } else if (orderOption === 'desc') {
+      return a.title.toLowerCase() < b.title.toLowerCase();
+    } else if (orderOption === 'lowtohigh') {
+      return a.price > b.price;
+    } else if (orderOption === 'hightolow') {
+      return a.price < b.price;
+    }
+    return 0;
+  });
 
   const getTotalItems = async () => {
     try {
@@ -49,6 +66,7 @@ function Cards() {
     return <div>Error: {error}</div>;
   }
 
+  console.log(list)
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center">
@@ -61,6 +79,7 @@ function Cards() {
               Genres={product.Genres || 'Género no disponible'}
               Authors={product.Authors || 'Autor no disponible'}
               price={product.price || 'Precio no disponible'}
+              ISBN={product.ISBN}
             />
           </div>
         ))}

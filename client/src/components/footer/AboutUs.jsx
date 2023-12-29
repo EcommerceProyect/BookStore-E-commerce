@@ -1,21 +1,23 @@
 const AboutUs = () => {
   return (
-    <section className="py-10 lg:py-20 bg-stone-100 font-poppins dark:bg-gray-800">
+    <section className="py-10 lg:py-20 bg-white font-poppins dark:bg-gray-800">
       <div className="max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
         <div className="flex flex-wrap ">
           <div className="w-full px-4 mb-10 lg:mb-0 ">
             <div>
+              
               <div className="px-4 pl-4 mb-6 border-l-4 border-accents">
                 <h1 className="mt-2 text-xl font-black text-textDark md:text-4xl dark:text-gray-300">
                   Sobre nosotros
                 </h1>
               </div>
-              <p className="px-4 mb-10 text-base leading-7 text-gray-500 dark:text-gray-400">
+              <p className="px-4 mb-10 text-base leading-7 text-textGray">
                 Especializados en la distribución de libros, para ofrecer a
                 lectores y autores la mejor experiencia en el ámbito de la
                 literatura, con la doble intención de potenciar la creatividad
                 literaria y fomentar el valor de la lectura en la sociedad.
               </p>
+              
               <div className="px-4 pl-4 mb-6 border-l-4 border-accents">
                 <h1 className="mt-2 text-xl font-black text-textDark md:text-4xl dark:text-gray-300">
                   Nuestra misión
@@ -33,11 +35,11 @@ const AboutUs = () => {
               <div className="flex flex-wrap items-center">
                 <div className="w-full px-4 mb-6 sm:w-1/2 md:w-1/2 lg:mb-6">
                   <div className="p-6 bg-white dark:bg-gray-900">
-                    <span className="text-accents dark:text-blue-400">
+                    <span className="text-accents">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
+                        width="25"
+                        height="25"
                         className="w-10 h-10"
                         fill="currentColor"
                         class="bi bi-file-earmark-text"
@@ -57,7 +59,7 @@ const AboutUs = () => {
                 </div>
                 <div className="w-full px-4 mb-6 sm:w-1/2 md:w-1/2 lg:mb-6">
                   <div className="p-6 bg-white dark:bg-gray-900">
-                    <span className="text-accents dark:text-blue-400">
+                    <span className="text-accents">
                       <svg
                         class="w-6 h-6"
                         aria-hidden="true"
@@ -84,7 +86,7 @@ const AboutUs = () => {
                 </div>
                 <div className="w-full px-4 mb-6 sm:w-1/2 md:w-1/2 lg:mb-6">
                   <div className="p-6 bg-white dark:bg-gray-900">
-                    <span className="text-accents dark:text-blue-400">
+                    <span className="text-accents">
                       <svg
                         class="w-6 h-6"
                         aria-hidden="true"
@@ -108,11 +110,11 @@ const AboutUs = () => {
                 </div>
                 <div className="w-full px-4 mb-6 sm:w-1/2 md:w-1/2 lg:mb-6">
                   <div className="p-6 bg-white dark:bg-gray-900">
-                    <span className="text-accents dark:text-blue-400">
+                    <span className="text-accents">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
+                        width="20"
+                        height="20"
                         className="w-10 h-10"
                         fill="currentColor"
                         class="bi bi-alarm-fill"
