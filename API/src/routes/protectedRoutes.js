@@ -13,7 +13,7 @@ router.use(cors());
 const jwtCheck = auth({
   audience: 'https://www.protectAPI.com',
   issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
-  tokenSigningAlg: 'HS256',
+  tokenSigningAlg: 'RS256',
 });
 
 //middleware
