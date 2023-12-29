@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   error: null,
   detailProduct: null,
-  totalItems: 0
+  totalItems: null,
 };
 
 export const productSlice = createSlice({
