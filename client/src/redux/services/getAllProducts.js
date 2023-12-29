@@ -21,7 +21,7 @@ export const getProducts = (page) => async (dispatch) => {
   dispatch(setProductListLoading());
   try {
     const response = await axios.get(`${apiUrl}?page=${page}`);
-    dispatch(setProductList(response.data));
+    dispatch(setProductList(response.data.data));
   } catch (error) {
     dispatch(setProductListError(error.message));
   }
