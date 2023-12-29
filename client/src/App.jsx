@@ -12,6 +12,9 @@ import RegistrationModal from './components/registration/RegistrationModal';
 import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
 import Cart from './views/cart/Cart';
+import Statistics from './views/dashboard/Statistics';
+import Users from './views/dashboard/Users';
+
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -48,6 +51,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/dashboard" element={<Statistics />} />
+        <Route path="/dashboard/users" element={<Users />} />
         <Route path="/carrito" element={<Cart />} />
       </Routes>
       <Footer />
