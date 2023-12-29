@@ -98,7 +98,7 @@ function Cards() {
       <SortingComponent handleSorting={handleSorting}/>
       </div>
    
-      <div className=" w-1/4 p-4">
+      <div className= "w-1/4 p-4">
         <div>
           <GenreFilter
             currentPage={currentPage}
@@ -122,7 +122,7 @@ function Cards() {
       {loading ? (
         <div>Loading...</div>
       ) : error ? (<div>Error: {error}</div>) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 justify-items-center">
           {Array.isArray(list) && list.map((product) => (
   <div key={product.id} className="p-4">
     <Card
