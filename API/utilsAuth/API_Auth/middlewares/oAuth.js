@@ -16,7 +16,7 @@ let oAuth = (req, res, next) => {
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
   params.append("client_id", "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY");
-  params.append("client_secret", "ym8UEKrhfdmcTeNEF7utwMMxgWBWHDYhWoofbuaKyf29SEfs3IP6u9soMtUsByYD")
+  params.append("client_secret", `${CLIENT_SECRET}`)
   params.append("code", code);
   params.append("redirect_uri", "http://localhost:5173/redirect");
 

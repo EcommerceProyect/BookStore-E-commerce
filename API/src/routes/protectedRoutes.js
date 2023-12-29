@@ -5,6 +5,7 @@ const cors = require("cors");
 const { auth } = require('express-oauth2-jwt-bearer');
 const { postUser } = require("../handlers/Users/postUser");
 const { getUser } = require("../handlers/Users/getUser");
+const { getAllUsers } = require("../handlers/Users/getAllUsers");
 
 
 
@@ -50,5 +51,6 @@ router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
 });
 
 router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']),getUser);
+router.get('/authorized/users', jwtCheck,checkPermissions(['admin:edit']),getAllUsers);
 
 module.exports = router;

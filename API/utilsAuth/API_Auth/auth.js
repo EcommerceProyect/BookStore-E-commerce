@@ -30,7 +30,6 @@ app.get("/authorized", async (req, res) => {
     if(queryString==="?") queryString = "";
 
     queryString = queryString.slice(0, -1);
-    console.log(queryString)
 
     const response = await axios({
       method: "get",
