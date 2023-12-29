@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-require("dotenv").config();
 
 const {Users} = require("../../db");
 

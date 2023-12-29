@@ -11,7 +11,7 @@ const Challenges = () => {
   const [challengesData, setChallengesData] = useState("none");
 
   useEffect(() => {
-    fetch(`http://localhost:3001/authorized?code=${code}`, {
+    fetch(`http://localhost:3001/authorized?code=${code}&route=profile&id=google-oauth2|103614457521065822085`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
