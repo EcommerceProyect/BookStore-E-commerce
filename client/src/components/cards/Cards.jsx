@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, getTotalProducts } from '../../redux/services/getAllProducts';
+import {
+  getProducts,
+  getTotalProducts,
+} from '../../redux/services/getAllProducts';
 import Card from '../card/Card';
 
 function Cards() {
   const dispatch = useDispatch();
-  const { list, loading, error } = useSelector((state) => state.products);
+
+  const { list, loading, error, orderOption } = useSelector(
+    (state) => state.products,
+  );
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 2;
@@ -16,6 +22,20 @@ function Cards() {
     dispatch(getProducts(currentPage));
     getTotalItems();
   }, [dispatch, currentPage]);
+
+  //!funcion de ordenamiento
+  const sortedList = [...list].sort((a, b) => {
+    if (orderOption === 'asc') {
+      return a.title.toLowerCase() > b.title.toLowerCase();
+    } else if (orderOption === 'desc') {
+      return a.title.toLowerCase() < b.title.toLowerCase();
+    } else if (orderOption === 'lowtohigh') {
+      return a.price > b.price;
+    } else if (orderOption === 'hightolow') {
+      return a.price < b.price;
+    }
+    return 0;
+  });
 
   const getTotalItems = async () => {
     try {
@@ -46,6 +66,7 @@ function Cards() {
     return <div>Error: {error}</div>;
   }
 
+  console.log(list)
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center">
@@ -58,17 +79,21 @@ function Cards() {
               Genres={product.Genres || 'Género no disponible'}
               Authors={product.Authors || 'Autor no disponible'}
               price={product.price || 'Precio no disponible'}
+              ISBN={product.ISBN}
             />
           </div>
         ))}
       </div>
-      <nav className="flex justify-center p-5" aria-label="Page navigation example">
+      <nav
+        className="flex justify-center p-5"
+        aria-label="Page navigation example"
+      >
         <ul className="inline-flex -space-x-px text-sm">
           <li>
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 0}
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Previous
             </button>
@@ -77,7 +102,7 @@ function Cards() {
             <li key={i}>
               <button
                 onClick={() => setCurrentPage(i)}
-                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+                className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
                   currentPage === i ? 'text-blue-600 bg-blue-50' : ''
                 }`}
               >
@@ -89,7 +114,7 @@ function Cards() {
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages - 1}
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Next
             </button>

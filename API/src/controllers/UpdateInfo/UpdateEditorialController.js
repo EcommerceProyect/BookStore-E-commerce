@@ -1,21 +1,19 @@
-const { Editorial } = require("../../db");
-
-const updateEditorial = async (id, newData) => {
+const {Editorial} = require("../../db");
+const updateEditorialController = async (id, editorialData) => {
     try {
-        const editorialExisting = await Editorial.findByPk(id);
-
-        if (!editorialExisting) {
-            throw new Error("No existe la editorial");
-        }
-
-        await editorialExisting.update(newData);
-
-        return editorialExisting;
+      const editorial = await Editorial.findByPk(id);
+      if (!editorial) {
+        throw new Error("No existe la editorial");
+      }
+      await editorial.update({ name: editorialData.name });
+  
+      const updatedEditorial = await Editorial.findByPk(id);
+      return updatedEditorial;
     } catch (error) {
-        throw new Error(error.message);
+      throw new Error(error.message);
     }
-};
-
-module.exports = {
-    updateEditorial
-};
+  };
+  
+  module.exports = {
+    updateEditorialController,
+  };
