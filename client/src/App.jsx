@@ -14,6 +14,7 @@ import Detail from './views/detail/Detail';
 import Cart from './views/cart/Cart';
 import Statistics from './views/dashboard/Statistics';
 import Users from './views/dashboard/Users';
+import RegisterAuth from './components/Auth/RegisterAuth';
 
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
       
 
       <Routes>
+        {/* auth */}
+        <Route path='/redirect' Component={RegisterAuth}/>
+        {/* auth */}
         <Route path="/" element={<Home />}/>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />

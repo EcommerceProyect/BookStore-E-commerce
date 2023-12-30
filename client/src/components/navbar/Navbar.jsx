@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Logo from '../../assets/images/Logo.svg';
 
@@ -10,15 +10,22 @@ import {
   MdOutlineLogout,
   MdPersonOutline,
   MdPersonAddAlt1,
+  MdAppRegistration,
 } from 'react-icons/md';
 import LoginAuth from '../Auth/LoginAuth';
+import RegisterAuth from '../Auth/RegisterAuth';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
+
   const { cartCount } = useSelector((state) => state.products);
 
   //Auth modularizarlo si es necesario
-  const handleLoginAuth = async () => {
 
+  const [isRegister,setIsRegister] = useState(false)
+  
+  
+  const handleLoginAuth = async () => {
+    if(isRegister)setIsRegister(false);
     const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
 
     const audience= "https://www.protectAPI.com";
@@ -42,7 +49,35 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     window.location.href = response.url;
 
   }
+  const handleRegisterAuth = async () => {
 
+    if(!isRegister)setIsRegister(true);
+
+    const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+
+    const audience= "https://www.protectAPI.com";
+
+    const scope = "admin:edit";
+    const clientId= "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
+
+    const response_type = "code";
+    const redirectUri = "http://localhost:5173/redirect";
+    const response = await fetch(
+      `https://${domain}/authorize?` + 
+      `audience=${audience}&` + 
+      `scope=${scope}&` +
+      `response_type=${response_type}&` +
+      `client_id=${clientId}&` +
+      `redirect_uri=${redirectUri}`, {
+        redirect: "manual"
+      }
+    );
+
+    window.location.href = response.url;
+
+  }
+
+  
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
@@ -52,9 +87,17 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
         </div>
 
         <div className="flex items-center justify-between gap-2 pl-10 mr-5">
-          
+          {/* auth */}
+
           <div>
-            <LoginAuth/>
+
+          <LoginAuth/>
+
+          </div>
+          <div title="Register Auth">
+            <Button onClick={handleRegisterAuth}
+              icon={<MdAppRegistration className="text-textLight" size={20} />}
+            />
           </div>
 
           <div title="Login Auth">
@@ -63,6 +106,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
             />
           </div>
           
+          {/* auth */}
           <div title="Iniciar Sesión">
             <Button
               onClick={openLoginModal}
