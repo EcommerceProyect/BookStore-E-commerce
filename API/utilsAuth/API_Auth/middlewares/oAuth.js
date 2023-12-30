@@ -1,10 +1,8 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const {CLIENT_SECRET} = process.env;
+const { CLIENT_SECRET, GRANT_TYPE, CLIENT_ID, TOKEN_ENDPOINT, REDIRECT_URI } = process.env
 
-
-const tokenEndpoint = "https://dev-s3pcs1ovog464bay.us.auth0.com/oauth/token";
 
 let oAuth = (req, res, next) => {
   let code = req.query.code;
@@ -13,16 +11,19 @@ let oAuth = (req, res, next) => {
     res.status(401).send("Missing authorization code");
   }
 
-  const params = new URLSearchParams();
-  params.append("grant_type", "authorization_code");
-  params.append("client_id", "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY");
-  params.append("client_secret", `${CLIENT_SECRET}`)
-  params.append("code", code);
-  params.append("redirect_uri", "http://localhost:5173/redirect");
+  console.log(code)
 
-  axios.post(tokenEndpoint, params)
+  const params = new URLSearchParams();
+  params.append("grant_type", `${GRANT_TYPE}`);
+  params.append("client_id", `${CLIENT_ID}`);
+  params.append("client_secret", `${CLIENT_SECRET}`)
+  params.append("code", `${code}`);
+  params.append("redirect_uri", `${REDIRECT_URI}`);
+
+  axios.post(TOKEN_ENDPOINT, params)
   .then(response => {
     req.oauth = response.data;
+    console.log(response)
     next();
   })
   .catch(err => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./Challenges.css";
 
@@ -31,6 +31,7 @@ const Challenges = () => {
       <h5 className="Content">{challengesData}</h5>
     </div>
   );
+  
 };
 
 export default Challenges;

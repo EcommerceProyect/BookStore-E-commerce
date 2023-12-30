@@ -11,6 +11,7 @@ import {
   MdPersonOutline,
   MdPersonAddAlt1,
 } from 'react-icons/md';
+import login from '../login/AuthLogin';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);
@@ -26,7 +27,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
         <div className="flex items-center justify-between gap-2 pl-10 mr-5">
           <div title="Iniciar Sesión">
             <Button
-              onClick={openLoginModal}
+              onClick={() => login()}
               icon={<MdOutlineLogin className="text-textLight" size={20} />}
             />
           </div>
@@ -47,7 +48,9 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <div title="Carrito">
             <Button
               link="#"
-              icon={<LiaShoppingBagSolid className="text-textLight" size={20} />}
+              icon={
+                <LiaShoppingBagSolid className="text-textLight" size={20} />
+              }
             />
           </div>
           <div title="Cerrar Sesión">
