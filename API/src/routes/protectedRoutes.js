@@ -40,13 +40,13 @@ router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
     
     const response = await postUser(req,res);
     console.log(response);
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error', message: 'Something went wrong' });
   }
-  res.json({
-    challenge1: "This is the first challenge",
-    challenge2: "This is another challenge",
+  res.status(200).json({
+    id_user:req.auth.payload.sub
   });
 });
 
