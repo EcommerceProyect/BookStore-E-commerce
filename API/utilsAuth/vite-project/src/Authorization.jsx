@@ -31,7 +31,6 @@ const Challenges = () => {
       <h5 className="Content">{challengesData}</h5>
     </div>
   );
-  
 };
 
 export default Challenges;

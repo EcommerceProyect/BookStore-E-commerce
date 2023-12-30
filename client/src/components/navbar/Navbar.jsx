@@ -11,41 +11,37 @@ import {
   MdPersonOutline,
   MdPersonAddAlt1,
 } from 'react-icons/md';
-<<<<<<< HEAD
-import login from '../login/AuthLogin';
-=======
+import AuthLogin from '../login/AuthLogin';
 import LoginAuth from '../Auth/LoginAuth';
->>>>>>> 08822fb6ffa323911b3396e5ee3758067d7fadc5
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);
 
   //Auth modularizarlo si es necesario
   const handleLoginAuth = async () => {
+    const domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
 
-    const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+    const audience = 'https://www.protectAPI.com';
 
-    const audience= "https://www.protectAPI.com";
+    const scope = 'admin:edit';
+    const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
-    const scope = "admin:edit";
-    const clientId= "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
-
-    const response_type = "code";
-    const redirectUri = "http://localhost:5173/";
+    const response_type = 'code';
+    const redirectUri = 'http://localhost:5173/';
     const response = await fetch(
-      `https://${domain}/authorize?` + 
-      `audience=${audience}&` + 
-      `scope=${scope}&` +
-      `response_type=${response_type}&` +
-      `client_id=${clientId}&` +
-      `redirect_uri=${redirectUri}`, {
-        redirect: "manual"
-      }
+      `https://${domain}/authorize?` +
+        `audience=${audience}&` +
+        `scope=${scope}&` +
+        `response_type=${response_type}&` +
+        `client_id=${clientId}&` +
+        `redirect_uri=${redirectUri}`,
+      {
+        redirect: 'manual',
+      },
     );
 
     window.location.href = response.url;
-
-  }
+  };
 
   return (
     <nav className=" bg-primary p-3">
@@ -56,17 +52,17 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
         </div>
 
         <div className="flex items-center justify-between gap-2 pl-10 mr-5">
-          
           <div>
-            <LoginAuth/>
+            <LoginAuth />
           </div>
 
           <div title="Login Auth">
-            <Button onClick={handleLoginAuth}
+            <Button
+              onClick={handleLoginAuth}
               icon={<MdOutlineLogin className="text-textLight" size={20} />}
             />
           </div>
-          
+
           <div title="Iniciar Sesión">
             <Button
               onClick={() => login()}
@@ -106,7 +102,6 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     </nav>
 
     // auth
-    
   );
 };
 

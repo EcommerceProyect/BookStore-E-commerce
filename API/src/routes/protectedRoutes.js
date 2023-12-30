@@ -37,7 +37,6 @@ router.use(jwtCheck);
 router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   console.log("Y", req.auth);
   try {
-    
     const response = await postUser(req,res);
     console.log(response);
   } catch (error) {
@@ -50,7 +49,7 @@ router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   });
 });
 
-router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']),getUser);
-router.get('/authorized/users', jwtCheck,checkPermissions(['admin:edit']),getAllUsers);
+router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']), getUser);
+router.get('/authorized/users', jwtCheck,checkPermissions(['admin:edit']), getAllUsers);
 
 module.exports = router;
