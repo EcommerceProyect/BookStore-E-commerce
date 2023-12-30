@@ -21,22 +21,24 @@ app.get("/authorized", async (req, res) => {
     let queryString = "?";
 
     for (const [key,value] of Object.entries(req.query)){
+
       console.log(key,value);
       if(key !== "route" && key !== "code"  ){
-        queryString+=`${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
+        queryString+=`${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
       }
 
     }
+
     if(queryString==="?") queryString = "";
 
     queryString = queryString.slice(0, -1);
 
     const response = await axios({
-      method: "get",//chequear esto
+      method: "get",
       url: `${challengesAPIEndpoint}/${route}${queryString}`,
       headers: { Authorization: `Bearer ${access_token}` },
     });
-    
+
     res.json(response.data);
 
   } catch (error) {

@@ -11,7 +11,6 @@ let oAuth = (req, res, next) => {
     res.status(401).send("Missing authorization code");
   }
 
-  console.log(code)
 
   const params = new URLSearchParams();
   params.append("grant_type", `${GRANT_TYPE}`);
@@ -20,14 +19,13 @@ let oAuth = (req, res, next) => {
   params.append("code", `${code}`);
   params.append("redirect_uri", `${REDIRECT_URI}`);
 
+
   axios.post(TOKEN_ENDPOINT, params)
   .then(response => {
     req.oauth = response.data;
-    console.log(response)
     next();
   })
   .catch(err => {
-    console.log(err);
     res.status(403).json(`Reason: ${err.message}`);
   })
 }
