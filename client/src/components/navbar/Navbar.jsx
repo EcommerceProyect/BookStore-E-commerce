@@ -94,6 +94,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <LoginAuth/>
 
           </div>
+          
           <div title="Register Auth">
             <Button onClick={handleRegisterAuth}
               icon={<MdAppRegistration className="text-textLight" size={20} />}
