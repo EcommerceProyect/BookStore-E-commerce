@@ -27,7 +27,7 @@ let oAuth = (req, res, next) => {
   })
   .catch(err => {
     // console.log(err);
-    res.status(403).json(`Reason: ${err.message}`);
+    return res.status(403).json(`Reason: ${err.message}`);
   })
 }
 
