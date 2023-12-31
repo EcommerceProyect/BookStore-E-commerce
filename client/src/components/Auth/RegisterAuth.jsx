@@ -16,12 +16,13 @@ const RegisterAuth = () => {
       if (challengesData === "none" && code) {
         try {
           const response = await fetch(
-            `http://localhost:3001/authorized?code=${code}`,
+            `https://api-books-auth0.onrender.com/authorized?code=${code}`,
             {
               method: 'GET',
               headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                credentials: 'include',
               },
             }
           );

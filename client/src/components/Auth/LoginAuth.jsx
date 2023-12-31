@@ -16,12 +16,13 @@ const LoginAuth = () => {
       if (challengesData === "none" && code) {
         try {
           const response = await fetch(
-            `http://localhost:3001/authorized?code=${code}&route=profile&id=google-oauth2|103614457521065822085`,
+            `https://api-books-auth0.onrender.com/authorized?code=${code}&route=profile&id=google-oauth2|103614457521065822085`,
             {
               method: 'GET',
               headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                credentials: 'include',
               },
             }
           );
