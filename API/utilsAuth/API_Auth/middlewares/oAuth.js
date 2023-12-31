@@ -10,7 +10,7 @@ let oAuth = (req, res, next) => {
   let code = req.query.code;
   console.log(code);
   if(!code) {
-    res.status(401).send("Missing authorization code");
+    return res.status(401).send("Missing authorization code");
   }
 
   const params = new URLSearchParams();
