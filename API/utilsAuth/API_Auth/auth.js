@@ -45,16 +45,16 @@ app.get("/authorized", async (req, res) => {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     
-    return res.json(response.data);
+    res.json(response.data);
 
   } catch (error) {
 
     if (error.response.status === 401) {
-      return res.status(401).json("Unauthorized to access data");
+      res.status(401).json("Unauthorized to access data");
     } else if (error.response.status === 403) {
-      return res.status(403).json("Permission denied");
+      res.status(403).json("Permission denied");
     } else {
-      return res.status(500).json("Whoops, something went wrong");
+      res.status(500).json("Whoops, something went wrong");
     }
   }
 });
