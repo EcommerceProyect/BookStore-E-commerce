@@ -46,7 +46,6 @@ function Card({
   return (
     <div class="relative w-full max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:border-gray-700">
       <div class="relative p-8">
-        <ButtonHeart />
         <Link to={`/detail/${id}`}>
           <div className="w-60 h-60">
             <img
