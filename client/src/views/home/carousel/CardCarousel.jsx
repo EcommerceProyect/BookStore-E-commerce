@@ -2,44 +2,32 @@ const CardCarousel = ({id,
     image,
     title,
     Authors,
-    Genres,
     price,
+    synopsis
     })=>{
-    return(
-        <div className="grid grid-cols-2 gap-8 relative w-full h-full bg-white  border border-gray-200 shadow dark:border-gray-700">
-       
-          <div className="col-span-1 flex p-0">
-            <img className="shadow-md" src={image} alt="product image" />
-          </div>
-  
-          <div className="col-span-1 flex flex-col justify-between px-5 pb-5">
-            <h5 className="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
-              {title}
-            </h5>
-            <h5 className="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
-              Géneros:
-            </h5>
-            {/* <ul>
-              {Genres.map((genreItem) => (
-                <li key={genreItem.id}>{genreItem.name}</li>
-              ))}
-            </ul> */}
-            <h5 className="text-left text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
-              Autores:
-            </h5>
-            {/* <ul>
-              {Authors.map((author) => (
-                <li key={author.id}>{author.name}</li>
-              ))}
-            </ul> */}
-            <div className="flex items-center justify-between">
-              <span className="text-left text-2xl font-bold text-gray-900 dark:text-black">
-                Precio: {price}
-              </span>
-            
+      return (
+        <div class="flex flex-col justify-center h-full">
+          <div
+            class="h-full relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
+            <div class="w-full md:w-1/3 bg-white grid place-items-center">
+              <img src={image} alt="imagenCarrusel" class="rounded-xl" />
+            </div>
+            <div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
+            <h3 class="font-black text-gray-800 md:text-3xl text-xl">{title}</h3>
+              <div class="flex justify-between item-center">
+                <ul class="text-gray-500 font-medium hidden md:block">
+                  {Authors.map((author) => (
+                    <li key={author.id}>{author.name}</li>
+                  ))}
+                </ul>
+              </div>
+              <p class="md:text-lg text-gray-500 text-base">{synopsis}</p>
+              <p class="text-xl font-black text-gray-800">
+                ${price}
+              </p>
             </div>
           </div>
-      </div>
-    )
+        </div>
+      )
 }
 export default CardCarousel;

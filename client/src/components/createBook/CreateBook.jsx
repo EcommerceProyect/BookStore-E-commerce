@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -7,6 +7,9 @@ import bookValidation from './bookValidation';
 
 import { Button, Label, TextInput, Alert } from 'flowbite-react';
 import CreatableSelect from 'react-select/creatable';
+import Cloudinary from './cloudinary';
+
+import axios from 'axios';
 
 const CreateBook = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,12 @@ const CreateBook = () => {
     editorial: '',
     ISBNname: '',
     stock: '',
+  });
+
+  const [fileImage, setFileImage] = useState(null);
+
+  const updateFileImage = useCallback((file) => {
+    setFileImage(file);
   });
 
   const [errors, setErrors] = useState({
@@ -53,6 +62,13 @@ const CreateBook = () => {
     );
   };
 
+  const handleChangeImage = (value) => {
+    setBookData({
+      ...bookData,
+      ['image']: value,
+    });
+  };
+
   const handleSelectChangeGenre = (e) => {
     const updatedGenres = e.map((selectedGenre) => selectedGenre.value);
     setBookData({ ...bookData, genre: updatedGenres });
@@ -78,7 +94,18 @@ const CreateBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Cargar imagen en cloudinary y obtener url
+      const data = new FormData();
+      data.append('file', fileImage);
+      data.append('upload_preset', 'oxcrd6yr');
+      const responseImage = await axios.post(
+        'https://api.cloudinary.com/v1_1/dwajgrydt/image/upload',
+        data,
+      );
+      handleChangeImage(responseImage.data.secure_url);
+
       const response = await dispatch(postProduct(bookData));
+      console.log('Response carga libro', response);
       if (response && response.status === 201) {
         alert('Libro creado exitosamente.');
       } else {
@@ -131,15 +158,7 @@ const CreateBook = () => {
         <div className="mb-2 block">
           <Label htmlFor="image" value="Imagen"></Label>
         </div>
-        <TextInput
-          type="url"
-          name="image"
-          id="image"
-          value={bookData.image}
-          onChange={handleChange}
-          color={errors.image ? 'failure' : 'gray'}
-          helperText={errors.image ? errors.image : null}
-        />
+        <Cloudinary fileImage={fileImage} updateFileImage={updateFileImage} />
       </div>
 
       <div>
@@ -270,7 +289,6 @@ const CreateBook = () => {
           bookData.price === '' ||
           bookData.releaseDate === '' ||
           bookData.editorial === '' ||
-          bookData.image === '' ||
           bookData.ISBNname === '' ||
           bookData.synopsis === '' ||
           bookData.stock === '' ||

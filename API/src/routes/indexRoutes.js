@@ -21,8 +21,13 @@ const { updateAuthorHandler } = require("../handlers/UpdateInfoHandler/updateAut
 const { updateGenreHandler } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const { updateEditorialHandler } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const { updateReleasedDateHandler } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+<<<<<<< HEAD
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
+=======
+const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { deleteUserHandler } = require("../handlers/Users/deleteUser");
+>>>>>>> cd49505b9ea44523eeedb6c1e0e60fdbfeb8b1f8
 
 const router = Router();
 
@@ -55,6 +60,7 @@ router.get("/products",getProducts);
 router.get("/products/:id",getProductByIdHandler);
 
 router.put("/products/:id",updateProductHandler);
+router.put("/user/:id",updateUserHandler);
 
 router.put("/author/:id", updateAuthorHandler);
 router.put("/genre/:id", updateGenreHandler);
@@ -63,6 +69,7 @@ router.put("/releasedDate/:id", updateReleasedDateHandler);
 router.put("/ISBN/:id",updateISBNHandler);
 
 router.delete("/products/:id", deleteProduct);
+router.delete("/user/:id", deleteUserHandler);
 
 //Users
 
