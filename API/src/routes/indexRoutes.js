@@ -21,6 +21,8 @@ const { updateAuthorHandler } = require("../handlers/UpdateInfoHandler/updateAut
 const { updateGenreHandler } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const { updateEditorialHandler } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const { updateReleasedDateHandler } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 
 const router = Router();
 
@@ -55,6 +57,7 @@ router.get("/products",getProducts);
 router.get("/products/:id",getProductByIdHandler);
 
 router.put("/products/:id",updateProductHandler);
+router.put("/user/:id",updateUserHandler);
 
 router.put("/author/:id", updateAuthorHandler);
 router.put("/genre/:id", updateGenreHandler);
@@ -62,6 +65,7 @@ router.put("/editorial/:id", updateEditorialHandler);
 router.put("/releasedDate/:id", updateReleasedDateHandler);
 
 router.delete("/products/:id", deleteProduct);
+router.delete("/user/:id", deleteUserHandler);
 
 
 module.exports = router;
