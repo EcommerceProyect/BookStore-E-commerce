@@ -1,24 +1,121 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart } from '../../redux/slices/products';
+import NoProducts from './NoProducts';
+
+//? Icons
+import { CiSquarePlus, CiSquareMinus } from 'react-icons/ci';
+import { LuTrash2 } from 'react-icons/lu';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  const [quantity, setQuantity] = useState({});
+
+  const handleQuantityChange = (id, newQuantity) => {
+    setQuantity({
+      ...quantity,
+      [id]: newQuantity,
+    });
+  };
+
+  const increment = (id) => {
+    handleQuantityChange(id, (quantity[id] || 1) + 1);
+  };
+
+  const decrement = (id) => {
+    if (quantity[id] > 1) handleQuantityChange(id, quantity[id] - 1);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(removeFromCart({ id }));
+  };
+
+  const totalAmount = cart.reduce((acc, { price, id }) => {
+    return acc + Number(price) * (quantity[id] || 1);
+  }, 0);
+
   return (
-    <div>
-      <h1>Hola</h1>
-      {cart.map(({ id, image, title, price, ISBN, Authors }) => (
-        <div key={id}>
-          <p>{title}</p>
-          <p>
-            {Authors.map((author) => (
-              <div key={author.id}>{author.name}</div>
-            ))}
-          </p>
-          <p>{ISBN.name}</p>
-          <img src={image} alt={title} />
-          <p>{price}</p>
+    <div className="flex flex-col">
+      <h1 className="p-4 text-3xl font-bold">Tu carrito de compras</h1>
+
+      {cart.length === 0 ? (
+        <NoProducts />
+      ) : (
+        <div>
+          {cart.map(({ id, image, title, price, ISBN, Authors }) => (
+            <div
+              key={id}
+              className="flex items-start py-4 px-2 my-4 mx-2 w-2/3 border-b border-gray-400"
+            >
+              <img src={image} alt={title} className="w-36 bg-slate-400 p-4" />
+
+              <div className="flex flex-col pl-4 w-60">
+                <h5 className="text-left text-xl font-semibold tracking-tight text-textDark">
+                  {title}
+                </h5>
+                <span>
+                  {Authors.map((author) => (
+                    <div
+                      key={author.id}
+                      className="text-textDark font-thin text-xs"
+                    >
+                      Autor: {author.name}
+                    </div>
+                  ))}
+                </span>
+                <span className="text-textDark font-thin text-xs">
+                  ISBN: {ISBN.name}
+                </span>
+                <div className="flex gap-2 my-1 p-1">
+                  <button onClick={() => decrement(id)}>
+                    <CiSquareMinus size={30} className="text-textGray" />
+                  </button>
+                  <span>{quantity[id] || 1}</span>
+                  <button onClick={() => increment(id)}>
+                    <CiSquarePlus size={30} className="text-textGray" />
+                  </button>
+                </div>
+                <button
+                  onClick={() => handleDelete(id)}
+                  className="flex gap-1 text-textGray"
+                >
+                  <LuTrash2 className=" mt-1" />
+                  <span>Eliminar este producto</span>
+                </button>
+              </div>
+              <div className="flex ml-16 gap-16">
+                <div className="flex flex-col">
+                  <span className="text-textGray">Valor unitario</span>
+                  <span className="font-sans font-semibold">${price}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-textGray">Valor total</span>
+                  <span className="font-sans font-semibold">
+                    ${Number(price) * quantity[id] || price}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div className="bg-gray-200 absolute p-10 top-44 right-12 w-72 rounded-sm">
+            <div className="flex justify-between p-2">
+              <span className="font-sans font-semibold text-lg text-textDark">
+                Total:
+              </span>
+              <span className="font-sans font-semibold text-lg text-textDark">
+                $ {totalAmount}
+              </span>
+            </div>
+            <div className=" p-2 mt-8 flex justify-center">
+              <button className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <span className="flex w-32">Continuar compra</span>
+              </button>
+            </div>
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };

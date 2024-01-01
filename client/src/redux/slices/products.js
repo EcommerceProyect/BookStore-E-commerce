@@ -61,7 +61,13 @@ export const productSlice = createSlice({
         state.cart.push(action.payload);
         state.cartCount += 1;
       }
-      // state.cart = [...state.cart, action.payload];
+    },
+    removeFromCart: (state, action) => {
+      state.cart = state.cart.filter(
+        (product) => product.id !== action.payload.id,
+      );
+
+      state.cartCount -= 1;
     },
   },
 });
@@ -78,6 +84,7 @@ export const {
   setProductDetailError,
   setOrderOption,
   addToCart,
+  removeFromCart,
 } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -101,12 +101,12 @@ function Card({
           <span class="text-left text-2xl font-bold text-textDark dark:text-black">
             ${price}
           </span>
-          <a
-            href="#"
+          <button
+            onClick={handleCart}
             class="text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Agregar al carrito
-          </a>
+          </button>
         </div>
       </div>
     </div>
