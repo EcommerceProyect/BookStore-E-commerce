@@ -9,12 +9,16 @@ const initialState = {
   cart: [],
   cartCount: 0,
   totalItems: null,
+  carouselProducts: []
 };
 
 export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    setCarouselProducts : (state, action) => {
+      state.carouselProducts = action.payload
+    },
     setProductListLoading: (state) => {
       state.loading = true;
       state.error = null;
@@ -63,6 +67,7 @@ export const productSlice = createSlice({
 });
 
 export const {
+  setCarouselProducts,
   setProductListLoading,
   setProductList,
   setProductListError,
