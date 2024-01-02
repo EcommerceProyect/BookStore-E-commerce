@@ -24,8 +24,8 @@ const bookValidation = (bookData) => {
     errors.title = 'El título debe tener entre 1 y 70 caracteres.';
   }
 
-  if (bookData.synopsis !== '' && !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,;:'"!?¿¡()-]{1,350}$/.test(bookData.synopsis)) {
-    errors.synopsis = 'La sinopsis debe tener entre 1 y 300 caracteres.';
+  if (bookData.synopsis !== '' && !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,;:'"!?¿¡()-]{1,250}$/.test(bookData.synopsis)) {
+    errors.synopsis = 'La sinopsis debe tener entre 1 y 250 caracteres.';
   }
 
   if (bookData.stock !== '' && !/^\d+$/.test(bookData.stock)) {
