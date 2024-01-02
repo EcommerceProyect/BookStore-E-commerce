@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
@@ -9,9 +9,13 @@ import Home from './views/home/Home';
 // import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
 import RegistrationModal from './components/registration/RegistrationModal';
-import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
 import Cart from './views/cart/Cart';
+import Statistics from './views/dashboard/Statistics';
+import Users from './views/dashboard/Users';
+import CreateProduct from './views/createProduct/CreateProduct';
+import RegisterAuth from './components/Auth/RegisterAuth';
+
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -42,13 +46,21 @@ function App() {
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
       />
+      
+
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* auth */}
+        <Route path='/redirect' Component={RegisterAuth}/>
+        {/* auth */}
+        <Route path="/" element={<Home />}/>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/dashboard" element={<Statistics />} />
+        <Route path="/dashboard/users" element={<Users />} />
         <Route path="/carrito" element={<Cart />} />
+        <Route path="/createBook" element={<CreateProduct />} />
       </Routes>
       <Footer />
       {showRegistrationModal && (
