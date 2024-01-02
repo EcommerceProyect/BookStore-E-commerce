@@ -35,10 +35,13 @@ router.use(jwtCheck);
 
 //rutas del admin
 router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
-  console.log("Y", req.auth);
+  
+  console.log("info auth", req.auth);
+
   try {
     
     const response = await postUser(req,res);
+
     console.log(response);
 
   } catch (error) {
