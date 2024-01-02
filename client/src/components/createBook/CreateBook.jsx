@@ -106,7 +106,7 @@ const CreateBook = () => {
 
       const response = await dispatch(postProduct(bookData));
       console.log('Response carga libro', response);
-      if (response && response.status === 201) {
+      if (response && (response.status === 201 || response.status === 200)) {
         alert('Libro creado exitosamente.');
       } else {
         console.error('Error creando el libro.');
