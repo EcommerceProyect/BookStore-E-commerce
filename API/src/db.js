@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
-const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
@@ -37,6 +37,7 @@ const { Users,
   Author,
   Genre,
   Editorial,
+  CartDetail,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -50,8 +51,17 @@ ISBN.belongsTo(Products, { foreignKey: 'ISBNId' });
 
 //Relacion entre Users y Products de muchos a muchos.
 
-Users.belongsToMany(Products,{through:Cart});
-Products.belongsToMany(Users,{through:Cart});
+// Users.belongsToMany(Products,{through:Cart});
+// Products.belongsToMany(Users,{through:Cart});
+
+
+Users.hasMany(Cart, { foreignKey: 'UserId' }); // 'UserId' es la clave externa en el modelo Cart
+Cart.belongsTo(Users, { foreignKey: 'UserId' }); // 'UserId' es la clave externa en el modelo Cart
+
+//Establecer una relacion de uno a muchos entre Cart y Products.
+
+Cart.belongsToMany(Products, { through: CartDetail });
+Products.belongsToMany(Cart, { through: CartDetail });
 
 // One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
 
@@ -104,6 +114,7 @@ module.exports = {
     Editorial,
     //     //exporto Cart y GenreProducts para futuros usos
     Cart,
+    CartDetail,
     GenreProducts,
     AuthorProducts,
     conn:sequelize,

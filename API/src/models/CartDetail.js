@@ -1,19 +1,19 @@
 const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('Cart', {
+    sequelize.define('CartDetail', {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        status: {
-            type: DataTypes.STRING,
+        quantity: {
+            type: DataTypes.INTEGER,
             allowNull: false,
-            validate:{
-                isIn: {
-                    args: [['Activo', 'Inactivo']],
-                    msg: 'El tipo de registro debe ser "Activo" o "Inactivo"'
+            validate: {
+                isInt: {
+                    args: true,
+                    msg: "La cantidad debe ser un número entero no negativo"
                 }
             }
         }

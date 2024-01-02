@@ -1,12 +1,6 @@
 const { Router } = require("express");
 const { getProducts } = require("../handlers/getProducts");
 const {createProduct} = require("../handlers/createProduct");
-// const {filterProductByISBN} = require("../handlers/filterHandler/filterProductByISBN");
-// const {filterProductByGenre} = require("../handlers/filterHandler/filterProductByGenre");
-// const {filterProductByDate} = require("../handlers/filterHandler/filterProductByDate");
-// const { filterProductByAuthor } = require("../handlers/filterHandler/filterProductByAuthor");
-// const { filterBySearchTerm } = require("../handlers/filterHandler/filterBySearchTerm");
-// const { filterProductByEditorial } = require("../handlers/filterHandler/filterProductByEditorial");
 const { deleteProduct } = require("../handlers/deleteProduct");
 const { getGenres } = require("../handlers/Products/getGenres");
 const { getAuthors } = require("../handlers/Products/getAuthors");
@@ -15,6 +9,7 @@ const { getISBNs } = require("../handlers/Products/getISBNs");
 
 //FILTROS COMBINADOS.
 const { filterProducts } = require("../handlers/filterProducts");
+//-------------------------------------------------------------------------//
 const { updateProductHandler } = require("../handlers/updateProduct");
 const {getProductByIdHandler} = require("../handlers/getDetailProduct");
 const { updateAuthorHandler } = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
@@ -26,19 +21,19 @@ const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
 
+//rutas Carrito
+const {createCartHandler} = require("../handlers/Cart/createCartHandler");
+const {addToCartHandler} = require("../handlers/Cart/addToCartHandler");
+const {deleteProductCartHandler} = require("../handlers/Cart/deleteProductCartHandler");
+const { getActiveCartHandler } = require('../handlers/Cart/getActiveCartHandler');
+
+//rutas Camilo
+const {createOrder} = require("../handlers/createOrder");
+//-------------------------------------------------------------------------------------------------------------//
+
+
 const router = Router();
 
-
-//iniciando filtro Authors y Editorials paginado
-// router.get("/products/filter",(req,res) =>{
-//     const {rDate,genre,author,editorial, title, isbn} = req.query;
-//     if(rDate)filterProductByDate(req,res);
-//     else if(genre)filterProductByGenre(req,res);
-//     else if(isbn)filterProductByISBN(req,res)
-//     else if(author)filterProductByAuthor(req,res);
-//     else if(editorial)filterProductByEditorial(req,res);
-//     else if(title)filterBySearchTerm(req,res);
-// });
 
 router.get("/products/filterPrueba", (req,res) => filterProducts(req, res));
 
@@ -47,6 +42,8 @@ router.get("/genres",getGenres);
 router.get("/authors",getAuthors);
 router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
+
+// router.get("/user",getUser());
 
 //delete product
 
@@ -72,4 +69,82 @@ router.delete("/user/:id", deleteUserHandler);
 
 router.get("/user",getUser);
 
+//prueba rutas Users de Gena
+router.put("/user/:id",updateUserHandler);
+router.delete("/user/:id", deleteUserHandler);
+
+//RUTAS DEL CARRITO
+
+
+router.get('/getActiveCart/:userId', getActiveCartHandler);
+router.post("/createCart", createCartHandler)
+router.put("/addToCart", addToCartHandler)
+router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler)
+
+
+//rutas Camilo 
+//Integracion mercadopago
+router.post("/payment", createOrder);
+
+//Pago exitoso
+router.get("/success", (req, res) => {
+  console.log("MercadoPago DATA:", req.query);
+  // codigo: guardar en BDD
+  //modificar stock
+//   res.redirect("http://localhost:5173");
+  res.status(200).json({ message: "pago realizado" });
+});
+
+//Pago rechazado
+router.get("/failure", (req, res) => {
+  console.log("MercadoPago DATA:", req.query);
+  //* codigo: guardar en BDD
+  //   res.redirect('http://%27/)
+  res.status(200).json({ message: "pago rechazado" });
+});
+
+//Pago pendiente
+router.get("/pending", (req, res) => {
+  console.log("MercadoPago DATA:", req.query);
+  // codigo: guardar en BDD
+  //   res.redirect('http://%27/)
+  res.status(200).json({ message: "pago pendiente" });
+});
+//Integracion mercadopago
+
 module.exports = router;
+
+
+
+
+
+
+// const {filterProductByISBN} = require("../handlers/filterHandler/filterProductByISBN");
+// const {filterProductByGenre} = require("../handlers/filterHandler/filterProductByGenre");
+// const {filterProductByDate} = require("../handlers/filterHandler/filterProductByDate");
+// const { filterProductByAuthor } = require("../handlers/filterHandler/filterProductByAuthor");
+// const { filterBySearchTerm } = require("../handlers/filterHandler/filterBySearchTerm");
+// const { filterProductByEditorial } = require("../handlers/filterHandler/filterProductByEditorial");
+
+// const objeto = {
+//     idUser: "user1",
+//     products: [
+//         {
+//             idProduct: "product1",
+//             quantity: 2,
+//             price: 200
+//         }
+//     ]
+// }
+
+
+//iniciando filtro Authors y Editorials paginado
+// router.get("/products/filter",(req,res) =>{
+//     const {rDate,genre,author,editorial, title, isbn} = req.query;
+//     if(rDate)filterProductByDate(req,res);
+//     else if(genre)filterProductByGenre(req,res);
+//     else if(isbn)filterProductByISBN(req,res)
+//     else if(author)filterProductByAuthor(req,res);
+//     else if(editorial)filterProductByEditorial(req,res);
+//     else if(title)filterBySearchTerm(req,res);
+// });
