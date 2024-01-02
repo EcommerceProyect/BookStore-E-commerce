@@ -6,7 +6,7 @@ const LogoutButton = () => {
     const returnTo = "http://localhost:5173";
 
     const response = await fetch(
-      `https://${domain}/logout?client_id=${clientId}&returnTo=${returnTo}`,
+      `https://${domain}/logout?client_id=${clientId}&returnTo=${returnTo}&federated=false`,
       { redirect: "manual" }
     );
 
