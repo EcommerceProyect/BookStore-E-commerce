@@ -1,13 +1,11 @@
 import React from 'react';
 import Cards from '../../components/cards/Cards'
 import CarouselComponent from '../home/carousel/CarouselComponent';
-import CreateBook from '../../components/createBook/createBook';
-
 
 const Home = () => {
   return (
     <div>
-      <h2 className="my-4 text-textDark font-bold text-center text-lg">
+      <h2 className="my-5 text-textDark font-bold text-center text-lg">
         Últimos libros agregados
       </h2>
       <CarouselComponent />
@@ -38,8 +36,6 @@ const Home = () => {
         </div>
       </div>
       <Cards/>
-      <CreateBook/>
-
     </div>
   );
 };

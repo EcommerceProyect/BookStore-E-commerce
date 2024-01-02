@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { postProduct } from '../../redux/services/postProduct';
@@ -63,10 +63,21 @@ const CreateBook = () => {
   };
 
   const handleChangeImage = (value) => {
-    setBookData({
-      ...bookData,
-      ['image']: value,
-    });
+    try {
+      if (!value) {
+        console.error('La URL de la imagen no es válida.');
+        return;
+      }
+
+      setBookData({
+        ...bookData,
+        ['image']: value,
+      });
+
+      console.log(bookData);
+    } catch (error) {
+      console.error('Error al manejar la imagen:', error.message);
+    }
   };
 
   const handleSelectChangeGenre = (e) => {
@@ -102,19 +113,46 @@ const CreateBook = () => {
         'https://api.cloudinary.com/v1_1/dwajgrydt/image/upload',
         data,
       );
-      handleChangeImage(responseImage.data.secure_url);
 
-      const response = await dispatch(postProduct(bookData));
-      console.log('Response carga libro', response);
-      if (response && response.status === 201) {
-        alert('Libro creado exitosamente.');
-      } else {
-        console.error('Error creando el libro.');
-      }
-    } catch (error) {
-      console.error('Error creando libro:', error.message);
+      setBookData((bookData) => {
+        return {
+          ...bookData,
+          image: responseImage.data.secure_url,
+        };
+      });
+    } catch (e) {
+      console.error('No se ah podido cargar la imagen', e);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Verificar si bookData.image ha cambiado desde su valor inicial
+      if (bookData.image !== '') {
+        console.log('bookData actualizado:', bookData);
+
+        try {
+          const response = await dispatch(postProduct(bookData));
+          console.log('Response carga libro', response);
+
+          if (
+            response &&
+            (response.status === 201 || response.status === 200)
+          ) {
+            alert('Libro creado exitosamente.');
+          } else {
+            console.error('Error creando el libro.');
+          }
+        } catch (error) {
+          console.error('Error creando libro:', error.message);
+        }
+      }
+    };
+
+    fetchData(); // Ejecuta la función asincrónica inmediatamente
+
+    // Resto del código...
+  }, [bookData.image]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col max-w-md gap-4">
