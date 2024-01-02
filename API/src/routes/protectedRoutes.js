@@ -4,6 +4,8 @@ const router = Router();
 const cors = require("cors");
 const { auth } = require('express-oauth2-jwt-bearer');
 const { postUser } = require("../handlers/Users/postUser");
+const { getUser } = require("../handlers/Users/getUser");
+const { getAllUsers } = require("../handlers/Users/getAllUsers");
 
 
 
@@ -31,22 +33,27 @@ const checkPermissions = (requiredPermissions) => (req, res, next) => {
 
 router.use(jwtCheck);
 
+//rutas del admin
 router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
-  console.log("Y", req.auth);
+  
+  console.log("info auth", req.auth);
+
   try {
     
-    const response = await postUser(req,res)
+    const response = await postUser(req,res);
+
     console.log(response);
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error', message: 'Something went wrong' });
   }
-  res.json({
-    challenge1: "This is the first challenge",
-    challenge2: "This is another challenge",
+  res.status(200).json({
+    id_user:req.auth.payload.sub
   });
 });
 
-
+router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']),getUser);
+router.get('/authorized/users', jwtCheck,checkPermissions(['admin:edit']),getAllUsers);
 
 module.exports = router;

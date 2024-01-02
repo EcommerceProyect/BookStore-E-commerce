@@ -4,6 +4,8 @@ const postUser = async (req,res) => {
 
     const {permissions,custom_email_claim,sub} = req.auth.payload;
 
+    console.log(req.user);
+
     if(!custom_email_claim) return false;
 
     try {

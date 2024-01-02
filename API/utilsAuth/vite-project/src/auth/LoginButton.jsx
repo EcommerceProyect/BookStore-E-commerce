@@ -8,7 +8,9 @@ const LoginButton = () => {
     const clientId= "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
 
     const response_type = "code";
+    
     const redirectUri = "http://localhost:5173/redirect";
+    
     const response = await fetch(
       `https://${domain}/authorize?` + 
       `audience=${audience}&` + 
