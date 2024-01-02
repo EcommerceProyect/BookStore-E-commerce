@@ -54,7 +54,7 @@ const CarouselComponent = () => {
       {loading ? (
         <div className='text-center h-full'>Loading...</div>
       ) : (
-        <Carousel slide={true} theme={customTheme} >
+        <Carousel slide={true} theme={customTheme} slideInterval={6000} >
           {carouselProducts.map((product) => {
             return (
               <div className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
