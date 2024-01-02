@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
@@ -14,6 +14,7 @@ import Cart from './views/cart/Cart';
 import Statistics from './views/dashboard/Statistics';
 import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
+import RegisterAuth from './components/Auth/RegisterAuth';
 
 
 function App() {
@@ -45,8 +46,13 @@ function App() {
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
       />
+      
+
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* auth */}
+        <Route path='/redirect' Component={RegisterAuth}/>
+        {/* auth */}
+        <Route path="/" element={<Home />}/>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/aboutUs" element={<AboutUs />} />
