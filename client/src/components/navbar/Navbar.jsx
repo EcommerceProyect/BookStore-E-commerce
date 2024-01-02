@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Logo from '../../assets/images/Logo.svg';
 
+import auth0 from 'auth0-js';
+
 // import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
@@ -77,6 +79,23 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
 
   }
 
+  const handleLogout = () => {
+    const auth0Domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+    const auth0ClientId = "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
+    const auth0ReturnTo = "http://localhost:5173";
+  
+    const webAuth = new auth0.WebAuth({
+      domain: auth0Domain,
+      clientID: auth0ClientId
+    });
+  
+    webAuth.logout({
+      returnTo: auth0ReturnTo,
+      clientID: auth0ClientId
+    });
+  };
+  
+
   
   return (
     <nav className=" bg-primary p-3">
@@ -106,7 +125,13 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
               icon={<MdOutlineLogin className="text-textLight" size={20} />}
             />
           </div>
-          
+
+          <div title="Logout Auth">
+            <Button onClick={handleLogout}
+              icon={<MdOutlineLogout className="text-textLight" size={20} />}
+            />
+          </div>
+
           {/* auth */}
           <div title="Iniciar Sesión">
             <Button
