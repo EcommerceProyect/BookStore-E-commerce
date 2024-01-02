@@ -1,19 +1,11 @@
 const bookValidation = (bookData) => {
   let errors = {
-    image: '',
     ISBNname: '',
     price: '',
     title: '',
     synopsis: '',
     stock: '',
   };
-
-  if (
-    bookData.image !== '' &&
-    !/^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)($|\?.*$)/.test(bookData.image)
-  ) {
-    errors.image = 'La URL de imagen debe ser válida.';
-  }
 
   if (
     bookData.ISBNname !== '' &&
@@ -28,11 +20,11 @@ const bookValidation = (bookData) => {
     errors.price = 'El precio debe ser un número.';
   }
 
-  if (bookData.title !== '' && !/^[a-zA-Z0-9\s.,;:'"!?¿¡()-]{1,70}$/.test(bookData.title)) {
+  if (bookData.title !== '' && !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,;:'"!?¿¡()-]{1,70}$/.test(bookData.title)) {
     errors.title = 'El título debe tener entre 1 y 70 caracteres.';
   }
 
-  if (bookData.synopsis !== '' && !/^[a-zA-Z0-9\s.,;:'"!?¿¡()-]{1,350}$/.test(bookData.synopsis)) {
+  if (bookData.synopsis !== '' && !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,;:'"!?¿¡()-]{1,350}$/.test(bookData.synopsis)) {
     errors.synopsis = 'La sinopsis debe tener entre 1 y 300 caracteres.';
   }
 
