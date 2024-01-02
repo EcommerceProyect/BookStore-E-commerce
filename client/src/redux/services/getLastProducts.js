@@ -9,7 +9,7 @@ export const getLastProducts = (page, amount) => async (dispatch, getState) => {
       let response = await axios.get(url);
       const lastProducts = response.data.data.slice(-amount)
 
-      if(lastProducts.length < amount){
+      if(lastProducts.length < amount & page > 0){
         url= apiUrl + `?page=${page-1}`
         response = await axios.get(url);
         lastProducts.push(...response.data.data.slice(lastProducts.length - amount))
