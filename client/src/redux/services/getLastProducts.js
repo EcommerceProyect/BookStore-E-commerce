@@ -6,16 +6,13 @@ export const getLastProducts = (page, amount) => async (dispatch, getState) => {
     try {
       let url = apiUrl + `?page=${page}`;
 
-      console.log(url)
-
       let response = await axios.get(url);
       const lastProducts = response.data.data.slice(-amount)
 
-      if(lastProducts.length <= 1){
+      if(lastProducts.length < amount){
         url= apiUrl + `?page=${page-1}`
         response = await axios.get(url);
-        console.log('responseCarrusel',response)
-        lastProducts.push(...response.data.data.slice(-4))
+        lastProducts.push(...response.data.data.slice(lastProducts.length - amount))
       }
       dispatch(setTotalItems(response.data.count || response.data.numberOfResults))
       dispatch(setCarouselProducts(lastProducts))

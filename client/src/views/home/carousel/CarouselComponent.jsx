@@ -20,7 +20,7 @@ return(
             <Carousel>
                 {carouselProducts.map((product) => {
                     return (
-                        <div className="flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
+                        <div className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
                             <CardCarousel
                                 id={product.id}
                                 image={product.image}
