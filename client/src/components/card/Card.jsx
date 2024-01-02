@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/products';
 
-import ButtonHeart from './ButtonHeart';
-import FiveStars from './FiveStars';
+// import ButtonHeart from './ButtonHeart';
+// import FiveStars from './FiveStars';
 
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
@@ -92,10 +92,10 @@ function Card({
         </div>
 
         <div class="flex items-center mt-2.5 mb-5">
-          <FiveStars />
-          <span class="bg-textLight text-textGray text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">
+          {/* <FiveStars /> */}
+          {/* <span class="bg-textLight text-textGray text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">
             5.0
-          </span>
+          </span> */}
         </div>
         <div class="flex items-center justify-between">
           <span class="text-left text-2xl font-bold text-textDark dark:text-black">
