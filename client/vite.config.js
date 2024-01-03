@@ -11,6 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src', 
+      '@filters': path.resolve(__dirname, 'src/components/cards/filters'),
     },
   },
 })
