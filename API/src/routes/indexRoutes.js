@@ -29,6 +29,7 @@ const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler")
 const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
+const { getProductsForSearchHandler } = require("../handlers/getProductsForSearchHandler");
 
 const router = Router();
 
@@ -53,7 +54,7 @@ router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
 
 //delete product
-
+router.get("/products/search", getProductsForSearchHandler)
 router.post("/products",createProduct)
 router.post("/orders", createOrderHandler);
 
@@ -61,6 +62,8 @@ router.get("/products",getProducts);
 router.get("/orders", getOrdersHandler);
 
 router.get("/products/:id",getProductByIdHandler);
+
+
 
 router.put("/products/:id",updateProductHandler);
 router.put("/user/:id",updateUserHandler);
