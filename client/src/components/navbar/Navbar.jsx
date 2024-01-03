@@ -44,8 +44,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
       `response_type=${response_type}&` +
       `client_id=${clientId}&` +
       `redirect_uri=${redirectUri}`, {
-        mode: 'no-cors',
-        redirect: "follow"
+        redirect: "manual"
       }
     );
 
@@ -72,8 +71,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
       `response_type=${response_type}&` +
       `client_id=${clientId}&` +
       `redirect_uri=${redirectUri}`, {
-        mode: 'no-cors',
-        redirect: "follow"
+        redirect: "manual"
       }
     );
 
