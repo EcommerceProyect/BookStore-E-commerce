@@ -8,4 +8,9 @@ export default defineConfig({
   strictPort: true,
   port: 8000,
   },
+  resolve: {
+    alias: {
+      '@': '/src', 
+    },
+  },
 })
