@@ -25,6 +25,7 @@ const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
+const { getProductsForSearchHandler } = require("../handlers/getProductsForSearchHandler");
 
 const router = Router();
 
@@ -55,6 +56,8 @@ router.post("/products",createProduct)
 router.get("/products",getProducts);
 
 router.get("/products/:id",getProductByIdHandler);
+
+router.get("/products/search", getProductsForSearchHandler)
 
 router.put("/products/:id",updateProductHandler);
 router.put("/user/:id",updateUserHandler);
