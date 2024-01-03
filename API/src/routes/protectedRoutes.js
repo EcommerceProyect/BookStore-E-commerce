@@ -4,7 +4,7 @@ const router = Router();
 const cors = require("cors");
 const { auth } = require('express-oauth2-jwt-bearer');
 const { postUser } = require("../handlers/Users/postUser");
-const { getUser } = require("../handlers/Users/getUser");
+const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const { getAllUsers } = require("../handlers/Users/getAllUsers");
 
 
@@ -51,9 +51,10 @@ router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   res.status(200).json({
     id_user:req.auth.payload.sub
   });
+  
 });
 
-router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']),getUser);
+router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']),getUser_Token);
 router.get('/authorized/users', jwtCheck,checkPermissions(['admin:edit']),getAllUsers);
 
 module.exports = router;

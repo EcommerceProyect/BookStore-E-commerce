@@ -82,7 +82,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const handleLogout = () => {
     const auth0Domain = "dev-s3pcs1ovog464bay.us.auth0.com";
     const auth0ClientId = "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
-    const auth0ReturnTo = "https://bookstore-e-commerce-z27y.onrender.com/";
+    const auth0ReturnTo = "https://bookstore-e-commerce-z27y.onrender.comz";
   
     const webAuth = new auth0.WebAuth({
       domain: auth0Domain,
