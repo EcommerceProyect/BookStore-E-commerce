@@ -36,7 +36,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     const clientId= "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
 
     const response_type = "code";
-    const redirectUri = "https://frontend-of1h.onrender.com";
+    const redirectUri = "http://localhost:5173/";
     const response = await fetch(
       `https://${domain}/authorize?` + 
       `audience=${audience}&` + 
