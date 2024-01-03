@@ -9,11 +9,12 @@ import Home from './views/home/Home';
 // import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
 import RegistrationModal from './components/registration/RegistrationModal';
-import CreateBook from './components/createBook/createBook';
 import Detail from './views/detail/Detail';
 import Cart from './views/cart/Cart';
 import Statistics from './views/dashboard/Statistics';
 import Users from './views/dashboard/Users';
+import CreateProduct from './views/createProduct/CreateProduct';
+import RegisterAuth from './components/Auth/RegisterAuth';
 
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
       
 
       <Routes>
+        {/* auth */}
+        <Route path='/redirect' Component={RegisterAuth}/>
+        {/* auth */}
         <Route path="/" element={<Home />}/>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
@@ -56,6 +60,7 @@ function App() {
         <Route path="/dashboard" element={<Statistics />} />
         <Route path="/dashboard/users" element={<Users />} />
         <Route path="/carrito" element={<Cart />} />
+        <Route path="/createBook" element={<CreateProduct />} />
       </Routes>
       <Footer />
       {showRegistrationModal && (

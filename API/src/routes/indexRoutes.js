@@ -21,8 +21,14 @@ const { updateAuthorHandler } = require("../handlers/UpdateInfoHandler/updateAut
 const { updateGenreHandler } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const { updateEditorialHandler } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const { updateReleasedDateHandler } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { deleteUserHandler } = require("../handlers/Users/deleteUser");
+const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
+const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
+const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler");
+const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
-const { getUser } = require("../handlers/Users/getUser");
+const { getUser_Token } = require("../handlers/Users/getUser_Token");
 
 const router = Router();
 
@@ -49,12 +55,15 @@ router.get("/ISBNs",getISBNs);
 //delete product
 
 router.post("/products",createProduct)
+router.post("/orders", createOrderHandler);
 
 router.get("/products",getProducts);
+router.get("/orders", getOrdersHandler);
 
 router.get("/products/:id",getProductByIdHandler);
 
 router.put("/products/:id",updateProductHandler);
+router.put("/user/:id",updateUserHandler);
 
 router.put("/author/:id", updateAuthorHandler);
 router.put("/genre/:id", updateGenreHandler);
@@ -62,10 +71,15 @@ router.put("/editorial/:id", updateEditorialHandler);
 router.put("/releasedDate/:id", updateReleasedDateHandler);
 router.put("/ISBN/:id",updateISBNHandler);
 
+router.put("/orders/:id",updateOrderHandler);
+
+
 router.delete("/products/:id", deleteProduct);
+router.delete("/user/:id", deleteUserHandler);
+router.delete("/orders/:id", deleteOrderHandler);
 
 //Users
 
-router.get("/user",getUser);
+router.get("/user",getUser_Token);
 
 module.exports = router;

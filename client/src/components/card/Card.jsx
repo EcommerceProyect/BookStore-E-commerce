@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/products';
 
-import ButtonHeart from './ButtonHeart';
-import FiveStars from './FiveStars';
+// import ButtonHeart from './ButtonHeart';
+// import FiveStars from './FiveStars';
 
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
@@ -46,7 +46,6 @@ function Card({
   return (
     <div class="relative w-full max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:border-gray-700">
       <div class="relative p-8">
-        <ButtonHeart />
         <Link to={`/detail/${id}`}>
           <div className="w-60 h-60">
             <img
@@ -93,21 +92,21 @@ function Card({
         </div>
 
         <div class="flex items-center mt-2.5 mb-5">
-          <FiveStars />
-          <span class="bg-textLight text-textGray text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">
+          {/* <FiveStars /> */}
+          {/* <span class="bg-textLight text-textGray text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">
             5.0
-          </span>
+          </span> */}
         </div>
         <div class="flex items-center justify-between">
           <span class="text-left text-2xl font-bold text-textDark dark:text-black">
             ${price}
           </span>
-          <a
-            href="#"
+          <button
+            onClick={handleCart}
             class="text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Agregar al carrito
-          </a>
+          </button>
         </div>
       </div>
     </div>

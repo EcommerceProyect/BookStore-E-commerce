@@ -1,14 +1,16 @@
 const { getUserController } = require("../../controllers/Users/getUserController")
 
-const getUser = async (req,res) => {
+const getUser_Token = async (req,res) => {
 
     const {id} = req.query;
 
     try {
         
         const response = await getUserController(id);
+        const {token} = req.auth;
 
-        res.status(200).json(response);
+        if(token) res.status(200).json({response,token});
+        else res.status(200).json({response});
 
     } catch (error) {
         res.status(500).json(error.message);
@@ -17,5 +19,5 @@ const getUser = async (req,res) => {
 }
 
 module.exports = {
-    getUser
+    getUser_Token
 }

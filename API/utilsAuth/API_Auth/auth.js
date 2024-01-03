@@ -9,13 +9,23 @@ const challengesAPIEndpoint = "http://localhost:5432/authorized";
 
 
 app.use(cors())
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 app.use(oAuth);
 
 //por params si viene una ruta se concatena para hacer la peticion correcta
 app.get("/authorized", async (req, res) => {
+  console.log("req.oauth:", req.oauth);
+  console.log("req.query:", req.query);
   try {
-    const { access_token } = req.oauth;
+    let finalToken = req.oauth ? req.oauth.access_token : req.query.token;
+    console.log("Final Token:", finalToken, "yoooooooooooos");
 
+    
     const route = req.query.route || "";
 
     let queryString = "?";
@@ -36,17 +46,16 @@ app.get("/authorized", async (req, res) => {
     const response = await axios({
       method: "get",
       url: `${challengesAPIEndpoint}/${route}${queryString}`,
-      headers: { Authorization: `Bearer ${access_token}` },
+      headers: { Authorization: `Bearer ${finalToken}` },
     });
 
     res.json(response.data);
 
   } catch (error) {
 
-    console.log(error);
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       res.status(401).json("Unauthorized to access data");
-    } else if (error.response.status === 403) {
+    } else if (error.response && error.response.status === 403) {
       res.status(403).json("Permission denied");
     } else {
       res.status(500).json("Whoops, something went wrong");

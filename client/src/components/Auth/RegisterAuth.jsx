@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 
-const LoginAuth = () => {
+const RegisterAuth = () => {
   const location = useLocation();
   const { search } = location;
   const { code } = queryString.parse(search);
@@ -13,10 +13,10 @@ const LoginAuth = () => {
   useEffect(() => {
     const getUser = async () => {
       console.log("Authorization code");
-      if (challengesData === "none" && code && location.pathname !== "/redirect") {
+      if (challengesData === "none" && code) {
         try {
           const response = await fetch(
-            `http://localhost:3001/authorized?code=${code}&route=profile&id=google-oauth2|103614457521065822085`,
+            `http://localhost:3001/authorized?code=${code}`,
             {
               method: 'GET',
               headers: {
@@ -28,7 +28,7 @@ const LoginAuth = () => {
           );
 
           const data = await response.json();
-          setChallengesData(data.response.name);
+          setChallengesData(JSON.stringify(data));
         } catch (error) {
           console.error(
             'Error in the request:',
@@ -46,13 +46,13 @@ const LoginAuth = () => {
   }, [code, challengesData]);
 
   return (
-    <div className="Challenges-body">
+    <div >
         {challengesData !== "none" ?
-        <h5 className="Content">Bienvenido {challengesData}</h5>:
+        <h5>Bienvenido {challengesData}</h5>:
         null    
         }
     </div>
   );
 }
 
-export default LoginAuth;
+export default RegisterAuth;
