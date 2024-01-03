@@ -5,7 +5,7 @@ const oAuth = require("./middlewares/oAuth");
 const app = express();
 const cors = require("cors")
 
-const challengesAPIEndpoint = "https://localhost:80/authorized";
+const challengesAPIEndpoint = "https://bookstore-e-ecommerce.onrender.com/authorized";
 
 
 app.use(cors())
