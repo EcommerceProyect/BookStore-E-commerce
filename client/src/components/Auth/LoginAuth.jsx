@@ -13,7 +13,7 @@ const LoginAuth = () => {
   useEffect(() => {
     const getUser = async () => {
       console.log("Authorization code");
-      if (challengesData === "none" && code) {
+      if (challengesData === "none" && code && location.pathname !== "/redirect") {
         try {
           const response = await fetch(
             `https://api-books-auth0.onrender.com/authorized?code=${code}&route=profile&id=google-oauth2|103614457521065822085`,
