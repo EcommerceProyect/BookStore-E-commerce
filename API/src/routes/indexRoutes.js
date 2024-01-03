@@ -54,7 +54,7 @@ router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
 
 //delete product
-
+router.get("/products/search", getProductsForSearchHandler)
 router.post("/products",createProduct)
 router.post("/orders", createOrderHandler);
 
@@ -63,7 +63,7 @@ router.get("/orders", getOrdersHandler);
 
 router.get("/products/:id",getProductByIdHandler);
 
-router.get("/products/search", getProductsForSearchHandler)
+
 
 router.put("/products/:id",updateProductHandler);
 router.put("/user/:id",updateUserHandler);
