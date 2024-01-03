@@ -10,8 +10,8 @@ const { getAllUsers } = require("../handlers/Users/getAllUsers");
 router.use(cors());
 
 const jwtCheck = auth({
-  audience: "https://www.protectAPI.com",
-  issuerBaseURL: "https://dev-s3pcs1ovog464bay.us.auth0.com/",
+  audience: "https://api-test-auth0.com",
+  issuerBaseURL: "https://dev-wf8xlazxrpkoi322.us.auth0.com/",
   tokenSigningAlg: "RS256"
 });
 
@@ -49,12 +49,10 @@ router.get(
       console.log(response);
     } catch (error) {
       console.error(error);
-      res
-        .status(500)
-        .json({
-          error: "Internal Server Error",
-          message: "Something went wrong"
-        });
+      res.status(500).json({
+        error: "Internal Server Error",
+        message: "Something went wrong"
+      });
     }
     res.status(200).json({
       id_user: req.auth.payload.sub
