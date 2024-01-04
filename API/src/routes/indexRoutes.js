@@ -33,7 +33,7 @@ const { getActiveCartHandler } = require('../handlers/Cart/getActiveCartHandler'
 
 //rutas Mercado Pago
 const { createOrderHandler } = require("../handlers/MercadoPago/createOrderHandler");
-const { paymentWebhooks } = require("../handlers/MercadoPago/paymentWebhooks");
+// const { paymentWebhooks } = require("../handlers/MercadoPago/paymentWebhooks");
 
 //ruta Usuario temporal
 
@@ -99,7 +99,7 @@ router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler)
 //rutas Camilo 
 
 router.post("/payment", createOrderHandler);
-router.post('/webhook', paymentWebhooks);
+// router.post('/webhook', paymentWebhooks);
 // 
 
 //Creacion de User Momentanea
