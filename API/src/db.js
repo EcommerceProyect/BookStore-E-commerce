@@ -4,14 +4,8 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
-<<<<<<< HEAD
 const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
-=======
-const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
- 
-  logging: false,
->>>>>>> 9917ca5bbd0fb126e1201fb8a9f124c00678cc36
     native: false,
 }); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
 
