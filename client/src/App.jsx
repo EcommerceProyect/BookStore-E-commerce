@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
@@ -15,7 +15,7 @@ import Statistics from './views/dashboard/Statistics';
 import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
-
+import PaymentBill from './views/cart/PaymentBill';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -39,34 +39,42 @@ function App() {
     setShowRegistrationModal(false);
   };
 
+  const { pathname } = useLocation();
+
   return (
     <div>
-      {/* <DropDownMenu /> */}
-      <Navbar
-        openLoginModal={openLoginModal}
-        openRegistrationModal={openRegistrationModal}
-      />
-      
+      {pathname === '/paymentBill' ? (
+        <PaymentBill />
+      ) : (
+        <>
+          {/* <DropDownMenu /> */}
+          <Navbar
+            openLoginModal={openLoginModal}
+            openRegistrationModal={openRegistrationModal}
+          />
 
-      <Routes>
-        {/* auth */}
-        <Route path='/redirect' Component={RegisterAuth}/>
-        {/* auth */}
-        <Route path="/" element={<Home />}/>
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/faqs" element={<Faqs />} />
-        <Route path="/dashboard" element={<Statistics />} />
-        <Route path="/dashboard/users" element={<Users />} />
-        <Route path="/carrito" element={<Cart />} />
-        <Route path="/createBook" element={<CreateProduct />} />
-      </Routes>
-      <Footer />
-      {showRegistrationModal && (
-        <RegistrationModal onClose={closeRegistrationModal} />
+          <Routes>
+            {/* auth */}
+            <Route path="/redirect" Component={RegisterAuth} />
+            {/* auth */}
+            <Route path="/" element={<Home />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
+            <Route path="/faqs" element={<Faqs />} />
+            <Route path="/dashboard" element={<Statistics />} />
+            <Route path="/dashboard/users" element={<Users />} />
+            <Route path="/carrito" element={<Cart />} />
+            <Route path="/createBook" element={<CreateProduct />} />
+            {/* <Route path="/paymentBill" element={<PaymentBill />} /> */}
+          </Routes>
+          <Footer />
+          {showRegistrationModal && (
+            <RegistrationModal onClose={closeRegistrationModal} />
+          )}
+          {showLoginModal && <Login onClose={closeLoginModal} />}
+        </>
       )}
-      {showLoginModal && <Login onClose={closeLoginModal} />}
     </div>
   );
 }
