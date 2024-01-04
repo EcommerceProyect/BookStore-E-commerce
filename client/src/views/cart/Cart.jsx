@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -46,6 +47,23 @@ const Cart = () => {
 
   const handleDelete = (id) => {
     dispatch(removeFromCart({ id }));
+  };
+
+  const checkOut = () => {
+    const items = cart.map((product) => ({
+      id: product.id,
+      title: product.title,
+      image: product.image,
+      price: Number(product.price),
+      quantity: quantity[product.id] || 1,
+    }));
+
+    axios
+      .post('http://localhost:3001/ebook/payment', items)
+      .then((response) => {
+        window.location.href = response.data.body.init_point;
+      })
+      .catch((error) => console.log(error.message));
   };
 
   const totalAmount = cart.reduce((acc, { price, id }) => {
@@ -128,7 +146,10 @@ const Cart = () => {
               </span>
             </div>
             <div className=" p-2 mt-8 flex justify-center">
-              <button className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <button
+                onClick={checkOut}
+                className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
                 <span className="flex w-32">Continuar compra</span>
               </button>
             </div>
