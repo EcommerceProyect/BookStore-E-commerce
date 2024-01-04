@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const port = 3001;
@@ -5,7 +6,9 @@ const oAuth = require("./middlewares/oAuth");
 const app = express();
 const cors = require("cors");
 
-const challengesAPIEndpoint = "http://localhost:5433/authorized";
+const { APIURI } = process.env;
+
+const challengesAPIEndpoint = APIURI;
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
