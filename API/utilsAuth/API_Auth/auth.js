@@ -41,7 +41,7 @@ const handleAuthorizedRequest = async (req, res) => {
     for (const [key,value] of Object.entries(req.query)){
 
       console.log(key,value);
-      if(key !== "route" && key !== "code" && key !== "peticion" ){
+      if(key !== "route" && key !== "code" ){
         queryString+=`${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
       }
 
