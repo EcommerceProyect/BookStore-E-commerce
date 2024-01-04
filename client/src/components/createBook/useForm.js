@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
-import { postProduct } from '../../../redux/services/postProduct';
+import { postProduct } from '../../redux/services/postProduct';
 import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
 
-
 export const useForm = (validationSchema) => {
 
   const dispatch = useDispatch()
-
 
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
@@ -91,7 +89,6 @@ useEffect(() => {
 
 
     if ((typeof values.image === "string") && (values.image !== "")) {
-      console.log('image actualizado:', values);
 
       try {
         const response = dispatch(postProduct(values));
@@ -111,9 +108,7 @@ useEffect(() => {
     }
   };
 
-  fetchData(); // Ejecuta la función asincrónica inmediatamente
-
-  // Resto del código...
+  fetchData(); 
 }, [values.image]);
 
 return { values, errors, handleChange, handleSubmit, handleSelectChange, handleImageChange};

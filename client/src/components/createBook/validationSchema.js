@@ -26,8 +26,8 @@ export const validationSchema = (values) => {
   }
 
   // Autor
-  if (!values.author) {
-    errors.author = 'El autor es obligatorio';
+  if (!values.autor) {
+    errors.autor = 'El autor es obligatorio';
   }
 
   // Género
@@ -40,22 +40,22 @@ export const validationSchema = (values) => {
     errors.editorial = 'La editorial es obligatoria';
   }
 
-  // ISBN
-  if (!/^(?:ISBN(?:-13)?:?\ )?(?=[0-9]{13}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)97[89][-\ ]?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9]$/.test(
-    values.isbn)
-  ) { errors.isbn = 'El ISBN debe ser válido.' }
+  // ISBNname
+  if (!/^(?:ISBNname(?:-13)?:?\ )?(?=[0-9]{13}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)97[89][-\ ]?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9]$/.test(
+    values.ISBNname)
+  ) { errors.ISBNname = 'El ISBN debe ser válido.' }
 
-  if (!values.isbn) {
-    errors.isbn = 'El ISBN es obligatoria';
+  if (!values.ISBNname) {
+    errors.ISBNname = 'El ISBN es obligatorio';
   }
 
   // Stock
   if (!values.stock) {
-    errors.stock = 'El stock es obligatoria';
+    errors.stock = 'El stock es obligatorio';
   }
 
-  if (!/^\d+$/.test(values.stock)) {
-    errors.stock = 'El stock debe ser un número entero.';
+  if (!/^[1-9]\d*$/.test(values.stock)) {
+    errors.stock = 'El stock debe ser un número entero mayor que 0.';
   }
 
   // Sipnosis
