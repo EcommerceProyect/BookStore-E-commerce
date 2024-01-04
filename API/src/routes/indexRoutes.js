@@ -18,8 +18,13 @@ const { updateEditorialHandler } = require("../handlers/UpdateInfoHandler/update
 const { updateReleasedDateHandler } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
 const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
+const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
+const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
+const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler");
+const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
+const { getProductsForSearchHandler } = require("../handlers/getProductsForSearchHandler");
 
 //rutas Carrito
 const {createCartHandler} = require("../handlers/Cart/createCartHandler");
@@ -49,12 +54,16 @@ router.get("/ISBNs",getISBNs);
 // router.get("/user",getUser());
 
 //delete product
-
+router.get("/products/search", getProductsForSearchHandler)
 router.post("/products",createProduct)
+router.post("/orders", createOrderHandler);
 
 router.get("/products",getProducts);
+router.get("/orders", getOrdersHandler);
 
 router.get("/products/:id",getProductByIdHandler);
+
+
 
 router.put("/products/:id",updateProductHandler);
 router.put("/user/:id",updateUserHandler);
@@ -65,8 +74,12 @@ router.put("/editorial/:id", updateEditorialHandler);
 router.put("/releasedDate/:id", updateReleasedDateHandler);
 router.put("/ISBN/:id",updateISBNHandler);
 
+router.put("/orders/:id",updateOrderHandler);
+
+
 router.delete("/products/:id", deleteProduct);
 router.delete("/user/:id", deleteUserHandler);
+router.delete("/orders/:id", deleteOrderHandler);
 
 //Users
 
