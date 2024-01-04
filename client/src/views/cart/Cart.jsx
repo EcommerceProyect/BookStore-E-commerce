@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/slices/products';
+import {
+  removeFromCart,
+  incrementCartQuantity,
+  decrementCartQuantityt,
+} from '../../redux/slices/products';
 import NoProducts from './NoProducts';
 
 //? Icons
@@ -11,7 +15,9 @@ const Cart = () => {
   const { cart } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = useState({});
+  const [quantity, setQuantity] = useState(
+    Object.fromEntries(cart.map(({ id }) => [id, 1])),
+  );
 
   const handleQuantityChange = (id, newQuantity) => {
     setQuantity({
@@ -21,11 +27,21 @@ const Cart = () => {
   };
 
   const increment = (id) => {
-    handleQuantityChange(id, (quantity[id] || 1) + 1);
+    const currentQuantity = quantity[id];
+
+    const stock = cart.find((product) => product.id === id)?.ISBN.stock || 0;
+
+    if (currentQuantity < stock) {
+      handleQuantityChange(id, (quantity[id] || 1) + 1);
+      dispatch(incrementCartQuantity({ id }));
+    }
   };
 
   const decrement = (id) => {
-    if (quantity[id] > 1) handleQuantityChange(id, quantity[id] - 1);
+    if (quantity[id] > 1) {
+      handleQuantityChange(id, quantity[id] - 1);
+      dispatch(decrementCartQuantityt({ id }));
+    }
   };
 
   const handleDelete = (id) => {
@@ -67,6 +83,9 @@ const Cart = () => {
                 </span>
                 <span className="text-textDark font-thin text-xs">
                   ISBN: {ISBN.name}
+                </span>
+                <span className="text-textDark font-thin text-xs">
+                  Stock: {ISBN.stock}
                 </span>
                 <div className="flex gap-2 my-1 p-1">
                   <button onClick={() => decrement(id)}>

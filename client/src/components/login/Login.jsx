@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/user';
+import { loginUser } from '../../redux/slices/login';
 
 const Login = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Login = ({ onClose }) => {
       localStorage.removeItem('userCredentials');
     }
     dispatch(setUser(userData));
+    dispatch(loginUser(userData));
     onClose();
   };
 
