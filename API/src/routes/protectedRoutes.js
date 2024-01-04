@@ -60,7 +60,7 @@ router.get('/authorized/check',checkPermissions(['admin:edit']),(req,res) => {
   res.status(200).json({message:"El usuario esta autenticado"})
 
 });
-router.get('/authorized/c',checkPermissions(['admin:edit']),getUser_Token);
+router.get('/authorized/profile',checkPermissions(['admin:edit']),getUser_Token);
 router.get('/authorized/users',checkPermissions(['admin:edit']),getAllUsers);
 router.post("/authorized/products",checkPermissions(['admin:edit']), createProduct);
 

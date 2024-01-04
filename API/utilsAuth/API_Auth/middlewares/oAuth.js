@@ -9,8 +9,6 @@ const tokenEndpoint = `${TOKEN_ENDPOINT}`;
 let oAuth = async (req, res, next) => {
   const {code,token} = req.query;
 
-  console.log(token);
-
   // if (!code) {
   //   res.status(401).send("Missing authorization code");
   // }
