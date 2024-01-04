@@ -84,6 +84,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     const auth0ClientId = "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
     const auth0ReturnTo = "http://localhost:5173/";
   
+    localStorage.clear();
     const webAuth = new auth0.WebAuth({
       domain: auth0Domain,
       clientID: auth0ClientId

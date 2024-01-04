@@ -2,11 +2,11 @@ const { getUserController } = require("../../controllers/Users/getUserController
 
 const getUser_Token = async (req,res) => {
 
-    const {id} = req.query;
+    const {sub} = req.auth.payload;
 
     try {
         
-        const response = await getUserController(id);
+        const response = await getUserController(sub);
         const {token} = req.auth;
 
         if(token) res.status(200).json({response,token});

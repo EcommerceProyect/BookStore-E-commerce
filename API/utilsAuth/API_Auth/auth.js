@@ -27,6 +27,8 @@ app.get("/authorized", async (req, res) => {
 
     
     const route = req.query.route || "";
+    const peticion= req.query.peticion || "get";//declaro tipo de peticion
+    const body = req.body || null; // paso el body si es que existe
 
     let queryString = "?";
 
@@ -44,9 +46,10 @@ app.get("/authorized", async (req, res) => {
     queryString = queryString.slice(0, -1);
 
     const response = await axios({
-      method: "get",
+      method: `${peticion}`,
       url: `${challengesAPIEndpoint}/${route}${queryString}`,
       headers: { Authorization: `Bearer ${finalToken}` },
+      data : body,
     });
     
     res.json(response.data);

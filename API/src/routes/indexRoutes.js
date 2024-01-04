@@ -28,7 +28,12 @@ const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler");
 const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+<<<<<<< HEAD
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
+=======
+const { getUser } = require("../handlers/Users/getUser");
+const { getProductsForSearchHandler } = require("../handlers/getProductsForSearchHandler");
+>>>>>>> 9917ca5bbd0fb126e1201fb8a9f124c00678cc36
 
 const router = Router();
 
@@ -53,7 +58,7 @@ router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
 
 //delete product
-
+router.get("/products/search", getProductsForSearchHandler)
 router.post("/products",createProduct)
 router.post("/orders", createOrderHandler);
 
@@ -61,6 +66,8 @@ router.get("/products",getProducts);
 router.get("/orders", getOrdersHandler);
 
 router.get("/products/:id",getProductByIdHandler);
+
+
 
 router.put("/products/:id",updateProductHandler);
 router.put("/user/:id",updateUserHandler);

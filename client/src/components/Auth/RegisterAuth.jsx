@@ -28,7 +28,7 @@ const RegisterAuth = () => {
           );
 
           const data = await response.json();
-          setChallengesData(JSON.stringify(data));
+          setChallengesData(JSON.stringify(data.id_user));
         } catch (error) {
           console.error(
             'Error in the request:',

@@ -51,10 +51,6 @@ export const getProducts =
         url += `?page=${page}`;
       }
 
-      console.log('La URL sería:', url);
-      console.log('Lista de géneros:', selectedGenre);
-      console.log('Lista de autores:', selectedAuthor);
-
       const response = await axios.get(url);
       dispatch(
         setTotalItems(response.data.count || response.data.numberOfResults),
