@@ -1,4 +1,5 @@
 const { Router } = require("express");
+// const cors = require("cors");
 const { getProducts } = require("../handlers/getProducts");
 const {createProduct} = require("../handlers/createProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
@@ -32,13 +33,12 @@ const {addToCartHandler} = require("../handlers/Cart/addToCartHandler");
 const {deleteProductCartHandler} = require("../handlers/Cart/deleteProductCartHandler");
 const { getActiveCartHandler } = require('../handlers/Cart/getActiveCartHandler');
 
-//rutas Mercado Pago
-const { createOrderHandler } = require("../handlers/MercadoPago/createOrderHandler");
-const { paymentWebhooks } = require("../handlers/MercadoPago/paymentWebhooks");
+
+
 
 //ruta Usuario temporal
 
-const { postUserPrueba } =  require("../handlers/MercadoPago/postUserPrueba");
+const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
 
 const router = Router();
 
@@ -90,7 +90,7 @@ router.put("/user/:id",updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
 
-//rutas para Carrito y Mercado Pago
+
 //RUTAS DEL CARRITO
 
 
@@ -100,33 +100,15 @@ router.put("/addToCart", addToCartHandler)
 router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler)
 
 
-//rutas Camilo 
-
-router.post("/payment", createOrderHandler);
-router.post('/webhook', paymentWebhooks)
-// 
 
 //Creacion de User Momentanea
 
-router.post("/usersPrueba", postUserPrueba);
+router.post("/usersPrueba", postUserPruebaController);
 
 
 module.exports = router;
 
 
-//
-
-// user:{
-//     idUser: "user1",
-//     email: "pHqQ3@example.com",
-//     password: "123456",
-// }
-
-
-
-// const User = {
-//     userId = "asjdnjashdfjoenfuiwefghbgiuwe"
-// }
 
 
 

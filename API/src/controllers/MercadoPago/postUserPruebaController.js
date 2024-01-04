@@ -1,8 +1,7 @@
 const { Users } = require("../../db");
 
-const postUserPruebaController = async (data) => {
-    const { role, name, last_name, phone, email, password, registration_type } = data;
-
+const postUserPruebaController = async (req, res) => {
+    const { role, name, last_name, phone, email, password, registration_type } = req.body;
     try {
         const existingUser = await Users.findOne({
             where: {
@@ -13,8 +12,8 @@ const postUserPruebaController = async (data) => {
         if (existingUser) {
             throw new Error("El correo electrónico ya está registrado en la base de datos.");
         }
-
-        const [instanceUser, created] = await Users.findOrCreate({
+        // instanceUser,
+        const [ created] = await Users.findOrCreate({
             where: {
                 email,
             },
@@ -29,12 +28,16 @@ const postUserPruebaController = async (data) => {
             },
         });
 
-        return created;
-    } catch (error) {
-        throw new Error(error.message);
+        res.status(200).json({ message: "Usuario creado", created: created });
+    }
+   catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
 module.exports = {
     postUserPruebaController,
 };
+
+
+
