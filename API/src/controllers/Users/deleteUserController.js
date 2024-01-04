@@ -3,7 +3,6 @@ const {Users} = require("../../db");
 const deleteUserController = async (id) => {
     try {
         const user = await Users.findByPk(id);
-
         if(!user){
             throw new Error ("Usuario no encontrado");
         }
