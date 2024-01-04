@@ -1,4 +1,5 @@
 const { postUserController } = require("../../controllers/Users/postUserController")
+const { registrationMail } = require("../../mailService/mailService");
 
 const postUser = async (req,res) => {
 
@@ -21,6 +22,8 @@ const postUser = async (req,res) => {
             role:[permissions].includes("admin") ? "admin" : "user",
             
         });
+
+        await registrationMail(custom_email_claim);
 
         return response
 
