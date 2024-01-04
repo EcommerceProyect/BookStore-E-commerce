@@ -27,10 +27,13 @@ const {addToCartHandler} = require("../handlers/Cart/addToCartHandler");
 const {deleteProductCartHandler} = require("../handlers/Cart/deleteProductCartHandler");
 const { getActiveCartHandler } = require('../handlers/Cart/getActiveCartHandler');
 
-//rutas Camilo
-const {createOrder} = require("../handlers/createOrder");
-//-------------------------------------------------------------------------------------------------------------//
+//rutas Mercado Pago
+const { createOrderHandler } = require("../handlers/MercadoPago/createOrderHandler");
+const { paymentWebhooks } = require("../handlers/MercadoPago/paymentWebhooks");
 
+//ruta Usuario temporal
+
+const { postUserPrueba } =  require("../handlers/MercadoPago/postUserPrueba");
 
 const router = Router();
 
@@ -73,6 +76,8 @@ router.get("/user",getUser);
 router.put("/user/:id",updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
+
+//rutas para Carrito y Mercado Pago
 //RUTAS DEL CARRITO
 
 
@@ -83,36 +88,56 @@ router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler)
 
 
 //rutas Camilo 
-//Integracion mercadopago
-router.post("/payment", createOrder);
 
-//Pago exitoso
-router.get("/success", (req, res) => {
-  console.log("MercadoPago DATA:", req.query);
-  // codigo: guardar en BDD
-  //modificar stock
-//   res.redirect("http://localhost:5173");
-  res.status(200).json({ message: "pago realizado" });
-});
+router.post("/payment", createOrderHandler);
+router.post('/webhook', paymentWebhooks)
+// 
 
-//Pago rechazado
-router.get("/failure", (req, res) => {
-  console.log("MercadoPago DATA:", req.query);
-  //* codigo: guardar en BDD
-  //   res.redirect('http://%27/)
-  res.status(200).json({ message: "pago rechazado" });
-});
+//Creacion de User Momentanea
 
-//Pago pendiente
-router.get("/pending", (req, res) => {
-  console.log("MercadoPago DATA:", req.query);
-  // codigo: guardar en BDD
-  //   res.redirect('http://%27/)
-  res.status(200).json({ message: "pago pendiente" });
-});
-//Integracion mercadopago
+router.post("/usersPrueba", postUserPrueba);
+
 
 module.exports = router;
+
+
+//
+
+// user:{
+//     idUser: "user1",
+//     email: "pHqQ3@example.com",
+//     password: "123456",
+// }
+
+
+
+// const User = {
+//     userId = "asjdnjashdfjoenfuiwefghbgiuwe"
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -148,3 +173,30 @@ module.exports = router;
 //     else if(editorial)filterProductByEditorial(req,res);
 //     else if(title)filterBySearchTerm(req,res);
 // });
+
+// router.post ("/payment2", createOrderHandler);
+// //Pago exitoso
+// router.get("/success", (req, res) => {
+//   console.log("MercadoPago DATA:", req.query);
+//   // codigo: guardar en BDD
+//   //modificar stock
+// //   res.redirect("http://localhost:5173");
+//   res.status(200).json({ message: "pago realizado" });
+// });
+
+// //Pago rechazado
+// router.get("/failure", (req, res) => {
+//   console.log("MercadoPago DATA:", req.query);
+//   //* codigo: guardar en BDD
+//   //   res.redirect('http://%27/)
+//   res.status(200).json({ message: "pago rechazado" });
+// });
+
+// //Pago pendiente
+// router.get("/pending", (req, res) => {
+//   console.log("MercadoPago DATA:", req.query);
+//   // codigo: guardar en BDD
+//   //   res.redirect('http://%27/)
+//   res.status(200).json({ message: "pago pendiente" });
+// });
+// //Integracion mercadopago
