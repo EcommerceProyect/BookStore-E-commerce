@@ -10,7 +10,7 @@ export const fetchAuthors = () => async (dispatch) => {
     const response = await axios.get(apiUrl);
     const authors = response.data.map((author) => author.name);
     dispatch(setAuthorList(authors)); 
-    console.log("Authors obtenidos de la API:", response.data);
+    
   } catch (error) {
     dispatch(setAuthorListError(error.message));  
   }
