@@ -9,6 +9,7 @@ const LoginAuth = () => {
   const [challengesData, setChallengesData] = useState("none");
   let bandera = true;
   
+  
 
   useEffect(() => {
     const getUser = async () => {
@@ -16,7 +17,7 @@ const LoginAuth = () => {
       if (challengesData === "none" && code && location.pathname !== "/redirect") {
         try {
           const response = await fetch(
-            `http://localhost:3001/authorized?code=${code}&route=profile&id=google-oauth2|103614457521065822085`,
+            `http://localhost:3001/authorized?code=${code}&route=profile`,
             {
               method: 'GET',
               headers: {
@@ -29,6 +30,7 @@ const LoginAuth = () => {
 
           const data = await response.json();
           setChallengesData(data.response.name);
+          localStorage.setItem("actualT",data.token);
         } catch (error) {
           console.error(
             'Error in the request:',
