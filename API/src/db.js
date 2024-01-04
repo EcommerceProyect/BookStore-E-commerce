@@ -101,7 +101,3 @@ module.exports = {
     AuthorProducts,
     conn:sequelize,
 }
-
-
-
-
