@@ -17,7 +17,7 @@ const LoginAuth = () => {
       if (challengesData === "none" && code && location.pathname !== "/redirect") {
         try {
           const response = await fetch(
-            `http://localhost:3001/authorized?code=${code}&route=profile`,
+            `https://api-books-auth0.onrender.com/authorized?code=${code}&route=profile`,
             {
               method: 'GET',
               headers: {
