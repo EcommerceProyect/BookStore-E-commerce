@@ -9,7 +9,8 @@ const initialState = {
   cart: [],
   cartCount: 0,
   totalItems: null,
-  carouselProducts: []
+  carouselProducts: [],
+  foundedBooks: []
 };
 
 export const productSlice = createSlice({
@@ -52,6 +53,9 @@ export const productSlice = createSlice({
     setOrderOption: (state, action) => {
       state.orderOption = action.payload;
     },
+    setFoundedBooks:(state,action) =>{
+      state.foundedBooks = action.payload;
+    },
     addToCart: (state, action) => {
       const existingProduct = state.cart.find(
         (product) => product.id === action.payload.id,
@@ -83,6 +87,7 @@ export const {
   setProductDetail,
   setProductDetailError,
   setOrderOption,
+  setFoundedBooks,
   addToCart,
   removeFromCart,
 } = productSlice.actions;

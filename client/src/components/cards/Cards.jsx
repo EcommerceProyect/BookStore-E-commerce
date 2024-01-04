@@ -14,8 +14,6 @@ function Cards() {
     (state) => state.products,
   );
 
-  console.log(list);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const selectedGenre = useSelector(
