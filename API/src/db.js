@@ -32,11 +32,11 @@ const { Users,
   Productreview ,
   ISBN,
   Cart,
-  OrderDetail,
   ReleasedDate,
   Author,
   Genre,
   Editorial,
+  CartDetail,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -48,17 +48,15 @@ Products.belongsToMany(Orders,{through:Productreview});
 Products.hasOne(ISBN, { foreignKey: 'ISBNId' });
 ISBN.belongsTo(Products, { foreignKey: 'ISBNId' });
 
-//Relacion entre Users y Products de muchos a muchos.
 
-Users.belongsToMany(Products,{through:Cart});
-Products.belongsToMany(Users,{through:Cart});
+Users.hasMany(Cart, { foreignKey: 'UserId' }); // 'UserId' es la clave externa en el modelo Cart
+Cart.belongsTo(Users, { foreignKey: 'UserId' }); // 'UserId' es la clave externa en el modelo Cart
 
-// One To Many ==> ISBN - OrderDetail --> One to One ==> OrderDetail - ISBN
+//Establecer una relacion de uno a muchos entre Cart y Products.
 
-ISBN.hasMany(OrderDetail, { foreignKey: "ISBNid",as:"ISBNs"});
-OrderDetail.belongsTo(ISBN);
+Cart.belongsToMany(Products, { through: CartDetail });
+Products.belongsToMany(Cart, { through: CartDetail });
 
-// Order - OderDetail ==> One To Many
 
 // n:n -- Author - Products 
 const AuthorProducts = sequelize.define("AuthorProducts", {},{timestamps:true});
@@ -79,11 +77,6 @@ Editorial.hasOne(Products);
 Cart.hasMany(Orders);
 Orders.belongsTo(Cart);
 
-//Relacion entre Orders y OrderDetail de uno a uno.
-
-Orders.hasOne(OrderDetail);
-OrderDetail.belongsTo(Orders);
-
 
 // releaseDate - Products
 
@@ -98,12 +91,12 @@ module.exports = {
     Productreview,
     ISBN,
     ReleasedDate,
-    OrderDetail,
     Genre,
     Author,
     Editorial,
     //     //exporto Cart y GenreProducts para futuros usos
     Cart,
+    CartDetail,
     GenreProducts,
     AuthorProducts,
     conn:sequelize,
