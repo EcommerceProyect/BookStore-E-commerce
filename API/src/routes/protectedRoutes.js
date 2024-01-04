@@ -6,6 +6,7 @@ const { auth } = require('express-oauth2-jwt-bearer');
 const { postUser } = require("../handlers/Users/postUser");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const { getAllUsers } = require("../handlers/Users/getAllUsers");
+const { createProduct } = require("../handlers/createProduct");
 
 
 
@@ -54,7 +55,13 @@ router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   
 });
 
-router.get('/authorized/profile', jwtCheck,checkPermissions(['admin:edit']),getUser_Token);
-router.get('/authorized/users', jwtCheck,checkPermissions(['admin:edit']),getAllUsers);
+router.get('/authorized/check',checkPermissions(['admin:edit']),(req,res) => {
+
+  res.status(200).json({message:"El usuario esta autenticado"})
+
+});
+router.get('/authorized/c',checkPermissions(['admin:edit']),getUser_Token);
+router.get('/authorized/users',checkPermissions(['admin:edit']),getAllUsers);
+router.post("/authorized/products",checkPermissions(['admin:edit']), createProduct);
 
 module.exports = router;

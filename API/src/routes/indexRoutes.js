@@ -53,7 +53,6 @@ router.get("/authors",getAuthors);
 router.get("/editorials",getEditorials);
 router.get("/ISBNs",getISBNs);
 
-//delete product
 router.get("/products/search", getProductsForSearchHandler)
 router.post("/products",createProduct)
 router.post("/orders", createOrderHandler);

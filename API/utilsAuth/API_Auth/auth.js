@@ -8,7 +8,6 @@ const cors = require("cors")
 const challengesAPIEndpoint = "http://localhost:5432/authorized";
 
 
-app.use(cors())
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -16,9 +15,10 @@ app.use((req, res, next) => {
   next();
 });
 app.use(oAuth);
-
+app.use(express.json()); 
+app.use(cors());
 //por params si viene una ruta se concatena para hacer la peticion correcta
-app.get("/authorized", async (req, res) => {
+const handleAuthorizedRequest = async (req, res) => {
   console.log("req.oauth:", req.oauth);
   console.log("req.query:", req.query);
   try {
@@ -27,15 +27,21 @@ app.get("/authorized", async (req, res) => {
 
     
     const route = req.query.route || "";
-    const peticion= req.query.peticion || "get";//declaro tipo de peticion
-    const body = req.body || null; // paso el body si es que existe
+    const peticion= req.method || "get";//declaro tipo de peticion
+    let body =null;
 
+    if (req.method === 'POST' && req.body) {
+      body = req.body;
+      console.log("Body:", body);
+    }
+
+    console.log(body);
     let queryString = "?";
 
     for (const [key,value] of Object.entries(req.query)){
 
       console.log(key,value);
-      if(key !== "route" && key !== "code"  ){
+      if(key !== "route" && key !== "code" && key !== "peticion" ){
         queryString+=`${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
       }
 
@@ -49,7 +55,7 @@ app.get("/authorized", async (req, res) => {
       method: `${peticion}`,
       url: `${challengesAPIEndpoint}/${route}${queryString}`,
       headers: { Authorization: `Bearer ${finalToken}` },
-      data : body,
+      data:body,
     });
     
     res.json(response.data);
@@ -64,7 +70,10 @@ app.get("/authorized", async (req, res) => {
       res.status(500).json("Whoops, something went wrong");
     }
   }
-});
-
+};
+app.get("/authorized",handleAuthorizedRequest);
+app.post("/authorized",handleAuthorizedRequest);
+app.put("/authorized",handleAuthorizedRequest);
+app.delete("/authorized",handleAuthorizedRequest);
 
 app.listen(port, () => console.log("Started"));
