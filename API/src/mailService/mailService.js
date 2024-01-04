@@ -4,7 +4,7 @@ dotenv.config();
 
 const transporter = nodemailer.createTransport({
     service: "Gmail",
-    host: process.env.EMAIL_HOST,
+    host: process.env.NODEMAILER_HOST,
     port: "587",
     secure: false,
     tls: {
@@ -12,12 +12,10 @@ const transporter = nodemailer.createTransport({
       rejectUnauthorized: false,
     },
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD,
     },
   });
-  
-
 
 async function registrationMail(custom_email_claim){
   return await transporter.sendMail({
@@ -93,7 +91,7 @@ text-align: center;
   <table class="container" cellspacing="0" cellpadding="0">
     <tr>
       <td class="logo">
-        <img href="https://frontend-b33g.onrender.com/" src="rutadelogo.jpg" alt="Logo de Librería Apolo" width="200">
+        <img href="https://frontend-b33g.onrender.com/" src="https://res.cloudinary.com/dovmjqapq/image/upload/v1704214078/utils/hckf2rlnn0ustqmineth.png" alt="Logo de Librería Apolo" width="200">
         <hr>
       </td>
     </tr>
@@ -122,7 +120,6 @@ text-align: center;
   </table>
 </body>
 </html>
-
   `
 }
 
@@ -207,7 +204,7 @@ async function successfulPurchase(email){
 </head>
 <body>
   <div class="container">
-<img class="logo" src="rutadelogo.jpg" alt="Logo de Librería Apolo">
+<img class="logo" href="https://frontend-b33g.onrender.com/" src="https://res.cloudinary.com/dovmjqapq/image/upload/v1704214078/utils/hckf2rlnn0ustqmineth.png" alt="Logo de Librería Apolo">
 <hr>
     <h1>¡Compra exitosa!</h1>
     <div class="info-section">
