@@ -22,12 +22,10 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);
 
   //Auth modularizarlo si es necesario
-
-  const [isRegister,setIsRegister] = useState(false)
   
   
   const handleLoginAuth = async () => {
-    if(isRegister)setIsRegister(false);
+
     const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
 
     const audience= "https://www.protectAPI.com";
@@ -52,8 +50,6 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
 
   }
   const handleRegisterAuth = async () => {
-
-    if(!isRegister)setIsRegister(true);
 
     const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
 
