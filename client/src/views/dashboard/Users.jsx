@@ -5,9 +5,9 @@ function Users() {
   return (
     <div className='flex'>
         <Dashboard/>
-<div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:py-24 lg:px-8">
+<div className=" max-w-7xl mx-auto  px-4 sm:px-6 lg:py-24 lg:px-8">
 
-	<div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+	<div className="w-usersWidthm p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
     <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Customers</h3>
         <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
@@ -109,10 +109,6 @@ function Users() {
         </ul>
    </div>
 </div>
-	<p className="mt-5">This card component is part of a larger, open-source library of Tailwind CSS components. Learn more
-		by going to the official <a className="text-blue-600 hover:underline"
-			href="#" target="_blank">Flowbite Documentation</a>.
-	</p>
 </div>
     </div>
     
