@@ -14,44 +14,45 @@ const { filterProducts } = require("../handlers/filterProducts");
 const { updateProductHandler } = require("../handlers/updateProduct");
 const { getProductByIdHandler } = require("../handlers/getDetailProduct");
 const {
-  updateAuthorHandler,
+  updateAuthorHandler
 } = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
 const {
-  updateGenreHandler,
+  updateGenreHandler
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const {
-  updateEditorialHandler,
+  updateEditorialHandler
 } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const {
-  updateReleasedDateHandler,
+  updateReleasedDateHandler
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
 const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const {
-  deleteOrderHandler,
+  deleteOrderHandler
 } = require("../handlers/Orders/deleteOrdersHandler");
 const {
-  updateOrderHandler,
+  updateOrderHandler
 } = require("../handlers/Orders/updateOrdersHandler");
 const {
-  updateISBNHandler,
+  updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const {
-  getProductsForSearchHandler,
+  getProductsForSearchHandler
 } = require("../handlers/getProductsForSearchHandler");
 
 //rutas Carrito
 const { createCartHandler } = require("../handlers/Cart/createCartHandler");
 const { addToCartHandler } = require("../handlers/Cart/addToCartHandler");
 const {
-  deleteProductCartHandler,
+  deleteProductCartHandler
 } = require("../handlers/Cart/deleteProductCartHandler");
 const {
-  getActiveCartHandler,
+  getActiveCartHandler
 } = require("../handlers/Cart/getActiveCartHandler");
+
 
 
 
@@ -99,7 +100,7 @@ router.delete("/orders/:id", deleteOrderHandler);
 
 //Users
 
-router.get("/user",getUser_Token);
+router.get("/user", getUser_Token);
 
 //prueba rutas Users de Gena
 router.put("/user/:id", updateUserHandler);

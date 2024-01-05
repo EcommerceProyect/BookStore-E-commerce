@@ -1,10 +1,10 @@
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
 import AboutUs from './components/footer/AboutUs';
-import Login from './components/login/Login';
+import LoginModal from './components/login/LoginModal';
 import Home from './views/home/Home';
 // import DropDownMenu from './components/dropDownMenu/DropDownMenu';
 import { useState } from 'react';
@@ -17,7 +17,6 @@ import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
 
-
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -25,19 +24,24 @@ function App() {
     setShowLoginModal(true);
   };
 
-  const closeLoginModal = () => {
+  const closeLoginModal = (open) => {
     setShowLoginModal(false);
+    if (open === true) {
+      openRegistrationModal();
+    }
   };
 
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
 
   const openRegistrationModal = () => {
-    closeLoginModal();
     setShowRegistrationModal(true);
   };
 
-  const closeRegistrationModal = () => {
+  const closeRegistrationModal = (open) => {
     setShowRegistrationModal(false);
+    if (open === true) {
+      openLoginModal();
+    }
   };
 
   return (
@@ -47,16 +51,15 @@ function App() {
         openLoginModal={openLoginModal}
         openRegistrationModal={openRegistrationModal}
       />
-      
 
       <Routes>
         {/* auth */}
-        <Route path='/redirect' Component={RegisterAuth}/>
+        <Route path="/redirect" Component={RegisterAuth} />
         {/* auth */}
         <Route path="/" element={<Home />}/>
         <Route path="/products" element={<Products />}/>
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginModal />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/dashboard" element={<Statistics />} />
@@ -68,7 +71,7 @@ function App() {
       {showRegistrationModal && (
         <RegistrationModal onClose={closeRegistrationModal} />
       )}
-      {showLoginModal && <Login onClose={closeLoginModal} />}
+      {showLoginModal && <LoginModal onClose={closeLoginModal} />}
     </div>
   );
 }

@@ -14,6 +14,7 @@ import {
   MdPersonAddAlt1,
   MdAppRegistration,
 } from 'react-icons/md';
+import AuthLogin from '../login/AuthLogin';
 import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 
@@ -21,19 +22,17 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);
 
   //Auth modularizarlo si es necesario
-  
-  
-  const handleLoginAuth = async () => {
 
-    const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+  const handleLoginAuth = async () => {
+    const domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
 
     const audience = 'https://www.protectAPI.com';
 
     const scope = 'admin:edit';
     const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
-    const response_type = "code";
-    const redirectUri = "https://bookstore-e-commerce-z27y.onrender.com/";
+    const response_type = 'code';
+    const redirectUri = 'https://bookstore-e-commerce-z27y.onrender.com/';
     // const redirectUri = "http://localhost:5173/";
     const response = await fetch(
       `https://${domain}/authorize?` +
@@ -50,16 +49,16 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     window.location.href = response.url;
   };
   const handleRegisterAuth = async () => {
-
-    const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+    const domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
 
     const audience = 'https://www.protectAPI.com';
 
     const scope = 'admin:edit';
     const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
-    const response_type = "code";
-    const redirectUri = "https://bookstore-e-commerce-z27y.onrender.com/redirect";
+    const response_type = 'code';
+    const redirectUri =
+      'https://bookstore-e-commerce-z27y.onrender.com/redirect';
     // const redirectUri = "http://localhost:5173/redirect";
     const response = await fetch(
       `https://${domain}/authorize?` +
@@ -77,11 +76,11 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   };
 
   const handleLogout = () => {
-    const auth0Domain = "dev-s3pcs1ovog464bay.us.auth0.com";
-    const auth0ClientId = "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
-    const auth0ReturnTo = "https://bookstore-e-commerce-z27y.onrender.com/";
+    const auth0Domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
+    const auth0ClientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
+    const auth0ReturnTo = 'https://bookstore-e-commerce-z27y.onrender.com/';
     // const auth0ReturnTo = "http://localhost:5173/";
-  
+
     localStorage.clear();
     const webAuth = new auth0.WebAuth({
       domain: auth0Domain,
