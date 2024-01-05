@@ -7,6 +7,8 @@ const { postUser } = require("../handlers/Users/postUser");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const { getAllUsers } = require("../handlers/Users/getAllUsers");
 const { createProduct } = require("../handlers/createProduct");
+const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 
 router.use(cors());
 
@@ -38,6 +40,8 @@ const checkPermissions = (requiredPermissions) => (req, res, next) => {
 router.use(jwtCheck);
 
 //rutas del admin
+
+//Users
 router.get(
   "/authorized",
   checkPermissions(["admin:edit"]),
@@ -74,6 +78,18 @@ router.get(
   getUser_Token
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
+router.put(
+  "/authorized/users",
+  checkPermissions(["admin:edit"]),
+  updateUserHandler
+);
+router.delete(
+  "/authorized/users",
+  checkPermissions(["admin:edit"]),
+  deleteUserHandler
+);
+
+//Products
 router.post(
   "/authorized/products",
   checkPermissions(["admin:edit"]),
