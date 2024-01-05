@@ -1,24 +1,21 @@
-const {DataTypes} = require("sequelize");
+const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define("OrderDetail",{
-        id:{
+    sequelize.define('CartDetail', {
+        id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
-            primaryKey: true
+            primaryKey: true,
         },
-        quantity:{
+        quantity: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            validate:{
-                isInt:{
-                    args: {min:0},
+            validate: {
+                isInt: {
+                    args: true,
                     msg: "La cantidad debe ser un número entero no negativo"
                 }
-
             }
-
         }
-    },{timestamps: true,
-    paranoid:true})
+    },{timestamps: true,})
 }

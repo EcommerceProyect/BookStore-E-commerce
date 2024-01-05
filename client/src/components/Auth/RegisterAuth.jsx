@@ -16,7 +16,8 @@ const RegisterAuth = () => {
       if (challengesData === "none" && code) {
         try {
           const response = await fetch(
-            `https://api-books-auth0.onrender.com/authorized?code=${code}`,
+            // `https://api-books-auth0.onrender.com/authorized?code=${code}`,
+            `http://localhost:3001/authorized?code=${code}`,
             {
               method: 'GET',
               headers: {
@@ -28,7 +29,7 @@ const RegisterAuth = () => {
           );
 
           const data = await response.json();
-          setChallengesData(JSON.stringify(data));
+          setChallengesData(JSON.stringify(data.id_user));
         } catch (error) {
           console.error(
             'Error in the request:',

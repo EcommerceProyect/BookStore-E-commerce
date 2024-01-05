@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../redux/services/getAllProducts';
 import Card from '../card/Card';
-import GenreFilter from './filters/genres';
+import GenreFilter from './filters/Genres';
 import AuthorFilter from './filters/Authors';
 import EditorialFilter from './filters/Editorial';
 import SortingComponent from './sort/Sort';
@@ -13,8 +13,6 @@ function Cards() {
   const { list, loading, error, orderOption } = useSelector(
     (state) => state.products,
   );
-
-  console.log(list);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);

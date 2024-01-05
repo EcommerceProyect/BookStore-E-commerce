@@ -1,5 +1,5 @@
 import React from 'react';
-import Cards from '../../components/cards/Cards'
+import Cards from '../../components/cards/Cards';
 import CarouselComponent from '../home/carousel/CarouselComponent';
 
 const Home = () => {
@@ -12,8 +12,12 @@ const Home = () => {
       <hr className="bg-gray-700"></hr>
       <div className="my-10">
         <p class="font-serif text-center text-3xl">
-          "Un libro es un regalo que puedes abrir una y otra vez."<br />
-        <cite className="px-4 mb-10 text-base leading-7 text-textGray">Garrison Keillor</cite></p>
+          "Un libro es un regalo que puedes abrir una y otra vez."
+          <br />
+          <cite className="px-4 mb-10 text-base leading-7 text-textGray">
+            Garrison Keillor
+          </cite>
+        </p>
       </div>
       <hr></hr>
       <div className="grid grid-cols-2 my-8 items-center mx-6">
@@ -35,7 +39,7 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <Cards/>
+      <Cards />
     </div>
   );
 };

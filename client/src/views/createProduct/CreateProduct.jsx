@@ -1,12 +1,12 @@
-import React from 'react'
-import CreateBook from '../../components/createBook/createBook'
+import React from 'react';
+import CreateBook from '../../components/createBook/CreateBook.jsx';
 
 const CreateProduct = () => {
   return (
     <div>
-      <CreateBook/>
+      <CreateBook />
     </div>
-  )
-}
+  );
+};
 
-export default CreateProduct
+export default CreateProduct;
