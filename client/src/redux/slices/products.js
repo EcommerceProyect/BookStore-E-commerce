@@ -10,6 +10,7 @@ const initialState = {
   cartCount: 0,
   totalItems: null,
   carouselProducts: [],
+  foundedBooks: [],
 };
 
 export const productSlice = createSlice({
@@ -51,6 +52,9 @@ export const productSlice = createSlice({
     },
     setOrderOption: (state, action) => {
       state.orderOption = action.payload;
+    },
+    setFoundedBooks:(state,action) =>{
+      state.foundedBooks = action.payload;
     },
     addToCart: (state, action) => {
       const existingProduct = state.cart.find(
@@ -98,6 +102,7 @@ export const {
   setProductDetail,
   setProductDetailError,
   setOrderOption,
+  setFoundedBooks,
   addToCart,
   removeFromCart,
   incrementCartQuantity,

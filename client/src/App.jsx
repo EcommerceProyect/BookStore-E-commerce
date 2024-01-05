@@ -15,6 +15,7 @@ import Statistics from './views/dashboard/Statistics';
 import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
+import Products from './views/products/Products';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -55,7 +56,8 @@ function App() {
         {/* auth */}
         <Route path="/redirect" Component={RegisterAuth} />
         {/* auth */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />}/>
+        <Route path="/products" element={<Products />}/>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<LoginModal />} />
         <Route path="/aboutUs" element={<AboutUs />} />
