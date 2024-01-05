@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import userValidation from './userValidation';
 
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
-import signUpUser from './signUpUser';
+import signUpUser from '../Auth/signUpUser';
+import auth0Register from '../Auth/auth0Register';
 
 const Registration = ({ onClose }) => {
   const [userData, setUserData] = useState({
@@ -80,6 +81,23 @@ const Registration = ({ onClose }) => {
               </button>
             </div>
             <div className="p-4 md:p-5">
+              <button
+                onClick={auth0Register}
+                className="mb-4 w-full px-4 py-2 border flex justify-center items-center gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+              >
+                <img
+                  className="w-6 h-6"
+                  src="https://www.svgrepo.com/show/349297/auth0.svg"
+                  loading="lazy"
+                  alt="auth0 logo"
+                />
+                Registrarse con Auth0
+              </button>
+              <div className="flex items-center justify-center">
+                <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
+                <p className="mx-4">o</p>
+                <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
+              </div>
               <form className="space-y-4" action="#">
                 <div>
                   <Label htmlFor="name" value="Nombre" />
