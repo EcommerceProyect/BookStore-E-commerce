@@ -10,7 +10,7 @@ export const fetchEditorial = () => async (dispatch) => {
     const response = await axios.get(apiUrl);
     const editorial = response.data.map((editorial) => editorial.name);
     dispatch(setEditorialList(editorial)); 
-    console.log("Editoriales obtenidos de la API:", response.data);
+    
   } catch (error) {
     dispatch(setEditorialListError(error.message));  
   }

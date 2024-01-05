@@ -4,7 +4,7 @@ import Logo from '../../assets/images/Logo.svg';
 
 import auth0 from 'auth0-js';
 
-// import SearchButton from '../searchButton/SearchButton';
+import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
 import {
@@ -97,11 +97,10 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
-        {/* <SearchButton /> */}
         <div title="Home" className="left-0">
           <img src={Logo} alt="Logo" className="ml-10" />
         </div>
-
+       
         <div className="flex items-center justify-between gap-2 pl-10 mr-5">
           {/* auth */}
 
@@ -166,6 +165,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
               icon={<MdOutlineLogout className="text-textLight" size={25} />}
             />
           </div>
+          <SearchButton />
         </div>
       </div>
     </nav>
