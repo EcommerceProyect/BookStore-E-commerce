@@ -26,6 +26,7 @@ const {
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
 const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
+// const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const {
   deleteOrderHandler
@@ -36,7 +37,7 @@ const {
 const {
   updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
-const { getUser_Token } = require("../handlers/Users/getUser_Token");
+const { getUser } = require("../handlers/Users/getUser");
 const {
   getProductsForSearchHandler
 } = require("../handlers/getProductsForSearchHandler");
@@ -55,6 +56,7 @@ const {
 const {
   createOrderHandler
 } = require("../handlers/MercadoPago/createOrderHandler");
+
 // const { paymentWebhooks } = require("../handlers/MercadoPago/paymentWebhooks");
 
 //ruta Usuario temporal
@@ -71,6 +73,9 @@ router.get("/authors", getAuthors);
 router.get("/editorials", getEditorials);
 router.get("/ISBNs", getISBNs);
 
+// router.get("/user",getUser());
+
+//delete product
 router.get("/products/search", getProductsForSearchHandler);
 router.post("/products", createProduct);
 router.post("/orders", createOrderHandler);
@@ -97,7 +102,7 @@ router.delete("/orders/:id", deleteOrderHandler);
 
 //Users
 
-router.get("/user", getUser_Token);
+router.get("/user", getUser);
 
 //prueba rutas Users de Gena
 router.put("/user/:id", updateUserHandler);
@@ -117,7 +122,8 @@ router.delete(
 //rutas Camilo
 
 router.post("/payment", createOrderHandler);
-// router.post('/webhook', paymentWebhooks);
+
+// router.post("/webhook", paymentWebhooks);
 //
 
 //Creacion de User Momentanea
