@@ -12,6 +12,7 @@ const postUser = async (req,res) => {
     try {
         
         const response = await postUserController({
+            
             id:sub,
             registration_type: sub.includes("google") ? "google" : "local",
             email:custom_email_claim,

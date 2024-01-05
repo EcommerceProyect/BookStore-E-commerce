@@ -13,9 +13,9 @@ const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 router.use(cors());
 
 const jwtCheck = auth({
-  audience: "https://api-test-auth0.com",
-  issuerBaseURL: "https://dev-wf8xlazxrpkoi322.us.auth0.com/",
-  tokenSigningAlg: "RS256"
+  audience: 'https://www.protectAPI.com',
+  issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
+  tokenSigningAlg: 'RS256'
 });
 
 //middleware
