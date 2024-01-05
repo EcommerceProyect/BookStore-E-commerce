@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 //middlewares
 const routes = require("./routes/indexRoutes.js");
 const protectedRoutes = require("./routes/protectedRoutes.js");
+const mercadoPago = require("./routes/mercadoPagoRoutes.js");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use("/ebook",routes);
 
+app.use("/mercadoPago",mercadoPago);
 //protected
 app.use("/",protectedRoutes);
 

@@ -4,16 +4,17 @@ const { Orders, ISBN, Cart } = require("../../db");
 
 let products = [];
 let idCarrito = "";
-let address = "";
+let address = "calle 1 # 2-3";
 let amount = 0;
 const createOrderPayment = async (req, res) => {
   mercadopago.configure({
     access_token: process.env.ACCESS_AR_TOKEN,
   });
   console.log("tokenARG", process.env.ACCESS_AR_TOKEN);
-  const { cartId, books, totalAmount, shippingAddress } = req.body;
+  //por ahora se quitara shippingAddress
+  const { cartId, books, totalAmount } = req.body;
   idCarrito = cartId;
-  address = shippingAddress;
+  // address = shippingAddress;
   products = books;
   amount = totalAmount;
   const preference = {

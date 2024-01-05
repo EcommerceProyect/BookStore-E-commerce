@@ -117,11 +117,6 @@ router.delete(
   deleteProductCartHandler
 );
 
-router.get('/getActiveCart/:userId', getActiveCartHandler);
-router.post("/createCart", createCartHandler)
-router.put("/addToCart", addToCartHandler)
-router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler)
-
 
 
 //Creacion de User Momentanea
@@ -131,58 +126,3 @@ router.post("/usersPrueba", postUserPruebaController);
 module.exports = router;
 
 
-// const {filterProductByISBN} = require("../handlers/filterHandler/filterProductByISBN");
-// const {filterProductByGenre} = require("../handlers/filterHandler/filterProductByGenre");
-// const {filterProductByDate} = require("../handlers/filterHandler/filterProductByDate");
-// const { filterProductByAuthor } = require("../handlers/filterHandler/filterProductByAuthor");
-// const { filterBySearchTerm } = require("../handlers/filterHandler/filterBySearchTerm");
-// const { filterProductByEditorial } = require("../handlers/filterHandler/filterProductByEditorial");
-
-// const objeto = {
-//     idUser: "user1",
-//     products: [
-//         {
-//             idProduct: "product1",
-//             quantity: 2,
-//             price: 200
-//         }
-//     ]
-// }
-
-//iniciando filtro Authors y Editorials paginado
-// router.get("/products/filter",(req,res) =>{
-//     const {rDate,genre,author,editorial, title, isbn} = req.query;
-//     if(rDate)filterProductByDate(req,res);
-//     else if(genre)filterProductByGenre(req,res);
-//     else if(isbn)filterProductByISBN(req,res)
-//     else if(author)filterProductByAuthor(req,res);
-//     else if(editorial)filterProductByEditorial(req,res);
-//     else if(title)filterBySearchTerm(req,res);
-// });
-
-// router.post ("/payment2", createOrderHandler);
-// //Pago exitoso
-// router.get("/success", (req, res) => {
-//   console.log("MercadoPago DATA:", req.query);
-//   // codigo: guardar en BDD
-//   //modificar stock
-// //   res.redirect("http://localhost:5173");
-//   res.status(200).json({ message: "pago realizado" });
-// });
-
-// //Pago rechazado
-// router.get("/failure", (req, res) => {
-//   console.log("MercadoPago DATA:", req.query);
-//   //* codigo: guardar en BDD
-//   //   res.redirect('http://%27/)
-//   res.status(200).json({ message: "pago rechazado" });
-// });
-
-// //Pago pendiente
-// router.get("/pending", (req, res) => {
-//   console.log("MercadoPago DATA:", req.query);
-//   // codigo: guardar en BDD
-//   //   res.redirect('http://%27/)
-//   res.status(200).json({ message: "pago pendiente" });
-// });
-// //Integracion mercadopago
