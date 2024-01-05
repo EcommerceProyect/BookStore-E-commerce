@@ -73,7 +73,6 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
               icon={<MdOutlineLogout className="text-textLight" size={25} />}
             />
           </div>
-          <SearchButton />
         </div>
       </div>
     </nav>
