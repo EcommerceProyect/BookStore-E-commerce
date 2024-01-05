@@ -151,7 +151,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <div title="Carrito">
             <Button
               link="/carrito"
-              counter={cartCount}
+              counter={cartCount === 0 ? null : cartCount}
               icon={
                 <LiaShoppingBagSolid className="text-textLight" size={25} />
               }

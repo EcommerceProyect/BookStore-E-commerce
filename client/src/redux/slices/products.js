@@ -10,15 +10,15 @@ const initialState = {
   cartCount: 0,
   totalItems: null,
   carouselProducts: [],
-  foundedBooks: []
+  foundedBooks: [],
 };
 
 export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setCarouselProducts : (state, action) => {
-      state.carouselProducts = action.payload
+    setCarouselProducts: (state, action) => {
+      state.carouselProducts = action.payload;
     },
     setProductListLoading: (state) => {
       state.loading = true;
@@ -60,9 +60,10 @@ export const productSlice = createSlice({
       const existingProduct = state.cart.find(
         (product) => product.id === action.payload.id,
       );
+      const productWithQuantity = { ...action.payload, quantity: 1 };
 
       if (!existingProduct) {
-        state.cart.push(action.payload);
+        state.cart.push(productWithQuantity);
         state.cartCount += 1;
       }
     },
@@ -72,6 +73,20 @@ export const productSlice = createSlice({
       );
 
       state.cartCount -= 1;
+    },
+    incrementCartQuantity: (state, action) => {
+      const existingProduct = state.cart.find(
+        (product) => product.id === action.payload.id,
+      );
+
+      if (existingProduct) existingProduct.quantity += 1;
+    },
+    decrementCartQuantityt: (state, action) => {
+      const existingProduct = state.cart.find(
+        (product) => product.id === action.payload.id,
+      );
+
+      if (existingProduct) existingProduct.quantity -= 1;
     },
   },
 });
@@ -90,6 +105,8 @@ export const {
   setFoundedBooks,
   addToCart,
   removeFromCart,
+  incrementCartQuantity,
+  decrementCartQuantityt,
 } = productSlice.actions;
 
 export default productSlice.reducer;
