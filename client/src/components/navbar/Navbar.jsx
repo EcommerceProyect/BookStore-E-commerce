@@ -4,7 +4,7 @@ import Logo from '../../assets/images/Logo.svg';
 
 import auth0 from 'auth0-js';
 
-// import SearchButton from '../searchButton/SearchButton';
+import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
 import {
@@ -14,6 +14,7 @@ import {
   MdPersonAddAlt1,
   MdAppRegistration,
 } from 'react-icons/md';
+import AuthLogin from '../login/AuthLogin';
 import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 
@@ -21,11 +22,9 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);
 
   //Auth modularizarlo si es necesario
-  
-  
-  const handleLoginAuth = async () => {
 
-    const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+  const handleLoginAuth = async () => {
+    const domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
 
     const audience = 'https://www.protectAPI.com';
 
@@ -50,8 +49,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     window.location.href = response.url;
   };
   const handleRegisterAuth = async () => {
-
-    const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+    const domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
 
     const audience = 'https://www.protectAPI.com';
 
@@ -97,11 +95,10 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
-        {/* <SearchButton /> */}
         <div title="Home" className="left-0">
           <img src={Logo} alt="Logo" className="ml-10" />
         </div>
-
+       
         <div className="flex items-center justify-between gap-2 pl-10 mr-5">
           {/* auth */}
 
@@ -166,6 +163,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
               icon={<MdOutlineLogout className="text-textLight" size={25} />}
             />
           </div>
+          <SearchButton />
         </div>
       </div>
     </nav>
