@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 const sequelize = new Sequelize(
-  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`,
+  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
   {
     //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
@@ -97,19 +97,23 @@ Products.hasOne(ReleasedDate);
 ReleasedDate.belongsTo(Products);
 
 module.exports = {
-  Users,
-  Products,
-  Orders,
-  Productreview,
-  ISBN,
-  ReleasedDate,
-  Genre,
-  Author,
-  Editorial,
-  //     //exporto Cart y GenreProducts para futuros usos
-  Cart,
-  CartDetail,
-  GenreProducts,
-  AuthorProducts,
-  conn: sequelize,
-};
+    Users,
+    Products,
+    Orders,
+    Productreview,
+    ISBN,
+    ReleasedDate,
+    Genre,
+    Author,
+    Editorial,
+    //     //exporto Cart y GenreProducts para futuros usos
+    Cart,
+    CartDetail,
+    GenreProducts,
+    AuthorProducts,
+    conn:sequelize,
+}
+
+
+
+

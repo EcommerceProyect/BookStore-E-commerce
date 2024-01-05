@@ -37,7 +37,7 @@ const {
 const {
   updateISBNHandler,
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
-const { getUser } = require("../handlers/Users/getUser");
+const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const {
   getProductsForSearchHandler,
 } = require("../handlers/getProductsForSearchHandler");
@@ -102,7 +102,7 @@ router.delete("/orders/:id", deleteOrderHandler);
 
 //Users
 
-router.get("/user", getUser);
+router.get("/user",getUser_Token);
 
 //prueba rutas Users de Gena
 router.put("/user/:id", updateUserHandler);

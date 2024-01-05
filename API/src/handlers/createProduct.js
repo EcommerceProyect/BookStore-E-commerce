@@ -4,6 +4,7 @@ const { createProductController } = require("../controllers/createProductControl
 const createProduct = async (req,res) =>{
 
     const data = req.body;
+    console.log(data);
 
     try {
 
