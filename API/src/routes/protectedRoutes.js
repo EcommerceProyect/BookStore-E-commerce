@@ -7,6 +7,8 @@ const { postUser } = require("../handlers/Users/postUser");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const { getAllUsers } = require("../handlers/Users/getAllUsers");
 const { createProduct } = require("../handlers/createProduct");
+const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 
 
 
@@ -34,7 +36,9 @@ const checkPermissions = (requiredPermissions) => (req, res, next) => {
 
 router.use(jwtCheck);
 
-//rutas del admin
+//rutas del admin 
+
+//Users
 router.get("/authorized",checkPermissions(['admin:edit']), async (req, res) => {
   
   console.log("info auth", req.auth);
@@ -62,6 +66,10 @@ router.get('/authorized/check',checkPermissions(['admin:edit']),(req,res) => {
 });
 router.get('/authorized/profile',checkPermissions(['admin:edit']),getUser_Token);
 router.get('/authorized/users',checkPermissions(['admin:edit']),getAllUsers);
+router.put('/authorized/users',checkPermissions(['admin:edit']),updateUserHandler);
+router.delete('/authorized/users',checkPermissions(['admin:edit']),deleteUserHandler);
+
+//Products
 router.post("/authorized/products",checkPermissions(['admin:edit']), createProduct);
 
 module.exports = router;
