@@ -29,6 +29,7 @@ const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler")
 const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
+const { postUserPrueba } = require("../handlers/Users/postUserPrueba");
 
 const router = Router();
 
@@ -56,6 +57,7 @@ router.get("/ISBNs",getISBNs);
 
 router.post("/products",createProduct)
 router.post("/orders", createOrderHandler);
+router.post("/users", postUserPrueba);
 
 router.get("/products",getProducts);
 router.get("/orders", getOrdersHandler);

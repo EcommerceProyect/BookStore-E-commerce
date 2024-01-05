@@ -12,13 +12,13 @@ const {
 
 const filterProductsController = async (filters, sort, page) => {
   try {
-    console.log(sort);
     const { genre, editorial, title, author, rDate, isbn } = filters;
     const includeOptions = [];
     const titleCondition = {};
 
     const itemPerPage = 2;
     const offset = page * itemPerPage;
+
 
     if (genre) {
       includeOptions.push({

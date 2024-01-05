@@ -9,7 +9,7 @@ module.exports = (sequelize) =>{
             validate:{
                 notEmpty:{
                     args: true,
-                    msg: "El raiting no puede estar vacío",
+                    msg: "El reiting no puede estar vacío",
                 },
                 isInt:{
                     args:true,
