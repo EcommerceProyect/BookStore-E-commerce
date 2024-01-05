@@ -26,12 +26,12 @@ const createOrderPayment = async (req, res) => {
       currency_id: "ARS",
     })),
     back_urls: {
-      success: "http://localhost:3002/mercadoPago/success",
-      failure: "http://localhost:3002/mercadoPago/failure",
-      pending: "http://localhost:3002/mercadoPago/pending",
+      success: "http://localhost:3001/mercadoPago/success",
+      failure: "http://localhost:3001/mercadoPago/failure",
+      pending: "http://localhost:3001/mercadoPago/pending",
     },
     notification_url:
-      "https://1qw6hp6g-3002.brs.devtunnels.ms/mercadoPago/webhook",
+      "https://pp57n9x0-3001.use2.devtunnels.ms/mercadoPago/webhook",
   };
 
   const result = await mercadopago.preferences.create(preference);
@@ -70,11 +70,8 @@ const receiveWebhook = async (req, res) => {
 
         // Esperar a que todas las consultas de actualización de stock se completen
         await Promise.all(isbnPromises);
-        await Cart.update(
-            { status: "Inactivo" },
-            { where: { id: idCarrito } }
-          );
-  
+        await Cart.update({ status: "Inactivo" }, { where: { id: idCarrito } });
+
         return res
           .status(200)
           .json({ message: "Order created successfully.", orderId: order.id });
@@ -88,4 +85,3 @@ const receiveWebhook = async (req, res) => {
 };
 
 module.exports = { createOrderPayment, receiveWebhook };
-

@@ -53,7 +53,7 @@ export const productSlice = createSlice({
     setOrderOption: (state, action) => {
       state.orderOption = action.payload;
     },
-    setFoundedBooks:(state,action) =>{
+    setFoundedBooks: (state, action) => {
       state.foundedBooks = action.payload;
     },
     addToCart: (state, action) => {
