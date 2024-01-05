@@ -1,0 +1,16 @@
+import auth0 from 'auth0-js';
+
+const handleLogout = () => {
+  localStorage.clear();
+  const webAuth = new auth0.WebAuth({
+    domain: DOMAIN,
+    clientID: CLIENT_ID,
+  });
+
+  webAuth.logout({
+    returnTo: REDIRECT_URI,
+    clientID: CLIENT_ID,
+  });
+};
+
+export default handleLogout;

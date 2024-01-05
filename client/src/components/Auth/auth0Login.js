@@ -8,7 +8,7 @@ import {
   REDIRECT_URI,
 } from '../../vars';
 
-const AuthLogin = async () => {
+const auth0Login = async () => {
   const response = await fetch(
     `https://${DOMAIN}/authorize?` +
       `audience=${AUDIENCE}&` +
@@ -24,4 +24,4 @@ const AuthLogin = async () => {
   window.location.replace(response.url);
 };
 
-export default AuthLogin;
+export default auth0Login;
