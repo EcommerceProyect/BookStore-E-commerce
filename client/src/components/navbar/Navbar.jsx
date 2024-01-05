@@ -26,7 +26,6 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
-        {/* <SearchButton /> */}
         <div title="Home" className="left-0">
           <img src={Logo} alt="Logo" className="ml-10" />
         </div>
@@ -74,6 +73,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
               icon={<MdOutlineLogout className="text-textLight" size={25} />}
             />
           </div>
+          <SearchButton />
         </div>
       </div>
     </nav>

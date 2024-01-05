@@ -10,7 +10,7 @@ export const fetchGenres = () => async (dispatch) => {
     const response = await axios.get(apiUrl);
     const genres = response.data.map((genre) => genre.name);
     dispatch(setGenreList(genres)); 
-    console.log("Géneros obtenidos de la API:", response.data);
+    
   } catch (error) {
     dispatch(setGenreListError(error.message));  
   }
