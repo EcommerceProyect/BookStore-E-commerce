@@ -31,8 +31,8 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     const scope = 'admin:edit';
     const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
-    const response_type = 'code';
-    // const redirectUri = 'https://bookstore-e-commerce-z27y.onrender.com/';
+    const response_type = "code";
+    // const redirectUri = "https://bookstore-e-commerce-z27y.onrender.com/";
     const redirectUri = "http://localhost:5173/";
     const response = await fetch(
       `https://${domain}/authorize?` +
@@ -56,8 +56,8 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     const scope = 'admin:edit';
     const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
-    const response_type = 'code';
-    // const redirectUri ='https://bookstore-e-commerce-z27y.onrender.com/redirect';
+    const response_type = "code";
+    // const redirectUri = "https://bookstore-e-commerce-z27y.onrender.com/redirect";
     const redirectUri = "http://localhost:5173/redirect";
     const response = await fetch(
       `https://${domain}/authorize?` +
@@ -75,11 +75,11 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   };
 
   const handleLogout = () => {
-    const auth0Domain = 'dev-s3pcs1ovog464bay.us.auth0.com';
-    const auth0ClientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
-    // const auth0ReturnTo = 'https://bookstore-e-commerce-z27y.onrender.com/';
+    const auth0Domain = "dev-s3pcs1ovog464bay.us.auth0.com";
+    const auth0ClientId = "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
+    // const auth0ReturnTo = "https://bookstore-e-commerce-z27y.onrender.com/";
     const auth0ReturnTo = "http://localhost:5173/";
-
+  
     localStorage.clear();
     const webAuth = new auth0.WebAuth({
       domain: auth0Domain,
