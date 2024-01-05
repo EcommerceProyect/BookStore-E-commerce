@@ -1,4 +1,6 @@
-const { createOrderController } = require("../../controllers/MercadoPago/createOrderController");
+const {
+  createOrderController,
+} = require("../../controllers/MercadoPago/createOrderController");
 
 const createOrderHandler = async (req, res) => {
   try {
@@ -13,10 +15,6 @@ const createOrderHandler = async (req, res) => {
 };
 
 module.exports = { createOrderHandler };
-
-
-
-
 
 // let preference = {
 //   items: [
@@ -42,19 +40,19 @@ module.exports = { createOrderHandler };
 //   .then((response) => res.status(200).json(response))
 //   .catch((error) => res.status(400).json({ message: error.message }));
 
-  // let multiPreference = {
-  //   items: items.map((item) => ({
-  //     id: item.id,
-  //     title: item.title,
-  //     quantity: item.quantity,
-  //     unit_price: item.unit_price,
-  //     currency_id: item.currency_id,
-  //     picture_url: item.picture_url,
-  //     description: item.description,
-  //   })),
-  //   back_urls: {
-  //     success: "http://localhost:3002/payment/success",
-  //     failure: "http://localhost:3002/payment/failure",
-  //     pending: "http://localhost:3002/payment/pending",
-  //   },
-  // };
+// let multiPreference = {
+//   items: items.map((item) => ({
+//     id: item.id,
+//     title: item.title,
+//     quantity: item.quantity,
+//     unit_price: item.unit_price,
+//     currency_id: item.currency_id,
+//     picture_url: item.picture_url,
+//     description: item.description,
+//   })),
+//   back_urls: {
+//     success: "http://localhost:3002/payment/success",
+//     failure: "http://localhost:3002/payment/failure",
+//     pending: "http://localhost:3002/payment/pending",
+//   },
+// };

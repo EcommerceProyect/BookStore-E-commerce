@@ -18,7 +18,6 @@ import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
-
   const { cartCount } = useSelector((state) => state.products);
 
   //Auth modularizarlo si es necesario
@@ -28,54 +27,53 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
 
     const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
 
-    const audience= "https://www.protectAPI.com";
+    const audience = 'https://www.protectAPI.com';
 
-    const scope = "admin:edit";
-    const clientId= "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
+    const scope = 'admin:edit';
+    const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
     const response_type = "code";
     const redirectUri = "https://bookstore-e-commerce-z27y.onrender.com/";
     // const redirectUri = "http://localhost:5173/";
     const response = await fetch(
-      `https://${domain}/authorize?` + 
-      `audience=${audience}&` + 
-      `scope=${scope}&` +
-      `response_type=${response_type}&` +
-      `client_id=${clientId}&` +
-      `redirect_uri=${redirectUri}`, {
-        redirect: "manual"
-      }
+      `https://${domain}/authorize?` +
+        `audience=${audience}&` +
+        `scope=${scope}&` +
+        `response_type=${response_type}&` +
+        `client_id=${clientId}&` +
+        `redirect_uri=${redirectUri}`,
+      {
+        redirect: 'manual',
+      },
     );
 
     window.location.href = response.url;
-
-  }
+  };
   const handleRegisterAuth = async () => {
+    if (!isRegister) setIsRegister(true);
 
     const domain = "dev-s3pcs1ovog464bay.us.auth0.com";
 
-    const audience= "https://www.protectAPI.com";
-
-    const scope = "admin:edit";
-    const clientId= "V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY";
+    const scope = 'admin:edit';
+    const clientId = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 
     const response_type = "code";
     const redirectUri = "https://bookstore-e-commerce-z27y.onrender.com/redirect";
     // const redirectUri = "http://localhost:5173/redirect";
     const response = await fetch(
-      `https://${domain}/authorize?` + 
-      `audience=${audience}&` + 
-      `scope=${scope}&` +
-      `response_type=${response_type}&` +
-      `client_id=${clientId}&` +
-      `redirect_uri=${redirectUri}`, {
-        redirect: "manual"
-      }
+      `https://${domain}/authorize?` +
+        `audience=${audience}&` +
+        `scope=${scope}&` +
+        `response_type=${response_type}&` +
+        `client_id=${clientId}&` +
+        `redirect_uri=${redirectUri}`,
+      {
+        redirect: 'manual',
+      },
     );
 
     window.location.href = response.url;
-
-  }
+  };
 
   const handleLogout = () => {
     const auth0Domain = "dev-s3pcs1ovog464bay.us.auth0.com";
@@ -86,17 +84,15 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     localStorage.clear();
     const webAuth = new auth0.WebAuth({
       domain: auth0Domain,
-      clientID: auth0ClientId
+      clientID: auth0ClientId,
     });
-  
+
     webAuth.logout({
       returnTo: auth0ReturnTo,
-      clientID: auth0ClientId
+      clientID: auth0ClientId,
     });
   };
-  
 
-  
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
@@ -109,25 +105,26 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           {/* auth */}
 
           <div>
-
-          <LoginAuth/>
-
+            <LoginAuth />
           </div>
-          
+
           <div title="Register Auth">
-            <Button onClick={handleRegisterAuth}
+            <Button
+              onClick={handleRegisterAuth}
               icon={<MdAppRegistration className="text-textLight" size={20} />}
             />
           </div>
 
           <div title="Login Auth">
-            <Button onClick={handleLoginAuth}
+            <Button
+              onClick={handleLoginAuth}
               icon={<MdOutlineLogin className="text-textLight" size={20} />}
             />
           </div>
 
           <div title="Logout Auth">
-            <Button onClick={handleLogout}
+            <Button
+              onClick={handleLogout}
               icon={<MdOutlineLogout className="text-textLight" size={20} />}
             />
           </div>
@@ -156,7 +153,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <div title="Carrito">
             <Button
               link="/carrito"
-              counter={cartCount}
+              counter={cartCount === 0 ? null : cartCount}
               icon={
                 <LiaShoppingBagSolid className="text-textLight" size={25} />
               }
@@ -173,7 +170,6 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
     </nav>
 
     // auth
-    
   );
 };
 
