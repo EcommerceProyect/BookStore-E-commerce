@@ -1,4 +1,5 @@
 const { Router } = require("express");
+// const cors = require("cors");
 const { getProducts } = require("../handlers/getProducts");
 const { createProduct } = require("../handlers/createProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
@@ -26,7 +27,7 @@ const {
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
 const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
-// const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
+const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const {
   deleteOrderHandler
@@ -52,16 +53,13 @@ const {
   getActiveCartHandler
 } = require("../handlers/Cart/getActiveCartHandler");
 
-//rutas Mercado Pago
-const {
-  createOrderHandler
-} = require("../handlers/MercadoPago/createOrderHandler");
 
-// const { paymentWebhooks } = require("../handlers/MercadoPago/paymentWebhooks");
+
+
 
 //ruta Usuario temporal
 
-const { postUserPrueba } = require("../handlers/MercadoPago/postUserPrueba");
+const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
 
 const router = Router();
 
@@ -108,7 +106,8 @@ router.get("/user", getUser_Token);
 router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
-//rutas para Carrito y Mercado Pago
+
+
 //RUTAS DEL CARRITO
 
 router.get("/getActiveCart/:userId", getActiveCartHandler);
@@ -119,83 +118,12 @@ router.delete(
   deleteProductCartHandler
 );
 
-//rutas Camilo
 
-router.post("/payment", createOrderHandler);
-
-// router.post("/webhook", paymentWebhooks);
-//
 
 //Creacion de User Momentanea
 
-router.post("/usersPrueba", postUserPrueba);
+router.post("/usersPrueba", postUserPruebaController);
 
 module.exports = router;
 
-//
 
-// user:{
-//     idUser: "user1",
-//     email: "pHqQ3@example.com",
-//     password: "123456",
-// }
-
-// const User = {
-//     userId = "asjdnjashdfjoenfuiwefghbgiuwe"
-// }
-
-// const {filterProductByISBN} = require("../handlers/filterHandler/filterProductByISBN");
-// const {filterProductByGenre} = require("../handlers/filterHandler/filterProductByGenre");
-// const {filterProductByDate} = require("../handlers/filterHandler/filterProductByDate");
-// const { filterProductByAuthor } = require("../handlers/filterHandler/filterProductByAuthor");
-// const { filterBySearchTerm } = require("../handlers/filterHandler/filterBySearchTerm");
-// const { filterProductByEditorial } = require("../handlers/filterHandler/filterProductByEditorial");
-
-// const objeto = {
-//     idUser: "user1",
-//     products: [
-//         {
-//             idProduct: "product1",
-//             quantity: 2,
-//             price: 200
-//         }
-//     ]
-// }
-
-//iniciando filtro Authors y Editorials paginado
-// router.get("/products/filter",(req,res) =>{
-//     const {rDate,genre,author,editorial, title, isbn} = req.query;
-//     if(rDate)filterProductByDate(req,res);
-//     else if(genre)filterProductByGenre(req,res);
-//     else if(isbn)filterProductByISBN(req,res)
-//     else if(author)filterProductByAuthor(req,res);
-//     else if(editorial)filterProductByEditorial(req,res);
-//     else if(title)filterBySearchTerm(req,res);
-// });
-
-// router.post ("/payment2", createOrderHandler);
-// //Pago exitoso
-// router.get("/success", (req, res) => {
-//   console.log("MercadoPago DATA:", req.query);
-//   // codigo: guardar en BDD
-//   //modificar stock
-// //   res.redirect("http://localhost:5173");
-//   res.status(200).json({ message: "pago realizado" });
-// });
-
-// //Pago rechazado
-// router.get("/failure", (req, res) => {
-//   console.log("MercadoPago DATA:", req.query);
-//   //* codigo: guardar en BDD
-//   //   res.redirect('http://%27/)
-//   res.status(200).json({ message: "pago rechazado" });
-// });
-
-// //Pago pendiente
-// router.get("/pending", (req, res) => {
-//   console.log("MercadoPago DATA:", req.query);
-//   // codigo: guardar en BDD
-//   //   res.redirect('http://%27/)
-//   res.status(200).json({ message: "pago pendiente" });
-// });
-// //Integracion mercadopago
