@@ -1,18 +1,18 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const {CLIENT_SECRET,GRANT_TYPE,CLIENT_ID,TOKEN_ENDPOINT,REDIRECT_URI} = process.env;
-
+const { CLIENT_SECRET, GRANT_TYPE, CLIENT_ID, TOKEN_ENDPOINT, REDIRECT_URI } =
+  process.env;
 
 const tokenEndpoint = `${TOKEN_ENDPOINT}`;
 
 let oAuth = async (req, res, next) => {
-  const {code,token} = req.query;
+  const { code, token } = req.query;
 
   // if (!code) {
   //   res.status(401).send("Missing authorization code");
   // }
-  if(token) {
+  if (token) {
     return next();
   }
   const params = new URLSearchParams();
@@ -22,16 +22,16 @@ let oAuth = async (req, res, next) => {
   params.append("code", code);
   params.append("redirect_uri", `${REDIRECT_URI}`);
 
-  axios.post(tokenEndpoint, params)
-    .then(response => {
+  axios
+    .post(tokenEndpoint, params)
+    .then((response) => {
       req.oauth = response.data;
       next();
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(403).json(`Reason: ${error.message}`);
       next(error);
     });
-}
-
+};
 
 module.exports = oAuth;
