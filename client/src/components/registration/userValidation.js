@@ -24,10 +24,12 @@ const userValidation = (userData) => {
 
   if (
     userData.password !== '' &&
-    !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/.test(userData.password)
+    !/^(?=(?:.*[a-z]){1,})(?=(?:.*[A-Z]){1,})(?=(?:.*\d){1,})(?=(?:.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]))?.{8,}$/.test(
+      userData.password,
+    )
   ) {
     errors.password =
-      'La contraseña debe contener al menos un dígito y 8 caracteres.';
+      'La contraseña debe contener al menos una mayúscula, un número y 8 caracteres.';
   }
 
   if (
