@@ -1,270 +1,154 @@
-import React, { useCallback } from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { postProduct } from '../../redux/services/postProduct';
-import bookValidation from './bookValidation';
-
-import { Button, Label, TextInput, Alert } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from './useForm';
+import { validationSchema } from './validationSchema';
+import {
+  Button,
+  FileInput,
+  Label,
+  TextInput,
+  Alert,
+  Textarea,
+} from 'flowbite-react';
 import CreatableSelect from 'react-select/creatable';
-import Cloudinary from './cloudinary';
-
-import axios from 'axios';
+//actions
+import { fetchGenres } from '../../redux/services/getGenres';
+import { fetchEditorial } from '../../redux/services/getEditorial';
+import {fetchAuthors} from '../../redux/services/getAuthors'
 
 const CreateBook = () => {
+
   const dispatch = useDispatch();
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleSelectChange,
+    handleImageChange,
+  } = useForm(validationSchema);
 
-  const generos = ['Ficción', 'Aventura', 'Acción']; // cuando estén disponibles las rutas para hacer
-  const autores = ['max', 'un random']; // GET de géneros, autores y editoriales,
-  const editoriales = ['editorial1', 'editorial2']; // voy a reemplazar esto.
+ const {allAuthors} = useSelector((state) => state.authors);
+  useEffect(()=>{
+    dispatch(fetchAuthors());
+  },[dispatch])
 
-  const [bookData, setBookData] = useState({
-    title: '',
-    price: '',
-    image: '',
-    releaseDate: '',
-    autor: [],
-    genre: [],
-    synopsis: '',
-    editorial: '',
-    ISBNname: '',
-    stock: '',
-  });
-
-  const [fileImage, setFileImage] = useState(null);
-
-  const updateFileImage = useCallback((file) => {
-    setFileImage(file);
-  });
-
-  const [errors, setErrors] = useState({
-    title: '',
-    price: '',
-    image: '',
-    autor: '',
-    genre: '',
-    synopsis: '',
-    editorial: '',
-    ISBNname: '',
-    stock: '',
-  });
-
-  const handleChange = (e) => {
-    setBookData({
-      ...bookData,
-      [e.target.name]: e.target.value,
-    });
-    setErrors(
-      bookValidation({
-        ...bookData,
-        [e.target.name]: e.target.value,
-      }),
-    );
-  };
-
-  const handleChangeImage = (value) => {
-    try {
-      if (!value) {
-        console.error('La URL de la imagen no es válida.');
-        return;
-      }
-
-      setBookData({
-        ...bookData,
-        ['image']: value,
-      });
-
-      console.log(bookData);
-    } catch (error) {
-      console.error('Error al manejar la imagen:', error.message);
-    }
-  };
-
-  const handleSelectChangeGenre = (e) => {
-    const updatedGenres = e.map((selectedGenre) => selectedGenre.value);
-    setBookData({ ...bookData, genre: updatedGenres });
-  };
-
-  const handleSelectChangeAutor = (e) => {
-    const updatedAutores = e.map((selectedAutor) => selectedAutor.value);
-    setBookData({ ...bookData, autor: updatedAutores });
-  };
-
-  const handleSelectChangeEditorial = (e) => {
-    setBookData({ ...bookData, editorial: e.value });
-  };
-
-  const genresNotInArray = bookData.genre.filter(
-    (genre) => !generos.includes(genre),
-  );
-
-  const autoresNotInArray = bookData.autor.filter(
-    (autor) => !autores.includes(autor),
-  );
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Cargar imagen en cloudinary y obtener url
-      const data = new FormData();
-      data.append('file', fileImage);
-      data.append('upload_preset', 'oxcrd6yr');
-      const responseImage = await axios.post(
-        'https://api.cloudinary.com/v1_1/dwajgrydt/image/upload',
-        data,
-      );
-
-      setBookData((bookData) => {
-        return {
-          ...bookData,
-          image: responseImage.data.secure_url,
-        };
-      });
-    } catch (e) {
-      console.error('No se ah podido cargar la imagen', e);
-    }
-  };
-
+  const {allGenres} = useSelector((state) => state.genres);
   useEffect(() => {
-    const fetchData = async () => {
-      // Verificar si bookData.image ha cambiado desde su valor inicial
-      if (bookData.image !== '') {
-        console.log('bookData actualizado:', bookData);
+    dispatch(fetchGenres());
+  }, [dispatch]);
 
-        try {
-          const response = await dispatch(postProduct(bookData));
-          console.log('Response carga libro', response);
-
-          if (
-            response &&
-            (response.status === 201 || response.status === 200)
-          ) {
-            alert('Libro creado exitosamente.');
-          } else {
-            console.error('Error creando el libro.');
-          }
-        } catch (error) {
-          console.error('Error creando libro:', error.message);
-        }
-      }
-    };
-
-    fetchData(); // Ejecuta la función asincrónica inmediatamente
-
-    // Resto del código...
-  }, [bookData.image]);
-
+  const {allEditorial} = useSelector((state) => state.editorial);
+  useEffect(()=>{
+    dispatch(fetchEditorial());
+  },[dispatch])
+  
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col max-w-md gap-4">
-      <div>
-        <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-          Creación de libro
-        </h3>
-      </div>
+    <div className="flex items-center justify-center m-4">
+    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4 border p-6 rounded-md w-full">
       <div>
         <div className="mb-2 block">
           <Label htmlFor="title" value="Título" />
         </div>
         <TextInput
+          name="title"
           id="title"
           type="text"
-          name="title"
-          value={bookData.title}
+          placeholder=""
+          value={values.title}
           onChange={handleChange}
-          color={errors.title ? 'failure' : 'gray'}
-          helperText={errors.title ? errors.title : null}
         />
       </div>
-
+      {errors.title && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.title}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="price" value="Precio"></Label>
+          <Label htmlFor="price" value="Precio" />
         </div>
         <TextInput
-          id="price"
-          type="text"
           name="price"
-          pattern="\d+(\.\d{1,2})?"
-          value={bookData.price}
+          id="price"
+          type="number"
+          value={values.price}
           onChange={handleChange}
-          color={errors.price ? 'failure' : 'gray'}
-          helperText={errors.price ? errors.price : null}
         />
       </div>
-
+      {errors.price && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.price}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="image" value="Imagen"></Label>
+          <Label htmlFor="image" value="Subir Imagen" />
         </div>
-        <Cloudinary fileImage={fileImage} updateFileImage={updateFileImage} />
+        <FileInput
+          name="image"
+          id="image"
+          accept="image/*"
+          helperText="SVG, PNG, JPG or GIF (MAX. 800x400px)."
+          onChange={handleImageChange}
+        />
       </div>
-
+      {errors.image && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.image}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="releaseDate" value="Fecha de lanzamiento"></Label>
+          <Label htmlFor="releaseDate" value="Fecha de publicación" />
         </div>
         <TextInput
           type="date"
           name="releaseDate"
           id="releaseDate"
-          value={bookData.releaseDate}
-          color="gray"
+          value={values.releaseDate}
           onChange={handleChange}
         />
       </div>
-
+      {errors.releaseDate && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.releaseDate}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
           <Label htmlFor="autor" value="Autor" />
         </div>
         <CreatableSelect
           id="autor"
-          onChange={handleSelectChangeAutor}
+          name="autor"
           isMulti
-          options={autores.map((autor) => ({ value: autor, label: autor }))}
+          onChange={handleSelectChange}
+          options={allAuthors.map((autor) => ({ value: autor, label: autor }))}
         />
-        {autoresNotInArray.length > 0 && (
-          <Alert color="info">
-            <span className="font-medium">Cuidado!</span> Los siguientes autores
-            no se encuentran actualmente en la base de datos, por lo tanto se
-            crearán: {autoresNotInArray.join(', ')}.
-          </Alert>
-        )}
       </div>
-
+      {errors.autor && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.autor}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
           <Label htmlFor="genre" value="Género" />
         </div>
         <CreatableSelect
           id="genre"
-          onChange={handleSelectChangeGenre}
+          name="genre"
           isMulti
-          options={generos.map((genre) => ({ value: genre, label: genre }))}
-        />
-        {genresNotInArray.length > 0 && (
-          <Alert color="info">
-            <span className="font-medium">Cuidado!</span> Los siguientes géneros
-            no se encuentran actualmente en la base de datos, por lo tanto se
-            crearán: {genresNotInArray.join(', ')}.
-          </Alert>
-        )}
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="synopsis" value="Sinopsis" />
-        </div>
-        <TextInput
-          type="text"
-          name="synopsis"
-          id="synopsis"
-          value={bookData.synopsis}
-          onChange={handleChange}
-          color={errors.synopsis ? 'failure' : 'gray'}
-          helperText={errors.synopsis ? errors.synopsis : null}
+          onChange={handleSelectChange}
+          options={allGenres.map((genre) => ({ value: genre, label: genre }))}
         />
       </div>
+      {errors.genre && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.genre}</span>
+        </Alert>
+      )}
 
       <div>
         <div className="mb-2 block">
@@ -272,70 +156,75 @@ const CreateBook = () => {
         </div>
         <CreatableSelect
           id="editorial"
-          onChange={handleSelectChangeEditorial}
-          options={editoriales.map((editorial) => ({
+          name="editorial"
+          onChange={handleSelectChange}
+          options={allEditorial.map((editorial) => ({
             value: editorial,
             label: editorial,
           }))}
         />
-        {!editoriales.includes(bookData.editorial) > 0 &&
-          bookData.editorial !== '' && (
-            <Alert color="info">
-              <span className="font-medium">Cuidado!</span> La editorial no se
-              encuentra actualmente en la base de datos, por lo tanto se creará.
-            </Alert>
-          )}
       </div>
-
+      {errors.editorial && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.editorial}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
           <Label htmlFor="ISBNname" value="ISBN" />
         </div>
         <TextInput
-          type="text"
           name="ISBNname"
           id="ISBNname"
-          value={bookData.ISBNname}
+          type="text"
+          placeholder=""
+          value={values.ISBNname}
           onChange={handleChange}
-          color={errors.ISBNname ? 'failure' : 'gray'}
-          helperText={errors.ISBNname ? errors.ISBNname : null}
         />
       </div>
-
+      {errors.ISBNname && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.ISBNname}</span>
+        </Alert>
+      )}
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="stock" value="Stock"></Label>
+          <Label htmlFor="stock" value="Stock" />
         </div>
         <TextInput
+          name="stock"
           id="stock"
           type="number"
-          name="stock"
-          value={bookData.stock}
+          value={values.stock}
           onChange={handleChange}
-          color={errors.stock ? 'failure' : 'gray'}
-          helperText={errors.stock ? errors.stock : null}
         />
       </div>
+      {errors.stock && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.stock}</span>
+        </Alert>
+      )}
+      <div className="max-w-md">
+        <div className="mb-2 block">
+          <Label htmlFor="synopsis" value="Sipnosis" />
+        </div>
+        <Textarea
+          name="synopsis"
+          id="synopsis"
+          rows={4}
+          value={values.synopsis}
+          onChange={handleChange}
+        />
+      </div>
+      {errors.synopsis && (
+        <Alert color="failure">
+          <span className="font-medium">{errors.synopsis}</span>
+        </Alert>
+      )}
 
-      <button
-        type="submit"
-        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        disabled={
-          bookData.genre.length === 0 ||
-          bookData.autor.length === 0 ||
-          bookData.title === '' ||
-          bookData.price === '' ||
-          bookData.releaseDate === '' ||
-          bookData.editorial === '' ||
-          bookData.ISBNname === '' ||
-          bookData.synopsis === '' ||
-          bookData.stock === '' ||
-          Object.values(errors).some((error) => error)
-        }
-      >
-        Crear libro{' '}
-      </button>
+      <Button className="bg-accents" type="submit">Crear libro</Button>
     </form>
+    </div>
   );
 };
 
