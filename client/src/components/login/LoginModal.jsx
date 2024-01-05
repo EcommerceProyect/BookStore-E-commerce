@@ -2,20 +2,9 @@ import React from 'react';
 import auth0 from 'auth0-js';
 import { DOMAIN, CLIENT_ID, RESPONSE_TYPE, REDIRECT_URI } from '../../vars';
 
+import auth0Login from '../Auth/auth0Login';
+
 const LoginModal = ({ onClose }) => {
-  const handleAuth0Login = () => {
-    const webAuth = new auth0.WebAuth({
-      domain: DOMAIN,
-      clientID: CLIENT_ID,
-      responseType: RESPONSE_TYPE,
-    });
-
-    webAuth.authorize({
-      connection: null,
-      redirect_uri: REDIRECT_URI,
-    });
-  };
-
   const handleGoogleLogin = () => {
     // Initialize Auth0
     const webAuth = new auth0.WebAuth({
@@ -73,7 +62,7 @@ const LoginModal = ({ onClose }) => {
             <div className="p-4 md:p-5">
               <button
                 className="mb-4 w-full px-4 py-2 border flex justify-center items-center gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
-                onClick={handleAuth0Login}
+                onClick={auth0Login}
               >
                 <img
                   className="w-6 h-6"
@@ -83,6 +72,11 @@ const LoginModal = ({ onClose }) => {
                 />
                 Iniciar sesión con Auth0
               </button>
+              <div className="flex items-center justify-center mb-4">
+                <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
+                <p className="mx-4">o</p>
+                <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
+              </div>
               <button
                 className=" mb-4 w-full px-4 py-2 border flex justify-center items-center gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
                 onClick={handleGoogleLogin}
