@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+import {
+APIDOMAIN,
+} from '../../vars';
+
 const LoginAuth = () => {
   const location = useLocation();
   const { search } = location;
@@ -17,8 +21,7 @@ const LoginAuth = () => {
       if (challengesData === "none" && code && location.pathname !== "/redirect") {
         try {
           const response = await fetch(
-            // `https://api-books-auth0.onrender.com?code=${code}&route=profile`,
-            `http://localhost:3001/authorized?code=${code}&route=profile`,
+            `${APIDOMAIN}/authorized?code=${code}&route=profile`,
             {
               method: 'GET',
               headers: {

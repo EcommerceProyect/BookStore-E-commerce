@@ -1,23 +1,31 @@
 import React from 'react';
 import auth0 from 'auth0-js';
-import { DOMAIN, CLIENT_ID, RESPONSE_TYPE, REDIRECT_URI } from '../../vars';
+import { DOMAIN, CLIENT_ID,REDIRECT_URI,SCOPE,AUDIENCE } from '../../vars';
 
 import auth0Login from '../Auth/auth0Login';
 
 const LoginModal = ({ onClose }) => {
-  const handleGoogleLogin = () => {
-    // Initialize Auth0
-    const webAuth = new auth0.WebAuth({
-      domain: DOMAIN,
-      clientID: CLIENT_ID,
-      responseType: RESPONSE_TYPE,
-    });
+  const handleGoogleLogin = async () => {
+    try {
+      let webAuth = new auth0.WebAuth({
+        domain:       `${DOMAIN}`,
+        clientID:     `${CLIENT_ID}`
+      });
+    
+      // Calculate URL to redirect to
+      let url = webAuth.client.buildAuthorizeUrl({
+        clientID: `${CLIENT_ID}`, // string
+        responseType: 'code', // code or token
+        redirectUri: `${REDIRECT_URI}`,
+        scope: `${SCOPE}`,
+        audience:`${AUDIENCE}`
+      });
+  
+      window.location.replace(url);
 
-    // Trigger login with Google
-    webAuth.authorize({
-      connection: 'google-oauth2',
-      redirect_uri: REDIRECT_URI,
-    });
+    } catch (error) {
+      console.error("Error during Google login:", error);
+    }
   };
 
   return (
