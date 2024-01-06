@@ -34,6 +34,7 @@ const LoginAuth = () => {
 
           const data = await response.json();
           setChallengesData(data.response.name);
+          console.log(data);
           localStorage.setItem("actualT",data.token);
         } catch (error) {
           console.error(

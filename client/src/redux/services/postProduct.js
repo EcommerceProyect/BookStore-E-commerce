@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { addToProductList } from '../slices/products'
-
+import {
+  APIDOMAIN
+} from '../../vars';
 export const postProduct = (product) => {
   return async (dispatch) => {
     
@@ -8,7 +10,7 @@ export const postProduct = (product) => {
       const token =localStorage.getItem("actualT");
       if(token){
         const response = await axios.post(
-          `http://localhost:3001/authorized?route=products&token=${token}`,
+          `${APIDOMAIN}/authorized?route=products&token=${token}`,
           product,
         )
         dispatch(addToProductList(product))
