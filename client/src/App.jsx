@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
@@ -17,9 +17,23 @@ import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
 import PaymentBill from './views/cart/PaymentBill';
+import { useDispatch, useSelector } from 'react-redux';
+import { createCart } from './redux/slices/cartUsersTest';
+import { debounce } from 'lodash';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const { userId } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+
+  const createCartFn= debounce((userId) => {
+    dispatch(createCart(userId))
+  }, 500)
+  
+  useEffect(() => {
+    createCartFn(userId)
+  },[userId])
 
   const openLoginModal = () => {
     setShowLoginModal(true);

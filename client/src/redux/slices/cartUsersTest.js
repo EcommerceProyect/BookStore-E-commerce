@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { decrementCartQuantityt, incrementCartQuantity } from './products';
 
 const initialState = {
   userCart: null,
+  cartProducts: [],
 };
 
 export const cartUsersSlice = createSlice({
@@ -12,10 +14,14 @@ export const cartUsersSlice = createSlice({
     setUserCart: (state, action) => {
       state.userCart = action.payload;
     },
+    addProductToCart: (state, action) => {
+      console.log("ADD PRODUCT TO CART", action.payload);
+      state.cartProducts.push(action.payload);
+    }
   },
 });
 
-export const { setUserCart } = cartUsersSlice.actions;
+export const { setUserCart, addProductToCart } = cartUsersSlice.actions;
 
 export default cartUsersSlice.reducer;
 
@@ -31,3 +37,46 @@ export const createCart = (userId) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const addProductToCartApi = (userId, productId, quantity) => async (dispatch) => {
+  console.log("ADD TO CART API", userId);
+  try{
+    const response = await axios.put(
+      'http://localhost:3002/ebook/addToCart',
+      { userId, productId, quantity },
+    );
+    dispatch(addProductToCart({ userId: userId, productId: productId, quantity: quantity }));
+    console.log("ADD TO CART API RESPONSE",response);
+  }catch(error){
+    console.error(error);
+  }
+}
+
+export const incrementProductCartQuantity = (userId, productId, quantity) => async (dispatch) => {
+  console.log("INCREMENT PRODUCT CART QUANTITY", userId, productId, quantity);
+  try {
+    const response = await axios.put(
+      'http://localhost:3002/ebook/addToCart',
+      { userId, productId, quantity },
+    )
+    dispatch(incrementCartQuantity({ id: productId }));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const decrementProductCartQuantity = (userId, productId, quantity) => async (dispatch) => {
+  console.log("DECREMENT PRODUCT CART QUANTITY", userId, productId, quantity);
+  try {
+    const response = await axios.put(
+      'http://localhost:3002/ebook/addToCart',
+      { userId, productId, quantity },
+    )
+    dispatch(decrementCartQuantityt({ id: productId }));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+
