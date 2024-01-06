@@ -7,6 +7,7 @@ import {
   decrementCartQuantityt,
 } from '../../redux/slices/products';
 import NoProducts from './NoProducts';
+import { deleteProduct } from '../../redux/slices/cartUsersTest';
 
 //? Icons
 import { CiSquarePlus, CiSquareMinus } from 'react-icons/ci';
@@ -45,8 +46,14 @@ const Cart = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    dispatch(removeFromCart({ id }));
+  // const handleDelete = (id) => {
+  //   dispatch(removeFromCart({ id }));
+  // };
+
+  const userId = '2873bcf9-a7be-419f-99d2-831cc78727e5';
+  const productId = 'e88d9dfa-0bc9-4863-99ff-05e80fdd4757';
+  const handleDelete = () => {
+    dispatch(deleteProduct(userId, productId));
   };
 
   const checkOut = () => {
@@ -122,7 +129,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <button
-                  onClick={() => handleDelete(id)}
+                  onClick={() => handleDelete()}
                   className="flex gap-1 text-textGray"
                 >
                   <LuTrash2 className=" mt-1" />
