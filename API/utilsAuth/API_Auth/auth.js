@@ -78,4 +78,4 @@ app.post("/authorized", handleAuthorizedRequest);
 app.put("/authorized", handleAuthorizedRequest);
 app.delete("/authorized", handleAuthorizedRequest);
 
-app.listen(port, () => console.log("Started"));
+app.listen(port, () => console.log("Started", port));

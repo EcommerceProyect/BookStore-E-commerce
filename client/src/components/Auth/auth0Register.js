@@ -14,7 +14,7 @@ const auth0Register = async () => {
       `scope=${SCOPE}&` +
       `response_type=${RESPONSE_TYPE}&` +
       `client_id=${CLIENT_ID}&` +
-      `redirect_uri=${REDIRECT_URI}`,
+      `redirect_uri=${REDIRECT_URI}/redirect`,
     {
       redirect: 'manual',
     },
