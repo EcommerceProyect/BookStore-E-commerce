@@ -65,7 +65,7 @@ function App() {
         <Route path="/dashboard" element={<Statistics />} />
         <Route path="/dashboard/users" element={<Users />} />
         <Route path="/carrito" element={<Cart />} />
-        <Route path="/createBook" element={<CreateProduct />} />
+        <Route path="/dashboard/createBook" element={<CreateProduct />} />
       </Routes>
       <Footer />
       {showRegistrationModal && (

@@ -16,6 +16,7 @@ import CreatableSelect from 'react-select/creatable';
 import { fetchGenres } from '../../redux/services/getGenres';
 import { fetchEditorial } from '../../redux/services/getEditorial';
 import {fetchAuthors} from '../../redux/services/getAuthors'
+import Dashboard from '../../views/dashboard/Dashboard';
 
 const CreateBook = () => {
 
@@ -46,6 +47,7 @@ const CreateBook = () => {
   
   return (
     <div className="flex items-center justify-center m-4">
+    <Dashboard/>
     <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4 border p-6 rounded-md w-full">
       <div>
         <div className="mb-2 block">
