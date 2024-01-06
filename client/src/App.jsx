@@ -79,7 +79,7 @@ function App() {
           {showRegistrationModal && (
             <RegistrationModal onClose={closeRegistrationModal} />
           )}
-          {showLoginModal && <Login onClose={closeLoginModal} />}
+          {showLoginModal && <LoginModal onClose={closeLoginModal} />}
         </>
       )}
     </div>

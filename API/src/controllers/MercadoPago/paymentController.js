@@ -5,18 +5,18 @@ const { Orders, ISBN, Cart } = require("../../db");
 let products = [];
 let idCarrito = "";
 let address = "calle 1 # 2-3";
-let amount = 0;
+
 const createOrderPayment = async (req, res) => {
   mercadopago.configure({
     access_token: process.env.ACCESS_AR_TOKEN,
   });
   console.log("tokenARG", process.env.ACCESS_AR_TOKEN);
   //por ahora se quitara shippingAddress
-  const { cartId, books, totalAmount } = req.body;
+  const { cartId, books } = req.body;
   idCarrito = cartId;
   // address = shippingAddress;
   products = books;
-  amount = totalAmount;
+
   const preference = {
     items: products.map((book) => ({
       id: book.id,
@@ -26,12 +26,12 @@ const createOrderPayment = async (req, res) => {
       currency_id: "ARS",
     })),
     back_urls: {
-      success: "http://localhost:3001/mercadoPago/success",
-      failure: "http://localhost:3001/mercadoPago/failure",
-      pending: "http://localhost:3001/mercadoPago/pending",
+      success: "http://localhost:3002/mercadoPago/success",
+      failure: "http://localhost:3002/mercadoPago/failure",
+      pending: "http://localhost:3002/mercadoPago/pending",
     },
     notification_url:
-      "https://pp57n9x0-3001.use2.devtunnels.ms/mercadoPago/webhook",
+      "https://pp57n9x0-3002.use2.devtunnels.ms/mercadoPago/webhook",
   };
 
   const result = await mercadopago.preferences.create(preference);
@@ -45,13 +45,19 @@ const receiveWebhook = async (req, res) => {
     if (payment.type === "payment") {
       const data = await mercadopago.payment.findById(payment["data.id"]);
       console.log("data", data);
+
       if (data.response.status === "approved") {
+        // Extraer transaction_amount
+        const transactionAmount = data.response.transaction_amount;
+
+        // Crear la orden con transactionAmount como totalAmount
         const order = await Orders.create({
           OrderDate: new Date(),
           shippingAddress: address,
-          totalAmount: amount,
+          totalAmount: transactionAmount,
           CartId: idCarrito,
         });
+
         // Obtener libros por sus ISBNs
         const isbnPromises = products.map(async (book) => {
           const isbnData = await ISBN.findOne({

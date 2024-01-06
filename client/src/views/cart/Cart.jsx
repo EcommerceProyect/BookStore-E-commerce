@@ -50,8 +50,8 @@ const Cart = () => {
   };
 
   const checkOut = () => {
-    const cartId = '0f60a64d-983c-491b-af91-9fcd0c7ab410';
-    const totalAmount = 11000;
+    const cartId = '96ddd8dc-5dcd-4949-872f-70a215a91e58';
+    const totalAmount = 500;
     const books = cart.map((product) => ({
       id: product.id,
       title: product.title,
@@ -61,7 +61,7 @@ const Cart = () => {
     }));
 
     axios
-      .post('http://localhost:3001/mercadoPago/create-order', {
+      .post('http://localhost:3002/mercadoPago/create-order', {
         books,
         cartId,
         totalAmount,

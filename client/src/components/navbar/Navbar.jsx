@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Logo from '../../assets/images/Logo.svg';
+import { Link } from 'react-router-dom';
 
 // import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
@@ -26,9 +27,11 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
-        <div title="Home" className="left-0">
-          <img src={Logo} alt="Logo" className="ml-10" />
-        </div>
+        <Link to="/">
+          <div title="Home" className="left-0">
+            <img src={Logo} alt="Logo" className="ml-10" />
+          </div>
+        </Link>
 
         <div className="flex items-center justify-between gap-2 pl-10 mr-5">
           {/* auth */}
