@@ -4,4 +4,4 @@ export const SCOPE = 'admin:edit';
 export const CLIENT_ID = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 export const RESPONSE_TYPE = 'code';
 export const REDIRECT_URI = 'https://bookstore-e-commerce-z27y.onrender.com';
-export const APIDOMAIN = "https://api-books-auth0.onrender.com"
+export const APIDOMAIN = "https://api-books-auth0.onrender.com";
