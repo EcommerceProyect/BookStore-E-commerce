@@ -12,9 +12,12 @@ import { deleteProduct } from '../../redux/slices/cartUsersTest';
 //? Icons
 import { CiSquarePlus, CiSquareMinus } from 'react-icons/ci';
 import { LuTrash2 } from 'react-icons/lu';
+import { decrementProductCartQuantity, incrementProductCartQuantity } from '../../redux/slices/cartUsersTest';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
+  const { userId } = useSelector((state) => state.user);
+  const {userCart} = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(
@@ -35,14 +38,14 @@ const Cart = () => {
 
     if (currentQuantity < stock) {
       handleQuantityChange(id, (quantity[id] || 1) + 1);
-      dispatch(incrementCartQuantity({ id }));
+      dispatch(incrementProductCartQuantity(userId, id, (quantity[id] || 1) + 1));
     }
   };
 
   const decrement = (id) => {
     if (quantity[id] > 1) {
       handleQuantityChange(id, quantity[id] - 1);
-      dispatch(decrementCartQuantityt({ id }));
+      dispatch(decrementProductCartQuantity(userId, id, quantity[id] - 1));
     }
   };
 
@@ -57,7 +60,7 @@ const Cart = () => {
   };
 
   const checkOut = () => {
-    const cartId = '96ddd8dc-5dcd-4949-872f-70a215a91e58';
+    const cartId = userCart;
     const totalAmount = 500;
     const books = cart.map((product) => ({
       id: product.id,
