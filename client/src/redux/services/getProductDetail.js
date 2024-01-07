@@ -5,14 +5,15 @@ import {
   setProductDetailError,
 } from '../slices/products';
 
-const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products';
+
 
 export const getProductDetails = (id) => async (dispatch) => {
+  const apiUrl = `https://bookstore-e-commerce.onrender.com/ebook/products/${id}`;
   dispatch(setProductDetailLoading());
   try {
     const response = await axios.get(`${apiUrl}`);
-    const allProducts = response.data;
-    const bookDetail = allProducts.find((product) => product.id === id);
+    const bookDetail = response.data;
+    
 
     if (bookDetail) {
       dispatch(setProductDetail(bookDetail));

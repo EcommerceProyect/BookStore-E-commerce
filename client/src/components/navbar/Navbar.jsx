@@ -3,7 +3,7 @@ import { useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import Logo from '../../assets/images/Logo.svg';
 
-// import SearchButton from '../searchButton/SearchButton';
+import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
 import { FaBook } from "react-icons/fa";
@@ -113,14 +113,15 @@ const [admin, setAdmin] = useState(userData && userData.scope === "user:edit adm
             />
           </div>
         )}
-          {userData && (
-          <div title="Cerrar Sesión">
-            <Button
-              onClick={handleLogout}
-              icon={<MdOutlineLogout className="text-textLight" size={25} />}
-            />
-          </div>
-        )}
+         {userData && (
+  <div title="Cerrar Sesión">
+    <Button
+      onClick={handleLogout}
+      icon={<MdOutlineLogout className="text-textLight" size={25} />}
+    />
+  </div>
+)}
+              <SearchButton/>
         </div>
       </div>
     </nav>
