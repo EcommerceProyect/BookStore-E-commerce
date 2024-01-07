@@ -1,4 +1,5 @@
 export const DOMAIN = 'dev-s3pcs1ovog464bay.us.auth0.com';
+
 export const AUDIENCE = 'https://www.protectAPI.com';
 export const SCOPE = 'admin:edit';
 export const CLIENT_ID = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
