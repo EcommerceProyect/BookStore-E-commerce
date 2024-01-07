@@ -2,15 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
-import {
-  APIDOMAIN,
-} from '../../vars';
-  
-
-import {
-  APIDOMAIN,
-} from '../../vars';
-  
+import { APIDOMAIN } from '../../vars';
 
 const RegisterAuth = () => {
   const location = useLocation();
@@ -25,17 +17,14 @@ const RegisterAuth = () => {
       if (challengesData === 'none' && code) {
         try {
           console.log(code);
-          const response = await fetch(
-            `${APIDOMAIN}/authorized?code=${code}`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                credentials: 'include',
-              },
+          const response = await fetch(`${APIDOMAIN}/authorized?code=${code}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              credentials: 'include',
             },
-          );
+          });
 
           const data = await response.json();
           setChallengesData(JSON.stringify(data.id_user));

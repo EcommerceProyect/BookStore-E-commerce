@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'sonner';
 
 const initialState = {
   list: [],
@@ -67,8 +68,11 @@ export const productSlice = createSlice({
       const productWithQuantity = { ...action.payload, quantity: 1 };
 
       if (!existingProduct) {
+        toast.success('Agregado al carrito exitosamente');
         state.cart.push(productWithQuantity);
         state.cartCount += 1;
+      } else {
+        toast.warning('El producto ya se encuentra en el carrito');
       }
     },
     removeFromCart: (state, action) => {
