@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
-import { APIDOMAIN } from '../../vars';
+
+import {
+  APIDOMAIN,
+} from '../../vars';
+  
+
 
 const RegisterAuth = () => {
   const location = useLocation();
