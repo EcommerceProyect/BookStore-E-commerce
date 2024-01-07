@@ -55,9 +55,14 @@ const handleAuthorizedRequest = async (req, res) => {
 
     queryString = queryString.slice(0, -1);
 
+    //extraccion de params
+
+    const id = req.params.id ? `/${req.params.id}` : "";
+
+    console.log(id);
     const response = await axios({
       method: `${peticion}`,
-      url: `${challengesAPIEndpoint}/${route}${queryString}`,
+      url: `${challengesAPIEndpoint}/${route}${id}${queryString}`,
       headers: { Authorization: `Bearer ${finalToken}` },
       data: body
     });
@@ -73,9 +78,10 @@ const handleAuthorizedRequest = async (req, res) => {
     }
   }
 };
-app.get("/authorized", handleAuthorizedRequest);
-app.post("/authorized", handleAuthorizedRequest);
-app.put("/authorized", handleAuthorizedRequest);
-app.delete("/authorized", handleAuthorizedRequest);
+
+app.get("/authorized/:id?", handleAuthorizedRequest);
+app.post("/authorized/:id?", handleAuthorizedRequest);
+app.put("/authorized/:id?", handleAuthorizedRequest);
+app.delete("/authorized/:id?", handleAuthorizedRequest);
 
 app.listen(port, () => console.log("Started", port));
