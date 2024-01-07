@@ -68,7 +68,6 @@ router.get(
 
 router.get(
   "/authorized/check",
-  checkPermissions(["admin:edit"]),
   (req, res) => {
     res.status(200).json({ message: "El usuario esta autenticado" });
   }
