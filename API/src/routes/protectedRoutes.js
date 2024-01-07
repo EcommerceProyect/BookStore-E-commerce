@@ -44,9 +44,10 @@ router.use(jwtCheck);
 //Users
 router.get(
   "/authorized",
-  checkPermissions(["admin:edit"]),
+  checkPermissions(["user:edit"]),
   async (req, res) => {
-    console.log("info auth", req.auth);
+
+    console.log(req.auth);
 
     try {
       const response = await postUser(req, res);
@@ -67,24 +68,23 @@ router.get(
 
 router.get(
   "/authorized/check",
-  checkPermissions(["admin:edit"]),
   (req, res) => {
     res.status(200).json({ message: "El usuario esta autenticado" });
   }
 );
 router.get(
   "/authorized/profile",
-  checkPermissions(["admin:edit"]),
+  checkPermissions(["user:edit"]),
   getUser_Token
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
 router.put(
-  "/authorized/users",
+  "/authorized/users/:id",
   checkPermissions(["admin:edit"]),
   updateUserHandler
 );
 router.delete(
-  "/authorized/users",
+  "/authorized/users/:id",
   checkPermissions(["admin:edit"]),
   deleteUserHandler
 );
