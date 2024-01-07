@@ -12,12 +12,15 @@ import { deleteProduct } from '../../redux/slices/cartUsersTest';
 //? Icons
 import { CiSquarePlus, CiSquareMinus } from 'react-icons/ci';
 import { LuTrash2 } from 'react-icons/lu';
-import { decrementProductCartQuantity, incrementProductCartQuantity } from '../../redux/slices/cartUsersTest';
+import {
+  decrementProductCartQuantity,
+  incrementProductCartQuantity,
+} from '../../redux/slices/cartUsersTest';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
   const { userId } = useSelector((state) => state.user);
-  const {userCart} = useSelector((state) => state.cart);
+  const { userCart, cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(
@@ -38,7 +41,9 @@ const Cart = () => {
 
     if (currentQuantity < stock) {
       handleQuantityChange(id, (quantity[id] || 1) + 1);
-      dispatch(incrementProductCartQuantity(userId, id, (quantity[id] || 1) + 1));
+      dispatch(
+        incrementProductCartQuantity(userId, id, (quantity[id] || 1) + 1),
+      );
     }
   };
 
@@ -53,12 +58,14 @@ const Cart = () => {
   //   dispatch(removeFromCart({ id }));
   // };
 
-  const userId = '2873bcf9-a7be-419f-99d2-831cc78727e5';
-  const productId = 'e88d9dfa-0bc9-4863-99ff-05e80fdd4757';
-  const handleDelete = () => {
-    dispatch(deleteProduct(userId, productId));
+  const handleDelete = async (id) => {
+    // dispatch(removeFromCart({ id }));
+    try {
+      await dispatch(deleteProduct(userId, cartProducts[0].productId));
+    } catch (error) {
+      console.error('Error al eliminar producto:', error);
+    }
   };
-
   const checkOut = () => {
     const cartId = userCart;
     const totalAmount = 500;
@@ -132,7 +139,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <button
-                  onClick={() => handleDelete()}
+                  onClick={() => handleDelete(id)}
                   className="flex gap-1 text-textGray"
                 >
                   <LuTrash2 className=" mt-1" />
