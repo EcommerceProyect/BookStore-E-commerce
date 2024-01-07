@@ -34,11 +34,12 @@ const LoginAuth = () => {
 
           const data = await response.json();
           setChallengesData(data.response.name);
-          console.log(data);
+          console.log("Data user: ", data);
           localStorage.setItem("actualT",data.token);
           localStorage.setItem("actualT", data.token);
           const decodedToken = jwtDecode(data.token); //decodifico el token de local storage
           dispatch(setUserData(decodedToken)); //lo guardo en el estado global userData
+
         } catch (error) {
           console.error(
             'Error in the request:',
@@ -58,6 +59,7 @@ const LoginAuth = () => {
     if (storedToken) {
       const decodedToken = jwtDecode(storedToken);
       dispatch(setUserData(decodedToken));
+      console.log("Data user state: ", userData);
     }
   }, [code, challengesData, location.pathname, dispatch]);
 

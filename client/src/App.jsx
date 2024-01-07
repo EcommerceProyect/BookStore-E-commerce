@@ -16,6 +16,7 @@ import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
+import ProductList from './views/dashboard/productList';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -66,6 +67,7 @@ function App() {
         <Route path="/dashboard/users" element={<Users />} />
         <Route path="/carrito" element={<Cart />} />
         <Route path="/dashboard/createBook" element={<CreateProduct />} />
+        <Route path="/dashboard/products" element={<ProductList />} />
       </Routes>
       <Footer />
       {showRegistrationModal && (

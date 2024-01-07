@@ -26,12 +26,12 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);
   const userData = useSelector((state) => state.userData.userData);
 
-const [admin, setAdmin] = useState(userData && userData.scope === "admin:edit");
+const [admin, setAdmin] = useState(userData && userData.scope === "user:edit admin:edit");
 
 
 
   useEffect(() => {
-    if (userData && userData.scope === "admin:edit") {
+    if (userData && userData.scope === "user:edit admin:edit") {
       setAdmin(true);
     } else {
       setAdmin(false);
