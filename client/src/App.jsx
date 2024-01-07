@@ -25,15 +25,15 @@ function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const { userId } = useSelector((state) => state.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const createCartFn= debounce((userId) => {
-    dispatch(createCart(userId))
-  }, 500)
-  
+  const createCartFn = debounce((userId) => {
+    dispatch(createCart(userId));
+  }, 500);
+
   useEffect(() => {
-    createCartFn(userId)
-  },[userId])
+    createCartFn(userId);
+  }, [userId]);
 
   const openLoginModal = () => {
     setShowLoginModal(true);
@@ -86,7 +86,7 @@ function App() {
             <Route path="/dashboard" element={<Statistics />} />
             <Route path="/dashboard/users" element={<Users />} />
             <Route path="/carrito" element={<Cart />} />
-            <Route path="/createBook" element={<CreateProduct />} />
+            <Route path="/dashboard/createBook" element={<CreateProduct />} />
             {/* <Route path="/paymentBill" element={<PaymentBill />} /> */}
           </Routes>
           <Footer />
