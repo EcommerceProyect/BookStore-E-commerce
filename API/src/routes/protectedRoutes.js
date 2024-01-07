@@ -44,6 +44,7 @@ router.use(jwtCheck);
 //Users
 router.get(
   "/authorized",
+  checkPermissions(["user:edit"]),
   async (req, res) => {
 
     try {
