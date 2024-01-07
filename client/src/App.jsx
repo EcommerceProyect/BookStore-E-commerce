@@ -73,25 +73,26 @@ function App() {
             openRegistrationModal={openRegistrationModal}
           />
 
-
-      <Routes>
-        {/* auth */}
-        <Route path="/redirect" Component={RegisterAuth} />
-        {/* auth */}
-        <Route path="/" element={<Home />}/>
-        <Route path="/products" element={<Products />}/>
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/login" element={<LoginModal />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/faqs" element={<Faqs />} />
-        <Route path="/dashboard" element={<Statistics />} />
-        <Route path="/dashboard/users" element={<Users />} />
-        <Route path="/carrito" element={<Cart />} />
-        <Route path="/dashboard/createBook" element={<CreateProduct />} />
-      </Routes>
-      <Footer />
-      {showRegistrationModal && (
-        <RegistrationModal onClose={closeRegistrationModal} />
+          <Routes>
+            {/* auth */}
+            <Route path="/redirect" Component={RegisterAuth} />
+            {/* auth */}
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/login" element={<LoginModal />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
+            <Route path="/faqs" element={<Faqs />} />
+            <Route path="/dashboard" element={<Statistics />} />
+            <Route path="/dashboard/users" element={<Users />} />
+            <Route path="/carrito" element={<Cart />} />
+            <Route path="/dashboard/createBook" element={<CreateProduct />} />
+          </Routes>
+          <Footer />
+          {showRegistrationModal && (
+            <RegistrationModal onClose={closeRegistrationModal} />
+          )}
+        </>
       )}
     </div>
   );
