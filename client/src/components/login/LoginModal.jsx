@@ -14,6 +14,7 @@ const LoginModal = ({ onClose }) => {
     
       // Calculate URL to redirect to
       let url = webAuth.client.buildAuthorizeUrl({
+        connection: 'google-oauth2',
         clientID: `${CLIENT_ID}`, // string
         responseType: 'code', // code or token
         redirectUri: `${REDIRECT_URI}`,

@@ -34,6 +34,8 @@ const LoginAuth = () => {
 
           const data = await response.json();
           setChallengesData(data.response.name);
+          console.log(data);
+          localStorage.setItem("actualT",data.token);
           localStorage.setItem("actualT", data.token);
           const decodedToken = jwtDecode(data.token); //decodifico el token de local storage
           dispatch(setUserData(decodedToken)); //lo guardo en el estado global userData
