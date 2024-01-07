@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { getProductsForSearch } from '../../redux/services/getProductsForSearch';
+import { setBooksByTitle, setCurrentPage } from '../../redux/slices/products';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getProducts } from '../../redux/services/getAllProducts';
 
 
 
 const SearchButton = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {booksByTitle} = useSelector((state)=>state.products);
 
   const handleSearchClick = (event) => {
     event.preventDefault();
     const searchTerm = event.target[0].value;
 
-    dispatch(getProductsForSearch(searchTerm));
+    dispatch(setBooksByTitle(searchTerm));
     navigate("/products")
   };
+
+  useEffect(()=>{
+    dispatch(getProducts(0)) //página inicial 0
+    dispatch(setCurrentPage(0))
+  },[booksByTitle])
 
   return (
   
