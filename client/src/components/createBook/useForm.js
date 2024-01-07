@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { postProduct } from '../../redux/services/postProduct';
 import { useDispatch } from 'react-redux';
-
+import {Toaster, toast} from 'sonner'; //framework sonner, muestra mensajes.
 import axios from 'axios';
 
 export const useForm = (validationSchema) => {
@@ -82,12 +82,6 @@ const handleSubmit = (event) => {
 
 useEffect(() => {
   const fetchData = async () => {
-    console.log(values.image)
-    console.log(typeof values.image === "string")
-    console.log(typeof values.image === "object")
-    <    console.log(values.image !== "")
-
-
     if ((typeof values.image === "string") && (values.image !== "")) {
 
       try {
@@ -98,7 +92,7 @@ useEffect(() => {
           response &&
           (response.status === 201 || response.status === 200)
         ) {
-          alert('Libro creado exitosamente.');
+          toast('Libro creado exitosamente.')
         } else {
           console.error('Error creando el libro.');
         }

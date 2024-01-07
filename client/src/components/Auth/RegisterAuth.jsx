@@ -7,6 +7,11 @@ import {
 } from '../../vars';
   
 
+import {
+  APIDOMAIN,
+} from '../../vars';
+  
+
 const RegisterAuth = () => {
   const location = useLocation();
   const { search } = location;
