@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Logo from '../../assets/images/Logo.svg';
 import { Link } from 'react-router-dom';
 
-// import SearchButton from '../searchButton/SearchButton';
+import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
 import {
@@ -76,6 +76,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
               icon={<MdOutlineLogout className="text-textLight" size={25} />}
             />
           </div>
+              <SearchButton/>
         </div>
       </div>
     </nav>

@@ -16,6 +16,7 @@ export const getProducts =
       const { selectedGenre } = state.genres;
       const { selectedAuthor } = state.authors;
       const { selectedEditorial } = state.editorial;
+      const { booksByTitle } = state.products;
       let url = apiUrl;
 
       const queryParams = [];
@@ -41,6 +42,11 @@ export const getProducts =
         queryParams.push(editorialParams);
       }
 
+      if (booksByTitle && booksByTitle.length > 0) {
+        const titleParams = `title=${encodeURIComponent(booksByTitle)}&`
+        queryParams.push(titleParams);
+      }
+
       if (sortField && sortAction) {
         queryParams.push(`sortField=${sortField}`);
         queryParams.push(`sortAction=${sortAction}`);
@@ -59,7 +65,7 @@ export const getProducts =
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
-      console.log('respuesta', response.data.detailedResults);
+     
     } catch (error) {
       dispatch(setProductListError(error.message));
     }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Cards from '../../components/cards/Cards';
 import CarouselComponent from '../home/carousel/CarouselComponent';
 
 const Home = () => {
@@ -42,7 +41,6 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <Cards />
     </div>
   );
 };

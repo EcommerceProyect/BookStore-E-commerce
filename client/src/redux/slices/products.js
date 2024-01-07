@@ -10,7 +10,8 @@ const initialState = {
   cartCount: 0,
   totalItems: null,
   carouselProducts: [],
-  foundedBooks: [],
+  booksByTitle: [],
+  currentPage: 0,
 };
 
 export const productSlice = createSlice({
@@ -27,6 +28,9 @@ export const productSlice = createSlice({
     setProductList: (state, action) => {
       state.loading = false;
       state.list = action.payload;
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
     },
     setProductListError: (state, action) => {
       state.loading = false;
@@ -53,8 +57,8 @@ export const productSlice = createSlice({
     setOrderOption: (state, action) => {
       state.orderOption = action.payload;
     },
-    setFoundedBooks: (state, action) => {
-      state.foundedBooks = action.payload;
+    setBooksByTitle: (state, action) => {
+      state.booksByTitle = action.payload;
     },
     addToCart: (state, action) => {
       const existingProduct = state.cart.find(
@@ -102,11 +106,12 @@ export const {
   setProductDetail,
   setProductDetailError,
   setOrderOption,
-  setFoundedBooks,
+  setBooksByTitle,
   addToCart,
   removeFromCart,
   incrementCartQuantity,
   decrementCartQuantityt,
+  setCurrentPage,
 } = productSlice.actions;
 
 export default productSlice.reducer;
