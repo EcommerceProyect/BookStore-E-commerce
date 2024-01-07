@@ -33,7 +33,7 @@ app.use("/ebook", routes);
 
 app.use("/mercadoPago", mercadoPago);
 //protected
-// app.use("/", protectedRoutes);
+app.use("/", protectedRoutes);
 
 // error handler
 app.use((err, req, res, next) => {
