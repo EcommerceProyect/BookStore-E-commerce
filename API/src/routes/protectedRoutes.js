@@ -44,7 +44,10 @@ router.use(jwtCheck);
 //Users
 router.get(
   "/authorized",
+  checkPermissions(["user:edit"]),
   async (req, res) => {
+
+    console.log(req.auth);
 
     try {
       const response = await postUser(req, res);
@@ -72,7 +75,7 @@ router.get(
 );
 router.get(
   "/authorized/profile",
-  checkPermissions(["admin:edit"]),
+  checkPermissions(["user:edit"]),
   getUser_Token
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
