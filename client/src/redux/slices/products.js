@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'sonner';
 
 const initialState = {
   list: [],
@@ -11,7 +12,7 @@ const initialState = {
   totalItems: null,
   carouselProducts: [],
   booksByTitle: [],
-  currentPage: 0
+  currentPage: 0,
 };
 
 export const productSlice = createSlice({
@@ -30,7 +31,7 @@ export const productSlice = createSlice({
       state.list = action.payload;
     },
     setCurrentPage: (state, action) => {
-      state.currentPage = action.payload
+      state.currentPage = action.payload;
     },
     setProductListError: (state, action) => {
       state.loading = false;
@@ -57,7 +58,7 @@ export const productSlice = createSlice({
     setOrderOption: (state, action) => {
       state.orderOption = action.payload;
     },
-    setBooksByTitle: (state, action)=>{
+    setBooksByTitle: (state, action) => {
       state.booksByTitle = action.payload;
     },
     addToCart: (state, action) => {
@@ -67,8 +68,11 @@ export const productSlice = createSlice({
       const productWithQuantity = { ...action.payload, quantity: 1 };
 
       if (!existingProduct) {
+        toast.success('Agregado al carrito exitosamente');
         state.cart.push(productWithQuantity);
         state.cartCount += 1;
+      } else {
+        toast.warning('El producto ya se encuentra en el carrito');
       }
     },
     removeFromCart: (state, action) => {
@@ -111,7 +115,7 @@ export const {
   removeFromCart,
   incrementCartQuantity,
   decrementCartQuantityt,
-  setCurrentPage
+  setCurrentPage,
 } = productSlice.actions;
 
 export default productSlice.reducer;

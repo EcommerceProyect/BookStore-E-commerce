@@ -64,7 +64,7 @@ const handleAuthorizedRequest = async (req, res) => {
       method: `${peticion}`,
       url: `${challengesAPIEndpoint}/${route}${id}${queryString}`,
       headers: { Authorization: `Bearer ${finalToken}` },
-      data: body
+      data: body,
     });
 
     res.json(response.data);
@@ -84,4 +84,4 @@ app.post("/authorized/:id?", handleAuthorizedRequest);
 app.put("/authorized/:id?", handleAuthorizedRequest);
 app.delete("/authorized/:id?", handleAuthorizedRequest);
 
-app.listen(port, () => console.log("Started"));
+app.listen(port, () => console.log("Started", port));
