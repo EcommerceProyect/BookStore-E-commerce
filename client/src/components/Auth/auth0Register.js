@@ -8,6 +8,7 @@ import {
 } from '../../vars';
 
 const auth0Register = async () => {
+
   const response = await fetch(
     `https://${DOMAIN}/authorize?` +
       `audience=${AUDIENCE}&` +
