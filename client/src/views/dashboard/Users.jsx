@@ -1,118 +1,78 @@
-import React from 'react'
-import Dashboard from './Dashboard'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUsers } from '../../redux/services/getUsers';
+import { deleteUser } from '../../redux/services/deleteUser';
+import Dashboard from './Dashboard';
+import { MdBlock } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 
 function Users() {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const [hoverIndex, setHoverIndex] = useState(null);
+
+  const handleDeleteUser = (userId) => {
+    dispatch(deleteUser(userId)); 
+  };
+
   return (
     <div className='flex'>
-        <Dashboard/>
-<div className=" max-w-7xl mx-auto  px-4 sm:px-6 lg:py-24 lg:px-8">
-
-	<div className="w-usersWidthm p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Customers</h3>
-        <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-            View all
-        </a>
-   </div>
-   <div className="flow-root">
-        <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-            <li className="py-3 sm:py-4">
-                <div className="flex items-center space-x-4">
+      <Dashboard />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:py-24 lg:px-8">
+        <div className="w-usersWidthm p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Usuarios Registrados</h3>
+          </div>
+          <div className="flow-root">
+            <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+              {users.map((user, index) => (
+                <li key={index} className="py-3 sm:py-4"   onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(null)}>
+                  <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="Neil image"/>
+                      <img className="w-8 h-8 rounded-full" src={user.profilePicture} alt={`Profile ${user.name}`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Neil Sims
-                        </p>
-                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
+                      <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                        {user.name}
+                      </p>
+                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                        {user.email}
+                      </p>
                     </div>
                     <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $320
+                      {user.role}
                     </div>
-                </div>
-            </li>
-            <li className="py-3 sm:py-4">
-                <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie image"/>
+                    <div key={index}  onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(null)}>
+                    {hoverIndex === index ? (
+                      <MdBlock
+                        className="text-red-600 hover:text-red-700 cursor-pointer transition-colors"
+                        size={25}
+                        onClick={() => handleDeleteUser(user.id)}
+                      />
+                    ) : (
+                      <FaCheck
+                        className="text-green-500 hover:text-red-700 cursor-pointer transition-colors"
+                        size={25}
+                        onClick={() => handleDeleteUser(user.id)} 
+                      />
+                    )}
                     </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Bonnie Green
-                        </p>
-                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $3467
-                    </div>
-                </div>
-            </li>
-            <li className="py-3 sm:py-4">
-                <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Michael image"/>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Michael Gough
-                        </p>
-                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $67
-                    </div>
-                </div>
-            </li>
-            <li className="py-3 sm:py-4">
-                <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="Lana image"/>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li className="pt-3 pb-0 sm:pt-4">
-                <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Thomas image"/>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Thomes Lean
-                        </p>
-                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $2367
-                    </div>
-                </div>
-            </li>
-        </ul>
-   </div>
-</div>
-</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    
   )
 }
 
-export default Users
+export default Users;
