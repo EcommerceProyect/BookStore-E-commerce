@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../redux/services/getAllProducts';
+import { setCurrentPage } from '../../redux/slices/products';
 import Card from '../card/Card';
 import GenreFilter from './filters/Genres';
 import AuthorFilter from './filters/Authors';
 import EditorialFilter from './filters/Editorial';
 import SortingComponent from './sort/Sort';
+import { Toaster } from 'sonner';
 
 function Cards() {
   const dispatch = useDispatch();
 
-  const { list, loading, error, orderOption } = useSelector(
+  const { list, loading, error, orderOption, currentPage } = useSelector(
     (state) => state.products,
   );
 
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
+
   const selectedGenre = useSelector(
     (state) => state.genres && state.genres.selectedGenre,
   );
@@ -25,6 +27,7 @@ function Cards() {
   const selectedEditorial = useSelector(
     (state) => state.editorial.selectedEditorial,
   );
+
   const itemsPerPage = 2;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
@@ -33,13 +36,13 @@ function Cards() {
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      dispatch(setCurrentPage(currentPage + 1));
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage((prevPage) => prevPage - 1);
+      dispatch(setCurrentPage(currentPage - 1));
     }
   };
 
@@ -62,8 +65,6 @@ function Cards() {
       try {
         let total = 0;
         let filters = {};
-
-        console.log('Selected Genre fetchData:', selectedGenre);
 
         if (selectedGenre && selectedGenre.length > 0) {
           filters = { ...filters, genre: selectedGenre };
@@ -144,6 +145,7 @@ function Cards() {
                   />
                 </div>
               ))}
+            <Toaster richColors duration={2000} />
           </div>
         )}
         <nav
@@ -163,7 +165,7 @@ function Cards() {
             {Array.from({ length: totalPages }, (_, i) => (
               <li key={i}>
                 <button
-                  onClick={() => setCurrentPage(i)}
+                  onClick={() => dispatch(setCurrentPage(i))}
                   className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
                     currentPage === i ? 'text-blue-600 bg-blue-50' : ''
                   }`}

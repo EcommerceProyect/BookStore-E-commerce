@@ -1,15 +1,17 @@
 const { Cart, CartDetail } = require("../../db");
 
 const addToCartController = async (userId, productId, quantity) => {
+    
     try {
         // Buscar el carrito activo del usuario
+        console.log('productId: ',productId);
         const userCart = await Cart.findOne({
             where: {
                 UserId: userId,
                 status: 'Activo', // Asegurarse de que el carrito esté activo
             },
         });
-
+        console.log("Adding product to cart: ",userCart);
         if (!userCart) {
             return { success: false, message: 'El usuario no tiene un carrito activo.' };
         }
