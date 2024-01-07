@@ -152,7 +152,7 @@ function Users() {
                 className="py-3 sm:py-4 p-8 flex items-center space-x-4"
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
-                onClick={() => handleUserDetail(user)}
+               
                 style={{
                   backgroundColor: hoverIndex === index ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
                 }}
@@ -168,7 +168,7 @@ function Users() {
                     <MdPersonOutline className="w-8 h-8 rounded-full text-gray-500" />
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
+                <div  onClick={() => handleUserDetail(user)} className=" cursor-pointer flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                     {user.name}
                   </p>

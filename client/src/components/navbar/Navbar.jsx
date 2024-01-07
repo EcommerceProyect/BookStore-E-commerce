@@ -28,10 +28,8 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
 
 const [admin, setAdmin] = useState(userData && userData.scope === "user:edit admin:edit");
 
-
-
   useEffect(() => {
-    if (userData && userData.scope === "user:edit admin:edit") {
+    if (userData && userData.response.role === "admin") {
       setAdmin(true);
     } else {
       setAdmin(false);
