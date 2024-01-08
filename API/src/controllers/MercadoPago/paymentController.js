@@ -2,9 +2,9 @@ require("dotenv").config();
 const mercadopago = require("mercadopago");
 const {
   ACCESS_AR_TOKEN,
-  END_POINT_FRONT,
   NOTIFICATION_URL,
   PORT,
+  END_POINT_FRONT,
   END_POINT_BACK,
 } = process.env;
 const { Orders, ISBN, Cart } = require("../../db");
@@ -35,7 +35,7 @@ const createOrderPayment = async (req, res) => {
     back_urls: {
       success: `${END_POINT_FRONT}`,
       failure: `${END_POINT_BACK}/mercadoPago/failure`,
-      pending: `http://localhost:${PORT}/mercadoPago/pending`,
+      pending: `${PORT}/mercadoPago/pending`,
     },
     notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook/`,
   };

@@ -15,6 +15,9 @@ export default {
         'textDark': '#2E3138',
         'textGray': '#6C6F7D', // color gris para textos no importantes
       },
+      width: {
+        'usersWidthm': '50rem',
+      },
     },
   },
   plugins: [require('flowbite/plugin'), require('tailwind-scrollbar-hide')],

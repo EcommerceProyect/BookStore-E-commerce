@@ -1,4 +1,6 @@
-const { postUserController } = require("../../controllers/Users/postUserController")
+const {
+  postUserController
+} = require("../../controllers/Users/postUserController");
 const { registrationMail } = require("../../mailService/mailService");
 
 const postUser = async (req,res) => {
@@ -24,7 +26,7 @@ const postUser = async (req,res) => {
             
         });
 
-        await registrationMail(custom_email_claim);
+        // await registrationMail(custom_email_claim);
         console.log(response);
         return response
 
@@ -35,5 +37,5 @@ const postUser = async (req,res) => {
 }
 
 module.exports = {
-    postUser,
-}
+  postUser
+};

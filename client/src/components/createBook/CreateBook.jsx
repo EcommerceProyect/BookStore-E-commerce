@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from './useForm';
 import { validationSchema } from './validationSchema';
+import {Toaster, toast} from 'sonner';
 
 import {
   Button,
@@ -46,8 +47,9 @@ const CreateBook = () => {
   },[dispatch])
   
   return (
-    <div className="flex items-center justify-center m-4">
+    <div className="flex ">
     <Dashboard/>
+    <div className='max-w-7xl mx-auto  px-4 sm:px-6 lg:py-24 lg:px-8'>
     <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4 border p-6 rounded-md w-full">
       <div>
         <div className="mb-2 block">
@@ -227,6 +229,8 @@ const CreateBook = () => {
 
       <Button className="bg-accents" type="submit">Crear libro</Button>
     </form>
+    <Toaster closeButton={true} duration={4000}/>
+    </div>
     </div>
   );
 };
