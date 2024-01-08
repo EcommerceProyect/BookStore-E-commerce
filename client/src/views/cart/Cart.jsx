@@ -17,9 +17,14 @@ import {
   incrementProductCartQuantity,
 } from '../../redux/slices/cartUsersTest';
 
+
+import {
+  API_BOOKS
+} from '../../vars';
+
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
-  const { userId } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const { userCart, cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -42,7 +47,7 @@ const Cart = () => {
     if (currentQuantity < stock) {
       handleQuantityChange(id, (quantity[id] || 1) + 1);
       dispatch(
-        incrementProductCartQuantity(userId, id, (quantity[id] || 1) + 1),
+        incrementProductCartQuantity(user.id || "", id, (quantity[id] || 1) + 1),
       );
     }
   };
@@ -50,7 +55,7 @@ const Cart = () => {
   const decrement = (id) => {
     if (quantity[id] > 1) {
       handleQuantityChange(id, quantity[id] - 1);
-      dispatch(decrementProductCartQuantity(userId, id, quantity[id] - 1));
+      dispatch(decrementProductCartQuantity(user.id || "", id, quantity[id] - 1));
     }
   };
 
@@ -61,7 +66,7 @@ const Cart = () => {
   const handleDelete = async (id) => {
     // dispatch(removeFromCart({ id }));
     try {
-      await dispatch(deleteProduct(userId, cartProducts[0].productId));
+      await dispatch(deleteProduct(user.id || "", cartProducts[0].productId));
     } catch (error) {
       console.error('Error al eliminar producto:', error);
     }
@@ -78,7 +83,7 @@ const Cart = () => {
     }));
 
     axios
-      .post('http://localhost:3002/mercadoPago/create-order', {
+      .post(`${API_BOOKS}/mercadoPago/create-order`, {
         books,
         cartId,
         totalAmount,

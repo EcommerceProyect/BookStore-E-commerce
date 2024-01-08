@@ -3,32 +3,38 @@ const {
 } = require("../../controllers/Users/postUserController");
 const { registrationMail } = require("../../mailService/mailService");
 
-const postUser = async (req, res) => {
-  const { permissions, custom_email_claim, sub } = req.auth.payload;
+const postUser = async (req,res) => {
 
-  console.log(req.user);
+    const {permissions,custom_email_claim,sub} = req.auth.payload;
 
-  if (!custom_email_claim) return false;
+    console.log(req.user);
 
-  try {
-    const response = await postUserController({
-      id: sub,
-      registration_type: sub.includes("google") ? "google" : "local",
-      email: custom_email_claim,
-      name: custom_email_claim,
-      last_name: null,
-      phone: null,
-      password: null,
-      role: [permissions].includes("admin") ? "admin" : "user"
-    });
+    if(!custom_email_claim) return false;
 
-    await registrationMail(custom_email_claim);
-    console.log(response);
-    return response;
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
+    try {
+        
+        const response = await postUserController({
+            
+            id:sub,
+            registration_type: sub.includes("google") ? "google" : "local",
+            email:custom_email_claim,
+            name:custom_email_claim,
+            last_name: null,
+            phone: null ,
+            password:null,
+            role:[permissions].includes("admin") ? "admin" : "user",
+            
+        });
+
+        // await registrationMail(custom_email_claim);
+        console.log(response);
+        return response
+
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+
+}
 
 module.exports = {
   postUser

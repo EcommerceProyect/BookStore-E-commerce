@@ -20,22 +20,30 @@ import ProductList from './views/dashboard/productList';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
-import { debounce } from 'lodash';
 import Profile from './views/profile/Profile';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const { userId } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(isEmpty(user)){
+      dispatch(getUserId());
+    }
+    
+  },[user])
   const createCartFn = debounce((userId) => {
-    dispatch(createCart(userId));
+    dispatch(createCart(userId || ""));
   }, 500);
 
   useEffect(() => {
-    createCartFn(userId);
-  }, [userId]);
+    if (!isEmpty(user)) {
+      console.log("USER", user);
+      createCartFn(user.id || "");
+    }
+  }, [user]);
 
   const openLoginModal = () => {
     setShowLoginModal(true);
