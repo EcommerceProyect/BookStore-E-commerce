@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../slices/userList'
-
+import {
+  APIDOMAIN
+} from '../../vars';
 
 export const deleteUser = (userId) => {
     return async (dispatch) => {
@@ -9,9 +11,10 @@ export const deleteUser = (userId) => {
         if (token) {
           dispatch(deleteUserStart());
           const response = await axios.delete(
-            `http://localhost:3001/authorized?route=users&${userId}?token=${token}`
+            `${APIDOMAIN}/authorized/${userId}?route=users&token=${token}`
           );
           dispatch(deleteUserSuccess(userId));
+
           return response;
         } else {
           throw new Error("No se tiene el token de acceso");

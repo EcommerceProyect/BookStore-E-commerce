@@ -5,6 +5,7 @@ import queryString from "query-string";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../redux/slices/userData";
 import { APIDOMAIN } from '../../vars';
+import { fetchUserData } from "../../redux/services/userData";
 
 const LoginAuth = () => {
   const location = useLocation();
@@ -34,11 +35,8 @@ const LoginAuth = () => {
 
           const data = await response.json();
           setChallengesData(data.response.name);
-          console.log(data);
+          console.log("Data user: ", data);
           localStorage.setItem("actualT",data.token);
-          localStorage.setItem("actualT", data.token);
-          const decodedToken = jwtDecode(data.token); //decodifico el token de local storage
-          dispatch(setUserData(decodedToken)); //lo guardo en el estado global userData
         } catch (error) {
           console.error(
             'Error in the request:',
@@ -54,10 +52,9 @@ const LoginAuth = () => {
     }
 
     // Hago la comprobación cada vez que se recarga la página
-    const storedToken = localStorage.getItem("actualT");
-    if (storedToken) {
-      const decodedToken = jwtDecode(storedToken);
-      dispatch(setUserData(decodedToken));
+    const token = localStorage.getItem("actualT");
+    if (token) {
+      dispatch(fetchUserData(token));
     }
   }, [code, challengesData, location.pathname, dispatch]);
 
