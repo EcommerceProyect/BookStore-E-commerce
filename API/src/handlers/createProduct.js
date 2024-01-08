@@ -13,7 +13,7 @@ const createProduct = async (req,res) =>{
         res.status(200).json({message:"libro posteado",created:response});
         
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({message: error.message})
     }
 
 }

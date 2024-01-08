@@ -16,6 +16,7 @@ import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
+import ProductList from './views/dashboard/productList';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
@@ -87,6 +88,7 @@ function App() {
             <Route path="/dashboard/users" element={<Users />} />
             <Route path="/carrito" element={<Cart />} />
             <Route path="/dashboard/createBook" element={<CreateProduct />} />
+             <Route path="/dashboard/products" element={<ProductList />} />
           </Routes>
           <Footer />
           {showRegistrationModal && (
