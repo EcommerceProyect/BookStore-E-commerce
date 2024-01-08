@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { APIDOMAIN } from '../../vars';
 
 const initialState = {
-  email: '',
-  password: '',
-  userId: 'auth0|659ad72ccbcd7a0e1196e5de',
+  user: {}
 };
 
 export const userSlice = createSlice({
@@ -11,12 +11,26 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.email = action.payload.email;
-      state.password = action.payload.password;
+      state.user = action.payload;
     },
   },
 });
 
 export const { setUser } = userSlice.actions;
+
+export const getUserId = () => async (dispatch) =>  {
+  const userToken = localStorage.getItem("actualT");
+  console.log(userToken);
+  if(userToken){
+    try {
+      const response =  await axios.get(`${APIDOMAIN}/authorized?route=profile&token=${userToken}`);
+      const result = response.data.response;
+      console.log("userInfo",result);
+      dispatch(setUser(result));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
 
 export default userSlice.reducer;
