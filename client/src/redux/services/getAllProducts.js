@@ -7,7 +7,7 @@ import {
 } from '../slices/products';
 
 const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products';
-//const apiUrl = 'http://localhost:3002/ebook/products';
+// const apiUrl = 'http://localhost:3002/ebook/products';
 export const getProducts =
   (page, sortField, sortAction) => async (dispatch, getState) => {
     dispatch(setProductListLoading());

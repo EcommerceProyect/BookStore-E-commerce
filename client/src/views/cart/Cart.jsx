@@ -17,6 +17,11 @@ import {
   incrementProductCartQuantity,
 } from '../../redux/slices/cartUsersTest';
 
+
+import {
+  API_BOOKS
+} from '../../vars';
+
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
   const { userId } = useSelector((state) => state.user);
@@ -78,7 +83,7 @@ const Cart = () => {
     }));
 
     axios
-      .post('http://localhost:3002/mercadoPago/create-order', {
+      .post(`${API_BOOKS}/mercadoPago/create-order`, {
         books,
         cartId,
         totalAmount,
