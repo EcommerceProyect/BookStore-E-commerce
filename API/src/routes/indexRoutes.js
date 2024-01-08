@@ -29,45 +29,12 @@ const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
-<<<<<<< HEAD
 const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler");
 const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
 const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser } = require("../handlers/Users/getUser");
 const { postUserPrueba } = require("../handlers/Users/postUserPrueba");
-=======
-const {
-  deleteOrderHandler
-} = require("../handlers/Orders/deleteOrdersHandler");
-const {
-  updateOrderHandler
-} = require("../handlers/Orders/updateOrdersHandler");
-const {
-  updateISBNHandler
-} = require("../handlers/UpdateInfoHandler/updateISBNHandler");
-const { getUser_Token } = require("../handlers/Users/getUser_Token");
-const {
-  getProductsForSearchHandler
-} = require("../handlers/getProductsForSearchHandler");
-
-//rutas Carrito
 const { createCartHandler } = require("../handlers/Cart/createCartHandler");
-const { addToCartHandler } = require("../handlers/Cart/addToCartHandler");
-const {
-  deleteProductCartHandler
-} = require("../handlers/Cart/deleteProductCartHandler");
-const {
-  getActiveCartHandler
-} = require("../handlers/Cart/getActiveCartHandler");
-
-
-
-
-
-//ruta Usuario temporal
-
-const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
->>>>>>> 275c0c9ad9ac2c5c949979db3f57a1f3396c2b8a
 
 const router = Router();
 
@@ -121,7 +88,7 @@ router.delete("/user/:id", deleteUserHandler);
 
 router.get("/getActiveCart/:userId", getActiveCartHandler);
 router.post("/createCart", createCartHandler);
-router.put("/addToCart", addToCartHandler);
+router.put("/addToCart", );
 router.delete(
   "/deleteProductCart/:userId/:productId",
   deleteProductCartHandler
