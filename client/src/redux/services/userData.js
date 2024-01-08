@@ -8,8 +8,11 @@ export const fetchUserData = (token) => async (dispatch) => {
     
     const userData = { ...response.data }; 
     const decodedToken = jwtDecode(userData.token);
+    console.log(decodedToken);
 
-    if (decodedToken.scope === "user:edit admin:edit") {
+    const hasAdminEdit = decodedToken.permissions.includes("admin:edit");
+
+    if (hasAdminEdit) {
       userData.response.role = "admin";
     } else {
       userData.response.role = "user"; 
