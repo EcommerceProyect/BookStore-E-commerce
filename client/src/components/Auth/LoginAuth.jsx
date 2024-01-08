@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import queryString from "query-string";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../../redux/slices/userData";
+import { APIDOMAIN } from '../../vars';
+import { fetchUserData } from "../../redux/services/userData";
 
 const LoginAuth = () => {
   const location = useLocation();
@@ -8,17 +13,16 @@ const LoginAuth = () => {
   const { code } = queryString.parse(search);
   const [challengesData, setChallengesData] = useState("none");
   let bandera = true;
-  
-  
+
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userData.userData);
 
   useEffect(() => {
     const getUser = async () => {
-      console.log("Authorization code");
       if (challengesData === "none" && code && location.pathname !== "/redirect") {
         try {
           const response = await fetch(
-            // `https://api-books-auth0.onrender.com?code=${code}&route=profile`,
-            `http://localhost:3001/authorized?code=${code}&route=profile`,
+            `${APIDOMAIN}/authorized?code=${code}&route=profile`,
             {
               method: 'GET',
               headers: {
@@ -31,6 +35,7 @@ const LoginAuth = () => {
 
           const data = await response.json();
           setChallengesData(data.response.name);
+          console.log("Data user: ", data);
           localStorage.setItem("actualT",data.token);
         } catch (error) {
           console.error(
@@ -42,20 +47,25 @@ const LoginAuth = () => {
     };
 
     if (code && challengesData === "none" && bandera) {
-        bandera=false;
-        getUser();
+      bandera = false;
+      getUser();
     }
 
-  }, [code, challengesData]);
+    // Hago la comprobación cada vez que se recarga la página
+    const token = localStorage.getItem("actualT");
+    if (token) {
+      dispatch(fetchUserData(token));
+    }
+  }, [code, challengesData, location.pathname, dispatch]);
 
   return (
     <div className="Challenges-body">
-        {challengesData !== "none" ?
-        <h5 className="Content">Bienvenido {challengesData}</h5>:
-        null    
-        }
+      {challengesData !== "none" ?
+        <h5 className="Content">Bienvenido {challengesData}</h5> :
+        null
+      }
     </div>
   );
-}
+};
 
 export default LoginAuth;

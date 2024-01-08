@@ -7,13 +7,25 @@ import {
   decrementCartQuantityt,
 } from '../../redux/slices/products';
 import NoProducts from './NoProducts';
+import { deleteProduct } from '../../redux/slices/cartUsersTest';
 
 //? Icons
 import { CiSquarePlus, CiSquareMinus } from 'react-icons/ci';
 import { LuTrash2 } from 'react-icons/lu';
+import {
+  decrementProductCartQuantity,
+  incrementProductCartQuantity,
+} from '../../redux/slices/cartUsersTest';
+
+
+import {
+  API_BOOKS
+} from '../../vars';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
+  const { user } = useSelector((state) => state.user);
+  const { userCart, cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(
@@ -34,34 +46,51 @@ const Cart = () => {
 
     if (currentQuantity < stock) {
       handleQuantityChange(id, (quantity[id] || 1) + 1);
-      dispatch(incrementCartQuantity({ id }));
+      dispatch(
+        incrementProductCartQuantity(user.id || "", id, (quantity[id] || 1) + 1),
+      );
     }
   };
 
   const decrement = (id) => {
     if (quantity[id] > 1) {
       handleQuantityChange(id, quantity[id] - 1);
-      dispatch(decrementCartQuantityt({ id }));
+      dispatch(decrementProductCartQuantity(user.id || "", id, quantity[id] - 1));
     }
   };
 
-  const handleDelete = (id) => {
-    dispatch(removeFromCart({ id }));
-  };
+  // const handleDelete = (id) => {
+  //   dispatch(removeFromCart({ id }));
+  // };
 
+  const handleDelete = async (id) => {
+    // dispatch(removeFromCart({ id }));
+    try {
+      await dispatch(deleteProduct(user.id || "", cartProducts[0].productId));
+    } catch (error) {
+      console.error('Error al eliminar producto:', error);
+    }
+  };
   const checkOut = () => {
-    const items = cart.map((product) => ({
+    const cartId = userCart;
+    const totalAmount = 500;
+    const books = cart.map((product) => ({
       id: product.id,
       title: product.title,
-      image: product.image,
+      // image: product.image,
       price: Number(product.price),
       quantity: quantity[product.id] || 1,
     }));
 
     axios
-      .post('http://localhost:3001/ebook/payment', items)
+      .post(`${API_BOOKS}/mercadoPago/create-order`, {
+        books,
+        cartId,
+        totalAmount,
+      })
       .then((response) => {
-        window.location.href = response.data.body.init_point;
+        window.location.href = response.data;
+        console.log(response.data);
       })
       .catch((error) => console.log(error.message));
   };

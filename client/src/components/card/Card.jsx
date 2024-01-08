@@ -11,6 +11,7 @@ import { addToCart } from '../../redux/slices/products';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import { Badge } from 'flowbite-react';
+import { addProductToCart, addProductToCartApi, createCart } from '../../redux/slices/cartUsersTest';
 
 function Card({
   id,
@@ -23,10 +24,14 @@ function Card({
   price,
   ISBN,
 }) {
-  const distpatch = useDispatch();
+  const dispatch = useDispatch();
 
+  const { cart } = useSelector((state) => state.products);
+  const { user } = useSelector((state) => state.user);
   const handleCart = () => {
-    distpatch(addToCart({ id, image, title, price, ISBN, Authors }));
+    dispatch(addToCart({ id, image, title, price, ISBN, Authors }));
+    dispatch(addProductToCartApi( user.id || "", id, 1 ));
+    console.log(cart);
   };
 
   const sliderRef = useRef(null);

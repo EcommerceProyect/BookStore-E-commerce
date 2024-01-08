@@ -1,22 +1,23 @@
-const mercadopago = require("mercadopago");
 require("dotenv").config();
+const mercadopago = require("mercadopago");
+const { ACCESS_AR_TOKEN, NOTIFICATION_URL, PORT,END_POINT_FRONT,END_POINT_BACK } = process.env;
 const { Orders, ISBN, Cart } = require("../../db");
 
 let products = [];
 let idCarrito = "";
 let address = "calle 1 # 2-3";
-let amount = 0;
+
 const createOrderPayment = async (req, res) => {
   mercadopago.configure({
-    access_token: process.env.ACCESS_AR_TOKEN,
+    access_token: ACCESS_AR_TOKEN,
   });
-  console.log("tokenARG", process.env.ACCESS_AR_TOKEN);
+  console.log("tokenARG", ACCESS_AR_TOKEN);
   //por ahora se quitara shippingAddress
-  const { cartId, books, totalAmount } = req.body;
+  const { cartId, books } = req.body;
   idCarrito = cartId;
   // address = shippingAddress;
   products = books;
-  amount = totalAmount;
+
   const preference = {
     items: products.map((book) => ({
       id: book.id,
@@ -26,12 +27,11 @@ const createOrderPayment = async (req, res) => {
       currency_id: "ARS",
     })),
     back_urls: {
-      success: "http://localhost:3002/mercadoPago/success",
-      failure: "http://localhost:3002/mercadoPago/failure",
-      pending: "http://localhost:3002/mercadoPago/pending",
+      success: `${END_POINT_FRONT}`,
+      failure: `${END_POINT_BACK}/mercadoPago/failure`,
+      pending: `${PORT}/mercadoPago/pending`,
     },
-    notification_url:
-      "https://1qw6hp6g-3002.brs.devtunnels.ms/mercadoPago/webhook",
+    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook/`,
   };
 
   const result = await mercadopago.preferences.create(preference);
@@ -45,13 +45,19 @@ const receiveWebhook = async (req, res) => {
     if (payment.type === "payment") {
       const data = await mercadopago.payment.findById(payment["data.id"]);
       console.log("data", data);
+
       if (data.response.status === "approved") {
+        // Extraer transaction_amount
+        const transactionAmount = data.response.transaction_amount;
+
+        // Crear la orden con transactionAmount como totalAmount
         const order = await Orders.create({
           OrderDate: new Date(),
           shippingAddress: address,
-          totalAmount: amount,
+          totalAmount: transactionAmount,
           CartId: idCarrito,
         });
+
         // Obtener libros por sus ISBNs
         const isbnPromises = products.map(async (book) => {
           const isbnData = await ISBN.findOne({
@@ -70,11 +76,8 @@ const receiveWebhook = async (req, res) => {
 
         // Esperar a que todas las consultas de actualización de stock se completen
         await Promise.all(isbnPromises);
-        await Cart.update(
-            { status: "Inactivo" },
-            { where: { id: idCarrito } }
-          );
-  
+        await Cart.update({ status: "Inactivo" }, { where: { id: idCarrito } });
+
         return res
           .status(200)
           .json({ message: "Order created successfully.", orderId: order.id });
@@ -88,4 +91,3 @@ const receiveWebhook = async (req, res) => {
 };
 
 module.exports = { createOrderPayment, receiveWebhook };
-
