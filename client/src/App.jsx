@@ -16,11 +16,12 @@ import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
-import ProductList from "./src/views/dashboard/ProductList";
+import ProductList from './views/dashboard/productList';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
+import { debounce } from 'lodash';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
