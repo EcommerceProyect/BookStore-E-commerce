@@ -1,18 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-// email, name, role, phone, created
-
-// const inputDate = new Date(inputDateString);
-
-// const day = String(inputDate.getUTCDate()).padStart(2, '0');
-// const month = String(inputDate.getUTCMonth() + 1).padStart(2, '0');
-// const year = inputDate.getUTCFullYear();
-// const formattedDateString = `${month}/${day}/${year}`;
-
 const Profile = () => {
-  const userData = useSelector((state) => state.userData.userData);
+  const userData = useSelector((state) => state.userData.userData.response);
   console.log(userData);
+
+  const inputDate = new Date(userData.createdAt);
+  const day = String(inputDate.getUTCDate()).padStart(2, '0');
+  const month = String(inputDate.getUTCMonth() + 1).padStart(2, '0');
+  const year = inputDate.getUTCFullYear();
+  const formattedDateString = `${month}/${day}/${year}`;
 
   return (
     <div className="overflow-x-hidden min-h-90 flex-grow w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col md:flex-row">
@@ -34,37 +31,47 @@ const Profile = () => {
         <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">Nombre</p>
-            <p className="text-textDark">Roberto</p>
+            <p className="text-textDark">
+              {/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
+                userData.name,
+              )
+                ? '...'
+                : userData.name}
+            </p>
           </div>
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">Apellido</p>
-            <p className="text-textDark">Iglesias</p>
+            <p className="text-textDark">
+              {userData.lastname ? userData.lastname : '...'}
+            </p>
           </div>
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">Correo</p>
-            <p className="text-textDark">{userData.custom_email_claim}</p>
+            <p className="text-textDark">{userData.email}</p>
           </div>
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">Teléfono</p>
-            <p className="text-textDark">+1234567890</p>
+            <p className="text-textDark">
+              {userData.phone ? userData.phone : '...'}
+            </p>
           </div>
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">
               Fecha de creación
             </p>
-            <p className="text-textDark">01/05/2024</p>
+            <p className="text-textDark">{formattedDateString}</p>
           </div>{' '}
           <p className="text-textDark text-lg font-bold mb-2">
             Tipo de usuario
           </p>
           <p className="text-textDark">
-            {userData.scope === 'admin:edit' ? 'Administrador' : 'Cliente'}
+            {userData.role === 'user' ? 'Cliente' : 'Administrador'}
           </p>
         </div>
         <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
           <p className="text-textDark text-lg font-bold mb-2">Registro</p>
           <p className="text-textDark">
-            {userData.sub.startsWith('google-oauth2|')
+            {userData.id && userData.id.startsWith('google-oauth2|')
               ? 'Mediante Google'
               : 'Manual'}
           </p>

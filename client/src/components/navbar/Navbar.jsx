@@ -83,7 +83,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           {userData && (
             <div title="Perfil">
               <Button
-                link="#"
+                link="/profile"
                 icon={<MdPersonOutline className="text-textLight" size={25} />}
               />
             </div>
