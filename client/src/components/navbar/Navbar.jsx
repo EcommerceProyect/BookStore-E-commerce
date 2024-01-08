@@ -3,7 +3,6 @@ import { useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import Logo from '../../assets/images/Logo.svg';
 import { Link } from 'react-router-dom';
-
 import SearchButton from '../searchButton/SearchButton';
 import Button from '../linkButtons/LinkButtons';
 import { LiaShoppingBagSolid } from 'react-icons/lia';
@@ -21,7 +20,7 @@ import AuthLogin from '../Auth/auth0Login';
 import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 import handleLogout from '../Auth/handleLogout';
-import { Link } from 'react-router-dom';
+
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cartCount } = useSelector((state) => state.products);

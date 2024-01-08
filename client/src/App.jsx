@@ -88,12 +88,13 @@ function App() {
             <Route path="/dashboard/users" element={<Users />} />
             <Route path="/carrito" element={<Cart />} />
             <Route path="/dashboard/createBook" element={<CreateProduct />} />
-        <Route path="/dashboard/products" element={<ProductList />} />
+             <Route path="/dashboard/products" element={<ProductList />} />
           </Routes>
           <Footer />
           {showRegistrationModal && (
             <RegistrationModal onClose={closeRegistrationModal} />
           )}
+          {showLoginModal && <LoginModal onClose={closeLoginModal} />}
         </>
       )}
     </div>
