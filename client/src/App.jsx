@@ -20,8 +20,7 @@ import ProductList from './views/dashboard/productList';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
-import { debounce, isEmpty } from 'lodash';
-import { getUserId } from './redux/slices/user';
+import Profile from './views/profile/Profile';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -89,6 +88,7 @@ function App() {
             <Route path="/redirect" Component={RegisterAuth} />
             {/* auth */}
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/products" element={<Products />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<LoginModal />} />
@@ -98,7 +98,7 @@ function App() {
             <Route path="/dashboard/users" element={<Users />} />
             <Route path="/carrito" element={<Cart />} />
             <Route path="/dashboard/createBook" element={<CreateProduct />} />
-             <Route path="/dashboard/products" element={<ProductList />} />
+            <Route path="/dashboard/products" element={<ProductList />} />
           </Routes>
           <Footer />
           {showRegistrationModal && (
