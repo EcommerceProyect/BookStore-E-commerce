@@ -5,11 +5,11 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 const sequelize = new Sequelize(
-  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`,
+  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?`,
   {
     //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
-    native: false
+    native: false,
   }
 ); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
 
@@ -31,7 +31,7 @@ modelDefiners.forEach((model) => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
   entry[0][0].toUpperCase() + entry[0].slice(1),
-  entry[1]
+  entry[1],
 ]);
 Object.assign(sequelize.models, ...capsEntries);
 
@@ -46,7 +46,7 @@ const {
   Author,
   Genre,
   Editorial,
-  CartDetail
+  CartDetail,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -111,5 +111,5 @@ module.exports = {
   CartDetail,
   GenreProducts,
   AuthorProducts,
-  conn: sequelize
+  conn: sequelize,
 };
