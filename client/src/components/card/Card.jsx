@@ -27,10 +27,10 @@ function Card({
   const dispatch = useDispatch();
 
   const { cart } = useSelector((state) => state.products);
-  const { userId } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const handleCart = () => {
     dispatch(addToCart({ id, image, title, price, ISBN, Authors }));
-    dispatch(addProductToCartApi( userId, id, 1 ));
+    dispatch(addProductToCartApi( user.id || "", id, 1 ));
     console.log(cart);
   };
 

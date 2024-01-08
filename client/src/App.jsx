@@ -19,21 +19,31 @@ import Products from './views/products/Products';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
-import { debounce } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
+import { getUserId } from './redux/slices/user';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const { userId } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(isEmpty(user)){
+      dispatch(getUserId());
+    }
+    
+  },[user])
   const createCartFn = debounce((userId) => {
-    dispatch(createCart(userId));
+    dispatch(createCart(userId || ""));
   }, 500);
 
   useEffect(() => {
-    createCartFn(userId);
-  }, [userId]);
+    if (!isEmpty(user)) {
+      console.log("USER", user);
+      createCartFn(user.id || "");
+    }
+  }, [user]);
 
   const openLoginModal = () => {
     setShowLoginModal(true);
@@ -92,6 +102,7 @@ function App() {
           {showRegistrationModal && (
             <RegistrationModal onClose={closeRegistrationModal} />
           )}
+          {showLoginModal && <LoginModal onClose={closeLoginModal} />}
         </>
       )}
     </div>
