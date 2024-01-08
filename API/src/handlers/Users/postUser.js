@@ -26,7 +26,7 @@ const postUser = async (req,res) => {
             
         });
 
-        // await registrationMail(custom_email_claim);
+        await registrationMail(custom_email_claim);
         console.log(response);
         return response
 
