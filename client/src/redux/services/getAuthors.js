@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { setAuthorListLoading, setAuthorList, setAuthorListError } from '../slices/authors';
+import {
+  API_BOOKS
+} from '../../vars';
 
-const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/authors?page=0';
+const apiUrl = `${API_BOOKS}/ebook/authors?page=0`;
 
 export const fetchAuthors = () => async (dispatch) => {
   dispatch(setAuthorListLoading()); 

@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { setProductDetail } from '../slices/products';
+import {
+  API_BOOKS
+} from '../../vars';
 
-const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products';
+const apiUrl = `${API_BOOKS}/ebook/products`;
+
 
 export const getProductsById = (id) => async (dispatch) => {
   try {

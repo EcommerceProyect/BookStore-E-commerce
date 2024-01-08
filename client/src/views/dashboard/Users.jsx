@@ -39,7 +39,7 @@ function Users() {
 
   const handleConfirmDelete = () => {
     if (deleteUserId) {
-      // dispatch(deleteUser(deleteUserId)); //comentado para no borrar usuarios de momento
+      dispatch(deleteUser(deleteUserId));
       console.log('Usuario borrado'); //simula el usuario borrado
       console.log('id del usuario a borrar: ', deleteUserId);
       setShowModal(false);
