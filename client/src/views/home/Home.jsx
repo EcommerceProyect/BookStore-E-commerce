@@ -2,6 +2,9 @@ import React from 'react';
 import CarouselComponent from '../home/carousel/CarouselComponent';
 
 const Home = () => {
+ 
+  
+
   return (
     <div>
       <h2 className="my-5 text-textDark font-bold text-center text-lg">

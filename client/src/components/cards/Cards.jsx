@@ -7,6 +7,7 @@ import GenreFilter from './filters/Genres';
 import AuthorFilter from './filters/Authors';
 import EditorialFilter from './filters/Editorial';
 import SortingComponent from './sort/Sort';
+import { Toaster } from 'sonner';
 
 function Cards() {
   const dispatch = useDispatch();
@@ -26,7 +27,6 @@ function Cards() {
   const selectedEditorial = useSelector(
     (state) => state.editorial.selectedEditorial,
   );
-  
 
   const itemsPerPage = 2;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -65,7 +65,6 @@ function Cards() {
       try {
         let total = 0;
         let filters = {};
-
 
         if (selectedGenre && selectedGenre.length > 0) {
           filters = { ...filters, genre: selectedGenre };
@@ -151,6 +150,7 @@ function Cards() {
                   />
                 </div>
               ))}
+            <Toaster richColors duration={2000} />
           </div>
         )}
         <nav

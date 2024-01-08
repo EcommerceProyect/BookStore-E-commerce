@@ -64,7 +64,7 @@ const handleAuthorizedRequest = async (req, res) => {
       method: `${peticion}`,
       url: `${challengesAPIEndpoint}/${route}${id}${queryString}`,
       headers: { Authorization: `Bearer ${finalToken}` },
-      data: body
+      data: body,
     });
 
     res.json(response.data);

@@ -20,6 +20,7 @@ let oAuth = async (req, res, next) => {
   params.append("client_id", `${CLIENT_ID}`);
   params.append("client_secret", `${CLIENT_SECRET}`);
   params.append("code", code);
+  params.append("scope", ["update:users"]);
   params.append("redirect_uri", `${REDIRECT_URI}`);
 
   axios
