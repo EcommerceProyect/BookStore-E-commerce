@@ -27,7 +27,11 @@ const postUserController = async (data) => {
 
         })
 
-        return created;
+        if (created) {
+            return created;
+        } else {
+            return new Error("El Usuario ya existe");
+        }
 
     } catch (error) {
         return error;

@@ -9,6 +9,7 @@ const { getAllUsers } = require("../handlers/Users/getAllUsers");
 const { createProduct } = require("../handlers/createProduct");
 const { updateUserHandler } = require("../handlers/Users/updateUser");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
+const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
 
 router.use(cors());
 
@@ -50,19 +51,27 @@ router.get(
     console.log(req.auth);
 
     try {
+
+      // const emailExist = await 
+
       const response = await postUser(req, res);
 
-      console.log(response);
+      console.log(response,"soyyyy el protect");
+
+      
+      res.status(200).json({
+        id_user: req.auth.payload.sub
+      });
+      
+      
     } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: "Internal Server Error",
+      console.log(error)
+      res.status(404).json({// es 404 para que en la api intermedia pase que el usuario ya existia
+        error: error,
         message: "Something went wrong"
       });
     }
-    res.status(200).json({
-      id_user: req.auth.payload.sub
-    });
+
   }
 );
 
@@ -78,11 +87,19 @@ router.get(
   getUser_Token
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
+
 router.put(
   "/authorized/users/:id",
   checkPermissions(["admin:edit"]),
   updateUserHandler
 );
+
+router.put(
+  "/authorized/activeuser/:id",
+  checkPermissions(["admin:edit"]),
+  activeUserHandler
+);
+
 router.delete(
   "/authorized/users/:id",
   checkPermissions(["admin:edit"]),
