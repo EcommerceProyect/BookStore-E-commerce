@@ -7,6 +7,8 @@ import {
   setProductDetailError,
 } from '../../redux/slices/products';
 import { useParams } from 'react-router-dom';
+import RatingStarsAverage from './RatingStarsAverage'
+import RatingStarsSetter from './RatingStarsSetter';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
@@ -39,6 +41,10 @@ function Detail() {
                 {detailProduct?.Authors.map((author) => author.name) ||
                   'Autor no disponible.'}
               </h2>
+              <div>
+                <RatingStarsAverage/>
+              </div>
+              
               {/* Estrellas de calificación
               <div class="flex mb-4">
                 <span class="flex items-center">
@@ -136,6 +142,7 @@ function Detail() {
                   </svg>
                 </button> */}
               </div>
+              <RatingStarsSetter/>
             </div>
           </div>
         </div>
