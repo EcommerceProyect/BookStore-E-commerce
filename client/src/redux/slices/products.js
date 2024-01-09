@@ -80,7 +80,7 @@ export const productSlice = createSlice({
         (product) => product.id !== action.payload.id,
       );
 
-      state.cartCount -= 1;
+      if (state.cartCount > 0) state.cartCount -= 1;
     },
     incrementCartQuantity: (state, action) => {
       const existingProduct = state.cart.find(
