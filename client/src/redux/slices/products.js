@@ -1,19 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'sonner';
 
+
+export const getCartFromLocalStorage = () => {
+  const cart = localStorage.getItem('cart');
+  return cart ? JSON.parse(cart) : [];
+}
 const initialState = {
   list: [],
   loading: false,
   error: null,
   detailProduct: null,
   orderOption: [],
-  cart: [],
+  cart: getCartFromLocalStorage(),
   cartCount: 0,
   totalItems: null,
   carouselProducts: [],
   booksByTitle: [],
   currentPage: 0,
 };
+
 
 export const productSlice = createSlice({
   name: 'products',
@@ -71,6 +77,7 @@ export const productSlice = createSlice({
         toast.success('Agregado al carrito exitosamente');
         state.cart.push(productWithQuantity);
         state.cartCount += 1;
+        localStorage.setItem('cart', JSON.stringify(state.cart));
       } else {
         toast.warning('El producto ya se encuentra en el carrito');
       }
@@ -79,23 +86,39 @@ export const productSlice = createSlice({
       state.cart = state.cart.filter(
         (product) => product.id !== action.payload.id,
       );
-
+      localStorage.setItem('cart', JSON.stringify({}));
       state.cartCount -= 1;
     },
     incrementCartQuantity: (state, action) => {
-      const existingProduct = state.cart.find(
+      const existingProductIndex = state.cart.findIndex(
         (product) => product.id === action.payload.id,
       );
 
-      if (existingProduct) existingProduct.quantity += 1;
+      if (existingProductIndex !== -1) {
+        state.cart[existingProductIndex].quantity += 1;
+        const cart = localStorage.getItem('cart');
+        const cartJson = JSON.parse(cart);
+        cartJson[existingProductIndex].quantity += 1;
+        localStorage.setItem('cart', JSON.stringify(cartJson));
+      }
     },
     decrementCartQuantityt: (state, action) => {
-      const existingProduct = state.cart.find(
+      const existingProductIndex = state.cart.findIndex(
         (product) => product.id === action.payload.id,
       );
 
-      if (existingProduct) existingProduct.quantity -= 1;
+      if (existingProductIndex !== -1) {
+        state.cart[existingProductIndex].quantity -= 1;
+        const cart = localStorage.getItem('cart');
+        const cartJson = JSON.parse(cart);
+        cartJson[existingProductIndex].quantity -= 1;
+        localStorage.setItem('cart', JSON.stringify(cartJson));
+      }
     },
+    setCart: (state, action) => {
+      state.cart = action.payload;
+      state.cartCount = action.payload.length;
+    }
   },
 });
 
@@ -116,6 +139,9 @@ export const {
   incrementCartQuantity,
   decrementCartQuantityt,
   setCurrentPage,
+  setCart
 } = productSlice.actions;
 
 export default productSlice.reducer;
+
+

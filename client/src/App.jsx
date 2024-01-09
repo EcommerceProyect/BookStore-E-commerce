@@ -26,9 +26,18 @@ import { getUserId } from './redux/slices/user';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [user, setUser] = useState({});
 
-  const { user } = useSelector((state) => state.user);
+  const { userData } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(!isEmpty(userData)){
+      if(!isEmpty(userData.response)){
+        setUser(userData.response);
+      }
+    }
+  },[userData])
 
   useEffect(() => {
     if(isEmpty(user)){
@@ -36,6 +45,7 @@ function App() {
     }
     
   },[user])
+  
   const createCartFn = debounce((userId) => {
     dispatch(createCart(userId || ""));
   }, 500);
