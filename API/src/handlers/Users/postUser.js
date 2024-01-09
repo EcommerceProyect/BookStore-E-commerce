@@ -26,12 +26,16 @@ const postUser = async (req,res) => {
             
         });
 
-        await registrationMail(custom_email_claim);
-        console.log(response);
-        return response
+        if(response === true){
+          await registrationMail(custom_email_claim);
+          return response
+        }else{
+          throw new Error("El Usuario ya existe");
+        }
+
 
     } catch (error) {
-        res.status(500).json(error.message)
+       throw new Error(error.message);
     }
 
 }
