@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { setGenreListLoading, setGenreList, setGenreListError } from '../slices/genres';
+import {
+  API_BOOKS
+} from '../../vars';
 
-const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/genres?page=0';
+const apiUrl = `${API_BOOKS}/ebook/genres?page=0`;
 
 export const fetchGenres = () => async (dispatch) => {
   dispatch(setGenreListLoading()); 

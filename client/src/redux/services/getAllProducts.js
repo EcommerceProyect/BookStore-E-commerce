@@ -5,9 +5,10 @@ import {
   setProductListLoading,
   setProductListError,
 } from '../slices/products';
+import { API_BOOKS } from '../../vars';
 
-// const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products';
-const apiUrl = 'http://localhost:5433/ebook/products';
+const apiUrl = `${API_BOOKS}/ebook/products`;
+// const apiUrl = 'http://localhost:3002/ebook/products';
 export const getProducts =
   (page, sortField, sortAction) => async (dispatch, getState) => {
     dispatch(setProductListLoading());

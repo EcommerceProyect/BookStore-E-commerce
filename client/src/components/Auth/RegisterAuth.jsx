@@ -27,8 +27,8 @@ const RegisterAuth = ({ openLoginModal }) => {
           });
 
           const data = await response.json();
-          console.log(data);
-          setChallengesData(JSON.stringify(data.id_user));
+          if (data.id_user) setChallengesData(JSON.stringify(data.id_user));
+          else setChallengesData(JSON.stringify(data));
         } catch (error) {
           console.error(
             'Error in the request:',

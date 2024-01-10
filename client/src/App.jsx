@@ -16,12 +16,13 @@ import Users from './views/dashboard/Users';
 import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
-import ProductList from './views/dashboard/productList';
+import ProductList from './views/dashboard/ProductList';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
-import UpdateProfile from './views/profile/updateProfile';
+import { debounce, isEmpty } from 'lodash';
+import { getUserId } from './redux/slices/user';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -30,19 +31,18 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isEmpty(user)){
+    if (isEmpty(user)) {
       dispatch(getUserId());
     }
-    
-  },[user])
+  }, [user]);
   const createCartFn = debounce((userId) => {
-    dispatch(createCart(userId || ""));
+    dispatch(createCart(userId || ''));
   }, 500);
 
   useEffect(() => {
     if (!isEmpty(user)) {
-      console.log("USER", user);
-      createCartFn(user.id || "");
+      console.log('USER', user);
+      createCartFn(user.id || '');
     }
   }, [user]);
 
