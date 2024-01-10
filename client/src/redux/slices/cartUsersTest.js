@@ -11,6 +11,8 @@ const initialState = {
   cartProducts: [],
 };
 
+import { API_BOOKS } from '../../vars';
+
 export const cartUsersSlice = createSlice({
   name: 'userCartTest',
   initialState,
@@ -37,10 +39,9 @@ export default cartUsersSlice.reducer;
 
 export const createCart = (userId) => async (dispatch) => {
   try {
-    const response = await axios.post(
-      'http://localhost:5432/ebook/createCart',
-      { userId },
-    );
+    const response = await axios.post(`${API_BOOKS}/ebook/createCart`, {
+      userId,
+    });
     dispatch(setUserCart(response.data.cart.id));
     console.log(response.data.message);
   } catch (error) {
@@ -52,10 +53,11 @@ export const addProductToCartApi =
   (userId, productId, quantity) => async (dispatch) => {
     console.log('ADD TO CART API', userId);
     try {
-      const response = await axios.put(
-        'http://localhost:5432/ebook/addToCart',
-        { userId, productId, quantity },
-      );
+      const response = await axios.put(`${API_BOOKS}/ebook/addToCart`, {
+        userId,
+        productId,
+        quantity,
+      });
       dispatch(
         addProductToCart({
           userId: userId,
@@ -73,10 +75,11 @@ export const incrementProductCartQuantity =
   (userId, productId, quantity) => async (dispatch) => {
     console.log('INCREMENT PRODUCT CART QUANTITY', userId, productId, quantity);
     try {
-      const response = await axios.put(
-        'http://localhost:5432/ebook/addToCart',
-        { userId, productId, quantity },
-      );
+      const response = await axios.put(`${API_BOOKS}/ebook/addToCart`, {
+        userId,
+        productId,
+        quantity,
+      });
       dispatch(incrementCartQuantity({ id: productId }));
     } catch (error) {
       console.error(error);
@@ -87,10 +90,11 @@ export const decrementProductCartQuantity =
   (userId, productId, quantity) => async (dispatch) => {
     console.log('DECREMENT PRODUCT CART QUANTITY', userId, productId, quantity);
     try {
-      const response = await axios.put(
-        'http://localhost:5432/ebook/addToCart',
-        { userId, productId, quantity },
-      );
+      const response = await axios.put(`${API_BOOKS}/ebook/addToCart`, {
+        userId,
+        productId,
+        quantity,
+      });
       dispatch(decrementCartQuantityt({ id: productId }));
     } catch (error) {
       console.error(error);
@@ -100,7 +104,7 @@ export const decrementProductCartQuantity =
 export const deleteProduct = (userId, productId) => async (dispatch) => {
   try {
     let response = await axios.delete(
-      `http://localhost:5432/ebook/deleteProductCart/${userId}/${productId}`,
+      `${API_BOOKS}/ebook/deleteProductCart/${userId}/${productId}`,
     );
     dispatch(removeFromCart({ id: productId }));
     dispatch(setDelete(productId));

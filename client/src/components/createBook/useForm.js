@@ -79,8 +79,7 @@ export const useForm = (validationSchema) => {
     const fetchData = async () => {
       if (typeof values.image === 'string' && values.image !== '') {
         try {
-          const response = dispatch(postProduct(values));
-          console.log('Libro cargado', response);
+          const response = await dispatch(postProduct(values));
 
           if (
             response &&
@@ -88,7 +87,7 @@ export const useForm = (validationSchema) => {
           ) {
             toast('Libro creado exitosamente.');
           } else {
-            console.error('Error creando el libro.');
+            toast('Error creando el libro.');
           }
         } catch (error) {
           console.error('Error creando libro:', error.message);
