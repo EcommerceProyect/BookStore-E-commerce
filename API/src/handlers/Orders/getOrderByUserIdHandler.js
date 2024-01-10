@@ -3,8 +3,8 @@ const {getOrderByUserIdController} = require("../../controllers/Orders/getOrderB
 const getOrderByUserIdHandler = async (req, res) => {
 
     const {page} = req.query;
-    const {id} = req.params;
-
+    const id = req.params.id || req.auth.payload.sub;
+    console.log(id);
     try {
         const orders = await getOrderByUserIdController(id,page);
         

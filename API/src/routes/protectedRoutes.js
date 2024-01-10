@@ -10,6 +10,8 @@ const { createProduct } = require("../handlers/createProduct");
 const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
+const { updateProductHandler } = require("../handlers/updateProduct");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 
 router.use(cors());
 
@@ -88,12 +90,14 @@ router.get(
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
 
+//update user by user
 router.put(
-  "/authorized/users/:id",
-  checkPermissions(["admin:edit"]),
+  "/authorized/users",
+  checkPermissions(["user:edit"]),
   updateUserHandler
 );
 
+//activar usuario si esta desactivado.  Solo admin
 router.put(
   "/authorized/activeuser/:id",
   checkPermissions(["admin:edit"]),
@@ -113,4 +117,17 @@ router.post(
   createProduct
 );
 
+router.put(
+  "/authorized/products/:id",
+  checkPermissions(["admin:edit"]),
+  updateProductHandler
+)
+
+//Orders
+
+router.get(
+  "/authorized/orders",
+  checkPermissions(["user:edit"]),
+  getOrderByUserIdHandler
+)
 module.exports = router;

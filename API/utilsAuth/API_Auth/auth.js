@@ -34,7 +34,7 @@ const handleAuthorizedRequest = async (req, res) => {
     const peticion = req.method || "get"; //declaro tipo de peticion
     let body = null;
 
-    if (req.method === "POST" && req.body) {
+    if (req.method === "POST" || req.method === "PUT"  && req.body) {
       body = req.body;
     }
 

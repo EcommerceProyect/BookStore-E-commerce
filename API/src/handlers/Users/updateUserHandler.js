@@ -22,9 +22,9 @@
 const {updateUserController} = require("../../controllers/Users/updateUserController");
 
 const updateUserHandler = async (req,res) =>{
-    const {id} = req.params;
+    const id = req.auth.payload.sub;
     const userData = req.body;
-
+    console.log(userData);
     try {
         const updateUser = await updateUserController(id,userData);
         return res.json({

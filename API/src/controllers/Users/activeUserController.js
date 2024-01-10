@@ -9,7 +9,8 @@ const activeUserController = async (id) => {
             }
         });
 
-        return user;
+        const restoredUser = await Users.findByPk(id);
+        return restoredUser;
 
     } catch (error) {
         throw new Error(error.message);
