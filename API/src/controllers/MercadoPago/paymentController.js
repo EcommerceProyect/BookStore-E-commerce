@@ -37,7 +37,7 @@ const createOrderPayment = async (req, res) => {
       failure: `${END_POINT_BACK}/mercadoPago/failure`,
       pending: `${END_POINT_BACK}/mercadoPago/pending`,
     },
-    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook/`,
+    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook`,
   };
 
   const result = await mercadopago.preferences.create(preference);
