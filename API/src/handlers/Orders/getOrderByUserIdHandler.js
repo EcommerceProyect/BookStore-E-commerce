@@ -1,11 +1,12 @@
-const {getOrdersController} = require("../../controllers/Orders/getOrderController");
+const {getOrderByUserIdController} = require("../../controllers/Orders/getOrderByUserIdController");
 
-const getOrdersHandler = async (req, res) => {
+const getOrderByUserIdHandler = async (req, res) => {
 
     const {page} = req.query;
-
+    const id = req.params.id || req.auth.payload.sub;
+    console.log(id);
     try {
-        const orders = await getOrdersController(page);
+        const orders = await getOrderByUserIdController(id,page);
         
         if (orders.length === 0) {
             return res.json({ message: "No hay ninguna orden realizada." });
@@ -19,4 +20,4 @@ const getOrdersHandler = async (req, res) => {
 };
 
 
-module.exports = {getOrdersHandler}
+module.exports = {getOrderByUserIdHandler}
