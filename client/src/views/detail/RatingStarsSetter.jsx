@@ -3,6 +3,7 @@ import { Rating } from 'react-simple-star-rating';
 import { postRatingStars } from '../../redux/services/postRatingStars';
 
 function RatingStarsSetter(readonly) {
+  const [ratingValue, setRatingValue] = useState(0); 
   
   //actualizar el valor de la calificación
   const handleRating = (rate) => {

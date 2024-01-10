@@ -3,7 +3,7 @@ const {
 } = require("../../controllers/Users/postUserController");
 const { registrationMail } = require("../../mailService/mailService");
 
-const postUser = async (req,res) => {
+const postUser = async (req, res) => {
 
     const {permissions,custom_email_claim,sub} = req.auth.payload;
 
