@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import { debounce } from 'lodash';
 import Profile from './views/profile/Profile';
+import UpdateProfile from './views/profile/updateProfile';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -77,10 +78,14 @@ function App() {
 
           <Routes>
             {/* auth */}
-            <Route path="/redirect" Component={RegisterAuth} />
+            <Route
+              path="/redirect"
+              element={<RegisterAuth openLoginModal={openLoginModal} />}
+            />
             {/* auth */}
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/edit" element={<UpdateProfile />} />
             <Route path="/products" element={<Products />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<LoginModal />} />

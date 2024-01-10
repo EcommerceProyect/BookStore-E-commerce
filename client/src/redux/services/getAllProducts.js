@@ -7,7 +7,7 @@ import {
 } from '../slices/products';
 
 // const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products';
-const apiUrl = 'http://localhost:3002/ebook/products';
+const apiUrl = 'http://localhost:5433/ebook/products';
 export const getProducts =
   (page, sortField, sortAction) => async (dispatch, getState) => {
     dispatch(setProductListLoading());
@@ -43,7 +43,7 @@ export const getProducts =
       }
 
       if (booksByTitle && booksByTitle.length > 0) {
-        const titleParams = `title=${encodeURIComponent(booksByTitle)}&`
+        const titleParams = `title=${encodeURIComponent(booksByTitle)}&`;
         queryParams.push(titleParams);
       }
 
@@ -65,7 +65,6 @@ export const getProducts =
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
-     
     } catch (error) {
       dispatch(setProductListError(error.message));
     }

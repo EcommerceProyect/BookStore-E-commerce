@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { setUserData } from '../slices/userData';
 import { jwtDecode } from 'jwt-decode';
+import { APIDOMAIN } from '../../vars';
 
 export const fetchUserData = (token) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/authorized?route=profile&token=${token}`,
+      `${APIDOMAIN}/authorized?route=profile&token=${token}`,
     );
 
     const userData = { ...response.data };
