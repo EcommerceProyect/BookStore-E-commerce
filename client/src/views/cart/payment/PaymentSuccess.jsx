@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const PaymentBill = () => {
+const PaymentSuccess = () => {
   const navigate = useNavigate();
   return (
     <div className="bg-textGray h-screen">
@@ -23,4 +23,4 @@ const PaymentBill = () => {
   );
 };
 
-export default PaymentBill;
+export default PaymentSuccess;
