@@ -2,17 +2,14 @@ const {Users} = require("../../db");
 
 const activeUserController = async (id) => {
     try {
-        const user = await Users.findByPk(id);
+        
+        const user = await Users.restore({
+            where:{
+                id,
+            }
+        });
 
-        if (!user){
-            throw new Error ("No existe el usuario");
-        }else{
-        user.deletedAt = null;
-        await user.save();
-        }
-
-        const updateUser = await Users.findByPk(id);
-        return updateUser;
+        return user;
 
     } catch (error) {
         throw new Error(error.message);

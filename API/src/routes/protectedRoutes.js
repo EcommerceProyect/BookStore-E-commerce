@@ -7,7 +7,7 @@ const { postUser } = require("../handlers/Users/postUser");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const { getAllUsers } = require("../handlers/Users/getAllUsers");
 const { createProduct } = require("../handlers/createProduct");
-const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
 

@@ -1,8 +1,18 @@
-const {Orders, OrderDetail} = require("../../db");
+/* eslint-disable no-undef */
+const {Orders, Cart} = require("../../db");
+require("dotenv").config();
+const {LIMIT_USERS} = process.env;
 
-const getOrdersController = async () => {
+const getOrdersController = async (page) => {
+
+    const offset = page*LIMIT_USERS;
+
     try {
-        const orders = await Orders.findAll({ include: [OrderDetail] });
+        const orders = await Orders.findAll({ 
+            include: [Cart],
+            offset,
+            limit:LIMIT_USERS
+        });
 
         return orders;
     } catch (error) {
