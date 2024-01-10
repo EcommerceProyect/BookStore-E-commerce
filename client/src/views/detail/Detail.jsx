@@ -1,27 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails } from '../../redux/services/getProductDetail';
+import getUserBuyedProduct from '../../redux/services/getUserBuyedProduct';
 import {
   setProductDetailLoading,
   setProductDetail,
   setProductDetailError,
 } from '../../redux/slices/products';
 import { useParams } from 'react-router-dom';
-import RatingStarsAverage from './RatingStarsAverage'
+import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
+  const [userBuyedProduct, setUserBuyedProduct] = useState(false);
+  const userId = useSelector((state) => state.userData.userData.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        dispatch(setProductDetailLoading());
+        dispatch(getProductDetails(id));
+        
+        setUserBuyedProduct(await getUserBuyedProduct(userId, id));
+        console.log('userBuyedProduct:', userBuyed);
+      } catch (error) {
+        dispatch(setProductDetailError(error.message));
+      }
+    };
+
     if (id) {
-      dispatch(setProductDetailLoading());
-      dispatch(getProductDetails(id));
+      fetchData();
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, userId]);
+
+
 
   return (
     <div>
@@ -42,9 +58,9 @@ function Detail() {
                   'Autor no disponible.'}
               </h2>
               <div>
-                <RatingStarsAverage/>
+                <RatingStarsAverage />
               </div>
-              
+
               {/* Estrellas de calificación
               <div class="flex mb-4">
                 <span class="flex items-center">
@@ -142,7 +158,8 @@ function Detail() {
                   </svg>
                 </button> */}
               </div>
-              <RatingStarsSetter/>
+              {console.log('userBuyedProduct:', userBuyedProduct)}
+              {userBuyedProduct ? <RatingStarsSetter /> : ''}
             </div>
           </div>
         </div>
