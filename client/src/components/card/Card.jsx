@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { debounce, isEmpty } from 'lodash';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,10 +28,19 @@ function Card({
   price,
   ISBN,
 }) {
+  const [user, setUser] = useState({});
   const dispatch = useDispatch();
 
   const { cart } = useSelector((state) => state.products);
-  const { user } = useSelector((state) => state.user);
+  const { userData } = useSelector((state) => state.userData);
+  
+  useEffect(() => {
+    if(!isEmpty(userData)){
+      if(!isEmpty(userData.response)){
+        setUser(userData.response);
+      }
+    }
+  },[userData])
   const handleCart = () => {
     if (ISBN.stock === 0) {
       console.log('No se pueden agregar productos sin stock');
@@ -40,6 +49,7 @@ function Card({
       dispatch(addProductToCartApi(user.id || '', id, 1));
     }
     console.log(cart);
+    console.log(user.id);
   };
 
   const sliderRef = useRef(null);

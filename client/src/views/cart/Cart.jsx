@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { debounce, isEmpty } from 'lodash';
 import {
   removeFromCart,
   incrementCartQuantity,
@@ -23,14 +24,21 @@ import { Toaster, toast } from 'sonner';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
-  const { user } = useSelector((state) => state.user);
+  const { userData } = useSelector((state) => state.userData);
   const { userCart, cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(
     Object.fromEntries(cart.map(({ id }) => [id, 1])),
   );
-
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    if (!isEmpty(userData)) {
+      if (!isEmpty(userData.response)) {
+        setUser(userData.response);
+      }
+    }
+  }, [userData]);
   const [sureDelete, setSureDelete] = useState(
     Object.fromEntries(cart.map(({ id }) => [id, false])),
   );

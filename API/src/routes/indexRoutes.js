@@ -50,8 +50,8 @@ const {
   deleteProductCartHandler
 } = require("../handlers/Cart/deleteProductCartHandler");
 const {
-  getActiveCartHandler
-} = require("../handlers/Cart/getActiveCartHandler");
+  getProductsActiveCartHandler
+} = require("../handlers/Cart/getProductsActiveCartHandler");
 
 
 
@@ -114,7 +114,7 @@ router.get("/oders/:id",getOrderByUserIdHandler);
 
 //RUTAS DEL CARRITO
 
-router.get("/getActiveCart/:userId", getActiveCartHandler);
+router.get("/getProductsActiveCart/:userId", getProductsActiveCartHandler);
 router.post("/createCart", createCartHandler);
 router.put("/addToCart", addToCartHandler);
 router.delete(
