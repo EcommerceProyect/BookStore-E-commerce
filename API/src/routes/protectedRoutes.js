@@ -7,8 +7,11 @@ const { postUser } = require("../handlers/Users/postUser");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const { getAllUsers } = require("../handlers/Users/getAllUsers");
 const { createProduct } = require("../handlers/createProduct");
-const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
+const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
+const { updateProductHandler } = require("../handlers/updateProduct");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 
 router.use(cors());
 
@@ -50,19 +53,27 @@ router.get(
     console.log(req.auth);
 
     try {
+
+      // const emailExist = await 
+
       const response = await postUser(req, res);
 
-      console.log(response);
+      console.log(response,"soyyyy el protect");
+
+      
+      res.status(200).json({
+        id_user: req.auth.payload.sub
+      });
+      
+      
     } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: "Internal Server Error",
+      console.log(error)
+      res.status(404).json({// es 404 para que en la api intermedia pase que el usuario ya existia
+        error: error,
         message: "Something went wrong"
       });
     }
-    res.status(200).json({
-      id_user: req.auth.payload.sub
-    });
+
   }
 );
 
@@ -78,11 +89,21 @@ router.get(
   getUser_Token
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
+
+//update user by user
 router.put(
-  "/authorized/users/:id",
-  checkPermissions(["admin:edit"]),
+  "/authorized/users",
+  checkPermissions(["user:edit"]),
   updateUserHandler
 );
+
+//activar usuario si esta desactivado.  Solo admin
+router.put(
+  "/authorized/activeuser/:id",
+  checkPermissions(["admin:edit"]),
+  activeUserHandler
+);
+
 router.delete(
   "/authorized/users/:id",
   checkPermissions(["admin:edit"]),
@@ -96,4 +117,17 @@ router.post(
   createProduct
 );
 
+router.put(
+  "/authorized/products/:id",
+  checkPermissions(["admin:edit"]),
+  updateProductHandler
+)
+
+//Orders
+
+router.get(
+  "/authorized/orders",
+  checkPermissions(["user:edit"]),
+  getOrderByUserIdHandler
+)
 module.exports = router;

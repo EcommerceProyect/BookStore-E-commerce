@@ -3,11 +3,11 @@ const { getAllUsersController } = require("../../controllers/Users/getAllUsersCo
 
 const getAllUsers = async (req,res) => {
 
-    const {page} = req.query;
+    const {page,deleted} = req.query;
 
     try {
         
-        const response = await getAllUsersController(page);
+        const response = await getAllUsersController(page,deleted);
 
         res.status(200).json(response);
 

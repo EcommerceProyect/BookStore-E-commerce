@@ -1,6 +1,6 @@
 const {updateUserController} = require("../../controllers/Users/updateUserController");
 
-const updateUserHandler = async (req,res) =>{
+const updateUserAdmin = async (req,res) =>{
     const {id} = req.params;
     const userData = req.body;
 
@@ -17,4 +17,4 @@ const updateUserHandler = async (req,res) =>{
     }
 };
 
-module.exports = {updateUserHandler}
+module.exports = {updateUserAdmin}

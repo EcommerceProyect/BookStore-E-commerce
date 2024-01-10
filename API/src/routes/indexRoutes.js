@@ -25,7 +25,7 @@ const {
 const {
   updateReleasedDateHandler
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
-const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
@@ -60,6 +60,7 @@ const {
 //ruta Usuario temporal
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 
 const router = Router();
 
@@ -107,6 +108,9 @@ router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
 
+//RUTA DE ORDENES
+
+router.get("/oders/:id",getOrderByUserIdHandler);
 
 //RUTAS DEL CARRITO
 
@@ -123,6 +127,7 @@ router.delete(
 //Creacion de User Momentanea
 
 router.post("/usersPrueba", postUserPruebaController);
+
 
 module.exports = router;
 
