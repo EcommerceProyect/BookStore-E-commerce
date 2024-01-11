@@ -112,7 +112,7 @@ router.delete("/user/:id", deleteUserHandler);
 
 //RUTA DE ORDENES
 
-router.get("/oders/:id",getOrderByUserIdHandler);
+router.get("/orders/:id",getOrderByUserIdHandler);
 
 //RUTAS DEL CARRITO
 

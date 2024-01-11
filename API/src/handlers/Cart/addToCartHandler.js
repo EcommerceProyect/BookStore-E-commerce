@@ -1,5 +1,4 @@
 
-
 const { addToCartController } = require("../../controllers/Cart/addToCartController");
 
 const addToCartHandler = async (req, res) => {

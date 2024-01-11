@@ -1,9 +1,9 @@
-const { Orders, OrderDetail } = require("../../db");
+const { Orders} = require("../../db");
 
 const createOrderController = async (orderData) => {
     try {
 
-        const { OrderDate, shippingAddress, totalAmount, OrderDetail: orderDetailData } = orderData;
+        const { OrderDate, shippingAddress, totalAmount} = orderData;
 
         const order = await Orders.create({
             OrderDate,
@@ -11,19 +11,12 @@ const createOrderController = async (orderData) => {
             totalAmount,
         });
 
-        if (orderDetailData) {
-            const orderDetail = await OrderDetail.create({
-                quantity: orderDetailData.quantity,
-            });
-
-            await order.setOrderDetail(orderDetail);
-        }
-
         return order;
     } catch (error) {
         throw new Error(error.message);
     }
 };
+
 
 module.exports = {
     createOrderController,
