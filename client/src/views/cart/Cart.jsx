@@ -18,10 +18,9 @@ import {
   incrementProductCartQuantity,
 } from '../../redux/slices/cartUsersTest';
 
+import { API_BOOKS } from '../../vars';
 
-import {
-  API_BOOKS
-} from '../../vars';
+import { Toaster, toast } from 'sonner';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.products);
@@ -37,12 +36,16 @@ const Cart = () => {
   );
   const [user, setUser] = useState({});
   useEffect(() => {
-    if(!isEmpty(userData)){
-      if(!isEmpty(userData.response)){
+    if (!isEmpty(userData)) {
+      if (!isEmpty(userData.response)) {
         setUser(userData.response);
       }
     }
-  },[userData])
+  }, [userData]);
+  const [sureDelete, setSureDelete] = useState(
+    Object.fromEntries(cart.map(({ id }) => [id, false])),
+  );
+
   const handleQuantityChange = (id, newQuantity) => {
     setQuantity({
       ...quantity,
@@ -58,7 +61,11 @@ const Cart = () => {
     if (currentQuantity < stock) {
       handleQuantityChange(id, (quantity[id] || 1) + 1);
       dispatch(
-        incrementProductCartQuantity(user.id || "", id, (quantity[id] || 1) + 1),
+        incrementProductCartQuantity(
+          user.id || '',
+          id,
+          (quantity[id] || 1) + 1,
+        ),
       );
     }
   };
@@ -66,18 +73,16 @@ const Cart = () => {
   const decrement = (id) => {
     if (quantity[id] > 1) {
       handleQuantityChange(id, quantity[id] - 1);
-      dispatch(decrementProductCartQuantity(user.id || "", id, quantity[id] - 1));
+      dispatch(
+        decrementProductCartQuantity(user.id || '', id, quantity[id] - 1),
+      );
     }
   };
 
-  // const handleDelete = (id) => {
-  //   dispatch(removeFromCart({ id }));
-  // };
-
+  const isStockAvailable = cart.every((product) => product.ISBN.stock > 0);
   const handleDelete = async (id) => {
-    // dispatch(removeFromCart({ id }));
     try {
-      await dispatch(deleteProduct(user.id || "", cartProducts[0].productId));
+      await dispatch(deleteProduct(user.id || '', id));
     } catch (error) {
       console.error('Error al eliminar producto:', error);
     }
@@ -105,6 +110,7 @@ const Cart = () => {
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
+    // console.log(actualStock);
   };
 
   const totalAmount = cart.reduce((acc, { price, id }) => {
@@ -155,13 +161,39 @@ const Cart = () => {
                     <CiSquarePlus size={30} className="text-textGray" />
                   </button>
                 </div>
-                <button
-                  onClick={() => handleDelete(id)}
-                  className="flex gap-1 text-textGray"
-                >
-                  <LuTrash2 className=" mt-1" />
-                  <span>Eliminar este producto</span>
-                </button>
+                {sureDelete[id] ? (
+                  <div className="text-textGray">
+                    <span className="flex w-80">
+                      ¿Seguro que desea eliminar este producto?
+                    </span>
+                    <div className="flex gap-2">
+                      <button onClick={() => handleDelete(id)} className="w-16">
+                        Si
+                      </button>
+                      <button
+                        onClick={() =>
+                          setSureDelete((prev) => ({ ...prev, [id]: false }))
+                        }
+                        className="w-16"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <button
+                      // onClick={() => handleDelete(id)}
+                      onClick={() =>
+                        setSureDelete((prev) => ({ ...prev, [id]: true }))
+                      }
+                      className="flex gap-1 text-textGray"
+                    >
+                      <LuTrash2 className=" mt-1" />
+                      <span>Eliminar este producto</span>
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="flex ml-16 gap-16">
                 <div className="flex flex-col">
@@ -188,7 +220,14 @@ const Cart = () => {
             </div>
             <div className=" p-2 mt-8 flex justify-center">
               <button
-                onClick={checkOut}
+                onClick={
+                  isStockAvailable
+                    ? checkOut
+                    : () =>
+                        toast.error(
+                          'Uno de los libros no tiene stock disponible',
+                        )
+                }
                 className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 <span className="flex w-32">Continuar compra</span>
@@ -197,6 +236,7 @@ const Cart = () => {
           </div>
         </div>
       )}
+      <Toaster richColors duration={1500} />
     </div>
   );
 };

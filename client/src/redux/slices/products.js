@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'sonner';
 
-
 export const getCartFromLocalStorage = () => {
   const cart = localStorage.getItem('cart');
   return cart ? JSON.parse(cart) : [];
-}
+};
 const initialState = {
   list: [],
   loading: false,
@@ -19,7 +18,6 @@ const initialState = {
   booksByTitle: [],
   currentPage: 0,
 };
-
 
 export const productSlice = createSlice({
   name: 'products',
@@ -86,7 +84,7 @@ export const productSlice = createSlice({
       state.cart = state.cart.filter(
         (product) => product.id !== action.payload.id,
       );
-      localStorage.setItem('cart', JSON.stringify({}));
+
       state.cartCount -= 1;
     },
     incrementCartQuantity: (state, action) => {
@@ -118,7 +116,7 @@ export const productSlice = createSlice({
     setCart: (state, action) => {
       state.cart = action.payload;
       state.cartCount = action.payload.length;
-    }
+    },
   },
 });
 
@@ -139,9 +137,7 @@ export const {
   incrementCartQuantity,
   decrementCartQuantityt,
   setCurrentPage,
-  setCart
+  setCart,
 } = productSlice.actions;
 
 export default productSlice.reducer;
-
-

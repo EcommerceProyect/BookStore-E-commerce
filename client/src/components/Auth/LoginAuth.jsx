@@ -18,10 +18,14 @@ const LoginAuth = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      if (challengesData === "none" && code && location.pathname !== "/redirect") {
+      if (challengesData === "none" && location.pathname !== "/redirect") {
         try {
+          const token = localStorage.getItem("actualT");
+          
+          const queryToken = token ? `token=${token}` : `code=${code}`
+          
           const response = await fetch(
-            `${APIDOMAIN}/authorized?code=${code}&route=profile`,
+            `${APIDOMAIN}/authorized?${queryToken}&route=profile`,
             {
               method: 'GET',
               headers: {
