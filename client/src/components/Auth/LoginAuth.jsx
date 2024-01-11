@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import queryString from "query-string";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../redux/slices/userData";
