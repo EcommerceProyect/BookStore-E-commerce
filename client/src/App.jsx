@@ -21,6 +21,7 @@ import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
+import UpdateProfile from './views/profile/updateProfile';
 import { debounce, isEmpty } from 'lodash';
 import { getUserId } from './redux/slices/user';
 

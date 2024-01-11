@@ -9,6 +9,8 @@ export const fetchUserData = (token) => async (dispatch) => {
       `${APIDOMAIN}/authorized?route=profile&token=${token}`,
     );
 
+    console.log(response);
+
     const userData = { ...response.data };
     const decodedToken = jwtDecode(userData.token);
     console.log(decodedToken);

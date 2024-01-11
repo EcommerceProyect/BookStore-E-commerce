@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { updateUserData } from '../slices/userData';
-import { PUBLICAPIDOMAIN } from '../../vars';
+import { API_BOOKS } from '../../vars';
 
 export const updateUser = (userData) => {
   return async (dispatch) => {
@@ -10,7 +10,7 @@ export const updateUser = (userData) => {
         console.log(userData.id);
         console.log(userData);
         const response = await axios.put(
-          `${PUBLICAPIDOMAIN}/ebook/user/${userData.id}`,
+          `${API_BOOKS}/ebook/user/${userData.id}`,
           userData,
         );
         dispatch(updateUserData(userData));
