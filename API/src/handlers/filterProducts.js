@@ -9,11 +9,9 @@ const filterProducts = async (req,res) => {
         rDate,
         author,
         editorial,
-        title, 
+        title,  
         isbn
     }
-    
-
     const sort = {
         sortField: sortField ? sortField.toLowerCase() : undefined,
       sortAction: sortAction ? sortAction.toUpperCase() : undefined,

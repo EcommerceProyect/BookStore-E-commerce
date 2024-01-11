@@ -10,12 +10,6 @@ const sequelize = new Sequelize(
     //agregar al ? necesitas iniciar el server de forma local
     logging: false,
     native: false,
-    // dialectOptions: {
-    //   ssl: {
-    //     require: true, // Habilita la conexión SSL
-    //     rejectUnauthorized: false // Deshabilita la verificación del certificado (puede ser necesario en entornos de desarrollo)
-    //   }
-    // }
   }
 ); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
 
@@ -37,7 +31,7 @@ modelDefiners.forEach((model) => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
   entry[0][0].toUpperCase() + entry[0].slice(1),
-  entry[1]
+  entry[1],
 ]);
 Object.assign(sequelize.models, ...capsEntries);
 
@@ -52,7 +46,7 @@ const {
   Author,
   Genre,
   Editorial,
-  CartDetail
+  CartDetail,
 } = sequelize.models;
 
 //ManyToMany ==> Orders - "Productreview" - Products
@@ -97,10 +91,13 @@ Editorial.hasOne(Products);
 Cart.hasMany(Orders);
 Orders.belongsTo(Cart);
 
+
 // releaseDate - Products
 
 Products.hasOne(ReleasedDate);
 ReleasedDate.belongsTo(Products);
+
+
 
 module.exports = {
   Users,
@@ -117,5 +114,5 @@ module.exports = {
   CartDetail,
   GenreProducts,
   AuthorProducts,
-  conn: sequelize
+  conn: sequelize,
 };

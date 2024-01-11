@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const {Orders, Cart} = require("../../db");
 require("dotenv").config();
 const {LIMIT_USERS} = process.env;

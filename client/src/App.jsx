@@ -17,33 +17,38 @@ import CreateProduct from './views/createProduct/CreateProduct';
 import RegisterAuth from './components/Auth/RegisterAuth';
 import Products from './views/products/Products';
 import ProductList from './views/dashboard/ProductList';
-import PaymentBill from './views/cart/PaymentBill';
+import PaymentSuccess from './views/cart/payment/PaymentSuccess';
+import PaymentFailure from './views/cart/payment/PaymentFailure';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
 import { debounce, isEmpty } from 'lodash';
-import { getUserId } from './redux/slices/user';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [user, setUser] = useState({});
 
-  const { user } = useSelector((state) => state.user);
+  const { userData } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isEmpty(user)){
-      dispatch(getUserId());
+    if (!isEmpty(userData)) {
+      if (!isEmpty(userData.response)) {
+        setUser(userData.response);
+      }
     }
-    
-  },[user])
+  }, [userData]);
+
+
+  
   const createCartFn = debounce((userId) => {
-    dispatch(createCart(userId || ""));
+    dispatch(createCart(userId || ''));
   }, 500);
 
   useEffect(() => {
     if (!isEmpty(user)) {
-      console.log("USER", user);
-      createCartFn(user.id || "");
+      console.log('USER', user);
+      createCartFn(user.id || '');
     }
   }, [user]);
 
@@ -75,8 +80,10 @@ function App() {
 
   return (
     <div>
-      {pathname === '/paymentBill' ? (
-        <PaymentBill />
+      {pathname === '/success' ? (
+        <PaymentSuccess />
+      ) : pathname === '/failure' ? (
+        <PaymentFailure />
       ) : (
         <>
           {/* <DropDownMenu /> */}

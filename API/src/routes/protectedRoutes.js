@@ -12,6 +12,7 @@ const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
 const { updateProductHandler } = require("../handlers/updateProduct");
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
+const { asingRoleToUserHandler } = require("../handlers/Users/asingRoleToUserHandler");
 
 router.use(cors());
 
@@ -90,6 +91,8 @@ router.get(
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
 
+router.put("/authorized/admin/:id", checkPermissions(["admin:edit"]), asingRoleToUserHandler)
+
 //update user by user
 router.put(
   "/authorized/users",
@@ -130,4 +133,5 @@ router.get(
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
 )
+
 module.exports = router;
