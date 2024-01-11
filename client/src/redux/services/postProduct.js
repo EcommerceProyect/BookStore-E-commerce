@@ -10,7 +10,7 @@ export const postProduct = (product) => {
       const token =localStorage.getItem("actualT");
       if(token){
         const response = await axios.post(
-          `${APIDOMAIN}/authorized?route=products&token=${token}`,
+          //`${APIDOMAIN}/authorized?route=products&token=${token}`,
           product,
         )
         dispatch(addToProductList(product))

@@ -46,7 +46,9 @@ const CarouselComponent = () => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
+    if(totalPages>=0){
     dispatch(getLastProducts(totalPages, 5));
+  }
   }, [dispatch, totalPages]);
 
   return (
@@ -57,7 +59,7 @@ const CarouselComponent = () => {
         <Carousel slide={true} theme={customTheme} slideInterval={6000} >
           {carouselProducts.map((product) => {
             return (
-              <div className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
+              <div key={product.id} className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
                 <CardCarousel
                   id={product.id}
                   image={product.image}
