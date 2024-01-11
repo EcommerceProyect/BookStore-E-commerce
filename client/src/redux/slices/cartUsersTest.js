@@ -6,14 +6,14 @@ import {
   removeFromCart,
 } from './products';
 
+import { toast } from 'sonner';
+
 const initialState = {
   userCart: null,
   cartProducts: [],
 };
 
-import {
-  API_BOOKS
-} from '../../vars';
+import { API_BOOKS } from '../../vars';
 
 export const cartUsersSlice = createSlice({
   name: 'userCartTest',
@@ -41,10 +41,9 @@ export default cartUsersSlice.reducer;
 
 export const createCart = (userId) => async (dispatch) => {
   try {
-    const response = await axios.post(
-      `${API_BOOKS}/ebook/createCart`,
-      { userId },
-    );
+    const response = await axios.post(`${API_BOOKS}/ebook/createCart`, {
+      userId,
+    });
     dispatch(setUserCart(response.data.cart.id));
     console.log(response.data.message);
   } catch (error) {
@@ -56,10 +55,11 @@ export const addProductToCartApi =
   (userId, productId, quantity) => async (dispatch) => {
     console.log('ADD TO CART API', userId);
     try {
-      const response = await axios.put(
-        `${API_BOOKS}/ebook/addToCart`,
-        { userId, productId, quantity },
-      );
+      const response = await axios.put(`${API_BOOKS}/ebook/addToCart`, {
+        userId,
+        productId,
+        quantity,
+      });
       dispatch(
         addProductToCart({
           userId: userId,
@@ -77,10 +77,11 @@ export const incrementProductCartQuantity =
   (userId, productId, quantity) => async (dispatch) => {
     console.log('INCREMENT PRODUCT CART QUANTITY', userId, productId, quantity);
     try {
-      const response = await axios.put(
-        `${API_BOOKS}/ebook/addToCart`,
-        { userId, productId, quantity },
-      );
+      const response = await axios.put(`${API_BOOKS}/ebook/addToCart`, {
+        userId,
+        productId,
+        quantity,
+      });
       dispatch(incrementCartQuantity({ id: productId }));
     } catch (error) {
       console.error(error);
@@ -91,10 +92,11 @@ export const decrementProductCartQuantity =
   (userId, productId, quantity) => async (dispatch) => {
     console.log('DECREMENT PRODUCT CART QUANTITY', userId, productId, quantity);
     try {
-      const response = await axios.put(
-        `${API_BOOKS}/ebook/addToCart`,
-        { userId, productId, quantity },
-      );
+      const response = await axios.put(`${API_BOOKS}/ebook/addToCart`, {
+        userId,
+        productId,
+        quantity,
+      });
       dispatch(decrementCartQuantityt({ id: productId }));
     } catch (error) {
       console.error(error);
@@ -103,12 +105,26 @@ export const decrementProductCartQuantity =
 
 export const deleteProduct = (userId, productId) => async (dispatch) => {
   try {
-    let response = await axios.delete(
-      `${API_BOOKS}/ebook/deleteProductCart/${userId}/${productId}`,
+    const promise = toast.promise(
+      axios.delete(
+        `${API_BOOKS}/ebook/deleteProductCart/${userId}/${productId}`,
+      ),
+      {
+        loading: 'Eliminando...',
+        success: (data) => {
+          console.log(data.data.message);
+          return data.data.message;
+        },
+        error: 'Error al eliminar el libro.',
+      },
     );
+
+    await promise;
+
     dispatch(removeFromCart({ id: productId }));
     dispatch(setDelete(productId));
-    console.log(response.data.message);
+    // toast.success(response.data.message);
+    // console.log(promise.data.message);
   } catch (error) {
     console.error(error.message);
   }

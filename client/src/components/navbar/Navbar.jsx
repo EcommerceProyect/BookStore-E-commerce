@@ -22,7 +22,7 @@ import RegisterAuth from '../Auth/RegisterAuth';
 import handleLogout from '../Auth/handleLogout';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
-  const { cartCount } = useSelector((state) => state.products);
+  const { cart } = useSelector((state) => state.products);
   const userData = useSelector((state) => state.userData.userData);
 
   const [admin, setAdmin] = useState(
@@ -92,7 +92,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           <div title="Carrito">
             <Button
               link="/carrito"
-              counter={cartCount === 0 ? null : cartCount}
+              counter={cart.length === 0 ? null : cart.length}
               icon={
                 <LiaShoppingBagSolid className="text-textLight" size={25} />
               }
