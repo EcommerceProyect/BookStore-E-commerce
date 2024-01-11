@@ -34,7 +34,7 @@ const handleAuthorizedRequest = async (req, res) => {
     const peticion = req.method || "get"; //declaro tipo de peticion
     let body = null;
 
-    if (req.method === "POST" && req.body) {
+    if (req.method === "POST" || req.method === "PUT"  && req.body) {
       body = req.body;
     }
 
@@ -73,6 +73,8 @@ const handleAuthorizedRequest = async (req, res) => {
       res.status(401).json("Unauthorized to access data");
     } else if (error.response && error.response.status === 403) {
       res.status(403).json("Permission denied");
+    } else if (error.response && error.response.status === 404) {
+      res.status(403).json({error:error.message,message:"El usuario ya existe o hubo algun error en la api"});
     } else {
       res.status(500).json("Whoops, something went wrong");
     }

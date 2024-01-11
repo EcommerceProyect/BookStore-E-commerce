@@ -25,7 +25,7 @@ const {
 const {
   updateReleasedDateHandler
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
-const { updateUserHandler } = require("../handlers/Users/updateUser");
+const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
@@ -100,7 +100,6 @@ router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
 
-
 //RUTAS DEL CARRITO
 
 router.get("/getActiveCart/:userId", getActiveCartHandler);
@@ -121,6 +120,7 @@ router.delete("/reviews/:id", deleteReviewHandler);
 //Creacion de User Momentanea
 
 router.post("/usersPrueba", postUserPruebaController);
+
 
 module.exports = router;
 

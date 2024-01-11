@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { setCarouselProducts, setTotalItems} from '../slices/products';
+import {
+  API_BOOKS
+} from '../../vars';
 
-const apiUrl = 'https://bookstore-e-commerce.onrender.com/ebook/products';
+const apiUrl = `${API_BOOKS}/ebook/products`;
 export const getLastProducts = (page, amount) => async (dispatch, getState) => {
     try {
       let url = apiUrl + `?page=${page}`;

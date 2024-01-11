@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { modifyProductList } from '../slices/products';
+import {
+  API_BOOKS
+} from '../../vars';
 
 export const putProduct = (product, id) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        'https://bookstore-e-commerce.onrender.com/ebook/products',
+        `${API_BOOKS}/ebook/products`,
         product,
         id,
       );

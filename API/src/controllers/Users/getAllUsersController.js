@@ -5,7 +5,7 @@ const {Users} = require("../../db");
 const {LIMIT_USERS} = process.env;
 
 
-const getAllUsersController = async (page) => {
+const getAllUsersController = async (page,deleted) => {
 
     const offset = page*LIMIT_USERS;
 
@@ -14,6 +14,7 @@ const getAllUsersController = async (page) => {
         const response = await Users.findAll({
             offset,
             limit:LIMIT_USERS,
+            paranoid:!deleted
         });
 
         return response;
