@@ -6,4 +6,4 @@ export const CLIENT_ID = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 export const RESPONSE_TYPE = 'code';
 
 export const REDIRECT_URI = 'http://localhost:5173';
-export const APIDOMAIN = 'http://localhost:3001';
+export const APIDOMAIN = 'https://bookstore-e-commerce.onrender.com/ebook/products';

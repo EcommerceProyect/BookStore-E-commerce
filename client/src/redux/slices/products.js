@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'sonner';
 
+
 const initialState = {
   list: [],
   loading: false,
@@ -42,6 +43,16 @@ export const productSlice = createSlice({
     },
     addToProductList: (state, action) => {
       state.productList = [state.productList, action.payload];
+    },
+    modifyProductList: (state, action) => {
+      const { id, updatedProduct } = action.payload;
+      const index = state.list.findIndex(product => product.id === id);
+      if (index !== -1) {
+        state.list[index] = { ...state.list[index], ...updatedProduct };
+        toast.success('Producto actualizado exitosamente');
+      } else {
+        toast.error('El producto no pudo ser encontrado en la lista');
+      }
     },
     setProductDetailLoading: (state) => {
       state.loading = true;
@@ -116,6 +127,7 @@ export const {
   incrementCartQuantity,
   decrementCartQuantityt,
   setCurrentPage,
+  modifyProductList
 } = productSlice.actions;
 
 export default productSlice.reducer;

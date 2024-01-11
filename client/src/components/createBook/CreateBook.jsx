@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from './useForm';
 import { validationSchema } from './validationSchema';
+import {Toaster, toast} from 'sonner';
 
 import {
   Button,
@@ -228,6 +229,7 @@ const CreateBook = () => {
 
       <Button className="bg-accents" type="submit">Crear libro</Button>
     </form>
+    <Toaster closeButton={true} duration={4000}/>
     </div>
     </div>
   );
