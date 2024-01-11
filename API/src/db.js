@@ -5,11 +5,17 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 const sequelize = new Sequelize(
-  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`,
+  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
   {
-    //agregar al ?ssl=true necesitas iniciar el server de forma local
+    //agregar al ? necesitas iniciar el server de forma local
     logging: false,
     native: false,
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true, // Habilita la conexión SSL
+    //     rejectUnauthorized: false // Deshabilita la verificación del certificado (puede ser necesario en entornos de desarrollo)
+    //   }
+    // }
   }
 ); // ssl= true soluciona los conflictos con los ssl de autenticacion de Render
 
@@ -91,13 +97,10 @@ Editorial.hasOne(Products);
 Cart.hasMany(Orders);
 Orders.belongsTo(Cart);
 
-
 // releaseDate - Products
 
 Products.hasOne(ReleasedDate);
 ReleasedDate.belongsTo(Products);
-
-
 
 module.exports = {
   Users,
