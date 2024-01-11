@@ -43,7 +43,7 @@ const CarouselComponent = () => {
   );
   const totalItems = useSelector((state) => state.products.totalItems);
   const itemsPerPage = 2;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / itemsPerPage) -1;
 
   useEffect(() => {
     if(totalPages>=0){
