@@ -2,10 +2,11 @@ const { Productreview} = require("../../db");
 
 const createReviewController = async (data) => {  
   try {
-    const { productId, userId, rating } = data;
+    const { ProductId, userId, rating, OrderId} = data;
 
     const newReview = await Productreview.create({
-      productId,
+      ProductId,
+      OrderId,
       userId,
       rating
     });
