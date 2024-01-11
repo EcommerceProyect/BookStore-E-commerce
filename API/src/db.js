@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
-const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?ssl=true`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
+const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { //agregar al ?ssl=true necesitas iniciar el server de forma local
     logging: false,
     native: false
   }
@@ -88,10 +88,13 @@ Editorial.hasOne(Products);
 Cart.hasMany(Orders);
 Orders.belongsTo(Cart);
 
+
 // releaseDate - Products
 
 Products.hasOne(ReleasedDate);
 ReleasedDate.belongsTo(Products);
+
+
 
 module.exports = {
   Users,

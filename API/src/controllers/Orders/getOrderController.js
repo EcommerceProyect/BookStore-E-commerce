@@ -1,9 +1,8 @@
-const {Orders, OrderDetail} = require("../../db");
+const {Orders} = require("../../db");
 
 const getOrdersController = async () => {
     try {
-        const orders = await Orders.findAll({ include: [OrderDetail] });
-
+        const orders = await Orders.findAll();
         return orders;
     } catch (error) {
         throw new Error(error.message);

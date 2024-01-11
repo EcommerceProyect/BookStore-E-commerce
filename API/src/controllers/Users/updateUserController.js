@@ -1,29 +1,3 @@
-// const {Users} = require("../../db");
-
-// const updateUserController = async (id, newData) => {
-//     try {
-//         // Buscar el usuario por ID
-      
-//         const user = await Users.findByPk(id);
-
-//         if (!user) {
-//             // Si no se encuentra el usuario, puedes manejar el error como desees
-//             throw new Error("Usuario no encontrado");
-//         }
-
-//         // Actualizar los campos del usuario con los nuevos datos
-//         await user.update(newData);
-
-//         // Devolver el usuario actualizado
-//         return user;
-//     } catch (error) {
-//         // Puedes manejar el error de una manera específica para tu aplicación
-//         throw new Error(`Error al actualizar el usuario: ${error.message}`);
-//     }
-// };
-
-// module.exports = { updateUserController };
-
 const {Users} = require("../../db");
 
 const updateUserController = async (id, userData) => {
