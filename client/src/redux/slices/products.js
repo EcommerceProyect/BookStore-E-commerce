@@ -86,6 +86,7 @@ export const productSlice = createSlice({
       );
 
       state.cartCount -= 1;
+      localStorage.setItem('cart', JSON.stringify(state.cart));
     },
     incrementCartQuantity: (state, action) => {
       const existingProductIndex = state.cart.findIndex(
