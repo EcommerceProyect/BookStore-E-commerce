@@ -33,28 +33,25 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!isEmpty(userData)){
-      if(!isEmpty(userData.response)){
+    if (!isEmpty(userData)) {
+      if (!isEmpty(userData.response)) {
         setUser(userData.response);
       }
     }
-  },[userData])
+  }, [userData]);
 
   useEffect(() => {
-    if(!isEmpty(userData)){
-      if(!isEmpty(userData.response)){
+    if (!isEmpty(userData)) {
+      if (!isEmpty(userData.response)) {
         setUser(userData.response);
       }
     }
-  },[userData])
+  }, [userData]);
 
   useEffect(() => {
     if (isEmpty(user)) {
       dispatch(getUserId());
     }
-    
-  },[user])
-  
   }, [user]);
   const createCartFn = debounce((userId) => {
     dispatch(createCart(userId || ''));

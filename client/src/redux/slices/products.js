@@ -84,7 +84,7 @@ export const productSlice = createSlice({
       state.cart = state.cart.filter(
         (product) => product.id !== action.payload.id,
       );
-      localStorage.setItem('cart', JSON.stringify({}));
+
       state.cartCount -= 1;
     },
     incrementCartQuantity: (state, action) => {

@@ -11,10 +11,10 @@ const mercadoPago = Router();
 mercadoPago.post("/create-order", createOrderPayment);
 
 mercadoPago.get("/success", (req, res) => {
-  res.redirect("http://localhost:5173/success");
+  res.send("creado con exito");
 });
 mercadoPago.get("/failure", (req, res) => {
-  res.redirect("http://localhost:5173/failure");
+  res.send("fallo en el pago");
 });
 mercadoPago.get("/pending", (req, res) => {
   res.send("pago pendiente");

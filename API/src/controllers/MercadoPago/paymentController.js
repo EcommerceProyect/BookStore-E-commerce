@@ -33,8 +33,8 @@ const createOrderPayment = async (req, res) => {
       currency_id: "ARS",
     })),
     back_urls: {
-      success: `${END_POINT_BACK}/mercadoPago/success`,
-      failure: `${END_POINT_BACK}/mercadoPago/failure`,
+      success: `${END_POINT_FRONT}/success`,
+      failure: `${END_POINT_FRONT}/failure`,
       pending: `${END_POINT_BACK}/mercadoPago/pending`,
     },
     notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook`,
