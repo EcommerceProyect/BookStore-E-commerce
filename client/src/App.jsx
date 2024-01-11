@@ -22,7 +22,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
 import { debounce, isEmpty } from 'lodash';
-import { getUserId } from './redux/slices/user';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -39,12 +38,7 @@ function App() {
     }
   },[userData])
 
-  useEffect(() => {
-    if(isEmpty(user)){
-      dispatch(getUserId());
-    }
-    
-  },[user])
+
   
   const createCartFn = debounce((userId) => {
     dispatch(createCart(userId || ""));

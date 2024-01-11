@@ -29,8 +29,11 @@ const Cart = () => {
   const { userCart, cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+
   const [quantity, setQuantity] = useState(
-    Object.fromEntries(cart.map(({ id }) => [id, 1])),
+    Array.isArray(cart)
+      ? Object.fromEntries(cart.map(({ id }) => [id, 1]))
+      : {}
   );
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -98,6 +101,7 @@ const Cart = () => {
       })
       .then((response) => {
         window.location.href = response.data;
+        localStorage.setItem('cart', JSON.stringify([]));
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));

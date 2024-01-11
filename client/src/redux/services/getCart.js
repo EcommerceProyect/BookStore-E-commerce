@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_BOOKS } from '../../vars';
 import { getCartFromLocalStorage, setCart } from '../slices/products';
-import { addProductToCartApi } from '../slices/cartUsersTest';
+import { addProductToCartApi, createCart } from '../slices/cartUsersTest';
 
 export const getCartFromApi = (userId) => async (dispatch) => {
   const token = localStorage.getItem('actualT');
@@ -11,17 +11,25 @@ export const getCartFromApi = (userId) => async (dispatch) => {
       //consultar al backend para traer el carrito,
 
       if (cartFromLocalStorage.length > 0) {
-        cartFromLocalStorage.forEach((product) => {
-          dispatch(
-            addProductToCartApi(userId || '', product.id, product.quantity),
-          );
-        });
+        await dispatch(createCart(userId || ''));
+        await Promise.all(
+          cartFromLocalStorage.map(async (product) => {
+            await dispatch(
+              addProductToCartApi(userId || '', product.id, product.quantity)
+            );
+          })
+        );
       }
       const response = await axios.get(
         `${API_BOOKS}/ebook/getProductsActiveCart/${userId}`,
       );
       const cartFromBackend = response.data;
-      dispatch(setCart(cartFromBackend));
+      if(Array.isArray(cartFromBackend)){
+        dispatch(setCart(cartFromBackend));
+      }else{
+        dispatch(setCart([]));
+      }
+      
     } catch (error) {
       console.error(error);
     }

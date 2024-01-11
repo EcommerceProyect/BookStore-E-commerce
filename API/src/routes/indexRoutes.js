@@ -53,13 +53,15 @@ const {
   getProductsActiveCartHandler
 } = require("../handlers/Cart/getProductsActiveCartHandler");
 
-
-
+//rutas Reviews
+const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
 
 
 //ruta Usuario temporal
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
+
+
 
 const router = Router();
 
@@ -117,6 +119,10 @@ router.delete(
   "/deleteProductCart/:userId/:productId",
   deleteProductCartHandler
 );
+
+//RUTAS REVIEWS
+
+router.get("/userBuyedProduct", getUserBuyedProductHandler);
 
 
 
