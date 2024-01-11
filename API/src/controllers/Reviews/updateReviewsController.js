@@ -1,7 +1,6 @@
 const {Productreview} = require("../../db");
 
-const updateReviewController = async (id,data) => {
-    const {updateRating, updateComment} = data;
+const updateReviewController = async (id,rating) => {
     try {
         const review = await Productreview.findByPk(id);
 
@@ -9,8 +8,7 @@ const updateReviewController = async (id,data) => {
             throw new Error("La reseña no existe");
         }
 
-        review.rating= updateRating;
-        review.comment= updateComment;
+        review.rating= rating;
 
         await review.save()
         

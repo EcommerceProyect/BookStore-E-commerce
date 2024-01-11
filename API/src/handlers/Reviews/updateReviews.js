@@ -3,10 +3,10 @@ const {updateReviewController} = require("../../controllers/Reviews/updateReview
 
 const updateReviewHandler = async (req,res) => {
     const {id} = req.params;
-    const {data} = req.body;
+    const {rating} = req.body;
 
     try {
-        const updateReview = await updateReviewController(id,data);
+        const updateReview = await updateReviewController(id,rating);
         return res.json({
             message: 'Reseña actualizada con éxito',
             updateReview
