@@ -1,10 +1,9 @@
-import React from 'react';
 import {
   DOMAIN,
   AUDIENCE,
   SCOPE,
-  CLIENT_ID,
   RESPONSE_TYPE,
+  CLIENT_ID,
   REDIRECT_URI,
 } from '../../vars';
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { postProduct } from '../../redux/services/postProduct';
 import { useDispatch } from 'react-redux';
-import { Toaster, toast } from 'sonner'; //framework sonner, muestra mensajes.
+import {  Toaster, toast  } from 'sonner'; //framework sonner, muestra mensajes.
 import axios from 'axios';
 
 export const useForm = (validationSchema) => {

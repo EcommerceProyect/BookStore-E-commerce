@@ -5,7 +5,7 @@ import genreReducer from './slices/genres';
 import authorReducer from './slices/authors';
 import editorialReducer from './slices/editorial';
 import userData from './slices/userData';
-import users from './slices/userList'
+import users from './slices/userList';
 import cart from './slices/cartUsersTest';
 
 export default configureStore({
@@ -17,6 +17,6 @@ export default configureStore({
     editorial: editorialReducer,
     cart,
     userData,
-    users
+    users,
   },
 });

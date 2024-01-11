@@ -40,8 +40,7 @@ const updateUserController = async (id, userData) => {
         user.last_name = userData.last_name || user.last_name;
         user.phone = userData.phone || user.phone;
         user.password = userData.password || user.password;
-
-
+        
         await user.save();
 
 

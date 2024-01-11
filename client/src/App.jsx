@@ -20,22 +20,33 @@ import ProductList from './views/dashboard/ProductList';
 import PaymentBill from './views/cart/PaymentBill';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
-import { debounce } from 'lodash';
+import Profile from './views/profile/Profile';
+import { debounce, isEmpty } from 'lodash';
 import EditBook from './components/createBook/EditBook';
+import { getUserId } from './redux/slices/user';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const { userId } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(isEmpty(user)){
+      dispatch(getUserId());
+    }
+    
+  },[user])
   const createCartFn = debounce((userId) => {
-    dispatch(createCart(userId));
+    dispatch(createCart(userId || ""));
   }, 500);
 
   useEffect(() => {
-    createCartFn(userId);
-  }, [userId]);
+    if (!isEmpty(user)) {
+      console.log("USER", user);
+      createCartFn(user.id || "");
+    }
+  }, [user]);
 
   const openLoginModal = () => {
     setShowLoginModal(true);
@@ -80,6 +91,7 @@ function App() {
             <Route path="/redirect" Component={RegisterAuth} />
             {/* auth */}
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/products" element={<Products />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<LoginModal />} />
@@ -89,7 +101,7 @@ function App() {
             <Route path="/dashboard/users" element={<Users />} />
             <Route path="/carrito" element={<Cart />} />
             <Route path="/dashboard/createBook" element={<CreateProduct />} />
-             <Route path="/dashboard/products" element={<ProductList />} />
+            <Route path="/dashboard/products" element={<ProductList />} />
              <Route path="/dashboard/editBook/:id" element={<EditBook />} />
           </Routes>
           <Footer />

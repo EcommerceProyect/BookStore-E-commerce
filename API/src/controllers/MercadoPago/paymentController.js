@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mercadopago = require("mercadopago");
-const { ACCESS_AR_TOKEN, PORT_FRONT, NOTIFICATION_URL, PORT } = process.env;
+const { ACCESS_AR_TOKEN, NOTIFICATION_URL, PORT,END_POINT_FRONT,END_POINT_BACK } = process.env;
 const { Orders, ISBN, Cart } = require("../../db");
 
 let products = [];
@@ -27,11 +27,11 @@ const createOrderPayment = async (req, res) => {
       currency_id: "ARS",
     })),
     back_urls: {
-      success: `http://localhost:${PORT_FRONT}`,
-      failure: `http://localhost:${PORT}/mercadoPago/failure`,
-      pending: `http://localhost:${PORT}/mercadoPago/pending`,
+      success: `${END_POINT_FRONT}`,
+      failure: `${END_POINT_BACK}/mercadoPago/failure`,
+      pending: `${PORT}/mercadoPago/pending`,
     },
-    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook/`,
+    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook`,
   };
 
   const result = await mercadopago.preferences.create(preference);
