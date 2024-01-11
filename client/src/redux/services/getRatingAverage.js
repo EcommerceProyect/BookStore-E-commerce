@@ -1,10 +1,10 @@
-import axios from 'axios';
-import {setRatingAverage} from '../slices/ratingStarsAverage'
+// import axios from 'axios';
+// import {setRatingAverage} from '../slices/ratingStarsAverage'
 
-export const getRatingStarsAverage = ()=>{
-    try {
+// export const getRatingStarsAverage = ()=>{
+//     try {
         
-    } catch (error) {
+//     } catch (error) {
         
-    }
-}
+//     }
+// }

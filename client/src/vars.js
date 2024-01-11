@@ -7,4 +7,4 @@ export const RESPONSE_TYPE = 'code';
 
 export const REDIRECT_URI = 'http://localhost:5173';//'https://bookstore-e-commerce-z27y.onrender.com'
 export const APIDOMAIN = 'http://localhost:3001';//'https://api-books-auth0.onrender.com'
-export const API_BOOKS = 'https://bookstore-e-commerce.onrender.com';//'http://localhost:5432'
+export const API_BOOKS = 'http://localhost:80';//'https://bookstore-e-commerce.onrender.com'
