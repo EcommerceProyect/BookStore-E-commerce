@@ -29,21 +29,38 @@ const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
-const { deleteOrderHandler } = require("../handlers/Orders/deleteOrdersHandler");
-const { updateOrderHandler } = require("../handlers/Orders/updateOrdersHandler");
-const { updateISBNHandler } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
-const {getUser_Token} = require("../handlers/Users/getUser_Token");
+const {
+  deleteOrderHandler
+} = require("../handlers/Orders/deleteOrdersHandler");
+const {
+  updateOrderHandler
+} = require("../handlers/Orders/updateOrdersHandler");
+const {
+  updateISBNHandler
+} = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+const { getUser_Token } = require("../handlers/Users/getUser_Token");
+const {
+  getProductsForSearchHandler
+} = require("../handlers/getProductsForSearchHandler");
+
+//rutas Carrito
 const { createCartHandler } = require("../handlers/Cart/createCartHandler");
-const { getActiveCartHandler } = require("../handlers/Cart/getActiveCartHandler");
-const { getProductsForSearchHandler } = require("../handlers/getProductsForSearchHandler");
-const {postUserPruebaController} = require("../controllers/MercadoPago/postUserPruebaController");
-const {  createProductReview } = require("../handlers/Reviews/createReviews");
 const { addToCartHandler } = require("../handlers/Cart/addToCartHandler");
-const { deleteProductCartHandler } = require("../handlers/Cart/deleteProductCartHandler");
-const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
-const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
-const {getProductReviewsAverageRatingHandler} = require("../handlers/Reviews/getReviewsAverage");
+const {
+  deleteProductCartHandler
+} = require("../handlers/Cart/deleteProductCartHandler");
+const {
+  getActiveCartHandler
+} = require("../handlers/Cart/getActiveCartHandler");
+
+
+
+
+
+//ruta Usuario temporal
+
+const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 
 const router = Router();
 
@@ -59,15 +76,10 @@ router.get("/ISBNs", getISBNs);
 
 //delete product
 router.get("/products/search", getProductsForSearchHandler);
-
 router.post("/products", createProduct);
-
 router.post("/orders", createOrderHandler);
 
-
-
 router.get("/products", getProducts);
-
 router.get("/orders", getOrdersHandler);
 
 router.get("/products/:id", getProductByIdHandler);
@@ -76,13 +88,9 @@ router.put("/products/:id", updateProductHandler);
 router.put("/user/:id", updateUserHandler);
 
 router.put("/author/:id", updateAuthorHandler);
-
 router.put("/genre/:id", updateGenreHandler);
-
 router.put("/editorial/:id", updateEditorialHandler);
-
 router.put("/releasedDate/:id", updateReleasedDateHandler);
-
 router.put("/ISBN/:id", updateISBNHandler);
 
 router.put("/orders/:id", updateOrderHandler);
@@ -100,21 +108,20 @@ router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
 
+//RUTA DE ORDENES
+
+router.get("/orders/:id",getOrderByUserIdHandler);
+
 //RUTAS DEL CARRITO
 
 router.get("/getActiveCart/:userId", getActiveCartHandler);
 router.post("/createCart", createCartHandler);
-router.put("/addToCart", addToCartHandler );
-router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler);
+router.put("/addToCart", addToCartHandler);
+router.delete(
+  "/deleteProductCart/:userId/:productId",
+  deleteProductCartHandler
+);
 
-
-//RUTAS PARA LAS REVIEWS
-router.get("/reviews", getAllReviewsHandler);
-//Ruta para el promedio de las reviews un producto
-router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
-router.post("/reviews", createProductReview);
-router.put("/reviews/:id", updateReviewHandler);
-router.delete("/reviews/:id", deleteReviewHandler);
 
 
 //Creacion de User Momentanea
