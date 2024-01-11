@@ -42,7 +42,8 @@ const { addToCartHandler } = require("../handlers/Cart/addToCartHandler");
 const { deleteProductCartHandler } = require("../handlers/Cart/deleteProductCartHandler");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
 const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getAllReviewsHandler, getAverageRatingHandler } = require("../handlers/Reviews/getReviews");
+const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
+const {getProductReviewsAverageRatingHandler} = require("../handlers/Reviews/getReviewsAverage");
 
 const router = Router();
 
@@ -111,7 +112,7 @@ router.delete("/deleteProductCart/:userId/:productId", deleteProductCartHandler)
 //RUTAS PARA LAS REVIEWS
 router.get("/reviews", getAllReviewsHandler);
 //Ruta para el promedio de las reviews un producto
-router.get("/reviews/average/:productId", getAverageRatingHandler);
+router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
 router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
