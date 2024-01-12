@@ -1,25 +1,76 @@
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails } from '../../redux/services/getProductDetail';
+import getUserBuyedProduct from '../../redux/services/getUserBuyedProduct';
 import {
   setProductDetailLoading,
   setProductDetail,
   setProductDetailError,
 } from '../../redux/slices/products';
 import { useParams } from 'react-router-dom';
+import RatingStarsAverage from './RatingStarsAverage';
+import RatingStarsSetter from './RatingStarsSetter';
+// import { isPurchased } from '../../redux/slices/ratingStarsAverage';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
+  const [userBuyedProduct, setUserBuyedProduct] = useState(false);
+  const [orderId, setOrderId] = useState(null);
+  // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
+  // const userId = useSelector((state) => state.userData.userData.response.id);
+  const userId = useSelector((state) => state.userData.userData.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
+    // if (id) {
+    //   dispatch(setProductDetailLoading());
+    //   dispatch(getProductDetails(id));
+    // }
+    const fetchData = async () => {
+      try {
+        dispatch(setProductDetailLoading());
+        dispatch(getProductDetails(id));
+
+        //obtener si el usuario ya ha comprado el producto
+        // isPurchased(userId, id);
+        const { success } = await getUserBuyedProduct(userId, id);
+
+        if (success) {
+          setUserBuyedProduct(true);
+          console.log('userBuyedProduct', userBuyedProduct);
+        } else {
+          setUserBuyedProduct(false);
+          console.log('userBuyedProduct', userBuyedProduct);
+        }
+
+        // setUserBuyedProduct(await getUserBuyedProduct(userId, id));
+        // console.log('userBuyedProduct', userBuyedProduct.data);
+      } catch (error) {
+        dispatch(setProductDetailError(error.message));
+      }
+    };
+
     if (id) {
-      dispatch(setProductDetailLoading());
-      dispatch(getProductDetails(id));
+      fetchData();
     }
-  }, [id, dispatch]);
+
+    getOrder();
+  }, [id, dispatch, userId]);
+
+  const getOrder = async () => {
+    try {
+      const { data } = await axios.get(
+        'http://localhost:3002/ebook/orders?page=0',
+      );
+      setOrderId(data.orders[1].id);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  console.log(orderId);
 
   return (
     <div>
@@ -39,6 +90,9 @@ function Detail() {
                 {detailProduct?.Authors.map((author) => author.name) ||
                   'Autor no disponible.'}
               </h2>
+              <div>
+                <RatingStarsAverage productId={id} />
+              </div>
               {/* Estrellas de calificación
               <div class="flex mb-4">
                 <span class="flex items-center">
@@ -136,6 +190,15 @@ function Detail() {
                   </svg>
                 </button> */}
               </div>
+              {userBuyedProduct ? (
+                <RatingStarsSetter
+                  productId={id}
+                  userId={userId}
+                  orderId={orderId}
+                />
+              ) : (
+                'No has adquitado este libro.'
+              )}
             </div>
           </div>
         </div>

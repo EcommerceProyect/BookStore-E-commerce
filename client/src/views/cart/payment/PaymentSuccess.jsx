@@ -9,7 +9,7 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     getOrder();
-  }, [order]);
+  }, []);
 
   const getOrder = async () => {
     try {

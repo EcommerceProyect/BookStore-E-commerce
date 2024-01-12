@@ -1,14 +1,14 @@
-const { Productreview} = require("../../db");
+const { Productreview } = require("../../db");
 
-const createReviewController = async (data) => {  
+const createReviewController = async (data) => {
   try {
-    const { ProductId, userId, rating, OrderId} = data;
+    const { ProductId, userId, rating, OrderId } = data;
 
     const newReview = await Productreview.create({
       ProductId,
       OrderId,
       userId,
-      rating
+      rating,
     });
 
     return {
@@ -26,4 +26,3 @@ const createReviewController = async (data) => {
 };
 
 module.exports = { createReviewController };
-
