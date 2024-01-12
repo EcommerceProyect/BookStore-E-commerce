@@ -67,7 +67,6 @@ const handleAuthorizedRequest = async (req, res) => {
       data: body
     });
 
-    console.log("hola", response.data);
     res.json(response.data);
   } catch (error) {
     if (error.response && error.response.status === 401) {

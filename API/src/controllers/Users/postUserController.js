@@ -15,8 +15,6 @@ const postUserController = async (data) => {
   } = data;
 
   try {
-    console.log("hola!");
-
     const [instanceUser, created] = await Users.findOrCreate({
       where: {
         email

@@ -57,7 +57,6 @@ router.get("/authorized", checkPermissions(["user:edit"]), async (req, res) => {
   try {
     // const emailExist = await
 
-    console.log("hola protected");
     const response = await postUser(req, res);
 
     console.log(response, "soyyyy el protect");

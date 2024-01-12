@@ -9,7 +9,6 @@ const postUser = async (req, res) => {
   if (!custom_email_claim) return false;
 
   try {
-    console.log("hola");
     const response = await postUserController({
       id: sub,
       registration_type: sub.includes("google") ? "google" : "local",
