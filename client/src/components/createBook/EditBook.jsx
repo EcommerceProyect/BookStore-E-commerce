@@ -34,7 +34,7 @@ const EditBook = () => {
 
     }, [dispatch, id]);
 
-  
+
     const { detailProduct } = useSelector((state) => state.products);;
     console.log("detalles del producto: ", detailProduct);
 
@@ -74,15 +74,15 @@ const EditBook = () => {
 
 
     const {
-      values,
-      errors,
-      handleChange,
-      handleSelectChange,
-      handleImageChange,
-      handleEditSubmit,
-      setValues
+        values,
+        errors,
+        handleChange,
+        handleSelectChange,
+        handleImageChange,
+        handleEditSubmit,
+        setValues
     } = useFormEdit(validationSchema, { initialValues, id });
-    
+
 
     console.log('Estado actual:', values);
 
@@ -231,20 +231,20 @@ const EditBook = () => {
                             <Label htmlFor="editorial" value="Editorial" />
                         </div>
                         <CreatableSelect
-    id="editorial"
-    name="editorial"
-    onChange={(newSelection) => {
-        // Establecer values.editorial en el nuevo valor seleccionado
-        setValues(prevValues => ({ ...prevValues, editorial: newSelection }));
-        // Luego, manejar el cambio normalmente
-        handleSelectChange(newSelection);
-    }}
-    options={allEditorial.map((editorial) => ({
-        value: editorial,
-        label: editorial,
-    }))}
-    value={values.editorial ? { value: values.editorial.label, label: values.editorial.label } : null}
-/>
+                            id="editorial"
+                            name="editorial"
+                            onChange={(newSelection) => {
+                                // Establecer values.editorial en el nuevo valor seleccionado
+                                setValues(prevValues => ({ ...prevValues, editorial: newSelection }));
+                                // Luego, manejar el cambio normalmente
+                                handleSelectChange(newSelection);
+                            }}
+                            options={allEditorial.map((editorial) => ({
+                                value: editorial,
+                                label: editorial,
+                            }))}
+                            value={values.editorial ? { value: values.editorial.label, label: values.editorial.label } : null}
+                        />
 
                     </div>
                     {errors.editorial && (
@@ -304,7 +304,7 @@ const EditBook = () => {
                             <span className="font-medium">{errors.synopsis}</span>
                         </Alert>
                     )}
-<Button onClick={(event) => handleEditSubmit(event, putProduct, id)}>Guardar cambios</Button>
+                    <Button onClick={(event) => handleEditSubmit(event, putProduct, id)}>Guardar cambios</Button>
                 </form>
                 <Toaster closeButton={true} duration={4000} />
             </div>
