@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { debounce, isEmpty } from 'lodash';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,11 @@ import { addToCart } from '../../redux/slices/products';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import { Badge } from 'flowbite-react';
-import { addProductToCart, addProductToCartApi, createCart } from '../../redux/slices/cartUsersTest';
+import {
+  addProductToCart,
+  addProductToCartApi,
+  createCart,
+} from '../../redux/slices/cartUsersTest';
 
 function Card({
   id,
@@ -24,14 +28,28 @@ function Card({
   price,
   ISBN,
 }) {
+  const [user, setUser] = useState({});
   const dispatch = useDispatch();
 
   const { cart } = useSelector((state) => state.products);
-  const { user } = useSelector((state) => state.user);
+  const { userData } = useSelector((state) => state.userData);
+  
+  useEffect(() => {
+    if(!isEmpty(userData)){
+      if(!isEmpty(userData.response)){
+        setUser(userData.response);
+      }
+    }
+  },[userData])
   const handleCart = () => {
-    dispatch(addToCart({ id, image, title, price, ISBN, Authors }));
-    dispatch(addProductToCartApi( user.id || "", id, 1 ));
+    if (ISBN.stock === 0) {
+      console.log('No se pueden agregar productos sin stock');
+    } else {
+      dispatch(addToCart({ id, image, title, price, ISBN, Authors }));
+      dispatch(addProductToCartApi(user.id || '', id, 1));
+    }
     console.log(cart);
+    console.log(user.id);
   };
 
   const sliderRef = useRef(null);
@@ -106,12 +124,21 @@ function Card({
           <span class="text-left text-2xl font-bold text-textDark dark:text-black">
             ${price}
           </span>
-          <button
-            onClick={handleCart}
-            class="text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Agregar al carrito
-          </button>
+          {ISBN.stock === 0 || ISBN.stock < 0 ? (
+            <button
+              disabled
+              className="text-gray-500 bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Stock agotado
+            </button>
+          ) : (
+            <button
+              onClick={handleCart}
+              class="text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Agregar al carrito
+            </button>
+          )}
         </div>
       </div>
     </div>
