@@ -5,7 +5,7 @@ const {conn} = require("./src/db");
 const {PORT} = process.env;
 
 
-conn.sync({force:true})
+conn.sync({alter:true})
 .then(() =>{
     app.listen(PORT,() => {
         console.log(`Servidor iniciado en el puerto  ${PORT}`);
