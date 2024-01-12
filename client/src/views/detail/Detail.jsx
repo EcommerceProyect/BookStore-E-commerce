@@ -19,7 +19,7 @@ function Detail() {
   const [orderId, setOrderId] = useState(null);
   // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
   // const userId = useSelector((state) => state.userData.userData.response.id);
-  const userId = useSelector((state) => state.userData.userData.response.id);
+  const userId = useSelector((state) => state.userData.userData?.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -70,7 +70,8 @@ function Detail() {
       console.log(error.message);
     }
   };
-  console.log(orderId);
+
+  // console.log('hola', orderId, id, userId);
 
   return (
     <div>

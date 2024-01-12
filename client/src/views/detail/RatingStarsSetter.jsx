@@ -3,13 +3,17 @@ import { useDispatch } from 'react-redux';
 import { Rating } from 'react-simple-star-rating';
 import { postRatingStars } from '../../redux/services/postRatingStars';
 
-function RatingStarsSetter(readonly) {
+function RatingStarsSetter(props) {
   const dispatch = useDispatch();
   const [ratingValue, setRatingValue] = useState(0);
+  const { productId, userId, orderId } = props;
 
   //actualizar el valor de la calificación
-  const handleRating = ({ productId, userId, rate, orderId }) => {
-    dispatch(postRatingStars({ productId, userId, rate, orderId }));
+  const onPointerMove = (value) => setRatingValue(value);
+  const handleRating = () => {
+    console.log(productId, userId, ratingValue, orderId);
+    dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
+    // console.log(setRatingValue(ratingValue));
   };
 
   // restablecer la calificación
@@ -25,6 +29,7 @@ function RatingStarsSetter(readonly) {
         onClick={handleRating}
         initialValue={ratingValue}
         SVGstyle={{ display: 'inline-block' }}
+        onPointerMove={onPointerMove}
         size={25}
       />
     </div>
