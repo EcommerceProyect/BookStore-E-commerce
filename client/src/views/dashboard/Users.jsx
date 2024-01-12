@@ -9,6 +9,8 @@ import { FaCheck, FaSortAlphaDown, FaSortAlphaUp } from 'react-icons/fa';
 import ConfirmModal from './confirmModal/confirmModal';
 import ModalDetailUser from './modalDetailUser/modalDetailUser';
 import { BsCalendarDate } from "react-icons/bs";
+import { GrUserAdmin } from "react-icons/gr";
+import { userAdmin } from '../../redux/services/userAdmin';
 
 
 function Users() {
@@ -29,6 +31,10 @@ function Users() {
   const handleDeleteUser = (userId) => {
     setDeleteUserId(userId);
     setShowModal(true);
+  };
+
+  const handleAdminUser = (userId) => {
+    dispatch(userAdmin(userId));
   };
 
   const handleUserDetail = (user) => {
@@ -182,6 +188,9 @@ function Users() {
                 <div className="flex-1 text-sm font-semibold text-gray-900 dark:text-white">
                   {user.role}
                 </div>
+                
+                <GrUserAdmin className=' cursor-pointer' onClick={() => user && handleAdminUser(user.id)} />
+                
                 <div
                   onMouseEnter={() => setHoverIndex(index)}
                   onMouseLeave={() => setHoverIndex(null)}

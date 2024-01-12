@@ -1,7 +1,11 @@
+// userSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userData: null,
+  users: [],
+  loading: false,
+  error: null,
 };
 
 const userSlice = createSlice({
@@ -14,8 +18,20 @@ const userSlice = createSlice({
     clearUserData(state) {
       state.userData = null;
     },
+    userAdminStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    userAdminSuccess(state, action) {
+      state.loading = false;
+      state.users = action.payload;
+    },
+    userAdminFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setUserData, clearUserData } = userSlice.actions;
+export const { setUserData, clearUserData, userAdminStart, userAdminSuccess, userAdminFailure } = userSlice.actions;
 export default userSlice.reducer;
