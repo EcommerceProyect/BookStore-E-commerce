@@ -10,23 +10,43 @@ import {
 import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
+// import { isPurchased } from '../../redux/slices/ratingStarsAverage';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
-  const userId = useSelector((state) => state.userData.userData.response.id);
+  const [orderId, setOrderId] = useState(null);
+  // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
+  // const userId = useSelector((state) => state.userData.userData.response.id);
+  const userId = useSelector((state) => state.userData.userData?.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
+    // if (id) {
+    //   dispatch(setProductDetailLoading());
+    //   dispatch(getProductDetails(id));
+    // }
     const fetchData = async () => {
       try {
         dispatch(setProductDetailLoading());
         dispatch(getProductDetails(id));
-        
-        setUserBuyedProduct(await getUserBuyedProduct(userId, id));
-        console.log('userBuyedProduct:', userBuyed);
+
+        //obtener si el usuario ya ha comprado el producto
+        // isPurchased(userId, id);
+        const { success } = await getUserBuyedProduct(userId, id);
+
+        if (success) {
+          setUserBuyedProduct(true);
+          console.log('userBuyedProduct', userBuyedProduct);
+        } else {
+          setUserBuyedProduct(false);
+          console.log('userBuyedProduct', userBuyedProduct);
+        }
+
+        // setUserBuyedProduct(await getUserBuyedProduct(userId, id));
+        // console.log('userBuyedProduct', userBuyedProduct.data);
       } catch (error) {
         dispatch(setProductDetailError(error.message));
       }
@@ -35,9 +55,20 @@ function Detail() {
     if (id) {
       fetchData();
     }
+
+    getOrder();
   }, [id, dispatch, userId]);
 
-
+  const getOrder = async () => {
+    try {
+      const { data } = await axios.get(
+        'http://localhost:3002/ebook/orders?page=0',
+      );
+      console.log(setOrderId(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div>
@@ -58,9 +89,8 @@ function Detail() {
                   'Autor no disponible.'}
               </h2>
               <div>
-                <RatingStarsAverage />
+                <RatingStarsAverage productId={id} />
               </div>
-
               {/* Estrellas de calificación
               <div class="flex mb-4">
                 <span class="flex items-center">
@@ -158,8 +188,11 @@ function Detail() {
                   </svg>
                 </button> */}
               </div>
-              {console.log('userBuyedProduct:', userBuyedProduct)}
-              {userBuyedProduct ? <RatingStarsSetter /> : ''}
+              {userBuyedProduct ? (
+                <RatingStarsSetter productId={id} userId={userId} />
+              ) : (
+                'No has adquitado este libro.'
+              )}
             </div>
           </div>
         </div>
