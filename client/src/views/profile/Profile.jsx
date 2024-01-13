@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { ReviewsProfile } from './ReviewsProfile';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
@@ -156,7 +157,7 @@ const Profile = () => {
             </p>
           </div>
 
-          <div>
+          <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">
               Últimas compras{' '}
             </p>
@@ -183,6 +184,38 @@ const Profile = () => {
                         <span className="text-left text-lg font-bold text-textDark dark:text-black">
                           ${p.price}
                         </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+          <p className="text-textDark text-lg font-bold mb-2">
+              Mis reseñas
+            </p>
+            <div className="flex overflow-x-auto p-4">
+              {products.map((p) => (
+                <div className="max-w-xs mx-2">
+                  <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
+                    <div className="relative p-4">
+                      <div className="w-32 h-32 mx-auto">
+                        <img
+                          className="rounded-lg shadow-md object-contain w-full h-full"
+                          src={p.image}
+                          alt={`Foto de ${p.title}`}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="px-4 pb-4">
+                      <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
+                        {p.title}
+                      </h5>
+
+                      <div className="flex items-center justify-between">
+                       <ReviewsProfile/>
                       </div>
                     </div>
                   </div>
