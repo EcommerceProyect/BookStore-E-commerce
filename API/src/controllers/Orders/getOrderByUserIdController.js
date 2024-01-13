@@ -17,17 +17,9 @@ const getOrderByUserIdController = async (id,page) => {
             limit:LIMIT_USERS
         });
 
-        const ordersProducts = await Promise.all(orders.map(async (order) => {
-
-            const response = await CartDetail.findAll({
-                where:{
-                    CartId:order.Cart.id,
-                },
-            });
-
-            return {order,OrderDetail:response}
-
-        }));
+        return { order, OrderDetail: response };
+      })
+    );
 
         return ordersProducts;
     } catch (error) {
@@ -36,5 +28,5 @@ const getOrderByUserIdController = async (id,page) => {
 };
 
 module.exports = {
-    getOrderByUserIdController
+  getOrderByUserIdController,
 };
