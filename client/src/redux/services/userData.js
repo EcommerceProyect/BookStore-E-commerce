@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { setUserData } from '../slices/userData';
 import { jwtDecode } from 'jwt-decode';
-import {
-  APIDOMAIN,
-} from '../../vars';
+import { APIDOMAIN } from '../../vars';
 import { getCartFromApi } from './getCart';
 
 export const fetchUserData = (token) => async (dispatch) => {
@@ -12,14 +10,16 @@ export const fetchUserData = (token) => async (dispatch) => {
       `${APIDOMAIN}/authorized?route=profile&token=${token}`,
     );
 
+    console.log(response);
+
     const userData = { ...response.data };
     const decodedToken = jwtDecode(userData.token);
     console.log(decodedToken);
 
-    const hasAdminEdit = decodedToken.permissions.includes("admin:edit");
+    const hasAdminEdit = decodedToken.permissions.includes('admin:edit');
 
     if (hasAdminEdit) {
-      userData.response.role = "admin";
+      userData.response.role = 'admin';
     } else {
       userData.response.role = 'user';
     }

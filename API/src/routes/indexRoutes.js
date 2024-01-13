@@ -67,6 +67,11 @@ const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
+const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 
 //RUTAS DE SOFT DELETE Y RESTORE autor/editorial/genero/releaseddate/ISBN
 const {deleteAuthorHandler} = require("../handlers/SoftDelete/deleteAuthor");
@@ -164,6 +169,7 @@ router.put("/editorialRestore/:id",restoreEditorialHandler)
 router.put("/genreRestore/:id",restoreGenreHandler)
 router.put("/releasedDateRestore/:id",restoreReleasedDateHandler)
 router.put("/ISBNRestore/:name",restoreISBNHandler)
+
 
 
 module.exports = router;

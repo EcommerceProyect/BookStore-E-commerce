@@ -7,14 +7,14 @@ const addToCartController = async (userId, productId, quantity) => {
     const userCart = await Cart.findOne({
       where: {
         UserId: userId,
-        status: "Activo", // Asegurarse de que el carrito esté activo
-      },
+        status: "Activo" // Asegurarse de que el carrito esté activo
+      }
     });
     console.log("Adding product to cart: ", userCart);
     if (!userCart) {
       return {
         success: false,
-        message: "El usuario no tiene un carrito activo.",
+        message: "El usuario no tiene un carrito activo."
       };
     }
 
@@ -22,8 +22,8 @@ const addToCartController = async (userId, productId, quantity) => {
     const existingCartDetail = await CartDetail.findOne({
       where: {
         CartId: userCart.id,
-        ProductId: productId,
-      },
+        ProductId: productId
+      }
     });
 
     if (existingCartDetail) {
@@ -34,13 +34,13 @@ const addToCartController = async (userId, productId, quantity) => {
       await CartDetail.create({
         CartId: userCart.id,
         ProductId: productId,
-        quantity,
+        quantity
       });
     }
 
     return {
       success: true,
-      message: "Producto agregado al carrito correctamente.",
+      message: "Producto agregado al carrito correctamente."
     };
   } catch (error) {
     console.error("Error al agregar producto al carrito:", error);

@@ -5,7 +5,7 @@ const {
   NOTIFICATION_URL,
   // PORT,
   END_POINT_FRONT,
-  END_POINT_BACK,
+  END_POINT_BACK
 } = process.env;
 const { Orders, ISBN, Cart } = require("../../db");
 
@@ -15,7 +15,7 @@ let address = "calle 1 # 2-3";
 
 const createOrderPayment = async (req, res) => {
   mercadopago.configure({
-    access_token: ACCESS_AR_TOKEN,
+    access_token: ACCESS_AR_TOKEN
   });
   console.log("tokenARG", ACCESS_AR_TOKEN);
   //por ahora se quitara shippingAddress
@@ -30,14 +30,14 @@ const createOrderPayment = async (req, res) => {
       title: book.title,
       quantity: book.quantity,
       unit_price: book.price,
-      currency_id: "ARS",
+      currency_id: "ARS"
     })),
     back_urls: {
       success: `${END_POINT_FRONT}/success`,
       failure: `${END_POINT_FRONT}/failure`,
-      pending: `${END_POINT_BACK}/mercadoPago/pending`,
+      pending: `${END_POINT_BACK}/mercadoPago/pending`
     },
-    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook`,
+    notification_url: `https://${NOTIFICATION_URL}/mercadoPago/webhook`
   };
 
   const result = await mercadopago.preferences.create(preference);
@@ -61,15 +61,15 @@ const receiveWebhook = async (req, res) => {
           OrderDate: new Date(),
           shippingAddress: address,
           totalAmount: transactionAmount,
-          CartId: idCarrito,
+          CartId: idCarrito
         });
 
         // Obtener libros por sus ISBNs
         const isbnPromises = products.map(async (book) => {
           const isbnData = await ISBN.findOne({
             where: {
-              ISBNId: book.id,
-            },
+              ISBNId: book.id
+            }
           });
           // Restar el stock según la cantidad de libros comprados
           if (isbnData) {
