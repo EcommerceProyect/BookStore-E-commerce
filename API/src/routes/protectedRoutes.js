@@ -18,20 +18,15 @@ const {
   asingRoleToUserHandler
 } = require("../handlers/Users/asingRoleToUserHandler");
 const {
-  updateGenreHandler
-} = require("../handlers/UpdateInfoHandler/updateGenreHandler");
+  getUserBuyedProductHandler
+} = require("../handlers/Reviews/getUserBuyedProductHandler");
+const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
 const {
-  updateAuthorHandler
-} = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
-const {
-  updateEditorialHandler
-} = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
-const {
-  updateReleasedDateHandler
-} = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
-const {
-  updateISBNHandler
-} = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+  getProductReviewsAverageRatingHandler
+} = require("../handlers/Reviews/getReviewsAverage");
 
 router.use(cors());
 
@@ -144,6 +139,39 @@ router.get(
   "/authorized/orders",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
+);
+
+//Reviews
+
+router.get(
+  "/authorized/userBuyedProduct",
+  checkPermissions(["user:edit"]),
+  getUserBuyedProductHandler
+);
+router.get(
+  "/authorized/reviews",
+  checkPermissions(["user:edit"]),
+  getAllReviewsHandler
+);
+router.post(
+  "/authorized/reviews",
+  checkPermissions(["user:edit"]),
+  createProductReview
+);
+router.put(
+  "/authorized/reviews/:id",
+  checkPermissions(["user:edit"]),
+  updateReviewHandler
+);
+router.delete(
+  "/authorized/reviews/:id",
+  checkPermissions(["admin:edit"]),
+  deleteReviewHandler
+);
+router.get(
+  "/authorized/reviews/average/:productId",
+  checkPermissions(["user:edit"]),
+  getProductReviewsAverageRatingHandler
 );
 
 // entidades

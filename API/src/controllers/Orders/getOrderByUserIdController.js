@@ -24,9 +24,14 @@ const getOrderByUserIdController = async (id, page) => {
           }
         });
 
-        return { order, OrderDetail: response };
-      })
-    );
+        const ordersProducts = await Promise.all(orders.map(async (order) => {
+
+            const response = await CartDetail.findAll({
+                where:{
+                    CartId:order.Cart.id,
+                },
+            });
+
 
     return ordersProducts;
   } catch (error) {
