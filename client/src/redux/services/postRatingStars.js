@@ -28,16 +28,17 @@ export const postRatingStars = ({
   };
 };
 
-export const putRatingStars = (rating) => {
+export const putRatingStars = (rating,productId) => {
   return async (dispatch) => {
     try {
       const data = {
         rating: rating,
       };
-      const id = (await axios.get(`${API_BOOKS}/ebook/reviews/`)).data
-        .reviews[0].id;
+      const reviewId = (await axios.get(`${API_BOOKS}/ebook/reviews/${productId}`)).data
+        .reviews.id;
+      console.log(reviewId,"asfasfas");
       const response = await axios.put(
-        `${API_BOOKS}/ebook/reviews/${id}`,
+        `${API_BOOKS}/ebook/reviews/${reviewId}`,
         data,
       );
       dispatch(setNewRating());

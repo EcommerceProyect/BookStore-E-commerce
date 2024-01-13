@@ -18,7 +18,7 @@ function RatingStarsSetter(props) {
       console.log(productId, userId, ratingValue, orderId);
       dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
     }
-    dispatch(putRatingStars(ratingValue));
+    dispatch(putRatingStars(ratingValue,productId));
     // console.log(setRatingValue(ratingValue));
   };
 

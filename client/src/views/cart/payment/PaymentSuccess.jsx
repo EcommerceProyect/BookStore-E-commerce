@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BOOKS } from '../../../vars';
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const PaymentSuccess = () => {
   const getOrder = async () => {
     try {
       const { data } = await axios.get(
-        'http://localhost:3002/ebook/orders?page=0',
+        `${API_BOOKS}/ebook/orders?page=0`,
       );
 
       const sortedOrders = data.orders.sort(
