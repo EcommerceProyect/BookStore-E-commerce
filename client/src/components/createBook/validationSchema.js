@@ -1,4 +1,5 @@
 export const validationSchema = (values) => {
+
   let errors = {};
   //Reglas de validación
 
@@ -40,10 +41,13 @@ export const validationSchema = (values) => {
     errors.editorial = 'La editorial es obligatoria';
   }
 
-  // ISBNname
-  if (!/^(?:ISBNname(?:-13)?:?\ )?(?=[0-9]{13}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)97[89][-\ ]?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9]$/.test(
-    values.ISBNname)
-  ) { errors.ISBNname = 'El ISBN debe ser válido.' }
+
+ // ISBNname
+const isbnRegex = /^(?:ISBN(?:-13)?:?\s*)?(?=[0-9]{13}$|(?=(?:[0-9]+[-\s]){4})[-\s0-9]{17}$)97[89][-\s]?[0-9]{1,5}[-\s]?[0-9]+[-\s]?[0-9]+[-\s]?[0-9]$/;
+if (!isbnRegex.test(values.ISBNname)) {
+  errors.ISBNname = 'El ISBN debe ser válido.';
+}
+
 
   if (!values.ISBNname) {
     errors.ISBNname = 'El ISBN es obligatorio';
@@ -66,6 +70,6 @@ export const validationSchema = (values) => {
   if (!values.synopsis) {
     errors.synopsis = 'La sinopsis es obligatoria';
   }
-
+  console.log('Exiting validationSchema with errors:', errors);
   return errors;
 };

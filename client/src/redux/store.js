@@ -7,18 +7,31 @@ import editorialReducer from './slices/editorial';
 import userData from './slices/userData';
 import users from './slices/userList';
 import cart from './slices/cartUsersTest';
+import ratingStars from './slices/ratingStarsAverage';
+import userReducer, {
+  setUserData,
+  clearUserData,
+  userAdminStart,
+  userAdminSuccess,
+  userAdminFailure,
+} from './slices/userData';
+import userActiveReducer, {
+  userActiveStart,
+  userActiveSuccess,
+  userActiveFailure,
+} from './slices/userData';
 
 export default configureStore({
   reducer: {
     products,
-
     genres: genreReducer,
     authors: authorReducer,
     editorial: editorialReducer,
     cart,
     userData,
     users,
+    ratingStars,
+    user: userReducer,
+    userActive: userActiveReducer,
   },
 });
-
-    // user,

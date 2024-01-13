@@ -9,14 +9,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#590925', //navbar y footer
-       'accents': '#E71D36', //botones
-        'textLight': '#F6F8FF',
-        'textDark': '#2E3138',
-        'textGray': '#6C6F7D', // color gris para textos no importantes
+        primary: '#590925', //navbar y footer
+        accents: '#E71D36', //botones
+        textLight: '#F6F8FF',
+        textDark: '#2E3138',
+        textGray: '#6C6F7D', // color gris para textos no importantes
       },
       width: {
-        'usersWidthm': '50rem',
+        usersWidthm: '50rem',
+      },
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },
