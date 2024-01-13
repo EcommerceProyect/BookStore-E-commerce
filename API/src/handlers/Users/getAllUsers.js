@@ -7,7 +7,7 @@ const getAllUsers = async (req,res) => {
 
     try {
         
-        const response = await getAllUsersController(page,deleted);
+        const response = await getAllUsersController(page,(deleted||false));
 
         res.status(200).json(response);
 

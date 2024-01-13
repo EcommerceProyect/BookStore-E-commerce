@@ -62,10 +62,17 @@ const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyed
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
+<<<<<<< HEAD
 const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
 const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
 const { createProductReview } = require("../handlers/Reviews/createReviews");
+=======
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+>>>>>>> ec9d3128b639d821075732b4bac30f42e6f6dc59
 
 
 
@@ -136,16 +143,25 @@ router.delete(
 //RUTAS REVIEWS
 router.get("/reviews", getAllReviewsHandler);
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
+<<<<<<< HEAD
 router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
 router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 
 
+=======
+router.get("/reviews", getAllReviewsHandler);
+router.post("/reviews",createProductReview);
+router.put("/reviews/:id", updateReviewHandler);
+router.delete("/reviews/:id", deleteReviewHandler);
+router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
+>>>>>>> ec9d3128b639d821075732b4bac30f42e6f6dc59
 
 //Creacion de User Momentanea
 
 router.post("/usersPrueba", postUserPruebaController);
+
 
 
 module.exports = router;

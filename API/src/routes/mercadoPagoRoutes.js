@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const {
   createOrderPayment,
-  receiveWebhook,
+  receiveWebhook
 } = require("../controllers/MercadoPago/paymentController");
 
 // const {createOrderHandler} = require("../handlers/MercadoPago/createOrderHandler");

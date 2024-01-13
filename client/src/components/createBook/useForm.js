@@ -71,6 +71,7 @@ export const useForm = (validationSchema) => {
     if (Object.keys(newErrors).length === 0) {
       handleCloudinaryUpload();
       console.log(values);
+      setValues({});
     }
   };
 
