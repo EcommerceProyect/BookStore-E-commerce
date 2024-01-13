@@ -21,6 +21,20 @@ export const editorialSlice = createSlice({
       state.editorial = action.payload;
       state.allEditorial = action.payload;
     },
+    updateEditorialList: (state, action) => {
+      const editorialIndex = state.editorial.findIndex(
+        (editorial) => editorial.id === action.payload.id,
+      );
+      if (editorialIndex !== -1) {
+        state.editorial[editorialIndex].name = action.payload.name;
+      }
+      const allEditorialIndex = state.allEditorial.findIndex(
+        (editorial) => editorial.id === action.payload.id,
+      );
+      if (allEditorialIndex !== -1) {
+        state.allEditorial[allEditorialIndex].name = action.payload.name;
+      }
+    },
     setEditorialListError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -36,6 +50,7 @@ export const {
   setEditorialList,
   setEditorialListError,
   setSelectedEditorial,
+  updateEditorialList,
 } = editorialSlice.actions;
 
 export default editorialSlice.reducer;

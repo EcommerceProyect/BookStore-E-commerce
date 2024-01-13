@@ -21,6 +21,20 @@ export const authorSlice = createSlice({
       state.authors = action.payload;
       state.allAuthors = action.payload;
     },
+    updateAuthorList: (state, action) => {
+      const authorIndex = state.authors.findIndex(
+        (author) => author.id === action.payload.id,
+      );
+      if (authorIndex !== -1) {
+        state.authors[authorIndex].name = action.payload.name;
+      }
+      const allAuthorIndex = state.allAuthors.findIndex(
+        (author) => author.id === action.payload.id,
+      );
+      if (allAuthorIndex !== -1) {
+        state.allAuthors[allAuthorIndex].name = action.payload.name;
+      }
+    },
     setAuthorListError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -36,6 +50,7 @@ export const {
   setAuthorList,
   setAuthorListError,
   setSelectedAuthor,
+  updateAuthorList,
 } = authorSlice.actions;
 
 export default authorSlice.reducer;

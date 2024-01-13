@@ -21,6 +21,21 @@ export const genreSlice = createSlice({
       state.genres = action.payload;
       state.allGenres = action.payload;
     },
+    updateGenreList: (state, action) => {
+      const genreIndex = state.genres.findIndex(
+        (genre) => genre.id === action.payload.id,
+      );
+      if (genreIndex !== -1) {
+        state.genres[genreIndex].name = action.payload.name;
+      }
+
+      const allGenreIndex = state.allGenres.findIndex(
+        (genre) => genre.id === action.payload.id,
+      );
+      if (allGenreIndex !== -1) {
+        state.allGenres[allGenreIndex].name = action.payload.name;
+      }
+    },
     setGenreListError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -36,6 +51,7 @@ export const {
   setGenreList,
   setGenreListError,
   setSelectedGenre,
+  updateGenreList,
 } = genreSlice.actions;
 
 export default genreSlice.reducer;

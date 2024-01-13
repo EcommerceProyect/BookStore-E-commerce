@@ -11,7 +11,6 @@ import cart from './slices/cartUsersTest';
 export default configureStore({
   reducer: {
     products,
-
     genres: genreReducer,
     authors: authorReducer,
     editorial: editorialReducer,
@@ -21,4 +20,4 @@ export default configureStore({
   },
 });
 
-    // user,
+// user,

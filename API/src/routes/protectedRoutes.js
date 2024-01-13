@@ -17,6 +17,21 @@ const {
 const {
   asingRoleToUserHandler
 } = require("../handlers/Users/asingRoleToUserHandler");
+const {
+  updateGenreHandler
+} = require("../handlers/UpdateInfoHandler/updateGenreHandler");
+const {
+  updateAuthorHandler
+} = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
+const {
+  updateEditorialHandler
+} = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
+const {
+  updateReleasedDateHandler
+} = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+const {
+  updateISBNHandler
+} = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 
 router.use(cors());
 
@@ -129,6 +144,34 @@ router.get(
   "/authorized/orders",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
+);
+
+// entidades
+
+router.put(
+  "/authorized/genre/:id",
+  checkPermissions(["admin:edit"]),
+  updateGenreHandler
+);
+router.put(
+  "/authorized/author/:id",
+  checkPermissions(["admin:edit"]),
+  updateAuthorHandler
+);
+router.put(
+  "/authorized/editorial/:id",
+  checkPermissions(["admin:edit"]),
+  updateEditorialHandler
+);
+router.put(
+  "/authorized/releasedDate/:id",
+  checkPermissions(["admin:edit"]),
+  updateReleasedDateHandler
+);
+router.put(
+  "/authorized/ISBN/:id",
+  checkPermissions(["admin:edit"]),
+  updateISBNHandler
 );
 
 module.exports = router;

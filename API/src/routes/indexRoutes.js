@@ -54,15 +54,18 @@ const {
 } = require("../handlers/Cart/getProductsActiveCartHandler");
 
 //rutas Reviews
-const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
-
+const {
+  getUserBuyedProductHandler
+} = require("../handlers/Reviews/getUserBuyedProductHandler");
 
 //ruta Usuario temporal
 
-const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
-const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
-
-
+const {
+  postUserPruebaController
+} = require("../controllers/MercadoPago/postUserPruebaController");
+const {
+  getOrderByUserIdHandler
+} = require("../handlers/Orders/getOrderByUserIdHandler");
 
 const router = Router();
 
@@ -109,10 +112,9 @@ router.get("/user", getUser_Token);
 router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
-
 //RUTA DE ORDENES
 
-router.get("/orders/:id",getOrderByUserIdHandler);
+router.get("/orders/:id", getOrderByUserIdHandler);
 
 //RUTAS DEL CARRITO
 
@@ -128,13 +130,8 @@ router.delete(
 
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
 
-
-
 //Creacion de User Momentanea
 
 router.post("/usersPrueba", postUserPruebaController);
 
-
 module.exports = router;
-
-

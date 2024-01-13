@@ -5,7 +5,9 @@ import { fetchGenres } from '../../../redux/services/getGenres';
 
 function GenreFilter({ currentPage, setCurrentPage }) {
   const genres = useSelector((state) => state.genres.allGenres || []);
-  const selectedGenre = useSelector((state) => state.genres.selectedGenre || []);
+  const selectedGenre = useSelector(
+    (state) => state.genres.selectedGenre || [],
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,13 +26,15 @@ function GenreFilter({ currentPage, setCurrentPage }) {
   };
 
   const filteredGenres = genres.filter((genre) =>
-    genre.toLowerCase().includes(filterValue.toLowerCase())
+    genre.name.toLowerCase().includes(filterValue.toLowerCase()),
   );
 
+  console.log(filteredGenres);
+
   return (
-    <div className='flex'>
-      <div className='w-60 pt-5 pl-5'>
-        <h2 className=''>Género</h2>
+    <div className="flex">
+      <div className="w-60 pt-5 pl-5">
+        <h2 className="">Género</h2>
         <input
           type="text"
           placeholder="Filtrar géneros"
@@ -38,18 +42,24 @@ function GenreFilter({ currentPage, setCurrentPage }) {
           onChange={(e) => setFilterValue(e.target.value)}
           className="border border-gray-300 p-1 rounded mt-2 mb-2"
         />
-        <div className='grid w-auto max-h-52 overflow-y-auto overflow-x-hidden'>
-          <span className='border-b-2 mb-3'></span>
+        <div className="grid w-auto max-h-52 overflow-y-auto overflow-x-hidden">
+          <span className="border-b-2 mb-3"></span>
           {filteredGenres.map((genre) => (
-            <div key={genre} className="flex items-center mb-4 pr-8">
+            <div key={genre.id} className="flex items-center mb-4 pr-8">
               <input
-                checked={selectedGenre && selectedGenre.includes(genre)}
-                onChange={(event) => handleGenreChange(event, genre)}
+                checked={selectedGenre && selectedGenre.includes(genre.name)}
+                onChange={(event) => handleGenreChange(event, genre.name)}
                 type="checkbox"
                 value={genre}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
-              <label htmlFor={`genre-${genre}`} className="ms-2 text-sm font-medium text-black dark:text-gray-500" style={{ wordWrap: 'break-word', width: '120px' }}>{genre}</label>
+              <label
+                htmlFor={`genre-${genre.name}`}
+                className="ms-2 text-sm font-medium text-black dark:text-gray-500"
+                style={{ wordWrap: 'break-word', width: '120px' }}
+              >
+                {genre.name}
+              </label>
             </div>
           ))}
         </div>
