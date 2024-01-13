@@ -17,7 +17,7 @@ import { API_BOOKS } from '../../vars';
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
-  const [orderId, setOrderId] = useState({});
+  const [orderId, setOrderId] = useState("");
   // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
   // const userId = useSelector((state) => state.userData.userData.response.id);
   const userId = useSelector((state) => state.userData.userData?.response.id);
@@ -61,27 +61,34 @@ function Detail() {
     const getOrder = async () => {
       try {
         let contador = 0;
-        while (true) {
+        let aux = "";
+    
+        while (aux === "") {
           const { data } = await axios.get(
-            `${API_BOOKS}/ebook/orders/${userId}?page=${contador++}`,
+            `${API_BOOKS}/ebook/orders/${userId}?page=${contador}`,
           );
-
-          if (data.orders === undefined) return false;
+    
+          if (!data.orders) return false;
           console.log('data', data.orders);
+    
           data.orders.forEach((order) => {
             const exist = order.OrderDetail.find(
-              (detail) => detail.ProductId === id,
+              (detail) => detail.ProductId == id,
             );
-            console.log('algo', exist);
+            console.log('algo', (exist || "a"));
+    
             if (exist) {
-              setOrderId(exist.id);
-              console.log('bandera', orderId);
+              aux = order.order.id;
+              console.log('bandera', aux);
               return false;
             }
           });
+          contador++;
         }
-
-        const orders = data.orders;
+        
+        setOrderId((prevOrderId) => aux || prevOrderId);
+        console.log('OrderId', orderId);
+        
 
         // const orders = data.orders;
         // const userOrders = orders.filter(
@@ -107,7 +114,7 @@ function Detail() {
     };
 
     getOrder();
-  }, [id, dispatch, userId]);
+  }, [id, dispatch, userId,orderId]);
 
   // const getOrders = async (userId) => {
   //   try {
