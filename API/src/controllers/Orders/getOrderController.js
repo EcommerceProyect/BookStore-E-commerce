@@ -5,7 +5,7 @@ const {LIMIT_USERS} = process.env
 
 const getOrdersController = async (page) => {
 
-    const offset = page*LIMIT_USERS;
+    const offset = (parseInt(page) || 0) * LIMIT_USERS;
 
     try {
         const orders = await Orders.findAll({ 

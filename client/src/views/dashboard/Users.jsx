@@ -62,9 +62,9 @@ const handleModalAdmin = (userId) => {
 }
 
 
-  const handleAdminUser = async (userId) => {
+  const handleAdminUser = async () => {
     if (adminUserId){
-    await dispatch(userAdmin(userId));
+    await dispatch(userAdmin(adminUserId));
     await dispatch(getUsers());
     setShowModalAdmin(false);
     setAdminUserId(null);
