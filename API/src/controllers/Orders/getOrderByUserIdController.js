@@ -35,5 +35,5 @@ const getOrderByUserIdController = async (id, page) => {
 };
 
 module.exports = {
-  getOrderByUserIdController
+  getOrderByUserIdController,
 };

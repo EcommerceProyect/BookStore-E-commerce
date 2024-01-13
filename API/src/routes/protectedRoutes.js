@@ -151,7 +151,7 @@ router.put(
 //Orders
 
 router.get(
-  "/authorized/orders",
+  "/authorized/orders/:id?",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
 );

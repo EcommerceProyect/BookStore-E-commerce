@@ -7,6 +7,7 @@ import editorialReducer from './slices/editorial';
 import userData from './slices/userData';
 import users from './slices/userList';
 import cart from './slices/cartUsersTest';
+import ratingStars from './slices/ratingStarsAverage';
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     cart,
     userData,
     users,
+    ratingStars,
   },
 });
 
