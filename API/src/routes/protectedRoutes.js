@@ -23,9 +23,9 @@ const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/g
 router.use(cors());
 
 const jwtCheck = auth({
-  audience: 'https://www.protectAPI.com',
-  issuerBaseURL: 'https://dev-s3pcs1ovog464bay.us.auth0.com/',
-  tokenSigningAlg: 'RS256'
+  audience: "https://www.protectAPI.com",
+  issuerBaseURL: "https://dev-s3pcs1ovog464bay.us.auth0.com/",
+  tokenSigningAlg: "RS256"
 });
 
 //middleware
@@ -38,6 +38,7 @@ const checkPermissions = (requiredPermissions) => (req, res, next) => {
     )
   ) {
     // El usuario tiene al menos uno de los permisos requeridos
+    console.log("es admin");
     next();
   } else {
     // El usuario no tiene los permisos necesarios
@@ -52,44 +53,32 @@ router.use(jwtCheck);
 //rutas del admin
 
 //Users
-router.get(
-  "/authorized",
-  checkPermissions(["user:edit"]),
-  async (req, res) => {
+router.get("/authorized", checkPermissions(["user:edit"]), async (req, res) => {
+  console.log(req.auth);
 
-    console.log(req.auth);
+  try {
+    // const emailExist = await
 
-    try {
+    const response = await postUser(req, res);
 
-      // const emailExist = await 
+    console.log(response, "soyyyy el protect");
 
-      const response = await postUser(req, res);
-
-      console.log(response,"soyyyy el protect");
-
-      
-      res.status(200).json({
-        id_user: req.auth.payload.sub
-      });
-      
-      
-    } catch (error) {
-      console.log(error)
-      res.status(404).json({// es 404 para que en la api intermedia pase que el usuario ya existia
-        error: error,
-        message: "Something went wrong"
-      });
-    }
-
+    res.status(200).json({
+      id_user: req.auth.payload.sub
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      // es 404 para que en la api intermedia pase que el usuario ya existia
+      error: error,
+      message: "Something went wrong"
+    });
   }
-);
+});
 
-router.get(
-  "/authorized/check",
-  (req, res) => {
-    res.status(200).json({ message: "El usuario esta autenticado" });
-  }
-);
+router.get("/authorized/check", (req, res) => {
+  res.status(200).json({ message: "El usuario esta autenticado" });
+});
 router.get(
   "/authorized/profile",
   checkPermissions(["user:edit"]),
@@ -97,7 +86,11 @@ router.get(
 );
 router.get("/authorized/users", checkPermissions(["admin:edit"]), getAllUsers);
 
-router.put("/authorized/admin/:id", checkPermissions(["admin:edit"]), asingRoleToUserHandler)
+router.put(
+  "/authorized/admin/:id",
+  checkPermissions(["admin:edit"]),
+  asingRoleToUserHandler
+);
 
 //update user by user
 router.put(
@@ -130,7 +123,7 @@ router.put(
   "/authorized/products/:id",
   checkPermissions(["admin:edit"]),
   updateProductHandler
-)
+);
 
 //Orders
 
@@ -138,7 +131,7 @@ router.get(
   "/authorized/orders/:id?",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
-  )
+);
 
 //Reviews
 
