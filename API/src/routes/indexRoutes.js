@@ -57,10 +57,7 @@ const {
 const {
   getUserBuyedProductHandler,
 } = require("../handlers/Reviews/getUserBuyedProductHandler");
-const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
-const { createProductReview } = require("../handlers/Reviews/createReviews");
-const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
-const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+
 
 //ruta Usuario temporal
 
