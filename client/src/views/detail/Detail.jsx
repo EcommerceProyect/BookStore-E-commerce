@@ -12,31 +12,23 @@ import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
 import { API_BOOKS } from '../../vars';
-// import { isPurchased } from '../../redux/slices/ratingStarsAverage';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
   const [orderId, setOrderId] = useState('');
-  // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
-  // const userId = useSelector((state) => state.userData.userData.response.id);
   const userId = useSelector((state) => state.userData.userData?.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
-    // if (id) {
-    //   dispatch(setProductDetailLoading());
-    //   dispatch(getProductDetails(id));
-    // }
     const fetchData = async () => {
       try {
         dispatch(setProductDetailLoading());
         dispatch(getProductDetails(id));
 
         //obtener si el usuario ya ha comprado el producto
-        // isPurchased(userId, id);
         const { success } = await getUserBuyedProduct(userId, id);
 
         if (success) {
@@ -46,9 +38,6 @@ function Detail() {
           setUserBuyedProduct(false);
           console.log('userBuyedProduct', userBuyedProduct);
         }
-
-        // setUserBuyedProduct(await getUserBuyedProduct(userId, id));
-        // console.log('userBuyedProduct', userBuyedProduct.data);
       } catch (error) {
         dispatch(setProductDetailError(error.message));
       }
@@ -88,25 +77,6 @@ function Detail() {
 
         setOrderId((prevOrderId) => aux || prevOrderId);
         console.log('OrderId', orderId);
-
-        // const orders = data.orders;
-        // const userOrders = orders.filter(
-        //   (order) => order.Cart?.UserId === userId,
-        // );
-
-        // if (userOrders) {
-        //   const userOrdersId = userOrders.map((order) => order.id);
-        //   console.log(
-        //     `soy el usuario ${userId} y mis ordenes son`,
-        //     userOrdersId,
-        //   );
-        //   setOrderId(userOrdersId);
-        // }
-
-        // console.log('Orders', orderId);
-
-        // console.log(`soy el usuario ${userId} y mis ordenes son`, userOrders);
-        // setOrderId(data.orders[0].id);
       } catch (error) {
         console.log(error.message);
       }
@@ -114,20 +84,6 @@ function Detail() {
 
     getOrder();
   }, [id, dispatch, userId, orderId]);
-
-  // const getOrders = async (userId) => {
-  //   try {
-  //     const { data } = await axios.get(`${API_BOOKS}/ebook/orders?page=0`);
-
-  //     const orders = data.orders?.Cart;
-
-  //     console.log('Soy el usuario', orders);
-  //     setOrderId(data.orders);
-  //     // console.log(`Las ordendes del usuario ${userId} son`, orders);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
 
   return (
     <div>

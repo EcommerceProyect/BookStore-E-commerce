@@ -17,7 +17,6 @@ function RatingStarsSetter(props) {
     if (ratingValue) {
       dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
     }
-    dispatch(putRatingStars(ratingValue, productId));
 
     console.log(
       productId,
@@ -42,14 +41,6 @@ function RatingStarsSetter(props) {
       <Rating
         readonly={false}
         onClick={handleRating}
-        // onClick={
-        // ratingValue
-        //   ? () =>
-        //       dispatch(
-        //         postRatingStars({ productId, userId, ratingValue, orderId }),
-        //       )
-        //   : () => dispatch(putRatingStars(ratingValue, productId))
-        // }
         initialValue={ratingValue}
         SVGstyle={{ display: 'inline-block' }}
         onPointerMove={onPointerMove}

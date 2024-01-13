@@ -21,8 +21,6 @@ export const postRatingStars = ({
 
       const response = await axios.post(`${API_BOOKS}/ebook/reviews`, data);
 
-      // if(response.status !== 201)
-
       console.log(response);
       dispatch(setNewRating());
       return response;
