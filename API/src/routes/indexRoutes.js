@@ -141,9 +141,15 @@ router.delete(
 );
 
 //RUTAS REVIEWS
-router.get("/reviews", getAllReviewsHandler);
+
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
-router.post("/reviews",createProductReview);
+router.get("/reviews", getAllReviewsHandler);
+router.get("/reviews/:productId", getReviewsByProductId);
+router.get(
+  "/reviews/average/:productId",
+  getProductReviewsAverageRatingHandler
+);
+router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 
