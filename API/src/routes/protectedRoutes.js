@@ -135,17 +135,17 @@ router.put(
 //Orders
 
 router.get(
-  "/authorized/orders",
+  "/authorized/orders/:id?",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
-)
+  )
 
 //Reviews
 
 router.get("/authorized/userBuyedProduct", checkPermissions(["user:edit"]),
 getUserBuyedProductHandler);
 router.get("/authorized/reviews",checkPermissions(["user:edit"]),
- getAllReviewsHandler);
+getAllReviewsHandler);
 router.post("/authorized/reviews",checkPermissions(["user:edit"]),
 createProductReview);
 router.put("/authorized/reviews/:id", checkPermissions(["user:edit"]),
@@ -154,6 +154,5 @@ router.delete("/authorized/reviews/:id", checkPermissions(["admin:edit"]),
 deleteReviewHandler);
 router.get("/authorized/reviews/average/:productId", checkPermissions(["user:edit"]),
 getProductReviewsAverageRatingHandler);
-
 
 module.exports = router;
