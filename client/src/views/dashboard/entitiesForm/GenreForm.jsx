@@ -1,14 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { updateGenre } from '../../../redux/services/updateGenre';
+import { fetchGenres } from '../../../redux/services/getGenres';
 
 const GenreForm = ({ setToast }) => {
   const dispatch = useDispatch();
   const allGenres = useSelector((state) => state.genres.allGenres);
+  const currentPage = useSelector((state) => state.genres.currentPage);
+  const totalItemsFromState = useSelector((state) => state.genres.totalItems);
 
   const [editedGenres, setEditedGenres] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+
+  const itemsPerPage = 50;
+  const totalPages = Math.ceil(totalItemsFromState / itemsPerPage);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(fetchGenres(currentPage));
+    };
+
+    fetchData();
+  }, [currentPage]);
 
   const handleInputChange = (genreId, newName) => {
     setEditedGenres((prev) => ({ ...prev, [genreId]: newName }));
@@ -37,6 +51,18 @@ const GenreForm = ({ setToast }) => {
   const filteredGenres = allGenres.filter((genre) =>
     genre.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      dispatch(setCurrentPage(currentPage + 1));
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      dispatch(setCurrentPage(currentPage - 1));
+    }
+  };
 
   return (
     <div>
@@ -103,6 +129,43 @@ const GenreForm = ({ setToast }) => {
             </button>
           </div>
         ))}
+        <nav
+          className="flex justify-center p-5"
+          aria-label="Page navigation example"
+        >
+          <ul className="inline-flex -space-x-px text-sm">
+            <li>
+              <button
+                onClick={handlePrevPage}
+                disabled={currentPage === 0}
+                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Previous
+              </button>
+            </li>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <li key={i}>
+                <button
+                  onClick={() => dispatch(setCurrentPage(i))}
+                  className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+                    currentPage === i ? 'text-blue-600 bg-blue-50' : ''
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              </li>
+            ))}
+            <li>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages - 1}
+                className="flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

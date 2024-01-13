@@ -6,6 +6,8 @@ const initialState = {
   error: null,
   selectedGenre: null,
   allGenres: [],
+  currentPage: 0,
+  totalItems: null,
 };
 
 export const genreSlice = createSlice({
@@ -36,6 +38,12 @@ export const genreSlice = createSlice({
         state.allGenres[allGenreIndex].name = action.payload.name;
       }
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setTotalItems: (state, action) => {
+      state.totalItems = action.payload;
+    },
     setGenreListError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -52,6 +60,8 @@ export const {
   setGenreListError,
   setSelectedGenre,
   updateGenreList,
+  setCurrentPage,
+  setTotalItems,
 } = genreSlice.actions;
 
 export default genreSlice.reducer;

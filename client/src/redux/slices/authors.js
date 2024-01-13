@@ -6,6 +6,8 @@ const initialState = {
   error: null,
   selectedAuthor: null,
   allAuthors: [],
+  currentPage: 0,
+  totalItems: null,
 };
 
 export const authorSlice = createSlice({
@@ -35,6 +37,12 @@ export const authorSlice = createSlice({
         state.allAuthors[allAuthorIndex].name = action.payload.name;
       }
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setTotalItems: (state, action) => {
+      state.totalItems = action.payload;
+    },
     setAuthorListError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -51,6 +59,8 @@ export const {
   setAuthorListError,
   setSelectedAuthor,
   updateAuthorList,
+  setCurrentPage,
+  setTotalItems,
 } = authorSlice.actions;
 
 export default authorSlice.reducer;

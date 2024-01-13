@@ -1,27 +1,29 @@
-const { Author } = require("../../db")
+const { Author } = require("../../db");
 
-const itemPerPage=50;
+const itemPerPage = 50;
 
 const getAuthorsController = async (page) => {
+  const offset = page * itemPerPage;
 
-    const offset = page*itemPerPage;
+  try {
+    const { count } = await Author.findAndCountAll();
 
-    try {
-        
-        const response = await Author.findAll({
-            offset,
-            limit:itemPerPage,
-            attributes:["name","id"],
-        })
+    const response = await Author.findAll({
+      offset,
+      limit: itemPerPage,
+      attributes: ["name", "id"]
+    });
 
-        return response;
-
-    } catch (error) {
-        return error;
-    }
-
-}
+    return {
+      totalPages: Math.ceil(count / itemPerPage),
+      numberOfResults: count,
+      data: response
+    };
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
-    getAuthorsController,
-}
+  getAuthorsController
+};
