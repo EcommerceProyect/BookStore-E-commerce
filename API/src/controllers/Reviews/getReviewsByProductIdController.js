@@ -1,14 +1,15 @@
 const { Productreview } = require("../../db");
 
-const getReviewsByProductIdController = async (productId) => {
+const getReviewsByProductIdController = async (productId, userId) => {
   try {
-    const allReviews = await Productreview.findOne({
+    const review = await Productreview.findOne({
       where: {
         ProductId: productId,
+        userId,
       },
     });
 
-    return allReviews;
+    return review;
   } catch (error) {
     console.error(error);
     throw new Error(
