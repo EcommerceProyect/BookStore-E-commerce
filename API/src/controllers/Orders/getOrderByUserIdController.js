@@ -9,19 +9,19 @@ const getOrderByUserIdController = async (id, page) => {
   try {
     const orders = await Orders.findAll({
       where: {
-        "$Cart.UserId$": id,
+        "$Cart.UserId$": id
       },
       include: [Cart],
       offset,
-      limit: LIMIT_USERS,
+      limit: LIMIT_USERS
     });
 
     const ordersProducts = await Promise.all(
       orders.map(async (order) => {
         const response = await CartDetail.findAll({
           where: {
-            CartId: order.Cart.id,
-          },
+            CartId: order.Cart.id
+          }
         });
 
         return { order, OrderDetail: response };

@@ -20,6 +20,10 @@ export const postRatingStars = ({
       };
 
       const response = await axios.post(`${API_BOOKS}/ebook/reviews`, data);
+      
+      // if(response.status !== 201)
+      
+      console.log(response);
       dispatch(setNewRating());
       return response;
     } catch (error) {
@@ -28,16 +32,18 @@ export const postRatingStars = ({
   };
 };
 
-export const putRatingStars = (rating) => {
+export const putRatingStars = (rating,productId) => {
   return async (dispatch) => {
     try {
       const data = {
         rating: rating,
       };
-      const id = (await axios.get(`${API_BOOKS}/ebook/reviews/`)).data
-        .reviews[0].id;
+      
+      const reviewId = (await axios.get(`${API_BOOKS}/ebook/reviews/${productId}`)).data
+        .reviews?.id;
+
       const response = await axios.put(
-        `${API_BOOKS}/ebook/reviews/${id}`,
+        `${API_BOOKS}/ebook/reviews/${reviewId}`,
         data,
       );
       dispatch(setNewRating());

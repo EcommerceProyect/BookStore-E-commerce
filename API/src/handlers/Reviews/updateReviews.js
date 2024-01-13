@@ -12,7 +12,6 @@ const updateReviewHandler = async (req,res) => {
             updateReview
         })
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ error: "Error al actualizar Reseña"})
     }
 };

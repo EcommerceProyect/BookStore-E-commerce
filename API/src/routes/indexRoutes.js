@@ -73,6 +73,9 @@ const {
 const {
   getOrderByUserIdHandler,
 } = require("../handlers/Orders/getOrderByUserIdHandler");
+const {
+  getReviewsByProductId,
+} = require("../handlers/Reviews/getReviewsByProductId");
 
 const router = Router();
 
@@ -137,13 +140,14 @@ router.delete(
 
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
 router.get("/reviews", getAllReviewsHandler);
-router.post("/reviews", createProductReview);
-router.put("/reviews/:id", updateReviewHandler);
-router.delete("/reviews/:id", deleteReviewHandler);
+router.get("/reviews/:productId", getReviewsByProductId);
 router.get(
   "/reviews/average/:productId",
   getProductReviewsAverageRatingHandler
 );
+router.post("/reviews", createProductReview);
+router.put("/reviews/:id", updateReviewHandler);
+router.delete("/reviews/:id", deleteReviewHandler);
 
 //Creacion de User Momentanea
 

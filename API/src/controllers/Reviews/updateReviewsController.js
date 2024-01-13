@@ -8,7 +8,7 @@ const updateReviewController = async (id,rating) => {
             throw new Error("La reseña no existe");
         }
 
-        review.rating= rating;
+        review.update({rating});
 
         await review.save()
         

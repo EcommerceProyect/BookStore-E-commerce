@@ -15,10 +15,12 @@ function RatingStarsSetter(props) {
   const onPointerMove = (value) => setRatingValue(value);
   const handleRating = () => {
     if (ratingValue) {
-      console.log(productId, userId, ratingValue, orderId);
+      console.log(productId, userId, ratingValue, orderId,"Soy el producsasadaadaAAAAAA");
       dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
     }
-    dispatch(putRatingStars(ratingValue));
+
+    //Hago update del rating si es que el posteo falla
+    dispatch(putRatingStars(ratingValue,productId));
     // console.log(setRatingValue(ratingValue));
   };
 
