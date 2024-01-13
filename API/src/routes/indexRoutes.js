@@ -55,13 +55,31 @@ const {
 
 //rutas Reviews
 const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
-
+const { getAllReviewsHandler} = require("../handlers/Reviews/getReviews");
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+const { getReviewsByUserHandler } = require("../handlers/Reviews/getReviewsByUserHandler");
+const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler");
 
 //ruta Usuario temporal
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 
+//RUTAS DE SOFT DELETE Y RESTORE autor/editorial/genero/releaseddate/ISBN
+const {deleteAuthorHandler} = require("../handlers/SoftDelete/deleteAuthor");
+const {deleteEditorialHandler} = require("../handlers/SoftDelete/deleteEditorial");
+const{deleteGenreHandler} = require("../handlers/SoftDelete/deleteGenre");
+const{deleteReleasedDateHandler} = require("../handlers/SoftDelete/deleteReleasedDate");
+const{deleteISBNHandler} = require("../handlers/SoftDelete/deleteISBN");
+
+const{restoreAuthorHandler} = require("../handlers/Restore/restoreAuthor");
+const {restoreEditorialHandler} = require("../handlers/Restore/restoreEditorial");
+const {restoreGenreHandler} = require("../handlers/Restore/restoreGenre");
+const {restoreReleasedDateHandler} = require("../handlers/Restore/restoreReleasedDate");
+const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 
 
 const router = Router();
@@ -76,30 +94,21 @@ router.get("/ISBNs", getISBNs);
 
 // router.get("/user",getUser());
 
-//delete product
+
 router.get("/products/search", getProductsForSearchHandler);
 router.post("/products", createProduct);
-router.post("/orders", createOrderHandler);
-
 router.get("/products", getProducts);
-router.get("/orders", getOrdersHandler);
-
 router.get("/products/:id", getProductByIdHandler);
-
 router.put("/products/:id", updateProductHandler);
 router.put("/user/:id", updateUserHandler);
-
 router.put("/author/:id", updateAuthorHandler);
 router.put("/genre/:id", updateGenreHandler);
 router.put("/editorial/:id", updateEditorialHandler);
 router.put("/releasedDate/:id", updateReleasedDateHandler);
 router.put("/ISBN/:id", updateISBNHandler);
-
-router.put("/orders/:id", updateOrderHandler);
-
 router.delete("/products/:id", deleteProduct);
 router.delete("/user/:id", deleteUserHandler);
-router.delete("/orders/:id", deleteOrderHandler);
+
 
 //Users
 
@@ -113,6 +122,10 @@ router.delete("/user/:id", deleteUserHandler);
 //RUTA DE ORDENES
 
 router.get("/orders/:id",getOrderByUserIdHandler);
+router.delete("/orders/:id", deleteOrderHandler);
+router.put("/orders/:id", updateOrderHandler);
+router.get("/orders", getOrdersHandler);
+router.post("/orders", createOrderHandler);
 
 //RUTAS DEL CARRITO
 
@@ -127,14 +140,33 @@ router.delete(
 //RUTAS REVIEWS
 
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
-
-
+router.get("/reviews", getAllReviewsHandler);
+router.post("/reviews",createProductReview);
+router.put("/reviews/:id", updateReviewHandler);
+router.delete("/reviews/:id", deleteReviewHandler);
+router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
+router.get("/reviewsByUser/:userId", getReviewsByUserHandler)
+router.put("/restoreReview/:reviewId", restoreReviewHandler);
 
 //Creacion de User Momentanea
 
 router.post("/usersPrueba", postUserPruebaController);
 
+//RUTAS DE SOFT DELETE Y RESTORE author/editorial/genero/releaseddate/ISBN
+router.delete("/authorDelete/:id",deleteAuthorHandler)
+router.delete("/editorialDelete/:id",deleteEditorialHandler)
+router.delete("/genreDelete/:id",deleteGenreHandler)
+router.delete("/releasedDateDelete/:id",deleteReleasedDateHandler)
+router.delete("/ISBNDelete/:name",deleteISBNHandler)
+
+router.put("/authorRestore/:id",restoreAuthorHandler)
+router.put("/editorialRestore/:id",restoreEditorialHandler)
+router.put("/genreRestore/:id",restoreGenreHandler)
+router.put("/releasedDateRestore/:id",restoreReleasedDateHandler)
+router.put("/ISBNRestore/:name",restoreISBNHandler)
+
 
 module.exports = router;
+
 
 
