@@ -1,12 +1,14 @@
 // userSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const initialState = {
   userData: null,
   users: [],
   loading: false,
   error: null,
+  userActiveLoading: false,
+  userActiveSuccess: false,
+  userActiveError: null,
 };
 
 const userSlice = createSlice({
@@ -31,8 +33,34 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    userActiveStart(state) {
+      state.userActiveLoading = true;
+      state.userActiveSuccess = false;
+      state.userActiveError = null;
+    },
+    userActiveSuccess(state) {
+      state.userActiveLoading = false;
+      state.userActiveSuccess = true;
+      state.userActiveError = null;
+    },
+    userActiveFailure(state, action) {
+      state.userActiveLoading = false;
+      state.userActiveSuccess = false;
+      state.userActiveError = action.payload;
+    },
   },
 });
 
-export const { setUserData, clearUserData, userAdminStart, userAdminSuccess, userAdminFailure } = userSlice.actions;
+export const {
+  setUserData,
+  clearUserData,
+  userAdminStart,
+  userAdminSuccess,
+  userAdminFailure,
+  userActiveStart,
+  userActiveSuccess,
+  userActiveFailure,
+} = userSlice.actions;
+
 export default userSlice.reducer;

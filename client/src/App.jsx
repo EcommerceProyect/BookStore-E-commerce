@@ -24,7 +24,7 @@ import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
 import { debounce, isEmpty } from 'lodash';
 import EditBook from './components/createBook/EditBook';
-import { getUserId } from './redux/slices/user';
+
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
