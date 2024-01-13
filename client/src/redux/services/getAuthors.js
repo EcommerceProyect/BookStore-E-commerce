@@ -10,8 +10,8 @@ export const fetchAuthors = () => async (dispatch) => {
   dispatch(setAuthorListLoading()); 
   
   try {
-    const response = await axios.get(apiUrl);
-    const authors = response.data.map((author) => author.name);
+    const {data} = await axios.get(apiUrl);
+    const authors = data.data.map((author) => author.name);
     dispatch(setAuthorList(authors)); 
     
   } catch (error) {

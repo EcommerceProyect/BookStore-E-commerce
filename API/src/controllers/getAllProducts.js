@@ -1,5 +1,6 @@
 const { Products,Author,Editorial,Genre,ISBN,ReleasedDate } = require("../db");
-const itemPerPage = 4;
+require("dotenv").config();
+const {LIMIT_PRODUCTS} = process.env
 
 const getAllProducts = async () => {
 
@@ -18,7 +19,7 @@ const getAllProducts = async () => {
         });
 
         const data = {
-            totalPages: Math.ceil(count / itemPerPage),
+            totalPages: Math.ceil(count / LIMIT_PRODUCTS),
             numberOfResults: count,
             data: response.rows,
           };

@@ -8,13 +8,19 @@ const getEditorialController = async (page) => {
 
     try {
         
+        const {count} = await Editorial.findAndCountAll();
+
         const response = await Editorial.findAll({
             offset,
             limit:itemPerPage,
             attributes:["name","id"],
         })
 
-        return response;
+        return {
+            totalPages: Math.ceil(count / itemPerPage),
+            numberOfResults: count,
+            data:response
+        };
 
     } catch (error) {
         return error;

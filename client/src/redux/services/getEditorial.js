@@ -10,8 +10,8 @@ export const fetchEditorial = () => async (dispatch) => {
   dispatch(setEditorialListLoading()); 
   
   try {
-    const response = await axios.get(apiUrl);
-    const editorial = response.data.map((editorial) => editorial.name);
+    const {data} = await axios.get(apiUrl);
+    const editorial = data.data.map((editorial) => editorial.name);
     dispatch(setEditorialList(editorial)); 
     
   } catch (error) {

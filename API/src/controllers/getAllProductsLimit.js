@@ -2,10 +2,12 @@ const { Products,Author,Genre,ISBN,ReleasedDate,Editorial } = require("../db");
 
 //toma todos los productos pero trae solo los primeros 20 segun la pagina que se encuentre
 
-const itemPerPage = 2;// la cantidad de items que se mandaran a partir de la pagina que este posicionado
+require("dotenv").config();
+const {LIMIT_PRODUCTS} = process.env// la cantidad de items que se mandaran a partir de la pagina que este posicionado
 
 const getAllProductsLimit = async (page) => {
 
+    const itemPerPage = LIMIT_PRODUCTS;
     const offset = page*itemPerPage;
 
     try {
@@ -14,7 +16,7 @@ const getAllProductsLimit = async (page) => {
 
         const response = await Products.findAndCountAll({
             offset,
-            limit:itemPerPage,
+            limit:LIMIT_PRODUCTS,
             include: [
                 { model: Author, as: 'Authors' },
                 { model: ReleasedDate, as: 'ReleasedDate' },  

@@ -1,20 +1,28 @@
 const { Author } = require("../../db")
 
-const itemPerPage=50;
+require("dotenv").config();
+const {LIMIT_ITEMS} = process.env
+
+const itemPerPage=LIMIT_ITEMS;
 
 const getAuthorsController = async (page) => {
 
     const offset = page*itemPerPage;
 
     try {
-        
+        const {count} = await Author.findAndCountAll();
+
         const response = await Author.findAll({
             offset,
             limit:itemPerPage,
             attributes:["name","id"],
         })
 
-        return response;
+        return {
+            totalPages: Math.ceil(count / itemPerPage),
+            numberOfResults: count,
+            data:response
+        };
 
     } catch (error) {
         return error;

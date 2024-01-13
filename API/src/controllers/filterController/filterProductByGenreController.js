@@ -1,6 +1,9 @@
 const { Products,Author,Editorial,Genre,ISBN,ReleasedDate,GenreProducts } = require("../../db");
 
-const itemPerPage = 2;
+require("dotenv").config();
+const {LIMIT_PRODUCTS} = process.env
+
+const itemPerPage = LIMIT_PRODUCTS;
 
 const filterProductByGenreController = async (genre,page) => {
     
