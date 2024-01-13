@@ -7,6 +7,10 @@ module.exports = (sequelize) =>{
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
+        userId:{
+            type:DataTypes.STRING,
+            allowNull: false,
+        },
         rating:{
             type: DataTypes.INTEGER,
             allowNull: false,
