@@ -27,6 +27,21 @@ const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
 const {
   getProductReviewsAverageRatingHandler
 } = require("../handlers/Reviews/getReviewsAverage");
+const {
+  updateGenreHandler
+} = require("../handlers/UpdateInfoHandler/updateGenreHandler");
+const {
+  updateAuthorHandler
+} = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
+const {
+  updateEditorialHandler
+} = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
+const {
+  updateReleasedDateHandler
+} = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+const {
+  updateISBNHandler
+} = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 
 router.use(cors());
 
