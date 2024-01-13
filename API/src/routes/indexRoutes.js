@@ -92,10 +92,10 @@ router.get("/ISBNs", getISBNs);
 //delete product
 router.get("/products/search", getProductsForSearchHandler);
 router.post("/products", createProduct);
-router.post("/orders", createOrderHandler);
+
 
 router.get("/products", getProducts);
-router.get("/orders", getOrdersHandler);
+
 
 router.get("/products/:id", getProductByIdHandler);
 
@@ -108,23 +108,27 @@ router.put("/editorial/:id", updateEditorialHandler);
 router.put("/releasedDate/:id", updateReleasedDateHandler);
 router.put("/ISBN/:id", updateISBNHandler);
 
-router.put("/orders/:id", updateOrderHandler);
+
 
 router.delete("/products/:id", deleteProduct);
 router.delete("/user/:id", deleteUserHandler);
-router.delete("/orders/:id", deleteOrderHandler);
+
 
 //Users
 
 router.get("/user", getUser_Token);
 
 //prueba rutas Users de Gena
+
 router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
 //RUTA DE ORDENES
-
-router.get("/orders/:id", getOrderByUserIdHandler);
+router.get("/orders", getOrdersHandler);
+router.post("/orders", createOrderHandler);
+router.get("/orders/:id?",getOrderByUserIdHandler);
+router.put("/orders/:id", updateOrderHandler);
+router.delete("/orders/:id", deleteOrderHandler);
 
 //RUTAS DEL CARRITO
 
@@ -137,15 +141,9 @@ router.delete(
 );
 
 //RUTAS REVIEWS
-
-router.get("/userBuyedProduct", getUserBuyedProductHandler);
 router.get("/reviews", getAllReviewsHandler);
-router.get("/reviews/:productId", getReviewsByProductId);
-router.get(
-  "/reviews/average/:productId",
-  getProductReviewsAverageRatingHandler
-);
-router.post("/reviews", createProductReview);
+router.get("/userBuyedProduct", getUserBuyedProductHandler);
+router.post("/reviews",createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 
