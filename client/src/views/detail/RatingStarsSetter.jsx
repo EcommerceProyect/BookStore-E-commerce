@@ -20,7 +20,7 @@ function RatingStarsSetter(props) {
     }
 
     //Hago update del rating si es que el posteo falla
-    dispatch(putRatingStars(ratingValue,productId));
+    dispatch(putRatingStars(ratingValue,productId,userId));
     // console.log(setRatingValue(ratingValue));
   };
 
