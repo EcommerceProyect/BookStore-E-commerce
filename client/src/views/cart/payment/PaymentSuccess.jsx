@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { API_BOOKS } from '../../../vars';
-
 import {
   API_BOOKS,APIDOMAIN
 } from "../../../vars";
