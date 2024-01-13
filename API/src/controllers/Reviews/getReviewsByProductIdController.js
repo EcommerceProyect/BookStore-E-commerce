@@ -3,18 +3,18 @@ const { Productreview } = require("../../db");
 const getReviewsByProductIdController = async (productId) => {
   try {
     const allReviews = await Productreview.findOne({
-      where:{
-        ProductId:productId
-      }
+      where: {
+        ProductId: productId,
+      },
     });
 
-    return allReviews
+    return allReviews;
   } catch (error) {
     console.error(error);
-    throw new Error(`No se pudo obtener la reseña. Detalle del error: ${error.message}`);
+    throw new Error(
+      `No se pudo obtener la reseña. Detalle del error: ${error.message}`
+    );
   }
 };
-
-
 
 module.exports = { getReviewsByProductIdController };

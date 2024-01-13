@@ -49,15 +49,15 @@ const PaymentSuccess = () => {
   };
 
   return (
-    <div className="bg-textGray absolute h-screen w-screen">
+    <div className="bg-teal-400 absolute h-screen w-screen">
       <div className=" bg-textLight font-montserrat text-lg flex flex-col relative top-20 items-center p-4 m-4 border border-black shadow-md rounded-lg">
-        <div className="flex m-2 p-2 w-full items-center gap-10 bg-teal-400 z-10">
+        <div className="flex m-2 p-2 w-full items-center gap-10">
           <img src={Logo} alt="Logo" className="invert" />
           <h1 className="font-bold text-2xl">
             Factura de compra N° {order ? order.id : ''}
           </h1>
         </div>
-        <div className="flex flex-col items-center m-4 p-4 bg-teal-400 z-10">
+        <div className="flex flex-col items-center m-4 p-4">
           <h4>Productos:</h4>
           {products
             ? products.map((product, index) => (
@@ -77,7 +77,7 @@ const PaymentSuccess = () => {
           <h4>Dirección de envío: {order ? order.shippingAddress : ''}</h4>
           <h4 className="font-bold">¡ Gracias por su compra !</h4>
           <button
-            // onClick={() => navigate('/')}
+            onClick={() => navigate('/')}
             className="text-white bg-accents p-2 rounded-lg mt-4 shadow-md shadow-black transition-all active:translate-y-1"
           >
             Página principal

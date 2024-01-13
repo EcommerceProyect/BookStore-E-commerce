@@ -15,19 +15,25 @@ function RatingStarsSetter(props) {
   const onPointerMove = (value) => setRatingValue(value);
   const handleRating = () => {
     if (ratingValue) {
-      console.log(productId, userId, ratingValue, orderId,"Soy el producsasadaadaAAAAAA");
       dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
     }
+    dispatch(putRatingStars(ratingValue, productId));
 
+    console.log(
+      productId,
+      userId,
+      ratingValue,
+      orderId,
+      'Soy el producsasadaadaAAAAAA',
+    );
     //Hago update del rating si es que el posteo falla
-    dispatch(putRatingStars(ratingValue,productId));
     // console.log(setRatingValue(ratingValue));
-  };
+    // };
 
-  // restablecer la calificación
-  //const handleReset = () => {
-  //  setRatingValue(0);
-  //};
+    // restablecer la calificación
+    //const handleReset = () => {
+    //  setRatingValue(0);
+  };
 
   return (
     <div className="grid border p-4 m-4 rounded-md w-full justify-items-center">
@@ -35,6 +41,14 @@ function RatingStarsSetter(props) {
       <Rating
         readonly={false}
         onClick={handleRating}
+        // onClick={
+        // ratingValue
+        //   ? () =>
+        //       dispatch(
+        //         postRatingStars({ productId, userId, ratingValue, orderId }),
+        //       )
+        //   : () => dispatch(putRatingStars(ratingValue, productId))
+        // }
         initialValue={ratingValue}
         SVGstyle={{ display: 'inline-block' }}
         onPointerMove={onPointerMove}

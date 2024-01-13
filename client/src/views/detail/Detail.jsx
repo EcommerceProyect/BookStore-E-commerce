@@ -17,7 +17,7 @@ import { API_BOOKS } from '../../vars';
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
-  const [orderId, setOrderId] = useState("");
+  const [orderId, setOrderId] = useState('');
   // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
   // const userId = useSelector((state) => state.userData.userData.response.id);
   const userId = useSelector((state) => state.userData.userData?.response.id);
@@ -61,22 +61,22 @@ function Detail() {
     const getOrder = async () => {
       try {
         let contador = 0;
-        let aux = "";
-    
-        while (aux === "") {
+        let aux = '';
+
+        while (aux === '') {
           const { data } = await axios.get(
             `${API_BOOKS}/ebook/orders/${userId}?page=${contador}`,
           );
-    
+
           if (!data.orders) return false;
           console.log('data', data.orders);
-    
+
           data.orders.forEach((order) => {
             const exist = order.OrderDetail.find(
               (detail) => detail.ProductId == id,
             );
-            console.log('algo', (exist || "a"));
-    
+            console.log('algo', exist || 'a');
+
             if (exist) {
               aux = order.order.id;
               console.log('bandera', aux);
@@ -85,10 +85,9 @@ function Detail() {
           });
           contador++;
         }
-        
+
         setOrderId((prevOrderId) => aux || prevOrderId);
         console.log('OrderId', orderId);
-        
 
         // const orders = data.orders;
         // const userOrders = orders.filter(
@@ -114,7 +113,7 @@ function Detail() {
     };
 
     getOrder();
-  }, [id, dispatch, userId,orderId]);
+  }, [id, dispatch, userId, orderId]);
 
   // const getOrders = async (userId) => {
   //   try {
