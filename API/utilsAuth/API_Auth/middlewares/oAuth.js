@@ -20,12 +20,16 @@ let oAuth = async (req, res, next) => {
   params.append("client_id", `${CLIENT_ID}`);
   params.append("client_secret", `${CLIENT_SECRET}`);
   params.append("code", code);
-  params.append("scope", "user:edit read:roles update:users create:role_members");
+  params.append(
+    "scope",
+    "user:edit read:roles update:users create:role_members"
+  );
   params.append("redirect_uri", `${REDIRECT_URI}`);
 
   axios
     .post(tokenEndpoint, params)
     .then((response) => {
+      console.log(response);
       req.oauth = response.data;
       next();
     })
