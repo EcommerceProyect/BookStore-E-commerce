@@ -5,9 +5,7 @@ import {
   setProductListLoading,
   setProductListError,
 } from '../slices/products';
-import {
-  API_BOOKS
-} from '../../vars';
+import { API_BOOKS } from '../../vars';
 
 const apiUrl = `${API_BOOKS}/ebook/products`;
 // const apiUrl = 'http://localhost:3002/ebook/products';
@@ -46,7 +44,7 @@ export const getProducts =
       }
 
       if (booksByTitle && booksByTitle.length > 0) {
-        const titleParams = `title=${encodeURIComponent(booksByTitle)}&`
+        const titleParams = `title=${encodeURIComponent(booksByTitle)}&`;
         queryParams.push(titleParams);
       }
 
@@ -68,7 +66,6 @@ export const getProducts =
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
-     
     } catch (error) {
       dispatch(setProductListError(error.message));
     }
