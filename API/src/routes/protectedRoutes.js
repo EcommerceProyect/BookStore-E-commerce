@@ -11,12 +11,14 @@ const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
 const { updateProductHandler } = require("../handlers/updateProduct");
-const {
-  getOrderByUserIdHandler
-} = require("../handlers/Orders/getOrderByUserIdHandler");
-const {
-  asingRoleToUserHandler
-} = require("../handlers/Users/asingRoleToUserHandler");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
+const { asingRoleToUserHandler } = require("../handlers/Users/asingRoleToUserHandler");
+const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
+const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 
 router.use(cors());
 
@@ -130,5 +132,21 @@ router.get(
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
 );
+
+//Reviews
+
+router.get("/authorized/userBuyedProduct", checkPermissions(["user:edit"]),
+getUserBuyedProductHandler);
+router.get("/authorized/reviews",checkPermissions(["user:edit"]),
+ getAllReviewsHandler);
+router.post("/authorized/reviews",checkPermissions(["user:edit"]),
+createProductReview);
+router.put("/authorized/reviews/:id", checkPermissions(["user:edit"]),
+updateReviewHandler);
+router.delete("/authorized/reviews/:id", checkPermissions(["admin:edit"]),
+deleteReviewHandler);
+router.get("/authorized/reviews/average/:productId", checkPermissions(["user:edit"]),
+getProductReviewsAverageRatingHandler);
+
 
 module.exports = router;
