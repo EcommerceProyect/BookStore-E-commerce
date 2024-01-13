@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const { Orders, Cart, CartDetail } = require("../../db");
 require("dotenv").config();
 const { LIMIT_USERS } = process.env;
@@ -24,14 +23,9 @@ const getOrderByUserIdController = async (id, page) => {
           }
         });
 
-        const ordersProducts = await Promise.all(orders.map(async (order) => {
-
-            const response = await CartDetail.findAll({
-                where:{
-                    CartId:order.Cart.id,
-                },
-            });
-
+        return response;
+      })
+    );
 
     return ordersProducts;
   } catch (error) {
