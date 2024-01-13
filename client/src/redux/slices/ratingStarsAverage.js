@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { API_BOOKS } from '../../vars';
+
 const initialState = {
   ratingAverage: [],
   newRating: [],
@@ -23,7 +25,8 @@ export const ratingStarsSlice = createSlice({
   },
 });
 
-export const { setRatingAverage, setNewRating, setUserBuyedProduct } = ratingStarsSlice.actions;
+export const { setRatingAverage, setNewRating, setUserBuyedProduct } =
+  ratingStarsSlice.actions;
 
 export default ratingStarsSlice.reducer;
 
@@ -32,7 +35,7 @@ export const getUserBuyedProduct = async (userId, id) => {
     const token = localStorage.getItem('actualT');
     if (token) {
       const response = await axios.get(
-        `http://localhost:3002/ebook/userBuyedProduct?userId=${userId}&productId=${id}`,
+        `${API_BOOKS}/ebook/userBuyedProduct?userId=${userId}&productId=${id}`,
       );
       console.log('response', response.data);
       return response.data;

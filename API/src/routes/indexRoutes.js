@@ -84,6 +84,13 @@ const {restoreReleasedDateHandler} = require("../handlers/Restore/restoreRelease
 const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 
 
+//ruta Usuario temporal
+
+
+const {
+  getReviewsByProductId,
+} = require("../handlers/Reviews/getReviewsByProductId");
+
 const router = Router();
 
 router.get("/products/filterPrueba", (req, res) => filterProducts(req, res));
@@ -142,7 +149,12 @@ router.delete(
 
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
 router.get("/reviews", getAllReviewsHandler);
-router.post("/reviews",createProductReview);
+router.get("/reviews/:productId", getReviewsByProductId);
+router.get(
+  "/reviews/average/:productId",
+  getProductReviewsAverageRatingHandler
+);
+router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
@@ -169,5 +181,3 @@ router.put("/ISBNRestore/:name",restoreISBNHandler)
 
 
 module.exports = router;
-
-

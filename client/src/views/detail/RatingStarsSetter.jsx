@@ -1,25 +1,39 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Rating } from 'react-simple-star-rating';
-import { postRatingStars } from '../../redux/services/postRatingStars';
+import {
+  postRatingStars,
+  putRatingStars,
+} from '../../redux/services/postRatingStars';
 
 function RatingStarsSetter(props) {
   const dispatch = useDispatch();
-  const [ratingValue, setRatingValue] = useState(0);
+  const [ratingValue, setRatingValue] = useState(null);
   const { productId, userId, orderId } = props;
 
   //actualizar el valor de la calificación
   const onPointerMove = (value) => setRatingValue(value);
   const handleRating = () => {
-    console.log(productId, userId, ratingValue, orderId);
-    dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
-    // console.log(setRatingValue(ratingValue));
-  };
+    if (ratingValue) {
+      dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
+    }
 
-  // restablecer la calificación
-  //const handleReset = () => {
-  //  setRatingValue(0);
-  //};
+    console.log(
+      productId,
+      userId,
+      ratingValue,
+      orderId,
+      'Soy el producsasadaadaAAAAAA',
+    );
+    //Hago update del rating si es que el posteo falla
+    dispatch(putRatingStars(ratingValue, productId, userId));
+    // console.log(setRatingValue(ratingValue));
+    // };
+
+    // restablecer la calificación
+    //const handleReset = () => {
+    //  setRatingValue(0);
+  };
 
   return (
     <div className="grid border p-4 m-4 rounded-md w-full justify-items-center">

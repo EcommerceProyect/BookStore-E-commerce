@@ -13,7 +13,6 @@ function RatingStarsAverage(productId) {
       try {
         const starsAverage = await getRatingStarsAverage(productId);
         console.log('el promedio es', starsAverage.data.averageRating);
-        console.log('hola', ratingValue.data.averageRating);
         setRatingValue(starsAverage);
       } catch (error) {
         console.log(error.message);
@@ -21,16 +20,6 @@ function RatingStarsAverage(productId) {
     };
     showAverage();
   }, [productId]);
-
-  //actualizar el valor de la calificación
-  const handleRating = (rate) => {
-    setRatingValue(rate);
-  };
-
-  // restablecer la calificación
-  const handleReset = () => {
-    setRatingValue(0);
-  };
 
   return (
     <Rating

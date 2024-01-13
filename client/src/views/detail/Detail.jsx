@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails } from '../../redux/services/getProductDetail';
@@ -10,31 +11,24 @@ import {
 import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
-// import { isPurchased } from '../../redux/slices/ratingStarsAverage';
+import { API_BOOKS } from '../../vars';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
-  const [orderId, setOrderId] = useState(null);
-  // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
-  // const userId = useSelector((state) => state.userData.userData.response.id);
+  const [orderId, setOrderId] = useState('');
   const userId = useSelector((state) => state.userData.userData?.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
-    // if (id) {
-    //   dispatch(setProductDetailLoading());
-    //   dispatch(getProductDetails(id));
-    // }
     const fetchData = async () => {
       try {
         dispatch(setProductDetailLoading());
         dispatch(getProductDetails(id));
 
         //obtener si el usuario ya ha comprado el producto
-        // isPurchased(userId, id);
         const { success } = await getUserBuyedProduct(userId, id);
 
         if (success) {
@@ -44,9 +38,6 @@ function Detail() {
           setUserBuyedProduct(false);
           console.log('userBuyedProduct', userBuyedProduct);
         }
-
-        // setUserBuyedProduct(await getUserBuyedProduct(userId, id));
-        // console.log('userBuyedProduct', userBuyedProduct.data);
       } catch (error) {
         dispatch(setProductDetailError(error.message));
       }
@@ -56,19 +47,43 @@ function Detail() {
       fetchData();
     }
 
-    getOrder();
-  }, [id, dispatch, userId]);
+    const getOrder = async () => {
+      try {
+        let contador = 0;
+        let aux = '';
 
-  const getOrder = async () => {
-    try {
-      const { data } = await axios.get(
-        'http://localhost:3002/ebook/orders?page=0',
-      );
-      console.log(setOrderId(data));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+        while (aux === '') {
+          const { data } = await axios.get(
+            `${API_BOOKS}/ebook/orders/${userId}?page=${contador}`,
+          );
+
+          if (!data.orders) return false;
+          console.log('data', data.orders);
+
+          data.orders.forEach((order) => {
+            const exist = order.OrderDetail.find(
+              (detail) => detail.ProductId == id,
+            );
+            console.log('algo', exist || 'a');
+
+            if (exist) {
+              aux = order.order.id;
+              console.log('bandera', aux);
+              return false;
+            }
+          });
+          contador++;
+        }
+
+        setOrderId((prevOrderId) => aux || prevOrderId);
+        console.log('OrderId', orderId);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getOrder();
+  }, [id, dispatch, userId, orderId]);
 
   return (
     <div>
@@ -189,7 +204,11 @@ function Detail() {
                 </button> */}
               </div>
               {userBuyedProduct ? (
-                <RatingStarsSetter productId={id} userId={userId} />
+                <RatingStarsSetter
+                  productId={id}
+                  userId={userId}
+                  orderId={orderId}
+                />
               ) : (
                 'No has adquitado este libro.'
               )}
