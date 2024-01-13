@@ -67,13 +67,12 @@ const {
 
 //ruta Usuario temporal
 
-const {
-  postUserPruebaController,
-} = require("../controllers/MercadoPago/postUserPruebaController");
-const {
-  getOrderByUserIdHandler,
-} = require("../handlers/Orders/getOrderByUserIdHandler");
+const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 const { getReviewsByProductId } = require("../handlers/Reviews/getReviewsByProductId");
+
+
+
 
 const router = Router();
 
@@ -150,5 +149,7 @@ router.delete("/reviews/:id", deleteReviewHandler);
 //Creacion de User Momentanea
 
 router.post("/usersPrueba", postUserPruebaController);
+
+
 
 module.exports = router;

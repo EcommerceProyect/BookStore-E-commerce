@@ -22,6 +22,7 @@ import PaymentFailure from './views/cart/payment/PaymentFailure';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
+import UpdateProfile from './views/profile/updateProfile';
 import { debounce, isEmpty } from 'lodash';
 
 function App() {
@@ -39,8 +40,6 @@ function App() {
     }
   }, [userData]);
 
-
-  
   const createCartFn = debounce((userId) => {
     dispatch(createCart(userId || ''));
   }, 500);
@@ -94,10 +93,14 @@ function App() {
 
           <Routes>
             {/* auth */}
-            <Route path="/redirect" Component={RegisterAuth} />
+            <Route
+              path="/redirect"
+              element={<RegisterAuth openLoginModal={openLoginModal} />}
+            />
             {/* auth */}
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/edit" element={<UpdateProfile />} />
             <Route path="/products" element={<Products />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<LoginModal />} />
