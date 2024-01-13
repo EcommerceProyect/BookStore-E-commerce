@@ -27,3 +27,23 @@ export const postRatingStars = ({
     }
   };
 };
+
+export const putRatingStars = (rating) => {
+  return async (dispatch) => {
+    try {
+      const data = {
+        rating: rating,
+      };
+      const id = (await axios.get(`${API_BOOKS}/ebook/reviews/`)).data
+        .reviews[0].id;
+      const response = await axios.put(
+        `${API_BOOKS}/ebook/reviews/${id}`,
+        data,
+      );
+      dispatch(setNewRating());
+      return response;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};

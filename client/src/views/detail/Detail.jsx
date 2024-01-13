@@ -11,12 +11,13 @@ import {
 import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
+import { API_BOOKS } from '../../vars';
 // import { isPurchased } from '../../redux/slices/ratingStarsAverage';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
-  const [orderId, setOrderId] = useState(null);
+  const [orderId, setOrderId] = useState({});
   // const { userBuyedProduct } = useSelector((state) => state.ratingStarsAverage);
   // const userId = useSelector((state) => state.userData.userData.response.id);
   const userId = useSelector((state) => state.userData.userData?.response.id);
@@ -57,21 +58,70 @@ function Detail() {
       fetchData();
     }
 
+    const getOrder = async () => {
+      try {
+        let contador = 0;
+        while (true) {
+          const { data } = await axios.get(
+            `${API_BOOKS}/ebook/orders/${userId}?page=${contador++}`,
+          );
+
+          if (data.orders === undefined) return false;
+          console.log('data', data.orders);
+          data.orders.forEach((order) => {
+            const exist = order.OrderDetail.find(
+              (detail) => detail.ProductId === id,
+            );
+            console.log('algo', exist);
+            if (exist) {
+              setOrderId(exist.id);
+              console.log('bandera', orderId);
+              return false;
+            }
+          });
+        }
+
+        const orders = data.orders;
+
+        // const orders = data.orders;
+        // const userOrders = orders.filter(
+        //   (order) => order.Cart?.UserId === userId,
+        // );
+
+        // if (userOrders) {
+        //   const userOrdersId = userOrders.map((order) => order.id);
+        //   console.log(
+        //     `soy el usuario ${userId} y mis ordenes son`,
+        //     userOrdersId,
+        //   );
+        //   setOrderId(userOrdersId);
+        // }
+
+        // console.log('Orders', orderId);
+
+        // console.log(`soy el usuario ${userId} y mis ordenes son`, userOrders);
+        // setOrderId(data.orders[0].id);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     getOrder();
   }, [id, dispatch, userId]);
 
-  const getOrder = async () => {
-    try {
-      const { data } = await axios.get(
-        'http://localhost:3002/ebook/orders?page=0',
-      );
-      setOrderId(data.orders[1].id);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  // const getOrders = async (userId) => {
+  //   try {
+  //     const { data } = await axios.get(`${API_BOOKS}/ebook/orders?page=0`);
 
-  // console.log('hola', orderId, id, userId);
+  //     const orders = data.orders?.Cart;
+
+  //     console.log('Soy el usuario', orders);
+  //     setOrderId(data.orders);
+  //     // console.log(`Las ordendes del usuario ${userId} son`, orders);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
   return (
     <div>
