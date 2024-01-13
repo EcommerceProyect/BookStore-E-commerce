@@ -1,25 +1,89 @@
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails } from '../../redux/services/getProductDetail';
+import getUserBuyedProduct from '../../redux/services/getUserBuyedProduct';
 import {
   setProductDetailLoading,
   setProductDetail,
   setProductDetailError,
 } from '../../redux/slices/products';
 import { useParams } from 'react-router-dom';
+import RatingStarsAverage from './RatingStarsAverage';
+import RatingStarsSetter from './RatingStarsSetter';
+import { API_BOOKS } from '../../vars';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
+  const [userBuyedProduct, setUserBuyedProduct] = useState(false);
+  const [orderId, setOrderId] = useState('');
+  const userId = useSelector((state) => state.userData.userData?.response.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        dispatch(setProductDetailLoading());
+        dispatch(getProductDetails(id));
+
+        //obtener si el usuario ya ha comprado el producto
+        const { success } = await getUserBuyedProduct(userId, id);
+
+        if (success) {
+          setUserBuyedProduct(true);
+          console.log('userBuyedProduct', userBuyedProduct);
+        } else {
+          setUserBuyedProduct(false);
+          console.log('userBuyedProduct', userBuyedProduct);
+        }
+      } catch (error) {
+        dispatch(setProductDetailError(error.message));
+      }
+    };
+
     if (id) {
-      dispatch(setProductDetailLoading());
-      dispatch(getProductDetails(id));
+      fetchData();
     }
-  }, [id, dispatch]);
+
+    const getOrder = async () => {
+      try {
+        let contador = 0;
+        let aux = '';
+
+        while (aux === '') {
+          const { data } = await axios.get(
+            `${API_BOOKS}/ebook/orders/${userId}?page=${contador}`,
+          );
+
+          if (!data.orders) return false;
+          console.log('data', data.orders);
+
+          data.orders.forEach((order) => {
+            const exist = order.OrderDetail.find(
+              (detail) => detail.ProductId == id,
+            );
+            console.log('algo', exist || 'a');
+
+            if (exist) {
+              aux = order.order.id;
+              console.log('bandera', aux);
+              return false;
+            }
+          });
+          contador++;
+        }
+
+        setOrderId((prevOrderId) => aux || prevOrderId);
+        console.log('OrderId', orderId);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getOrder();
+  }, [id, dispatch, userId, orderId]);
 
   return (
     <div>
@@ -39,6 +103,9 @@ function Detail() {
                 {detailProduct?.Authors.map((author) => author.name) ||
                   'Autor no disponible.'}
               </h2>
+              <div>
+                <RatingStarsAverage productId={id} />
+              </div>
               {/* Estrellas de calificación
               <div class="flex mb-4">
                 <span class="flex items-center">
@@ -136,6 +203,15 @@ function Detail() {
                   </svg>
                 </button> */}
               </div>
+              {userBuyedProduct ? (
+                <RatingStarsSetter
+                  productId={id}
+                  userId={userId}
+                  orderId={orderId}
+                />
+              ) : (
+                'No has adquitado este libro.'
+              )}
             </div>
           </div>
         </div>
