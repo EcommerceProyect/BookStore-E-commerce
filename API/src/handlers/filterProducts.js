@@ -3,7 +3,8 @@ const {filterProductsController} = require("../controllers/filterProductsControl
 
 const filterProducts = async (req,res) => {
    try {
-    const {rDate,genre,author,editorial, title, isbn, page, sortField, sortAction} = req.query;
+    const {rDate,genre,author,editorial, title, isbn, page, sortField, sortAction,deleted} = req.query;
+    
     const filters = {
         genre,
         rDate,
@@ -18,7 +19,7 @@ const filterProducts = async (req,res) => {
     }
 
     const pageNumber = parseInt(page) || 0;
-    const response = await filterProductsController(filters,sort,pageNumber);
+    const response = await filterProductsController(filters,sort,pageNumber,deleted);
     res.status(200).json(response);
     
    } catch (error) {

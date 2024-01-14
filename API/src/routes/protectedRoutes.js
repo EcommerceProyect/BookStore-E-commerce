@@ -27,7 +27,6 @@ const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
 const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 const { restoreProduct } = require("../handlers/restoreProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
-const { getDandNoDProductsHandler } = require("../handlers/Products/getDandNoDProductsHandler");
 const {
   updateGenreHandler
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
@@ -156,12 +155,6 @@ deleteProduct)
 router.patch("/authorized/products/:id",
 checkPermissions(["admin:edit"]),
 restoreProduct);
-
-
-router.get("/authorized/allProducts",
-checkPermissions(["admin:edit"]),
-getDandNoDProductsHandler);
-
 
 //Orders
 
