@@ -22,13 +22,16 @@ function RatingStarsAverage(productId) {
   }, [productId]);
 
   return (
-    <Rating
-      readonly={true}
-      //{promedio de calificaciones}
-      initialValue={ratingValue.data.averageRating}
-      SVGstyle={{ display: 'inline-block' }}
-      size={25}
-    />
+    <div>
+      <Rating
+        readonly={true}
+        //{promedio de calificaciones}
+        initialValue={ratingValue.data.averageRating}
+        SVGstyle={{ display: 'inline-block' }}
+        size={25}
+      />
+      <p>{Number(ratingValue.data.averageRating)}</p>
+    </div>
   );
 }
 export default RatingStarsAverage;
