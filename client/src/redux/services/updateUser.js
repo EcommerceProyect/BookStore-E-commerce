@@ -9,10 +9,12 @@ export const updateUser = (userData) => {
       if (token) {
         console.log(userData.id);
         console.log(userData);
+
         const response = await axios.put(
           `${APIDOMAIN}/authorized/?route=users&token=${token}`,
           userData,
         );
+
         dispatch(updateUserData(userData));
         return response;
       } else {

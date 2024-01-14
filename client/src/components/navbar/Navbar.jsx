@@ -23,7 +23,7 @@ import handleLogout from '../Auth/handleLogout';
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cart } = useSelector((state) => state.products);
-  const userData = useSelector((state) => state.userData.userData);
+  const userData = useSelector((state) => state.userData?.userData);
 
   const [admin, setAdmin] = useState(
     userData && userData.scope === 'user:edit admin:edit',

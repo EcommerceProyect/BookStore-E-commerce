@@ -48,7 +48,7 @@ const RegisterAuth = ({ openLoginModal }) => {
   return (
     <div>
       {challengesData !== 'none' ? (
-        <div className="my-10 text-center h-[57vh] flex flex-col justify-center items-center">
+        <div className="my-10 text-center h-[61.4vh] flex flex-col justify-center items-center">
           <div className="text-6xl">
             <p className="mb-4">Bienvenido!</p>
             <p className="mb-4">Ya puedes iniciar sesión</p>

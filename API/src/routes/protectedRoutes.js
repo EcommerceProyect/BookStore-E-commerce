@@ -11,9 +11,15 @@ const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { activeUserHandler } = require("../handlers/Users/activeUserHandler");
 const { updateProductHandler } = require("../handlers/updateProduct");
-const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
-const { asingRoleToUserHandler } = require("../handlers/Users/asingRoleToUserHandler");
-const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
+const {
+  getOrderByUserIdHandler
+} = require("../handlers/Orders/getOrderByUserIdHandler");
+const {
+  asingRoleToUserHandler
+} = require("../handlers/Users/asingRoleToUserHandler");
+const {
+  getUserBuyedProductHandler
+} = require("../handlers/Reviews/getUserBuyedProductHandler");
 const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
 const { createProductReview } = require("../handlers/Reviews/createReviews");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
@@ -22,6 +28,21 @@ const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/g
 const { restoreProduct } = require("../handlers/restoreProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
 const { getDandNoDProductsHandler } = require("../handlers/Products/getDandNoDProductsHandler");
+const {
+  updateGenreHandler
+} = require("../handlers/UpdateInfoHandler/updateGenreHandler");
+const {
+  updateAuthorHandler
+} = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
+const {
+  updateEditorialHandler
+} = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
+const {
+  updateReleasedDateHandler
+} = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
+const {
+  updateISBNHandler
+} = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 
 router.use(cors());
 
@@ -152,17 +173,63 @@ router.get(
 
 //Reviews
 
-router.get("/authorized/userBuyedProduct", checkPermissions(["user:edit"]),
-getUserBuyedProductHandler);
-router.get("/authorized/reviews",checkPermissions(["user:edit"]),
-getAllReviewsHandler);
-router.post("/authorized/reviews",checkPermissions(["user:edit"]),
-createProductReview);
-router.put("/authorized/reviews/:id", checkPermissions(["user:edit"]),
-updateReviewHandler);
-router.delete("/authorized/reviews/:id", checkPermissions(["admin:edit"]),
-deleteReviewHandler);
-router.get("/authorized/reviews/average/:productId", checkPermissions(["user:edit"]),
-getProductReviewsAverageRatingHandler);
+router.get(
+  "/authorized/userBuyedProduct",
+  checkPermissions(["user:edit"]),
+  getUserBuyedProductHandler
+);
+router.get(
+  "/authorized/reviews",
+  checkPermissions(["user:edit"]),
+  getAllReviewsHandler
+);
+router.post(
+  "/authorized/reviews",
+  checkPermissions(["user:edit"]),
+  createProductReview
+);
+router.put(
+  "/authorized/reviews/:id",
+  checkPermissions(["user:edit"]),
+  updateReviewHandler
+);
+router.delete(
+  "/authorized/reviews/:id",
+  checkPermissions(["admin:edit"]),
+  deleteReviewHandler
+);
+router.get(
+  "/authorized/reviews/average/:productId",
+  checkPermissions(["user:edit"]),
+  getProductReviewsAverageRatingHandler
+);
+
+// entidades
+
+router.put(
+  "/authorized/genre/:id",
+  checkPermissions(["admin:edit"]),
+  updateGenreHandler
+);
+router.put(
+  "/authorized/author/:id",
+  checkPermissions(["admin:edit"]),
+  updateAuthorHandler
+);
+router.put(
+  "/authorized/editorial/:id",
+  checkPermissions(["admin:edit"]),
+  updateEditorialHandler
+);
+router.put(
+  "/authorized/releasedDate/:id",
+  checkPermissions(["admin:edit"]),
+  updateReleasedDateHandler
+);
+router.put(
+  "/authorized/ISBN/:id",
+  checkPermissions(["admin:edit"]),
+  updateISBNHandler
+);
 
 module.exports = router;

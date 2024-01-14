@@ -24,8 +24,8 @@ import { createCart } from './redux/slices/cartUsersTest';
 import Profile from './views/profile/Profile';
 import UpdateProfile from './views/profile/UpdateProfile';
 import { debounce, isEmpty } from 'lodash';
+import EditEntities from './views/dashboard/EditEntities';
 import EditBook from './components/createBook/EditBook';
-
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -113,6 +113,7 @@ function App() {
             <Route path="/carrito" element={<Cart />} />
             <Route path="/dashboard/createBook" element={<CreateProduct />} />
             <Route path="/dashboard/products" element={<ProductList />} />
+            <Route path="/dashboard/editEntities" element={<EditEntities />} />
              <Route path="/dashboard/editBook/:id" element={<EditBook />} />
           </Routes>
           <Footer />

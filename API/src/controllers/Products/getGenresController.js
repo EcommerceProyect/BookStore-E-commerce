@@ -1,4 +1,4 @@
-const { Genre } = require("../../db")
+const { Genre } = require("../../db");
 
 require("dotenv").config();
 
@@ -7,8 +7,7 @@ const {LIMIT_ITEMS} = process.env
 const itemPerPage = LIMIT_ITEMS;
 
 const getGenresController = async (page) => {
-
-    const offset = page*itemPerPage;
+  const offset = page * itemPerPage;
 
     try {
         
@@ -40,5 +39,5 @@ const getGenresController = async (page) => {
 }
 
 module.exports = {
-    getGenresController,
-}
+  getGenresController
+};

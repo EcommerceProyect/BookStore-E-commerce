@@ -3,8 +3,7 @@ const { Editorial } = require("../../db");
 const itemPerPage = 50;
 
 const getEditorialController = async (page) => {
-
-    const offset = page*itemPerPage;
+  const offset = page * itemPerPage;
 
     try {
 
@@ -36,5 +35,5 @@ const getEditorialController = async (page) => {
 }
 
 module.exports = {
-    getEditorialController,
-}
+  getEditorialController
+};

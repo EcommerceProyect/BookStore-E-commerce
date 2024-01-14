@@ -1,4 +1,4 @@
-const { Author } = require("../../db")
+const { Author } = require("../../db");
 
 require("dotenv").config();
 const {LIMIT_ITEMS} = process.env
@@ -6,8 +6,8 @@ const {LIMIT_ITEMS} = process.env
 const itemPerPage=LIMIT_ITEMS;
 
 const getAuthorsController = async (page) => {
-
-    const offset = page*itemPerPage;
+    
+    const offset = page * itemPerPage;
 
     try {
 
@@ -39,5 +39,5 @@ const getAuthorsController = async (page) => {
 }
 
 module.exports = {
-    getAuthorsController,
-}
+  getAuthorsController
+};
