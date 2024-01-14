@@ -14,43 +14,43 @@ const { filterProducts } = require("../handlers/filterProducts");
 const { updateProductHandler } = require("../handlers/updateProduct");
 const { getProductByIdHandler } = require("../handlers/getDetailProduct");
 const {
-  updateAuthorHandler
+  updateAuthorHandler,
 } = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
 const {
-  updateGenreHandler
+  updateGenreHandler,
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const {
-  updateEditorialHandler
+  updateEditorialHandler,
 } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const {
-  updateReleasedDateHandler
+  updateReleasedDateHandler,
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
 const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const {
-  deleteOrderHandler
+  deleteOrderHandler,
 } = require("../handlers/Orders/deleteOrdersHandler");
 const {
-  updateOrderHandler
+  updateOrderHandler,
 } = require("../handlers/Orders/updateOrdersHandler");
 const {
-  updateISBNHandler
+  updateISBNHandler,
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const {
-  getProductsForSearchHandler
+  getProductsForSearchHandler,
 } = require("../handlers/getProductsForSearchHandler");
 
 //rutas Carrito
 const { createCartHandler } = require("../handlers/Cart/createCartHandler");
 const { addToCartHandler } = require("../handlers/Cart/addToCartHandler");
 const {
-  deleteProductCartHandler
+  deleteProductCartHandler,
 } = require("../handlers/Cart/deleteProductCartHandler");
 const {
-  getProductsActiveCartHandler
+  getProductsActiveCartHandler,
 } = require("../handlers/Cart/getProductsActiveCartHandler");
 
 //rutas Reviews
@@ -66,12 +66,9 @@ const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler
 //ruta Usuario temporal
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
+
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
-const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
-const { createProductReview } = require("../handlers/Reviews/createReviews");
-const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
-const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+
 
 //RUTAS DE SOFT DELETE Y RESTORE autor/editorial/genero/releaseddate/ISBN
 const {deleteAuthorHandler} = require("../handlers/SoftDelete/deleteAuthor");
@@ -86,6 +83,11 @@ const {restoreGenreHandler} = require("../handlers/Restore/restoreGenre");
 const {restoreReleasedDateHandler} = require("../handlers/Restore/restoreReleasedDate");
 const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 
+
+
+const {
+  getReviewsByProductId,
+} = require("../handlers/Reviews/getReviewsByProductId");
 
 const router = Router();
 
@@ -102,7 +104,11 @@ router.get("/ISBNs", getISBNs);
 
 router.get("/products/search", getProductsForSearchHandler);
 router.post("/products", createProduct);
+
+
 router.get("/products", getProducts);
+
+
 router.get("/products/:id", getProductByIdHandler);
 router.put("/products/:id", updateProductHandler);
 router.put("/user/:id", updateUserHandler);
@@ -120,17 +126,16 @@ router.delete("/user/:id", deleteUserHandler);
 router.get("/user", getUser_Token);
 
 //prueba rutas Users de Gena
+
 router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
-
 //RUTA DE ORDENES
-
-router.get("/orders/:id",getOrderByUserIdHandler);
-router.delete("/orders/:id", deleteOrderHandler);
-router.put("/orders/:id", updateOrderHandler);
 router.get("/orders", getOrdersHandler);
 router.post("/orders", createOrderHandler);
+router.get("/orders/:id?",getOrderByUserIdHandler);
+router.put("/orders/:id", updateOrderHandler);
+router.delete("/orders/:id", deleteOrderHandler);
 
 //RUTAS DEL CARRITO
 
@@ -143,9 +148,8 @@ router.delete(
 );
 
 //RUTAS REVIEWS
-
-router.get("/userBuyedProduct", getUserBuyedProductHandler);
 router.get("/reviews", getAllReviewsHandler);
+router.get("/userBuyedProduct", getUserBuyedProductHandler);
 router.post("/reviews",createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
