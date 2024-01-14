@@ -1,4 +1,4 @@
-const {Orders, OrderDetail} = require("../../db");
+const {Orders} = require("../../db");
 
 const deleteOrderController = async (id) => {
     try {
