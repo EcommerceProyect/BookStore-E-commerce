@@ -29,6 +29,7 @@ const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
+
 const {
   deleteOrderHandler
 } = require("../handlers/Orders/deleteOrdersHandler");
@@ -64,14 +65,14 @@ const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/g
 const { getReviewsByUserHandler } = require("../handlers/Reviews/getReviewsByUserHandler");
 const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler");
 
+
 //ruta Usuario temporal
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
-
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
 
-
 //RUTAS DE SOFT DELETE Y RESTORE autor/editorial/genero/releaseddate/ISBN
+
 const {deleteAuthorHandler} = require("../handlers/SoftDelete/deleteAuthor");
 const {deleteEditorialHandler} = require("../handlers/SoftDelete/deleteEditorial");
 const{deleteGenreHandler} = require("../handlers/SoftDelete/deleteGenre");
@@ -87,7 +88,7 @@ const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 const {
   getReviewsByProductId
 } = require("../handlers/Reviews/getReviewsByProductId");
-const { restoreProduct } = require("../handlers/restoreProduct");
+//const { restoreProduct } = require("../handlers/restoreProduct");
 
 const router = Router();
 
@@ -120,7 +121,7 @@ router.put("/ISBN/:id", updateISBNHandler);
 router.delete("/products/:id", deleteProduct);
 router.delete("/user/:id", deleteUserHandler);
 
-router.patch("/products/:id",restoreProduct);
+//router.patch("/products/:id",restoreProduct);
 
 //Users
 
@@ -184,6 +185,3 @@ router.put("/ISBNRestore/:name",restoreISBNHandler)
 
 
 module.exports = router;
-
-
-

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
-
+import { ReviewsProfile } from './ReviewsProfile';
+import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
+import { useState } from 'react';
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData?.response);
   const orders = useSelector((state) => state.userData.orders);
@@ -14,6 +16,27 @@ const Profile = () => {
       : '';
 
   return userData !== undefined && orders !== undefined ? (
+  const userData = useSelector((state) => state.userData.userData.response);
+  const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
+
+  const inputDate = new Date(userData.createdAt);
+  const day = String(inputDate.getUTCDate()).padStart(2, '0');
+  const month = String(inputDate.getUTCMonth() + 1).padStart(2, '0');
+  const year = inputDate.getUTCFullYear();
+  const formattedDateString = `${month}/${day}/${year}`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (booksReviewsByUser.length === 0) {
+        const responseReviews = await getReviewsByUserId(userData.id);
+        setBooksReviewsByUser(responseReviews);
+      }
+    };
+    fetchData();
+  }, [booksReviewsByUser]);
+
+
+  return (
     <div>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse p-2">
@@ -124,7 +147,7 @@ const Profile = () => {
             </p>
           </div>
 
-          <div>
+          <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <p className="text-textDark text-lg font-bold mb-2">
               Últimas compras{' '}
             </p>
@@ -170,10 +193,42 @@ const Profile = () => {
               <p className="text-textDark">...</p>
             )}
           </div>
+          <div>
+            <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
+            <div className="flex overflow-x-auto p-4">
+              {booksReviewsByUser.map((review) => {
+                return (
+                  <div key={review.id} className="max-w-xs mx-2">
+                    <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
+                      <div className="relative p-4">
+                        <div className="w-32 h-32 mx-auto">
+                          <img
+                            className="rounded-lg shadow-md object-contain w-full h-full"
+                            src={review.image}
+                            alt={`Foto de ${review.title}`}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="px-4 pb-4">
+                        <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
+                          {review.title}
+                        </h5>
+
+                        <div className="flex items-center justify-between">
+                          <ReviewsProfile rating={review.rating} productId={review.id} userId={userData.id} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  ) : (
+  )) : (
     <div
       role="status"
       className="my-10 text-center flex flex-col justify-center items-center h-[57vh]"
