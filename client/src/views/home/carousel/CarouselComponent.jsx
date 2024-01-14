@@ -47,10 +47,12 @@ const CarouselComponent = () => {
   );
   const totalItems = useSelector((state) => state.products.totalItems);
   const itemsPerPage = 2;
-  const totalPages = Math.ceil(totalItems / itemsPerPage) - 1;
+  const totalPages = Math.ceil(totalItems / itemsPerPage) -1;
 
   useEffect(() => {
+    if(totalPages>=0){
     dispatch(getLastProducts(totalPages, 5));
+  }
   }, [dispatch, totalPages]);
 
   return (
@@ -62,7 +64,7 @@ const CarouselComponent = () => {
           {carouselProducts.map((product) => {
             return (
               <Link to={`/detail/${product.id}`}>
-                <div className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
+                <div key={product.id} className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
                   <CardCarousel
                     id={product.id}
                     image={product.image}
