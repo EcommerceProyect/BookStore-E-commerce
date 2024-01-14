@@ -1,20 +1,26 @@
 import axios from 'axios';
-import { setAuthorListLoading, setAuthorList, setAuthorListError } from '../slices/authors';
 import {
-  API_BOOKS
-} from '../../vars';
+  setAuthorListLoading,
+  setAuthorList,
+  setAuthorListError,
+  setTotalItems,
+} from '../slices/authors';
+import { API_BOOKS } from '../../vars';
 
-const apiUrl = `${API_BOOKS}/ebook/authors?page=0`;
+const apiUrl = `${API_BOOKS}/ebook/authors?`;
 
-export const fetchAuthors = () => async (dispatch) => {
-  dispatch(setAuthorListLoading()); 
-  
+export const fetchAuthors = (page) => async (dispatch) => {
+  dispatch(setAuthorListLoading());
+
   try {
-    const response = await axios.get(apiUrl);
-    const authors = response.data.map((author) => author.name);
-    dispatch(setAuthorList(authors)); 
-    
+    if (!page) {
+      page = 0;
+    }
+    console.log(page);
+    const { data } = await axios.get(`${apiUrl}page=${page}`);
+    dispatch(setTotalItems(data.numberOfResults));
+    dispatch(setAuthorList(data.data));
   } catch (error) {
-    dispatch(setAuthorListError(error.message));  
+    dispatch(setAuthorListError(error.message));
   }
 };

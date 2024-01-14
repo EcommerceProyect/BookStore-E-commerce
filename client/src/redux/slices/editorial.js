@@ -6,6 +6,8 @@ const initialState = {
   error: null,
   selectedEditorial: null,
   allEditorial: [],
+  currentPage: 0,
+  totalItems: null,
 };
 
 export const editorialSlice = createSlice({
@@ -20,6 +22,26 @@ export const editorialSlice = createSlice({
       state.loading = false;
       state.editorial = action.payload;
       state.allEditorial = action.payload;
+    },
+    updateEditorialList: (state, action) => {
+      const editorialIndex = state.editorial.findIndex(
+        (editorial) => editorial.id === action.payload.id,
+      );
+      if (editorialIndex !== -1) {
+        state.editorial[editorialIndex].name = action.payload.name;
+      }
+      const allEditorialIndex = state.allEditorial.findIndex(
+        (editorial) => editorial.id === action.payload.id,
+      );
+      if (allEditorialIndex !== -1) {
+        state.allEditorial[allEditorialIndex].name = action.payload.name;
+      }
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setTotalItems: (state, action) => {
+      state.totalItems = action.payload;
     },
     setEditorialListError: (state, action) => {
       state.loading = false;
@@ -36,6 +58,9 @@ export const {
   setEditorialList,
   setEditorialListError,
   setSelectedEditorial,
+  updateEditorialList,
+  setCurrentPage,
+  setTotalItems,
 } = editorialSlice.actions;
 
 export default editorialSlice.reducer;

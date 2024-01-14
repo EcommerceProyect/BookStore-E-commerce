@@ -3,25 +3,27 @@ const { Editorial } = require("../../db");
 const itemPerPage = 50;
 
 const getEditorialController = async (page) => {
+  const offset = page * itemPerPage;
 
-    const offset = page*itemPerPage;
+  try {
+    const { count } = await Editorial.findAndCountAll();
 
-    try {
-        
-        const response = await Editorial.findAll({
-            offset,
-            limit:itemPerPage,
-            attributes:["name","id"],
-        })
+    const response = await Editorial.findAll({
+      offset,
+      limit: itemPerPage,
+      attributes: ["name", "id"]
+    });
 
-        return response;
-
-    } catch (error) {
-        return error;
-    }
-
-}
+    return {
+      totalPages: Math.ceil(count / itemPerPage),
+      numberOfResults: count,
+      data: response
+    };
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
-    getEditorialController,
-}
+  getEditorialController
+};

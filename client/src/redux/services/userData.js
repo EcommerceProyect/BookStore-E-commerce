@@ -3,6 +3,7 @@ import { setUserData } from '../slices/userData';
 import { jwtDecode } from 'jwt-decode';
 import { APIDOMAIN } from '../../vars';
 import { getCartFromApi } from './getCart';
+import getOrders from './getOrders';
 
 export const fetchUserData = (token) => async (dispatch) => {
   try {
@@ -26,6 +27,7 @@ export const fetchUserData = (token) => async (dispatch) => {
 
     dispatch(setUserData(userData));
     dispatch(getCartFromApi(userData.response.id));
+    dispatch(getOrders(userData.id));
     console.log(
       'Data del usuario desde la petición con role agregado: ',
       userData,

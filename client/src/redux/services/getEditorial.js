@@ -1,20 +1,25 @@
 import axios from 'axios';
-import { setEditorialListLoading, setEditorialList, setEditorialListError } from '../slices/editorial';
 import {
-  API_BOOKS
-} from '../../vars';
+  setEditorialListLoading,
+  setEditorialList,
+  setEditorialListError,
+  setTotalItems,
+} from '../slices/editorial';
+import { API_BOOKS } from '../../vars';
 
-const apiUrl = `${API_BOOKS}/ebook/editorials?page=0`;
+const apiUrl = `${API_BOOKS}/ebook/editorials?`;
 
-export const fetchEditorial = () => async (dispatch) => {
-  dispatch(setEditorialListLoading()); 
-  
+export const fetchEditorial = (page) => async (dispatch) => {
+  dispatch(setEditorialListLoading());
+
   try {
-    const response = await axios.get(apiUrl);
-    const editorial = response.data.map((editorial) => editorial.name);
-    dispatch(setEditorialList(editorial)); 
-    
+    if (!page) {
+      page = 0;
+    }
+    const { data } = await axios.get(`${apiUrl}page=${page}`);
+    dispatch(setTotalItems(data.numberOfResults));
+    dispatch(setEditorialList(data.data));
   } catch (error) {
-    dispatch(setEditorialListError(error.message));  
+    dispatch(setEditorialListError(error.message));
   }
 };

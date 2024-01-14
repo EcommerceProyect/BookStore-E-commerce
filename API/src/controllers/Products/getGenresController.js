@@ -1,27 +1,29 @@
-const { Genre } = require("../../db")
+const { Genre } = require("../../db");
 
 const itemPerPage = 50;
 
 const getGenresController = async (page) => {
+  const offset = page * itemPerPage;
 
-    const offset = page*itemPerPage;
+  try {
+    const { count } = await Genre.findAndCountAll();
 
-    try {
-        
-        const response = await Genre.findAll({
-            offset,
-            limit:itemPerPage,
-            attributes:["name","id"],
-        })
+    const response = await Genre.findAll({
+      offset,
+      limit: itemPerPage,
+      attributes: ["name", "id"]
+    });
 
-        return response;
-
-    } catch (error) {
-        return error;
-    }
-
-}
+    return {
+      totalPages: Math.ceil(count / itemPerPage),
+      numberOfResults: count,
+      data: response
+    };
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
-    getGenresController,
-}
+  getGenresController
+};
