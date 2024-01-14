@@ -21,7 +21,7 @@ export const ReviewsProfile = ({rating, productId, userId})=>{
 
   
   return (
-    <div className='App'>
+    <div className='App flex items-center'>
       <Rating
         readonly={readOnly}
         onClick={handleRating}
@@ -29,7 +29,7 @@ export const ReviewsProfile = ({rating, productId, userId})=>{
         SVGstyle={{ display: 'inline-block' }}
         size={25}
       />
-      <button onClick={handleOnClick}>
+      <button  className="ml-3"onClick={handleOnClick}>
       <FaRegEdit />
       </button>
     </div>
