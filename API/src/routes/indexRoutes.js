@@ -29,7 +29,7 @@ const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
 const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
-const {getOrderByUserIdHandler} = require("../handlers/Orders/getOrderByUserIdHandler")
+
 const {
   deleteOrderHandler,
 } = require("../handlers/Orders/deleteOrdersHandler");
@@ -55,12 +55,6 @@ const {
 } = require("../handlers/Cart/getProductsActiveCartHandler");
 
 //rutas Reviews
-const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
-const { getAllReviewsHandler} = require("../handlers/Reviews/getReviews");
-const { createProductReview } = require("../handlers/Reviews/createReviews");
-const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
-const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 const { getReviewsByUserHandler } = require("../handlers/Reviews/getReviewsByUserHandler");
 const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler");
 
@@ -68,9 +62,21 @@ const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler
 //ruta Usuario temporal
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
+const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
+const {
+  getUserBuyedProductHandler,
+} = require("../handlers/Reviews/getUserBuyedProductHandler");
 
+const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+const {
+  getProductReviewsAverageRatingHandler,
+} = require("../handlers/Reviews/getReviewsAverage");
 
 //RUTAS DE SOFT DELETE Y RESTORE autor/editorial/genero/releaseddate/ISBN
+
 const {deleteAuthorHandler} = require("../handlers/SoftDelete/deleteAuthor");
 const {deleteEditorialHandler} = require("../handlers/SoftDelete/deleteEditorial");
 const{deleteGenreHandler} = require("../handlers/SoftDelete/deleteGenre");
@@ -87,9 +93,9 @@ const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 //ruta Usuario temporal
 
 
-const {
-  getReviewsByProductId,
-} = require("../handlers/Reviews/getReviewsByProductId");
+//const {
+//  getReviewsByProductId,
+//} = require("../handlers/Reviews/getReviewsByProductId");
 
 const router = Router();
 
@@ -106,7 +112,11 @@ router.get("/ISBNs", getISBNs);
 
 router.get("/products/search", getProductsForSearchHandler);
 router.post("/products", createProduct);
+
+
 router.get("/products", getProducts);
+
+
 router.get("/products/:id", getProductByIdHandler);
 router.put("/products/:id", updateProductHandler);
 router.put("/user/:id", updateUserHandler);
@@ -124,16 +134,16 @@ router.delete("/user/:id", deleteUserHandler);
 router.get("/user", getUser_Token);
 
 //prueba rutas Users de Gena
+
 router.put("/user/:id", updateUserHandler);
 router.delete("/user/:id", deleteUserHandler);
 
 //RUTA DE ORDENES
-
-router.get("/orders/:id", getOrderByUserIdHandler);
-router.delete("/orders/:id", deleteOrderHandler);
-router.put("/orders/:id", updateOrderHandler);
 router.get("/orders", getOrdersHandler);
 router.post("/orders", createOrderHandler);
+router.get("/orders/:id?",getOrderByUserIdHandler);
+router.put("/orders/:id", updateOrderHandler);
+router.delete("/orders/:id", deleteOrderHandler);
 
 //RUTAS DEL CARRITO
 
@@ -146,15 +156,9 @@ router.delete(
 );
 
 //RUTAS REVIEWS
-
-router.get("/userBuyedProduct", getUserBuyedProductHandler);
 router.get("/reviews", getAllReviewsHandler);
-router.get("/reviews/:productId", getReviewsByProductId);
-router.get(
-  "/reviews/average/:productId",
-  getProductReviewsAverageRatingHandler
-);
-router.post("/reviews", createProductReview);
+router.get("/userBuyedProduct", getUserBuyedProductHandler);
+router.post("/reviews",createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);

@@ -23,8 +23,7 @@ const asingRoleToUserHandler = async (req,res) => {
         };
 
         const responseToken = await axios.request(options)
-        console.log(responseToken.data);
-
+        console.log(responseToken);
         const response = await asingRoleToUserController(id,responseToken.data.access_token);
 
         res.status(200).json({response,message:"User rol Updated"});

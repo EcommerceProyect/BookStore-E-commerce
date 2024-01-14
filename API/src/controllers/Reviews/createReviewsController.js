@@ -5,8 +5,8 @@ const createReviewController = async (data) => {
     const { ProductId, userId, rating, OrderId } = data;
     console.log(data);
     const newReview = await Productreview.create({
-      ProductId,
       OrderId,
+      ProductId,
       userId,
       rating,
     });

@@ -94,6 +94,18 @@ function Cards() {
     sortAction,
   ]);
 
+  useEffect(() => {
+  dispatch(setCurrentPage(0));
+}, [selectedGenre]);
+
+useEffect(() => {
+  dispatch(setCurrentPage(0)); 
+}, [selectedAuthor]);
+
+useEffect(() => {
+  dispatch(setCurrentPage(0));
+}, [selectedEditorial]);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
