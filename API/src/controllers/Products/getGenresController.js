@@ -12,6 +12,13 @@ const getGenresController = async (page) => {
 
     try {
         
+        if(!page){
+            const response = await Genre.findAll({
+                attributes:["name","id"],
+            })
+            return response;
+        }
+
         const {count} = await Genre.findAndCountAll();
 
         const response = await Genre.findAll({

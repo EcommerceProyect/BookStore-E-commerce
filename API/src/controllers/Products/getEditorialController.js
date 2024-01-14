@@ -7,6 +7,13 @@ const getEditorialController = async (page) => {
     const offset = page*itemPerPage;
 
     try {
+
+        if(!page){
+            const response = await Editorial.findAll({
+                attributes:["name","id"],
+            })
+            return response;
+        }
         
         const {count} = await Editorial.findAndCountAll();
 

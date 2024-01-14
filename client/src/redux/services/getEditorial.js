@@ -4,14 +4,14 @@ import {
   API_BOOKS
 } from '../../vars';
 
-const apiUrl = `${API_BOOKS}/ebook/editorials?page=0`;
+const apiUrl = `${API_BOOKS}/ebook/editorials`;
 
 export const fetchEditorial = () => async (dispatch) => {
   dispatch(setEditorialListLoading()); 
   
   try {
     const {data} = await axios.get(apiUrl);
-    const editorial = data.data.map((editorial) => editorial.name);
+    const editorial = data.map((editorial) => editorial.name);
     dispatch(setEditorialList(editorial)); 
     
   } catch (error) {

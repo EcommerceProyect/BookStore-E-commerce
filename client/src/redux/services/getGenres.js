@@ -4,14 +4,14 @@ import {
   API_BOOKS
 } from '../../vars';
 
-const apiUrl = `${API_BOOKS}/ebook/genres?page=0`;
+const apiUrl = `${API_BOOKS}/ebook/genres`;
 
 export const fetchGenres = () => async (dispatch) => {
   dispatch(setGenreListLoading()); 
   
   try {
     const {data} = await axios.get(apiUrl);
-    const genres = data.data.map((genre) => genre.name);
+    const genres = data.map((genre) => genre.name);
     dispatch(setGenreList(genres)); 
     
   } catch (error) {

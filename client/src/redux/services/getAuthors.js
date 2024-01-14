@@ -4,14 +4,14 @@ import {
   API_BOOKS
 } from '../../vars';
 
-const apiUrl = `${API_BOOKS}/ebook/authors?page=0`;
+const apiUrl = `${API_BOOKS}/ebook/authors`;
 
 export const fetchAuthors = () => async (dispatch) => {
   dispatch(setAuthorListLoading()); 
   
   try {
     const {data} = await axios.get(apiUrl);
-    const authors = data.data.map((author) => author.name);
+    const authors = data.map((author) => author.name);
     dispatch(setAuthorList(authors)); 
     
   } catch (error) {

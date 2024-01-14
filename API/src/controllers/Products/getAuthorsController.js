@@ -10,6 +10,14 @@ const getAuthorsController = async (page) => {
     const offset = page*itemPerPage;
 
     try {
+
+        if(!page){
+            const response = await Author.findAll({
+                attributes:["name","id"],
+            })
+            return response;
+        }
+
         const {count} = await Author.findAndCountAll();
 
         const response = await Author.findAll({
