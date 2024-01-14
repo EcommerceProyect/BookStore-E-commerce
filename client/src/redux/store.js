@@ -8,6 +8,18 @@ import userData from './slices/userData';
 import users from './slices/userList';
 import cart from './slices/cartUsersTest';
 import ratingStars from './slices/ratingStarsAverage';
+import userReducer, {
+  setUserData,
+  clearUserData,
+  userAdminStart,
+  userAdminSuccess,
+  userAdminFailure,
+} from './slices/userData';
+import userActiveReducer, {
+  userActiveStart,
+  userActiveSuccess,
+  userActiveFailure,
+} from './slices/userData';
 
 export default configureStore({
   reducer: {
@@ -19,7 +31,7 @@ export default configureStore({
     userData,
     users,
     ratingStars,
+    user: userReducer,
+    userActive: userActiveReducer,
   },
 });
-
-// user,

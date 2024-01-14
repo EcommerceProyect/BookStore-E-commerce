@@ -25,6 +25,7 @@ import Profile from './views/profile/Profile';
 import UpdateProfile from './views/profile/updateProfile';
 import { debounce, isEmpty } from 'lodash';
 import EditEntities from './views/dashboard/EditEntities';
+import EditBook from './components/createBook/EditBook';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -113,6 +114,7 @@ function App() {
             <Route path="/dashboard/createBook" element={<CreateProduct />} />
             <Route path="/dashboard/products" element={<ProductList />} />
             <Route path="/dashboard/editEntities" element={<EditEntities />} />
+             <Route path="/dashboard/editBook/:id" element={<EditBook />} />
           </Routes>
           <Footer />
           {showRegistrationModal && (

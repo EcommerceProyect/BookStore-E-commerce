@@ -32,5 +32,5 @@ module.exports = (sequelize) => {
                 }
             }
         }
-    },{timestamps: true})
+    },{timestamps: true, paranoid: true})
 }
