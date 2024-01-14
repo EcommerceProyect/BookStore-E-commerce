@@ -19,6 +19,7 @@ const { createProductReview } = require("../handlers/Reviews/createReviews");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
 const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
 const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+const { restoreProduct } = require("../handlers/restoreProduct");
 
 router.use(cors());
 
@@ -124,6 +125,8 @@ router.put(
   checkPermissions(["admin:edit"]),
   updateProductHandler
 );
+
+router.patch("/products/:id",checkPermissions(["admin:edit"]), restoreProduct);
 
 //Orders
 
