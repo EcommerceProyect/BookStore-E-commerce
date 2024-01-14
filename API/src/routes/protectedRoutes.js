@@ -24,10 +24,14 @@ const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
 const { createProductReview } = require("../handlers/Reviews/createReviews");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
 const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+const {
+  getProductReviewsAverageRatingHandler
+} = require("../handlers/Reviews/getReviewsAverage");
 const { restoreProduct } = require("../handlers/restoreProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
-const { getDandNoDProductsHandler } = require("../handlers/Products/getDandNoDProductsHandler");
+const {
+  getDandNoDProductsHandler
+} = require("../handlers/Products/getDandNoDProductsHandler");
 const {
   updateGenreHandler
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
@@ -43,6 +47,11 @@ const {
 const {
   updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+const { deleteAuthorHandler } = require("../handlers/SoftDelete/deleteAuthor");
+const {
+  deleteEditorialHandler
+} = require("../handlers/SoftDelete/deleteEditorial");
+const { deleteGenreHandler } = require("../handlers/SoftDelete/deleteGenre");
 
 router.use(cors());
 
@@ -149,19 +158,23 @@ router.put(
   updateProductHandler
 );
 
-router.delete("/authorized/products/:id",
-checkPermissions(["admin:edit"]),
-deleteProduct)
+router.delete(
+  "/authorized/products/:id",
+  checkPermissions(["admin:edit"]),
+  deleteProduct
+);
 
-router.patch("/authorized/products/:id",
-checkPermissions(["admin:edit"]),
-restoreProduct);
+router.patch(
+  "/authorized/products/:id",
+  checkPermissions(["admin:edit"]),
+  restoreProduct
+);
 
-
-router.get("/authorized/allProducts",
-checkPermissions(["admin:edit"]),
-getDandNoDProductsHandler);
-
+router.get(
+  "/authorized/allProducts",
+  checkPermissions(["admin:edit"]),
+  getDandNoDProductsHandler
+);
 
 //Orders
 
@@ -230,6 +243,22 @@ router.put(
   "/authorized/ISBN/:id",
   checkPermissions(["admin:edit"]),
   updateISBNHandler
+);
+
+router.delete(
+  "/authorized/authorDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteAuthorHandler
+);
+router.delete(
+  "/authorized/editorialDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteEditorialHandler
+);
+router.delete(
+  "/authorized/genreDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteGenreHandler
 );
 
 module.exports = router;

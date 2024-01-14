@@ -37,6 +37,15 @@ export const editorialSlice = createSlice({
         state.allEditorial[allEditorialIndex].name = action.payload.name;
       }
     },
+    deleteEditorialList: (state, action) => {
+      state.editorial = state.editorial.filter(
+        (editorial) => editorial.id !== action.payload,
+      );
+
+      state.allEditorial = state.allEditorial.filter(
+        (editorial) => editorial.id !== action.payload,
+      );
+    },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
@@ -61,6 +70,7 @@ export const {
   updateEditorialList,
   setCurrentPage,
   setTotalItems,
+  deleteEditorialList,
 } = editorialSlice.actions;
 
 export default editorialSlice.reducer;
