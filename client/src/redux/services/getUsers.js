@@ -10,7 +10,7 @@ export const getUsers = (page) => {
       const token = localStorage.getItem("actualT");
       if (token) {
         const response = await axios.get(
-          `${APIDOMAIN}/authorized?route=users&page=0&token=${token}`
+          `${APIDOMAIN}/authorized?route=users&page=0&deleted=true&token=${token}`
         );
 
         const users = response.data;
