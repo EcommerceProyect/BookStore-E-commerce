@@ -79,6 +79,8 @@ const Cart = () => {
   };
 
   const isStockAvailable = cart.every((product) => product.ISBN.stock > 0);
+
+  const token = localStorage.getItem('actualT');
   const handleDelete = async (id) => {
     try {
       await dispatch(deleteProduct(user.id || '', id));
@@ -88,11 +90,9 @@ const Cart = () => {
   };
   const checkOut = () => {
     const cartId = userCart;
-    const totalAmount = 500;
     const books = cart.map((product) => ({
       id: product.id,
       title: product.title,
-      // image: product.image,
       price: Number(product.price),
       quantity: quantity[product.id] || 1,
     }));
@@ -101,7 +101,6 @@ const Cart = () => {
       .post(`${API_BOOKS}/mercadoPago/create-order`, {
         books,
         cartId,
-        totalAmount,
       })
       .then((response) => {
         window.location.href = response.data;
@@ -211,8 +210,8 @@ const Cart = () => {
                   </div>
                   {sureDelete[id] ? (
                     <div className="text-textGray">
-                      <span className="flex w-80">
-                        ¿Seguro que desea eliminar este producto?
+                      <span className="flex w-96">
+                        ¿Seguro que desea eliminar este producto del carrito?
                       </span>
                       <div className="flex gap-2">
                         <button
@@ -241,7 +240,7 @@ const Cart = () => {
                         className="flex gap-1 text-textGray"
                       >
                         <LuTrash2 className=" mt-1" />
-                        <span>Eliminar este producto</span>
+                        <span>Eliminar del carrito</span>
                       </button>
                     </div>
                   )}
@@ -270,19 +269,29 @@ const Cart = () => {
                 </span>
               </div>
               <div className=" p-2 mt-8 flex justify-center">
-                <button
-                  onClick={
-                    isStockAvailable
-                      ? checkOut
-                      : () =>
-                          toast.error(
-                            'Uno de los libros no tiene stock disponible',
-                          )
-                  }
-                  className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  <span className="flex w-32">Continuar compra</span>
-                </button>
+                {token ? (
+                  <button
+                    onClick={
+                      isStockAvailable
+                        ? checkOut
+                        : () => toast.error('Uno de los libros no tiene stock')
+                    }
+                    className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    <span className="flex w-32">Continuar compra</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      toast.error(
+                        'Debe iniciar sesión para poder continuar con la compra',
+                      )
+                    }
+                    className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    <span className="flex w-32">Continuar compra</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
