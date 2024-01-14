@@ -210,7 +210,7 @@ function Detail() {
                   orderId={orderId}
                 />
               ) : (
-                'No has adquitado este libro.'
+                'No has adquirido este libro.'
               )}
             </div>
           </div>
