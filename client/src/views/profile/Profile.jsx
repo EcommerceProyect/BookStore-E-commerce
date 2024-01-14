@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ReviewsProfile } from './ReviewsProfile';
-import { Link } from 'react-router-dom';
-
+import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
+import { useState } from 'react';
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData.response);
-  console.log(userData);
+  const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
 
   const inputDate = new Date(userData.createdAt);
   const day = String(inputDate.getUTCDate()).padStart(2, '0');
   const month = String(inputDate.getUTCMonth() + 1).padStart(2, '0');
   const year = inputDate.getUTCFullYear();
   const formattedDateString = `${month}/${day}/${year}`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (booksReviewsByUser.length === 0) {
+        const responseReviews = await getReviewsByUserId(userData.id);
+        setBooksReviewsByUser(responseReviews);
+      }
+    };
+    fetchData();
+  }, [booksReviewsByUser]);
 
   const products = [
     {
@@ -192,35 +202,35 @@ const Profile = () => {
             </div>
           </div>
           <div>
-          <p className="text-textDark text-lg font-bold mb-2">
-              Mis reseñas
-            </p>
+            <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
             <div className="flex overflow-x-auto p-4">
-              {products.map((p) => (
-                <div className="max-w-xs mx-2">
-                  <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
-                    <div className="relative p-4">
-                      <div className="w-32 h-32 mx-auto">
-                        <img
-                          className="rounded-lg shadow-md object-contain w-full h-full"
-                          src={p.image}
-                          alt={`Foto de ${p.title}`}
-                        />
+              {booksReviewsByUser.map((review) => {
+                return (
+                  <div key={review.id} className="max-w-xs mx-2">
+                    <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
+                      <div className="relative p-4">
+                        <div className="w-32 h-32 mx-auto">
+                          <img
+                            className="rounded-lg shadow-md object-contain w-full h-full"
+                            src={review.image}
+                            alt={`Foto de ${review.title}`}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="px-4 pb-4">
-                      <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
-                        {p.title}
-                      </h5>
+                      <div className="px-4 pb-4">
+                        <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
+                          {review.title}
+                        </h5>
 
-                      <div className="flex items-center justify-between">
-                       <ReviewsProfile/>
+                        <div className="flex items-center justify-between">
+                          <ReviewsProfile rating={review.rating} productId={review.id} userId={userData.id} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
