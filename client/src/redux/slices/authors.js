@@ -6,6 +6,8 @@ const initialState = {
   error: null,
   selectedAuthor: null,
   allAuthors: [],
+  currentPage: 0,
+  totalItems: null,
 };
 
 export const authorSlice = createSlice({
@@ -20,6 +22,26 @@ export const authorSlice = createSlice({
       state.loading = false;
       state.authors = action.payload;
       state.allAuthors = action.payload;
+    },
+    updateAuthorList: (state, action) => {
+      const authorIndex = state.authors.findIndex(
+        (author) => author.id === action.payload.id,
+      );
+      if (authorIndex !== -1) {
+        state.authors[authorIndex].name = action.payload.name;
+      }
+      const allAuthorIndex = state.allAuthors.findIndex(
+        (author) => author.id === action.payload.id,
+      );
+      if (allAuthorIndex !== -1) {
+        state.allAuthors[allAuthorIndex].name = action.payload.name;
+      }
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setTotalItems: (state, action) => {
+      state.totalItems = action.payload;
     },
     setAuthorListError: (state, action) => {
       state.loading = false;
@@ -36,6 +58,9 @@ export const {
   setAuthorList,
   setAuthorListError,
   setSelectedAuthor,
+  updateAuthorList,
+  setCurrentPage,
+  setTotalItems,
 } = authorSlice.actions;
 
 export default authorSlice.reducer;

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userData: null,
+  orders: {},
   users: [],
   loading: false,
   error: null,
@@ -25,6 +26,9 @@ const userSlice = createSlice({
     },
     clearUserData(state) {
       state.userData = null;
+    },
+    setOrders(state, action) {
+      state.orders = action.payload;
     },
     userAdminStart(state) {
       state.loading = true;
@@ -59,7 +63,7 @@ const userSlice = createSlice({
 
 export const {
   setUserData,
-  clearUserData, updateUserData,
+  clearUserData, updateUserData, setOrders,
   userAdminStart,
   userAdminSuccess,
   userAdminFailure,

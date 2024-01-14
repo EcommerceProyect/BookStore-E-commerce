@@ -1,6 +1,9 @@
 const { ISBN } = require("../../db")
 
-const itemPerPage = 50;
+require("dotenv").config();
+const {LIMIT_ITEMS} = process.env
+
+const itemPerPage = LIMIT_ITEMS;
 
 const getISBNController = async (page) => {
 

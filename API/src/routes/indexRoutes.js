@@ -14,16 +14,16 @@ const { filterProducts } = require("../handlers/filterProducts");
 const { updateProductHandler } = require("../handlers/updateProduct");
 const { getProductByIdHandler } = require("../handlers/getDetailProduct");
 const {
-  updateAuthorHandler,
+  updateAuthorHandler
 } = require("../handlers/UpdateInfoHandler/updateAuthorHandler");
 const {
-  updateGenreHandler,
+  updateGenreHandler
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
 const {
-  updateEditorialHandler,
+  updateEditorialHandler
 } = require("../handlers/UpdateInfoHandler/updateEditorialHandler");
 const {
-  updateReleasedDateHandler,
+  updateReleasedDateHandler
 } = require("../handlers/UpdateInfoHandler/updateReleasedDateHandler");
 const { updateUserHandler } = require("../handlers/Users/updateUserHandler");
 const { deleteUserHandler } = require("../handlers/Users/deleteUser");
@@ -31,30 +31,37 @@ const { createOrderHandler } = require("../handlers/Orders/postOrdersHandler");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 
 const {
-  deleteOrderHandler,
+  deleteOrderHandler
 } = require("../handlers/Orders/deleteOrdersHandler");
 const {
-  updateOrderHandler,
+  updateOrderHandler
 } = require("../handlers/Orders/updateOrdersHandler");
 const {
-  updateISBNHandler,
+  updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
 const { getUser_Token } = require("../handlers/Users/getUser_Token");
 const {
-  getProductsForSearchHandler,
+  getProductsForSearchHandler
 } = require("../handlers/getProductsForSearchHandler");
 
 //rutas Carrito
 const { createCartHandler } = require("../handlers/Cart/createCartHandler");
 const { addToCartHandler } = require("../handlers/Cart/addToCartHandler");
 const {
-  deleteProductCartHandler,
+  deleteProductCartHandler
 } = require("../handlers/Cart/deleteProductCartHandler");
 const {
-  getProductsActiveCartHandler,
+  getProductsActiveCartHandler
 } = require("../handlers/Cart/getProductsActiveCartHandler");
 
 //rutas Reviews
+
+const { getUserBuyedProductHandler } = require("../handlers/Reviews/getUserBuyedProductHandler");
+const { getAllReviewsHandler} = require("../handlers/Reviews/getReviews");
+const { createProductReview } = require("../handlers/Reviews/createReviews");
+const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
+const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
+const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 const { getReviewsByUserHandler } = require("../handlers/Reviews/getReviewsByUserHandler");
 const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler");
 
@@ -63,17 +70,6 @@ const {restoreReviewHandler} = require("../handlers/Reviews/restoreReviewHandler
 
 const { postUserPruebaController } =  require("../controllers/MercadoPago/postUserPruebaController");
 const { getOrderByUserIdHandler } = require("../handlers/Orders/getOrderByUserIdHandler");
-const {
-  getUserBuyedProductHandler,
-} = require("../handlers/Reviews/getUserBuyedProductHandler");
-
-const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
-const { createProductReview } = require("../handlers/Reviews/createReviews");
-const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
-const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const {
-  getProductReviewsAverageRatingHandler,
-} = require("../handlers/Reviews/getReviewsAverage");
 
 //RUTAS DE SOFT DELETE Y RESTORE autor/editorial/genero/releaseddate/ISBN
 
@@ -89,13 +85,10 @@ const {restoreGenreHandler} = require("../handlers/Restore/restoreGenre");
 const {restoreReleasedDateHandler} = require("../handlers/Restore/restoreReleasedDate");
 const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 
-
-//ruta Usuario temporal
-
-
-//const {
-//  getReviewsByProductId,
-//} = require("../handlers/Reviews/getReviewsByProductId");
+const {
+  getReviewsByProductId
+} = require("../handlers/Reviews/getReviewsByProductId");
+//const { restoreProduct } = require("../handlers/restoreProduct");
 
 const router = Router();
 
@@ -128,6 +121,7 @@ router.put("/ISBN/:id", updateISBNHandler);
 router.delete("/products/:id", deleteProduct);
 router.delete("/user/:id", deleteUserHandler);
 
+//router.patch("/products/:id",restoreProduct);
 
 //Users
 
@@ -156,9 +150,15 @@ router.delete(
 );
 
 //RUTAS REVIEWS
-router.get("/reviews", getAllReviewsHandler);
+
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
-router.post("/reviews",createProductReview);
+router.get("/reviews", getAllReviewsHandler);
+router.get("/reviews/:productId", getReviewsByProductId);
+router.get(
+  "/reviews/average/:productId",
+  getProductReviewsAverageRatingHandler
+);
+router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);

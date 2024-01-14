@@ -1,3 +1,4 @@
+
 const { Op } = require("sequelize");
 const {
   Products,
@@ -10,13 +11,16 @@ const {
   Editorial,
 } = require("../db");
 
+require("dotenv").config();
+const {LIMIT_PRODUCTS} = process.env
+
 const filterProductsController = async (filters, sort, page) => {
   try {
     const { genre, editorial, title, author, rDate, isbn } = filters;
     const includeOptions = [];
     const titleCondition = {};
 
-    const itemPerPage = 2;
+    const itemPerPage = LIMIT_PRODUCTS;
     const offset = page * itemPerPage;
 
 

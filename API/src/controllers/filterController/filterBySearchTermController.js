@@ -1,9 +1,11 @@
 const { Op } = require("sequelize");
 const { Products, Editorial, ISBN, Genre, ReleasedDate, Author, AuthorProducts} = require("../../db");
+require("dotenv").config();
+const {LIMIT_PRODUCTS} = process.env
 
 const filterBySearchTermController = async (searchTerm, page) => {
   try {
-    const itemPerPage = 4; // Definir la cantidad de resultados por página
+    const itemPerPage = LIMIT_PRODUCTS; // Definir la cantidad de resultados por página
 
     const data = await Products.findAndCountAll({
       where: {

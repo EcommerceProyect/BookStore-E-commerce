@@ -8,10 +8,11 @@ const {
   AuthorProducts,
 } = require("../../db");
 
-
+require("dotenv").config();
+const {LIMIT_PRODUCTS} = process.env
 
 const filterProductByAuthorController = async (authorName, page) => {
-    const itemPerPage = 2; // Definir la cantidad de resultados por página
+    const itemPerPage = LIMIT_PRODUCTS; // Definir la cantidad de resultados por página
     const offset = (page) * itemPerPage; // Calcular el desplazamiento
   
 
