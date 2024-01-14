@@ -1,16 +1,31 @@
-const { Products,Author,Genre,ISBN,ReleasedDate,Editorial } = require("../db");
-
-//toma todos los productos pero trae solo los primeros 20 segun la pagina que se encuentre
-
+const { Products,Author,Editorial,Genre,ISBN,ReleasedDate } = require("../../db");
 require("dotenv").config();
-const {LIMIT_PRODUCTS} = process.env// la cantidad de items que se mandaran a partir de la pagina que este posicionado
+const {LIMIT_PRODUCTS} = process.env
 
-const getAllProductsLimit = async (page) => {
+//get all deleted and no deleted products
+const getDandNoDProductsController = async (page) => {
 
     const itemPerPage = LIMIT_PRODUCTS;
     const offset = page*itemPerPage;
 
     try {
+
+        
+        if(!page){
+
+            const response = await Products.findAll({
+                include: [
+                    { model: Author, as: 'Authors' },
+                    { model: ReleasedDate, as: 'ReleasedDate' },  
+                    { model: Editorial, as: 'Editorial' },
+                    { model: Genre, as: 'Genres' },     
+                    { model: ISBN, as: 'ISBN' }
+                  ],
+                paranoid:false
+            });
+
+            return response;
+        }
         
         const {count} = await Products.findAndCountAll();
 
@@ -23,7 +38,8 @@ const getAllProductsLimit = async (page) => {
                 { model: Editorial, as: 'Editorial' },
                 { model: Genre, as: 'Genres' },     
                 { model: ISBN, as: 'ISBN' }
-              ]
+              ],
+            paranoid:false
         });
         
         const data = {
@@ -39,9 +55,8 @@ const getAllProductsLimit = async (page) => {
         throw new Error(error.message);
 
     }
-
 }
 
 module.exports = {
-    getAllProductsLimit,
+    getDandNoDProductsController
 }

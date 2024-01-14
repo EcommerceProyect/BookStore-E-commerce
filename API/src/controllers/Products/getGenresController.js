@@ -1,28 +1,42 @@
 const { Genre } = require("../../db");
 
-const itemPerPage = 50;
+require("dotenv").config();
+
+const {LIMIT_ITEMS} = process.env
+
+const itemPerPage = LIMIT_ITEMS;
 
 const getGenresController = async (page) => {
   const offset = page * itemPerPage;
 
-  try {
-    const { count } = await Genre.findAndCountAll();
+    try {
+        
+        if(!page){
+            const response = await Genre.findAll({
+                attributes:["name","id"],
+            })
+            return response;
+        }
 
-    const response = await Genre.findAll({
-      offset,
-      limit: itemPerPage,
-      attributes: ["name", "id"]
-    });
+        const {count} = await Genre.findAndCountAll();
 
-    return {
-      totalPages: Math.ceil(count / itemPerPage),
-      numberOfResults: count,
-      data: response
-    };
-  } catch (error) {
-    return error;
-  }
-};
+        const response = await Genre.findAll({
+            offset,
+            limit:itemPerPage,
+            attributes:["name","id"],
+        })
+
+        return {
+            totalPages: Math.ceil(count / itemPerPage),
+            numberOfResults: count,
+            data:response
+        };
+
+    } catch (error) {
+        return error;
+    }
+
+}
 
 module.exports = {
   getGenresController

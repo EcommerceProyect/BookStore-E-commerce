@@ -87,6 +87,7 @@ const {restoreISBNHandler} = require("../handlers/Restore/restoreISBN");
 const {
   getReviewsByProductId
 } = require("../handlers/Reviews/getReviewsByProductId");
+const { restoreProduct } = require("../handlers/restoreProduct");
 
 const router = Router();
 
@@ -119,6 +120,7 @@ router.put("/ISBN/:id", updateISBNHandler);
 router.delete("/products/:id", deleteProduct);
 router.delete("/user/:id", deleteUserHandler);
 
+router.patch("/products/:id",restoreProduct);
 
 //Users
 
@@ -147,9 +149,15 @@ router.delete(
 );
 
 //RUTAS REVIEWS
-router.get("/reviews", getAllReviewsHandler);
+
 router.get("/userBuyedProduct", getUserBuyedProductHandler);
-router.post("/reviews",createProductReview);
+router.get("/reviews", getAllReviewsHandler);
+router.get("/reviews/:productId", getReviewsByProductId);
+router.get(
+  "/reviews/average/:productId",
+  getProductReviewsAverageRatingHandler
+);
+router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
 router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
