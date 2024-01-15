@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Faqs from './components/footer/Faqs';
@@ -30,15 +30,17 @@ import EditBook from './components/createBook/EditBook';
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [user, setUser] = useState({});
-
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { userData } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isEmpty(userData)) {
-      if (!isEmpty(userData.response)) {
-        setUser(userData.response);
-      }
+    if (!isEmpty(userData) && !isEmpty(userData.response)) {
+      setUser(userData.response);
+    }
+    if ((!user || user.role !== "admin") && pathname.startsWith('/dashboard')) {
+      navigate('/');
     }
   }, [userData]);
 
@@ -77,7 +79,8 @@ function App() {
     }
   };
 
-  const { pathname } = useLocation();
+ 
+
 
   return (
     <div>
