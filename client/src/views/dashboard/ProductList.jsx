@@ -8,10 +8,13 @@ import EditorialFilter from '../../components/cards/filters/Editorial';
 import SortingComponent from '../../components/cards/sort/Sort';
 import Dashboard from './Dashboard';
 import ListChild from './ListChild';
-import { MdAutoDelete } from "react-icons/md";
+import { MdAutoDelete, MdLibraryAdd } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-
+import DeleteModal from './productModal/deleteModal';
+import { deleteProduct } from '../../redux/services/deleteProduct';
+import ActiveModal from './productModal/activeModal';
+import { activeProduct } from '../../redux/services/activeProduct';
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -32,11 +35,16 @@ function ProductList() {
     (state) => state.editorial.selectedEditorial,
   );
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 50;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
   const [sortAction, setSortAction] = useState(null);
+
+  const [showModal, setShowModal] = useState(false);
+  const [showModalActive, setShowModalActive] = useState(false);
+  const [deleteProductId, setDeleteProductId] = useState(null);
+  const [activeProductId, setActiveProductId] = useState(null);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -44,6 +52,49 @@ function ProductList() {
     }
   };
 
+  
+  const handleDelete  = (productId) => {
+    setDeleteProductId(productId);
+    setShowModal(true);
+    console.log("id del producto: ", productId);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (deleteProductId) {
+      await dispatch(deleteProduct(deleteProductId));
+      await dispatch(getProducts());
+      setShowModal(false);
+      setDeleteUserId(null);
+    }
+  };
+
+  
+  const handleCancelDelete = () => {
+    setShowModal(false);
+    setDeleteProductId(null);
+  };
+
+  const handleActive  = (productId) => {
+    setActiveProductId(productId);
+    setShowModalActive(true);
+    console.log("id del producto: ", productId);
+  };
+
+  const handleConfirmActive = async () => {
+    if (activeProductId) {
+      await dispatch(activeProduct(activeProductId));
+      await dispatch(getProducts());
+      setShowModalActive(false);
+      setActiveProductId(null);
+    }
+  };
+
+  
+  const handleCancelActive = () => {
+    setShowModalActive(false);
+    setActiveProductId(null);
+  };
+  
   const handlePrevPage = () => {
     if (currentPage > 0) {
       dispatch(setCurrentPage(currentPage - 1));
@@ -82,7 +133,7 @@ function ProductList() {
           filters = { ...filters, editorial: selectedEditorial };
         }
 
-        await dispatch(getProducts(currentPage, sortField, sortAction));
+        await dispatch(getProducts(currentPage, sortField, sortAction, true));
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
@@ -193,11 +244,13 @@ function ProductList() {
                     
                     </FaRegEdit>
                     </Link>
+                    {product.deletedAt !== null ? (<MdLibraryAdd  onClick={() => handleActive(product.id)}
+                      className="w-7 h-7 cursor-pointer" />) : (
                     <MdAutoDelete
                       onClick={() => handleDelete(product.id)}
-                      className="w-7 h-7"
+                      className="w-7 h-7 cursor-pointer"
                     />
-
+                    )}
                   </div>
                 ))}
               </ul>
@@ -227,6 +280,7 @@ function ProductList() {
                     </button>
                   </li>
                 ))}
+               
                 <li>
                   <button
                     onClick={handleNextPage}
@@ -238,9 +292,12 @@ function ProductList() {
                 </li>
               </ul>
             </nav>
+            
           </div>
         </div>
       </div>
+      <DeleteModal isOpen={showModal} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete}/>
+                <ActiveModal isOpen={showModalActive} onCancel={handleCancelActive} onConfirm={handleConfirmActive}/>
     </div>
   );
 }
