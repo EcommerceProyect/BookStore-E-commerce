@@ -161,7 +161,6 @@ router.get(
 router.post("/reviews", createProductReview);
 router.put("/reviews/:id", updateReviewHandler);
 router.delete("/reviews/:id", deleteReviewHandler);
-router.get("/reviews/average/:productId", getProductReviewsAverageRatingHandler);
 router.get("/reviewsByUser/:userId", getReviewsByUserHandler)
 router.put("/restoreReview/:reviewId", restoreReviewHandler);
 
