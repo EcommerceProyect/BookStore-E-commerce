@@ -6,23 +6,29 @@ import {
   CLIENT_ID,
   REDIRECT_URI,
 } from '../../vars';
+import auth0 from 'auth0-js';
 
 const auth0Register = async () => {
+  try {
+    let webAuth = new auth0.WebAuth({
+      domain: `${DOMAIN}`,
+      clientID: `${CLIENT_ID}`,
+    });
 
-  const response = await fetch(
-    `https://${DOMAIN}/authorize?` +
-      `audience=${AUDIENCE}&` +
-      `scope=${SCOPE}&` +
-      `response_type=${RESPONSE_TYPE}&` +
-      `client_id=${CLIENT_ID}&` +
-      `redirect_uri=${REDIRECT_URI}/redirect`,
+    // Calculate URL to redirect to
+    let url = webAuth.client.buildAuthorizeUrl({
+      connection: null,
+      clientID: `${CLIENT_ID}`,
+      responseType: 'code',
+      redirectUri: `${REDIRECT_URI}/redirect`,
+      scope: `${SCOPE}`,
+      audience: `${AUDIENCE}`,
+    });
 
-    {
-      redirect: 'manual',
-    },
-  );
-
-  window.location.href = response.url;
+    window.location.replace(url);
+  } catch (error) {
+    console.error("Error during Auth0 login:", error);
+  }
 };
 
 export default auth0Register;

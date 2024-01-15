@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+
 import { setNewRating } from '../slices/ratingStarsAverage';
 import { API_BOOKS } from '../../vars';
 
