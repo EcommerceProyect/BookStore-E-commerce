@@ -1,4 +1,3 @@
-
 const { Op } = require("sequelize");
 const {
   Products,
@@ -14,8 +13,9 @@ const {
 require("dotenv").config();
 const {LIMIT_PRODUCTS} = process.env
 
-const filterProductsController = async (filters, sort, page) => {
+const filterProductsController = async (filters, sort, page,deleted) => {
   try {
+    console.log(deleted);
     const { genre, editorial, title, author, rDate, isbn } = filters;
     const includeOptions = [];
     const titleCondition = {};
@@ -83,6 +83,7 @@ const filterProductsController = async (filters, sort, page) => {
       where: {
         [Op.and]: [titleCondition],
       },
+      paranoid:!(deleted)
     });
 
     if (data.count === 0) {
@@ -115,6 +116,7 @@ const filterProductsController = async (filters, sort, page) => {
           [Op.in]: idResults,
         },
       },
+      paranoid:!(deleted),
       order: getOrderSintax(sort),
     });
     if (detailedResults.length === 0) {

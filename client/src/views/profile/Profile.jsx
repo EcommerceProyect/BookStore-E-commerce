@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 import { ReviewsProfile } from './ReviewsProfile';
 import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
-import { useState } from 'react';
-
-import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData?.response);
-  const orders = useSelector((state) => state.userData?.orders);
-  console.log(orders);
+  const orders = useSelector((state) => state.userData.orders);
 
   const formattedDateString =
     userData && userData.createdAt
       ? new Date(userData.createdAt).toLocaleDateString('en-GB')
       : '';
-
   const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
 
   useEffect(() => {
@@ -27,7 +23,7 @@ const Profile = () => {
       }
     };
     fetchData();
-  }, [booksReviewsByUser]);
+  }, [booksReviewsByUser, userData]); // Add userData.id to the dependency array
 
   return userData ? (
     <div>
@@ -146,7 +142,7 @@ const Profile = () => {
             </p>
             {Array.isArray(orders) ? (
               <div className="flex overflow-x-auto p-4">
-                {orders.map((p) => (
+                {orders?.map((p) => (
                   <Link to={`/detail/${p.id}`}>
                     <div className="max-w-xs mx-2" key={p.id}>
                       <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">

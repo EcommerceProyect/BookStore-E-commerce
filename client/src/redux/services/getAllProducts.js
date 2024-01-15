@@ -10,7 +10,7 @@ import { API_BOOKS } from '../../vars';
 const apiUrl = `${API_BOOKS}/ebook/products`;
 // const apiUrl = 'http://localhost:3002/ebook/products';
 export const getProducts =
-  (page, sortField, sortAction) => async (dispatch, getState) => {
+  (page, sortField, sortAction, deleteFilter = false) => async (dispatch, getState) => {
     dispatch(setProductListLoading());
     try {
       const state = getState();
@@ -42,6 +42,9 @@ export const getProducts =
           .join('&');
         queryParams.push(editorialParams);
       }
+      if (deleteFilter) {
+        queryParams.push(`deleted=${deleteFilter}`);
+      }
 
       if (booksByTitle && booksByTitle.length > 0) {
         const titleParams = `title=${encodeURIComponent(booksByTitle)}&`;
@@ -66,6 +69,7 @@ export const getProducts =
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
+      console.log(url);
     } catch (error) {
       dispatch(setProductListError(error.message));
     }
