@@ -64,7 +64,7 @@ function ProductList() {
       await dispatch(deleteProduct(deleteProductId));
       await dispatch(getProducts());
       setShowModal(false);
-      setDeleteUserId(null);
+      setDeleteProductId(null);
     }
   };
 

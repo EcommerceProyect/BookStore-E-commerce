@@ -177,7 +177,7 @@ function Detail() {
                   'Género no disponible.'}
               </h2>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
-                Editorial: {detailProduct?.Editorial.name}
+                Editorial: {detailProduct?.Editorial?.name || 'Editorial no disponible.'}
               </h2>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
                 ISBN: {detailProduct?.ISBN?.name || 'ISBN no disponible.'}

@@ -59,6 +59,9 @@ export const getProducts =
       if (queryParams.length > 0) {
         url += `/filterPrueba?${queryParams.join('&')}&page=${page}`;
       } else {
+        if (!page) {
+          page = 0;
+        }
         url += `?page=${page}`;
       }
 
