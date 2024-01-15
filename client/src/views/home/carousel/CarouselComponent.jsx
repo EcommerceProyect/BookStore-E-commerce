@@ -6,6 +6,8 @@ import { Carousel } from 'flowbite-react';
 
 import { Link } from 'react-router-dom';
 
+import { ITEMS_PER_PAGE } from '../../../vars';
+
 const customTheme = {
   root: {
     base: 'relative h-full w-full',
@@ -46,13 +48,13 @@ const CarouselComponent = () => {
     (state) => state.products.carouselProducts,
   );
   const totalItems = useSelector((state) => state.products.totalItems);
-  const itemsPerPage = 2;
-  const totalPages = Math.ceil(totalItems / itemsPerPage) -1;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) - 1;
+
 
   useEffect(() => {
-    if(totalPages>=0){
-    dispatch(getLastProducts(totalPages, 5));
-  }
+    if (totalPages >= 0) {
+      dispatch(getLastProducts(totalPages, 5));
+    }
   }, [dispatch, totalPages]);
 
   return (
@@ -64,7 +66,10 @@ const CarouselComponent = () => {
           {carouselProducts.map((product) => {
             return (
               <Link to={`/detail/${product.id}`}>
-                <div key={product.id} className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white">
+                <div
+                  key={product.id}
+                  className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white"
+                >
                   <CardCarousel
                     id={product.id}
                     image={product.image}

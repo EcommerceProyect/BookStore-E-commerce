@@ -21,7 +21,7 @@ const getAllProductsLimit = async (page) => {
 
     const response = await Products.findAndCountAll({
       offset,
-      limit: LIMIT_PRODUCTS,
+      limit: itemPerPage,
       include: [
         { model: Author, as: "Authors" },
         { model: ReleasedDate, as: "ReleasedDate" },

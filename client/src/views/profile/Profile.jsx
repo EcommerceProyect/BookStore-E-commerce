@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { ReviewsProfile } from './ReviewsProfile';
 import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
 import { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData?.response);
-  const orders = useSelector((state) => state.userData.orders);
+  const orders = useSelector((state) => state.userData?.orders);
   console.log(orders);
 
   const formattedDateString =
@@ -15,15 +17,7 @@ const Profile = () => {
       ? new Date(userData.createdAt).toLocaleDateString('en-GB')
       : '';
 
-  return userData !== undefined && orders !== undefined ? (
-  const userData = useSelector((state) => state.userData.userData.response);
   const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
-
-  const inputDate = new Date(userData.createdAt);
-  const day = String(inputDate.getUTCDate()).padStart(2, '0');
-  const month = String(inputDate.getUTCMonth() + 1).padStart(2, '0');
-  const year = inputDate.getUTCFullYear();
-  const formattedDateString = `${month}/${day}/${year}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +29,7 @@ const Profile = () => {
     fetchData();
   }, [booksReviewsByUser]);
 
-
-  return (
+  return userData ? (
     <div>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse p-2">
@@ -100,7 +93,7 @@ const Profile = () => {
         <div className="flex-grow p-5 flex flex-col">
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Nombre</p>
+              <p className="text-textDark text-lg font-bold mb-2">Nombre de usuario</p>
               <p className="text-textDark">
                 {/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
                   userData.name,
@@ -110,7 +103,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Apellido</p>
+              <p className="text-textDark text-lg font-bold mb-2">Nombre completo</p>
               <p className="text-textDark">
                 {userData.last_name ? userData.last_name : '...'}
               </p>
@@ -196,8 +189,8 @@ const Profile = () => {
           <div>
             <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
             <div className="flex overflow-x-auto p-4">
-              {booksReviewsByUser.map((review) => {
-                return (
+              {Array.isArray(booksReviewsByUser) &&
+                booksReviewsByUser.map((review) => (
                   <div key={review.id} className="max-w-xs mx-2">
                     <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
                       <div className="relative p-4">
@@ -216,19 +209,22 @@ const Profile = () => {
                         </h5>
 
                         <div className="flex items-center justify-between">
-                          <ReviewsProfile rating={review.rating} productId={review.id} userId={userData.id} />
+                          <ReviewsProfile
+                            rating={review.rating}
+                            productId={review.id}
+                            userId={userData.id}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                ))}
             </div>
           </div>
         </div>
       </div>
     </div>
-  )) : (
+  ) : (
     <div
       role="status"
       className="my-10 text-center flex flex-col justify-center items-center h-[57vh]"
