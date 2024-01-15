@@ -130,10 +130,38 @@ export const productSlice = createSlice({
       state.cart = action.payload;
       state.cartCount = action.payload.length;
     },
+    deleteProductStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    deleteProductSuccess: (state, action) => {
+      state.loading = false;
+    },
+    deleteProductFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    activeProductStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    activeProductSuccess: (state, action) => {
+      state.loading = false;
+    },
+    activeProductFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
 export const {
+  activeProductStart,
+  activeProductSuccess,
+  activeProductFailure,
+  deleteProductStart,
+  deleteProductSuccess,
+  deleteProductFailure,
   setCarouselProducts,
   setProductListLoading,
   setProductList,
