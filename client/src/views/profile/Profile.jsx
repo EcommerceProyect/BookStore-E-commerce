@@ -1,29 +1,19 @@
-import React, { useEffect } from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 import { ReviewsProfile } from './ReviewsProfile';
 import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
-import { useState } from 'react';
+
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData?.response);
   const orders = useSelector((state) => state.userData.orders);
-  console.log(orders);
 
   const formattedDateString =
     userData && userData.createdAt
       ? new Date(userData.createdAt).toLocaleDateString('en-GB')
       : '';
-
-  return userData !== undefined && orders !== undefined ? (
-  const userData = useSelector((state) => state.userData.userData.response);
   const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
-
-  const inputDate = new Date(userData.createdAt);
-  const day = String(inputDate.getUTCDate()).padStart(2, '0');
-  const month = String(inputDate.getUTCMonth() + 1).padStart(2, '0');
-  const year = inputDate.getUTCFullYear();
-  const formattedDateString = `${month}/${day}/${year}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,10 +23,9 @@ const Profile = () => {
       }
     };
     fetchData();
-  }, [booksReviewsByUser]);
+  }, [booksReviewsByUser, userData]); // Add userData.id to the dependency array
 
-
-  return (
+  return userData ? (
     <div>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse p-2">
@@ -153,7 +142,7 @@ const Profile = () => {
             </p>
             {Array.isArray(orders) ? (
               <div className="flex overflow-x-auto p-4">
-                {orders.map((p) => (
+                {orders?.map((p) => (
                   <Link to={`/detail/${p.id}`}>
                     <div className="max-w-xs mx-2" key={p.id}>
                       <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
@@ -196,7 +185,7 @@ const Profile = () => {
           <div>
             <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
             <div className="flex overflow-x-auto p-4">
-              {booksReviewsByUser.map((review) => {
+              {booksReviewsByUser?.map((review) => {
                 return (
                   <div key={review.id} className="max-w-xs mx-2">
                     <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
@@ -228,7 +217,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
-  )) : (
+  ) : (
     <div
       role="status"
       className="my-10 text-center flex flex-col justify-center items-center h-[57vh]"
