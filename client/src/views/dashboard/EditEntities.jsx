@@ -9,7 +9,7 @@ import { Toaster, toast } from 'sonner';
 
 import Dashboard from './Dashboard';
 
-import AuthorForm from './entitiesForm/authorForm';
+import AuthorForm from './entitiesForm/AuthorForm';
 import EditorialForm from './entitiesForm/editorialForm';
 import GenreForm from './entitiesForm/genreForm';
 
