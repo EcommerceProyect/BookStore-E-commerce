@@ -23,14 +23,6 @@ function RatingStarsSetter(props) {
     if (ratingValue) {
       dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
     }
-
-    console.log(
-      productId,
-      userId,
-      ratingValue,
-      orderId,
-      'Soy el producsasadaadaAAAAAA',
-    );
     //Hago update del rating si es que el posteo falla
     dispatch(putRatingStars(ratingValue, productId, userId));
   };

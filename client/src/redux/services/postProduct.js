@@ -11,7 +11,7 @@ export const postProduct = (product) => {
       if(token){
         const response = await axios.post(
           `${APIDOMAIN}/authorized?route=products&token=${token}`,
-          product,
+          product
         )
         dispatch(addToProductList(product))
         return response
