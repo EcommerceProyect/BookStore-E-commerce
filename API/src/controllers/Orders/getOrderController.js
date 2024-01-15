@@ -1,6 +1,7 @@
 const {Orders, Cart} = require("../../db");
 require("dotenv").config();
-const {LIMIT_USERS} = process.env;
+const {LIMIT_USERS} = process.env
+
 
 const getOrdersController = async (page) => {
 

@@ -6,7 +6,7 @@ const getAuthors = async (req,res) => {
 
     try {
         
-        const response = await getAuthorsController(page);
+        const response = await getAuthorsController(page || 0);
 
         res.status(200).json(response)
 
