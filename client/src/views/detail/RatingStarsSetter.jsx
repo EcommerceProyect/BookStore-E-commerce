@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Rating } from 'react-simple-star-rating';
 import {
   postRatingStars,
   putRatingStars,
 } from '../../redux/services/postRatingStars';
+
+import { Toaster, toast } from 'sonner';
 
 function RatingStarsSetter(props) {
   const dispatch = useDispatch();
@@ -14,17 +16,15 @@ function RatingStarsSetter(props) {
   //actualizar el valor de la calificación
   const onPointerMove = (value) => setRatingValue(value);
   const handleRating = () => {
+    toast.info(`Su calificación fue de: ${ratingValue}`, {
+      duration: 1500,
+      icon: '📖',
+    });
     if (ratingValue) {
       dispatch(postRatingStars({ productId, userId, ratingValue, orderId }));
     }
     //Hago update del rating si es que el posteo falla
     dispatch(putRatingStars(ratingValue, productId, userId));
-    // console.log(setRatingValue(ratingValue));
-    // };
-
-    // restablecer la calificación
-    //const handleReset = () => {
-    //  setRatingValue(0);
   };
 
   return (
@@ -38,6 +38,7 @@ function RatingStarsSetter(props) {
         onPointerMove={onPointerMove}
         size={25}
       />
+      <Toaster richColors />
     </div>
   );
 }
