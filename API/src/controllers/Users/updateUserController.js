@@ -8,8 +8,6 @@ const updateUserController = async (id, userData) => {
             throw new Error ("No existe el usuario");
         }
 
-        //Hago esto para no tener problemas ya que solo vamos a actualizar algunos campos
-        // (Es como una actualizacion parcial) y no pierdo la info existente.
         user.name = userData.name || user.name;
         user.last_name = userData.last_name || user.last_name;
         user.phone = userData.phone || user.phone;
