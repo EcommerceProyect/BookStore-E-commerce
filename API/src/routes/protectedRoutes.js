@@ -102,6 +102,7 @@ router.get("/authorized", checkPermissions(["user:edit"]), async (req, res) => {
 router.get("/authorized/check", (req, res) => {
   res.status(200).json({ message: "El usuario esta autenticado" });
 });
+
 router.get(
   "/authorized/profile",
   checkPermissions(["user:edit"]),
