@@ -92,5 +92,6 @@ app.get("/authorized/:id?", handleAuthorizedRequest);
 app.post("/authorized/:id?", handleAuthorizedRequest);
 app.put("/authorized/:id?", handleAuthorizedRequest);
 app.delete("/authorized/:id?", handleAuthorizedRequest);
+app.patch("/authorized/:id?", handleAuthorizedRequest);
 
 app.listen(port, () => console.log("Started", port));

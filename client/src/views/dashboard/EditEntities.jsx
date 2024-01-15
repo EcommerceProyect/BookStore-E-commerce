@@ -9,9 +9,9 @@ import { Toaster, toast } from 'sonner';
 
 import Dashboard from './Dashboard';
 
-import AuthorForm from './entitiesForm/authorForm';
-import EditorialForm from './entitiesForm/editorialForm';
-import GenreForm from './entitiesForm/genreForm';
+import AuthorForm from './entitiesForm/AuthorForm';
+import EditorialForm from './entitiesForm/EditorialForm';
+import GenreForm from './entitiesForm/GenreForm';
 
 const EditEntities = () => {
   const dispatch = useDispatch();

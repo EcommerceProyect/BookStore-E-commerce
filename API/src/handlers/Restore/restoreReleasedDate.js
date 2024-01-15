@@ -1,6 +1,6 @@
 const {
     restoreReleasedDateController
-} = require("../../controllers/restore/restoreReleasedDate");
+} = require("../../controllers/Restore/restoreReleasedDate");
 
 const restoreReleasedDateHandler = async (req, res) => {
     const { id } = req.params;
