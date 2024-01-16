@@ -27,7 +27,7 @@ export const usersOrdersSlice = createSlice({
         },
         resetUserAdminOrders(state){
             state.allOrders = [];
-            state.loading = false;
+            state.loading = true;
         }
 
     }

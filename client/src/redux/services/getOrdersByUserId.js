@@ -29,9 +29,10 @@ const getOrdersByUserId = (userId) => async (dispatch) => {
             console.log({product:responseProduct.data,quantity:o.quantity});
             return {product:responseProduct.data,quantity:o.quantity};
           }),
-        ),totalAmount:order.order.totalAmount,shippingAddress:order.order.shippingAddress};
+        ),totalAmount:order.order.totalAmount,shippingAddress:order.order.shippingAddress,orderId:order.order.id};
       }),
     );
+    console.log(allProducts);
       //retorno un obj con dos propiedades que contiene  los detalles del producto y su order detail
     const flattenedProducts = allProducts.flat();
 

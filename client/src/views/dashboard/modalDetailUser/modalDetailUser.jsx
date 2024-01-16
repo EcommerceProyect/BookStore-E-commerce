@@ -3,6 +3,7 @@ import { useDispatch,useSelector } from "react-redux";
 
 import {React,useEffect,useState} from 'react';
 import getOrdersByUserId from '../../../redux/services/getOrdersByUserId';
+import ModalOrdersDetailUser from "./modalOrdersDetailUser.jsx";
 
 function ModalDetailUser({ isOpen, user, onCancel }) {
 
@@ -10,7 +11,9 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const {allOrders,loading,error} = useSelector((state) => state.userOrdersAdmin)
 
-  const [userOrders,setUserOrders] = useState([])
+  const [userOrders,setUserOrders] = useState([]);
+
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
 
@@ -20,8 +23,6 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
       
     }
 
-    
-
   },[user])
 
   useEffect(() => {
@@ -30,7 +31,17 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
     if(loading == false) setUserOrders(allOrders)
     console.log(allOrders, "SOY EL USER ORDERS");
 
-  },[allOrders])
+  },[allOrders]);
+
+  const openOrderDetailsModal = (order) => {
+    setSelectedOrder(order);
+  };
+
+  const closeOrderDetailsModal = () => {
+    setSelectedOrder(null);
+  };
+
+
 
   return (
     isOpen && (
@@ -57,7 +68,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
             </li>
             <li class="flex items-center">
             <span className="font-bold">Número:</span>
-            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.phone ? user.phone : "Nombre no disponible"}</span>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.phone ? user.phone : "Número no disponible"}</span>
             </li>
             <li class="flex items-center">
             <span className="font-bold">Compras:</span>
@@ -67,30 +78,21 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
             <span className="font-bold">Calificaicones</span>
             <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.reviews ? user.reviews : "Usuario sin calificaciones"}</span>
             </li>
-              {userOrders.length > 0 ?
-              userOrders.map((order,key) =>
-              <li key={key} class="flex items-center">
-                <span>Product</span>
-                {
-                  
-                  order.productsDetails.map((product) =>
-                  <div>
-                    <h1>ID:{product.product.id}</h1> 
-                    <h1>Name:{product.product.title}</h1> 
-                    <h1>Quantity:{product.quantity}</h1> 
-                  </div>)
-            
-                }
-
-                <span>ShippingAddress{order.shippingAddress}</span>
-                <span>TotalAmount{order.totalAmount}</span>
-              </li>
-              )
-              : <li>
-                  <p>Cargando...</p>
-                </li>
-                }
             </ul>
+            {selectedOrder && (
+              <ModalOrdersDetailUser order={selectedOrder} onClose={closeOrderDetailsModal} />
+            )}
+            {userOrders.length > 0 ? (userOrders.map((order, key) => (
+                <li key={key} className="flex items-center">
+                  {/* ... Your existing order details */}
+                  <button onClick={() => openOrderDetailsModal(order)}>Order : {order.shippingAddress} Total Amount : {order.totalAmount}</button>
+                </li>
+              ))
+            ) : (
+              <li>
+                <p>Cargando...</p>
+              </li>
+            )}
           </div>
         </div>
       </div>
