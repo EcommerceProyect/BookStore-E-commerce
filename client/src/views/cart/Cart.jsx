@@ -124,7 +124,6 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    console.log('CART',cart);
     const amount = cart.reduce((acc, { price, quantity }) => {
       return acc + Number(price) * (quantity || 1);
     }, 0);

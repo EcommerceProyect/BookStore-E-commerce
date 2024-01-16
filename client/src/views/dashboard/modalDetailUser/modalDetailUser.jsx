@@ -27,9 +27,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   useEffect(() => {
 
-
     if(loading == false) setUserOrders(allOrders)
-    console.log(allOrders, "SOY EL USER ORDERS");
 
   },[allOrders]);
 

@@ -75,7 +75,6 @@ const handleModalAdmin = (userId) => {
   const handleUserDetail = (user) => {
     setSelectedUser(user);
     setShowUserModal(true);
-    console.log(user);
   };
 
   const handleConfirmDelete = async () => {

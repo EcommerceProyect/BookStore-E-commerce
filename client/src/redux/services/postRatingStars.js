@@ -11,7 +11,7 @@ export const postRatingStars = ({
 }) => {
   return async (dispatch) => {
     try {
-      console.log('soy el post', productId, userId, orderId, ratingValue);
+      // console.log('soy el post', productId, userId, orderId, ratingValue);
       const data = {
         ProductId: productId,
         userId: userId,
@@ -43,7 +43,6 @@ export const putRatingStars = (rating, productId, userId) => {
         )
       ).data.reviews?.id;
 
-      console.log(reviewId, 'SOY EL REVIEW ID');
       const response = await axios.put(
         `${API_BOOKS}/ebook/reviews/${reviewId}`,
         data,
