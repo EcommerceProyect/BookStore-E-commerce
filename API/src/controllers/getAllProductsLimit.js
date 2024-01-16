@@ -6,7 +6,7 @@ require("dotenv").config();
 const {LIMIT_PRODUCTS} = process.env// la cantidad de items que se mandaran a partir de la pagina que este posicionado
 
 const getAllProductsLimit = async (page) => {
-    console.log('LIMIT_PRODUCTS',LIMIT_PRODUCTS);
+    
     const itemPerPage = LIMIT_PRODUCTS;
     const offset = page*itemPerPage;
   

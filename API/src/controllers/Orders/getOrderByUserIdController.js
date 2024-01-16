@@ -3,6 +3,7 @@ const { Orders, Cart, CartDetail } = require("../../db");
 require("dotenv").config();
 const { LIMIT_USERS } = process.env;
 
+//este controlador es usado por el getOrderByUserIdHandler y el getOrderByUserIdAdminHandler
 const getOrderByUserIdController = async (id, page) => {
   const offset = page * LIMIT_USERS;
 
