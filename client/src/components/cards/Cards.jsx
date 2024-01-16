@@ -7,7 +7,8 @@ import GenreFilter from './filters/Genres';
 import AuthorFilter from './filters/Authors';
 import EditorialFilter from './filters/Editorial';
 import SortingComponent from './sort/Sort';
-import { Toaster } from 'sonner';
+import { Toaster, toast } from 'sonner';
+import { Toast } from 'flowbite-react';
 
 function Cards() {
   const dispatch = useDispatch();
@@ -95,19 +96,19 @@ function Cards() {
   ]);
 
   useEffect(() => {
-  dispatch(setCurrentPage(0));
-}, [selectedGenre]);
+    dispatch(setCurrentPage(0));
+  }, [selectedGenre]);
 
-useEffect(() => {
-  dispatch(setCurrentPage(0)); 
-}, [selectedAuthor]);
+  useEffect(() => {
+    dispatch(setCurrentPage(0));
+  }, [selectedAuthor]);
 
-useEffect(() => {
-  dispatch(setCurrentPage(0));
-}, [selectedEditorial]);
+  useEffect(() => {
+    dispatch(setCurrentPage(0));
+  }, [selectedEditorial]);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    toast(`Error al buscar los libros`)
   }
 
   return (
@@ -139,8 +140,6 @@ useEffect(() => {
       <div className=" mt-20 w-3/4 p-4">
         {loading ? (
           <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error}</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 justify-items-center">
             {Array.isArray(list) &&
@@ -157,7 +156,6 @@ useEffect(() => {
                   />
                 </div>
               ))}
-            <Toaster richColors duration={2000} />
           </div>
         )}
         <nav
