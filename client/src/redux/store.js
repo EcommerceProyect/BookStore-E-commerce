@@ -20,10 +20,12 @@ import userActiveReducer, {
   userActiveSuccess,
   userActiveFailure,
 } from './slices/userData';
+import userOrdersAdmin from './slices/userOrdersAdmin';
 
 export default configureStore({
   reducer: {
     products,
+    userOrdersAdmin,
     genres: genreReducer,
     authors: authorReducer,
     editorial: editorialReducer,

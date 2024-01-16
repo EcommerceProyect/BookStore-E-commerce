@@ -12,7 +12,8 @@ import { addToCart } from '../../redux/slices/products';
 import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
-import { API_BOOKS } from '../../vars';
+import { API_BOOKS,APIDOMAIN } from '../../vars';
+import { Toaster } from 'sonner';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
@@ -54,10 +55,10 @@ function Detail() {
       try {
         let contador = 0;
         let aux = '';
-
+        const token = localStorage.getItem("actualT");
         while (aux === '') {
           const { data } = await axios.get(
-            `${API_BOOKS}/ebook/orders/${userId}?page=${contador}`,
+            `${APIDOMAIN}/authorized/?route=orders&token=${token}&page=${contador}`,
           );
 
           if (!data.orders) return false;
@@ -257,6 +258,7 @@ function Detail() {
           </div>
         </div>
       </section>
+      <Toaster richColors duration={1500} />
     </div>
   );
 }

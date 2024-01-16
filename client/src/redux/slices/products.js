@@ -18,7 +18,7 @@ const initialState = {
   totalItems: null,
   carouselProducts: [],
   booksByTitle: [],
-  currentPage: 0,
+  currentPage: 0, 
 };
 
 export const productSlice = createSlice({
@@ -89,7 +89,10 @@ export const productSlice = createSlice({
         state.cartCount += 1;
         localStorage.setItem('cart', JSON.stringify(state.cart));
       } else {
-        toast.warning('El producto ya se encuentra en el carrito');
+        // toast.warning('El producto ya se encuentra en el carrito');
+        toast.success('Agregado al carrito exitosamente');
+        existingProduct.quantity += 1;
+        localStorage.setItem('cart', JSON.stringify(state.cart));
       }
     },
     removeFromCart: (state, action) => {

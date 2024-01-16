@@ -2,7 +2,7 @@ import axios from 'axios';
 import { APIDOMAIN, API_BOOKS } from '../../vars';
 import { setOrders } from '../slices/userData';
 
-const getOrders = (userId) => async (dispatch) => {
+const getOrders = () => async (dispatch) => {
   const token = localStorage.getItem('actualT');
   try {
     const response = await axios.get(
@@ -31,6 +31,7 @@ const getOrders = (userId) => async (dispatch) => {
 
     const flattenedProducts = allProducts.flat();
 
+    console.log(flattenedProducts,"ordersss");
     dispatch(setOrders(flattenedProducts));
   } catch (error) {
     console.error(error);
