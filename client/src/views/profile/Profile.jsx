@@ -72,15 +72,15 @@ const Profile = () => {
         </ol>
       </nav>
       <div className="overflow-x-hidden min-h-90 flex-grow w-full bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col md:flex-row">
-        <div className="md:w-1/3 flex flex-col items-center justify-center p-5 border-b md:border-b-0 md:border-r border-gray-400 dark:border-gray-700">
+        <div className="md:w-1/5 flex flex-col items-center justify-top p-5 border-b md:border-b-0 md:border-r border-gray-400 dark:border-gray-700">
           <img
-            className="rounded-full w-full h-1/2 md:w-64 md:h-64 object-cover mb-4"
+            className="rounded-full w-full h-1/2 md:w-48 md:h-48 object-cover mb-0"
             src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
             alt="Foto de usuario"
           />
           <a
             href="/profile/edit"
-            className=" w-1/2 text-white bg-accents hover:bg-red-800 hover:cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mt-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            className=" w-4/5 text-white bg-accents hover:bg-red-800 hover:cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mt-0 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           >
             Editar perfil
           </a>
