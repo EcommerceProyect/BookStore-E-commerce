@@ -9,7 +9,7 @@ const getUserBuyedProduct = async (userId, id) => {
       const response = await axios.get(
         `${API_BOOKS}/ebook/userBuyedProduct?userId=${userId}&productId=${id}`,
       );
-      console.log('response', response.data);
+      // console.log('response', response.data);
       return response.data;
     } else {
       throw new Error('No se tiene el token de acceso');

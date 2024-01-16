@@ -5,7 +5,6 @@ import { addProductToCartApi, createCart } from '../slices/cartUsersTest';
 
 export const getCartFromApi = (userId) => async (dispatch) => {
   const token = localStorage.getItem('actualT');
-  console.log('token in getCartFromApi', token);
   const cartFromLocalStorage = getCartFromLocalStorage();
   if (token !== null) {
     try {

@@ -69,7 +69,6 @@ export const getProducts =
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
-      console.log(url);
     } catch (error) {
       dispatch(setProductListError(error.message));
     }
