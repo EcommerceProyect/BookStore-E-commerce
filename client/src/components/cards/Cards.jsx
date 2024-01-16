@@ -11,12 +11,12 @@ import { Toaster, toast } from 'sonner';
 import { Toast } from 'flowbite-react';
 
 function Cards() {
+
   const dispatch = useDispatch();
 
   const { list, loading, error, orderOption, currentPage } = useSelector(
     (state) => state.products,
   );
-
   const [totalItems, setTotalItems] = useState(0);
 
   const selectedGenre = useSelector(
@@ -34,6 +34,9 @@ function Cards() {
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
   const [sortAction, setSortAction] = useState(null);
+
+  //variable para verificar si useEffect de abajo paso
+  const [isStarted,setIsStated] = useState(false);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -63,6 +66,7 @@ function Cards() {
 
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         let total = 0;
         let filters = {};
@@ -80,9 +84,10 @@ function Cards() {
         }
 
         await dispatch(getProducts(currentPage, sortField, sortAction));
-      } catch (error) {
-        console.error('Error fetching data: ', error);
+      } catch (err) {
+        console.error('Error fetching data: ', err);
       }
+      setIsStated(true);
     };
     fetchData();
   }, [
@@ -107,7 +112,8 @@ function Cards() {
     dispatch(setCurrentPage(0));
   }, [selectedEditorial]);
 
-  if (error) {
+
+  if (isStarted && loading === false && error) {
     toast(`Error al buscar los libros`)
   }
 

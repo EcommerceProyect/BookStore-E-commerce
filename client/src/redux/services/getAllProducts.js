@@ -8,7 +8,7 @@ import {
 import { API_BOOKS } from '../../vars';
 
 const apiUrl = `${API_BOOKS}/ebook/products`;
-// const apiUrl = 'http://localhost:3002/ebook/products';
+
 export const getProducts =
   (page, sortField, sortAction, deleteFilter = false) => async (dispatch, getState) => {
     dispatch(setProductListLoading());
