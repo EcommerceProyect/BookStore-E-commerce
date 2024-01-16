@@ -3,6 +3,7 @@ import { postProduct } from '../../redux/services/postProduct';
 import { useDispatch } from 'react-redux';
 import {  Toaster, toast  } from 'sonner'; //framework sonner, muestra mensajes.
 import axios from 'axios';
+import { setProductListLoading } from '../../redux/slices/products';
 
 export const useForm = (validationSchema) => {
   const dispatch = useDispatch();
@@ -63,12 +64,17 @@ export const useForm = (validationSchema) => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const resetValues = () => {
+    setValues({});
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const newErrors = validationSchema(values);
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
+      await dispatch(setProductListLoading())
       handleCloudinaryUpload();
       console.log(values);
       setValues({});
@@ -105,5 +111,6 @@ export const useForm = (validationSchema) => {
     handleSubmit,
     handleSelectChange,
     handleImageChange,
+    resetValues
   };
 };

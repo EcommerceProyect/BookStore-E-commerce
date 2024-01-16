@@ -34,6 +34,7 @@ export const productSlice = createSlice({
     },
     setProductList: (state, action) => {
       state.loading = false;
+      state.error = null;
       state.list = action.payload;
     },
     setCurrentPage: (state, action) => {
@@ -48,6 +49,7 @@ export const productSlice = createSlice({
     },
     addToProductList: (state, action) => {
       state.productList = [state.productList, action.payload];
+      state.loading = false;
     },
     modifyProductList: (state, action) => {
       const { id, updatedProduct } = action.payload;

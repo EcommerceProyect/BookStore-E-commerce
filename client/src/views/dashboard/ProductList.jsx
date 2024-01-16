@@ -65,9 +65,9 @@ function ProductList() {
       await dispatch(getProducts());
       setShowModal(false);
       setDeleteProductId(null);
+      console.log(list)
     }
   };
-
   
   const handleCancelDelete = () => {
     setShowModal(false);

@@ -10,7 +10,7 @@ const SortingComponent = ({ handleSorting }) => {
 
   return (
     <div>
-      <label>Ordenar por:</label>
+      <label className=' pr-4'>Ordenar por:</label>
       <select value={selectedOption} onChange={(e) => handleSort(e.target.value)}>
         <option value="">Seleccionar</option>
         <option value="title_ASC">Orden alfabético (A-Z)</option>

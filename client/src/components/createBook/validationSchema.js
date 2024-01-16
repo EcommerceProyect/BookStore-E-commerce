@@ -37,7 +37,7 @@ export const validationSchema = (values) => {
   }
 
   // Editorial
-  if (!values.editorial) {
+  if (!values.editorial && values.editorial.length < 1) {
     errors.editorial = 'La editorial es obligatoria';
   }
 
@@ -49,7 +49,7 @@ if (!isbnRegex.test(values.ISBNname)) {
 }
 
 
-  if (!values.ISBNname) {
+  if (!values.ISBNname && values.ISBNname.length < 1) {
     errors.ISBNname = 'El ISBN es obligatorio';
   }
 

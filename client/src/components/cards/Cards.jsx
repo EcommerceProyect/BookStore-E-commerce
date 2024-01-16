@@ -111,7 +111,8 @@ useEffect(() => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
+      <div >
       <div className="absolute m-4 right-4">
         <SortingComponent handleSorting={handleSorting} />
       </div>
@@ -136,13 +137,14 @@ useEffect(() => {
           />
         </div>
       </div>
-      <div className=" mt-20 w-3/4 p-4">
+      </div>
+      <div className=" mt-20 w-full p-4">
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
           <div>Error: {error}</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
             {Array.isArray(list) &&
               list.map((product) => (
                 <div key={product.id} className="p-4">
