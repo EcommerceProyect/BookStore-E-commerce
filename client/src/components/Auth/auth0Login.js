@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import { DOMAIN, CLIENT_ID, REDIRECT_URI, SCOPE, AUDIENCE,RESPONSE_TYPE } from '../../vars';
+import { DOMAIN, CLIENT_ID, REDIRECT_URI, SCOPE, AUDIENCE, RESPONSE_TYPE } from '../../vars';
 
 const Auth0Login = async () => {
   try {
