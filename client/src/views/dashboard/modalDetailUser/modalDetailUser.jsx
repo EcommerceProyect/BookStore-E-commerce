@@ -1,8 +1,37 @@
 import { MdPersonOutline } from 'react-icons/md';
+import { useDispatch,useSelector } from "react-redux";
 
-import React from 'react';
+import {React,useEffect,useState} from 'react';
+import getOrdersByUserId from '../../../redux/services/getOrdersByUserId';
 
 function ModalDetailUser({ isOpen, user, onCancel }) {
+
+  const dispatch = useDispatch();
+
+  const {allOrders,loading,error} = useSelector((state) => state.userOrdersAdmin)
+
+  const [userOrders,setUserOrders] = useState([])
+
+  useEffect(() => {
+
+    if(allOrders && user && user.id){
+      
+      dispatch(getOrdersByUserId(user.id))
+      
+    }
+
+    
+
+  },[user])
+
+  useEffect(() => {
+
+
+    if(loading == false) setUserOrders(allOrders)
+    console.log(allOrders, "SOY EL USER ORDERS");
+
+  },[allOrders])
+
   return (
     isOpen && (
       <div id="deleteModal" className="fixed inset-0 overflow-y-auto flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
@@ -15,30 +44,53 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
               <span className="sr-only">Close modal</span>
             </button>
             <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Detalles del usuario</h5>
-<div class="flex items-baseline text-gray-900 dark:text-white">
-<div class="flex items-baseline text-gray-900 dark:text-white">
-  <div  className="w-24 h-24 rounded-full">{user && user.image ? user.image : <MdPersonOutline  className="w-24 h-24 rounded-full text-gray-500"/>}</div>
-  <h2 className="pl-12 self-center">{user && user.name ? user.name : "Nombre no disponible"}</h2>
-</div>
-</div>
-<ul role="list" class="space-y-5 my-7">
-<li class="flex items-center">
-<span className="font-bold">Email:</span>
-<span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.email ? user.email : "Nombre no disponible"}</span>
-</li>
-<li class="flex items-center">
-<span className="font-bold">Número:</span>
-<span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.phone ? user.phone : "Nombre no disponible"}</span>
-</li>
-<li class="flex items-center">
-<span className="font-bold">Compras:</span>
-<span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.carrito ? user.carrito : "Usuario sin compras"}</span>
-</li>
-<li class="flex items-center">
-<span className="font-bold">Calificaicones</span>
-<span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.reviews ? user.reviews : "Usuario sin calificaciones"}</span>
-</li>
-</ul>
+            <div class="flex items-baseline text-gray-900 dark:text-white">
+            <div class="flex items-baseline text-gray-900 dark:text-white">
+              <div  className="w-24 h-24 rounded-full">{user && user.image ? user.image : <MdPersonOutline  className="w-24 h-24 rounded-full text-gray-500"/>}</div>
+              <h2 className="pl-12 self-center">{user && user.name ? user.name : "Nombre no disponible"}</h2>
+            </div>
+            </div>
+            <ul role="list" class="space-y-5 my-7">
+            <li class="flex items-center">
+            <span className="font-bold">Email:</span>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.email ? user.email : "Nombre no disponible"}</span>
+            </li>
+            <li class="flex items-center">
+            <span className="font-bold">Número:</span>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.phone ? user.phone : "Nombre no disponible"}</span>
+            </li>
+            <li class="flex items-center">
+            <span className="font-bold">Compras:</span>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.carrito ? user.carrito : "Usuario sin compras"}</span>
+            </li>
+            <li class="flex items-center">
+            <span className="font-bold">Calificaicones</span>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">{user && user.reviews ? user.reviews : "Usuario sin calificaciones"}</span>
+            </li>
+              {userOrders.length > 0 ?
+              userOrders.map((order,key) =>
+              <li key={key} class="flex items-center">
+                <span>Product</span>
+                {
+                  
+                  order.productsDetails.map((product) =>
+                  <div>
+                    <h1>ID:{product.product.id}</h1> 
+                    <h1>Name:{product.product.title}</h1> 
+                    <h1>Quantity:{product.quantity}</h1> 
+                  </div>)
+            
+                }
+
+                <span>ShippingAddress{order.shippingAddress}</span>
+                <span>TotalAmount{order.totalAmount}</span>
+              </li>
+              )
+              : <li>
+                  <p>Cargando...</p>
+                </li>
+                }
+            </ul>
           </div>
         </div>
       </div>

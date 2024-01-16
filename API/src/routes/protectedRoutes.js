@@ -42,6 +42,8 @@ const {
 const {
   updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
+const { getOrderByUserIdAdminHandler } = require("../handlers/Orders/getOrderByUserIdAdminHandler");
 
 router.use(cors());
 
@@ -160,10 +162,15 @@ restoreProduct);
 //Orders
 
 router.get(
-  "/authorized/orders/:id?",
+  "/authorized/orders",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
 );
+
+router.get("/authorized/orders",checkPermissions(["admin:edit"]), getOrdersHandler);
+
+router.get("/authorized/adminOrders/:id",checkPermissions(["admin:edit"]), getOrderByUserIdAdminHandler);
+
 
 //Reviews
 
