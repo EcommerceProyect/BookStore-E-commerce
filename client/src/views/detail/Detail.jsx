@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
 import { API_BOOKS,APIDOMAIN } from '../../vars';
+import { Toaster } from 'sonner';
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
@@ -257,6 +258,7 @@ function Detail() {
           </div>
         </div>
       </section>
+      <Toaster richColors duration={1500} />
     </div>
   );
 }
