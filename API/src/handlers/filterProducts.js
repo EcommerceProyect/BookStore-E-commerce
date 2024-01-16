@@ -4,7 +4,6 @@ const {filterProductsController} = require("../controllers/filterProductsControl
 const filterProducts = async (req,res) => {
    try {
     const {rDate,genre,author,editorial, title, isbn, page, sortField, sortAction,deleted} = req.query;
-
     const filters = {
         genre,
         rDate,
