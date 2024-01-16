@@ -1,4 +1,4 @@
-const { restoreGenreController } = require("../../controllers/restore/restoreGenre");
+const { restoreGenreController } = require("../../controllers/Restore/restoreGenre");
 
 const restoreGenreHandler = async (req,res) =>{
     const { id } = req.params;

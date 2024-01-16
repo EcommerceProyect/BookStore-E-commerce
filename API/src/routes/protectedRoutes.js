@@ -27,7 +27,6 @@ const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
 const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
 const { restoreProduct } = require("../handlers/restoreProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
-const { getDandNoDProductsHandler } = require("../handlers/Products/getDandNoDProductsHandler");
 const {
   updateGenreHandler
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
@@ -103,6 +102,7 @@ router.get("/authorized", checkPermissions(["user:edit"]), async (req, res) => {
 router.get("/authorized/check", (req, res) => {
   res.status(200).json({ message: "El usuario esta autenticado" });
 });
+
 router.get(
   "/authorized/profile",
   checkPermissions(["user:edit"]),
@@ -156,12 +156,6 @@ deleteProduct)
 router.patch("/authorized/products/:id",
 checkPermissions(["admin:edit"]),
 restoreProduct);
-
-
-router.get("/authorized/allProducts",
-checkPermissions(["admin:edit"]),
-getDandNoDProductsHandler);
-
 
 //Orders
 
