@@ -57,9 +57,9 @@ export const getProducts =
       }
 
       if (queryParams.length > 0) {
-        url += `/filterPrueba?${queryParams.join('&')}&page=${page}`;
+        url += `/filterPrueba?${queryParams.join('&')}&page=${page || 0}`;
       } else {
-        url += `?page=${page}`;
+        url += `?page=${page || 0}`;
       }
 
       const response = await axios.get(url);

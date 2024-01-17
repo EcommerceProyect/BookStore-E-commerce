@@ -66,7 +66,7 @@ function ProductList() {
       await dispatch(deleteProduct(deleteProductId));
       await dispatch(getProducts());
       setShowModal(false);
-      setDeleteUserId(null);
+      setActiveProductId(null);
     }
   };
 
@@ -149,6 +149,7 @@ function ProductList() {
     selectedGenre,
     sortField,
     sortAction,
+    totalItemsFromState
   ]);
 
   if (error) {
