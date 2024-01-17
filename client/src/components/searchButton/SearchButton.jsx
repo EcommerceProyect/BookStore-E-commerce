@@ -21,7 +21,7 @@ const SearchButton = () => {
 
     dispatch(setBooksByTitle(searchTerm));
     navigate('/products');
-    if (!list) {
+    if (list && list.length > 0) {
       console.log(list);
       toast('No se han encontrado resultados');
     }
