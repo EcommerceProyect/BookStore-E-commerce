@@ -59,10 +59,16 @@ export const getProducts =
       if (queryParams.length > 0) {
         url += `/filterPrueba?${queryParams.join('&')}&page=${page}`;
       } else {
+        if (!page) {
+          page = 0;
+        }
         url += `?page=${page}`;
       }
 
+      console.log(url)
       const response = await axios.get(url);
+      console.log(response.data.data)
+      console.log(response.data.detailedResults)
       dispatch(
         setTotalItems(response.data.count || response.data.numberOfResults),
       );

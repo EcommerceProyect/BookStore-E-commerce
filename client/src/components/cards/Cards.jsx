@@ -10,6 +10,8 @@ import SortingComponent from './sort/Sort';
 import { Toaster, toast } from 'sonner';
 import { Toast } from 'flowbite-react';
 
+import { ITEMS_PER_PAGE as itemsPerPage } from '../../vars';
+
 function Cards() {
   const dispatch = useDispatch();
 
@@ -29,7 +31,6 @@ function Cards() {
     (state) => state.editorial.selectedEditorial,
   );
 
-  const itemsPerPage = 50;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
@@ -107,12 +108,19 @@ function Cards() {
     dispatch(setCurrentPage(0));
   }, [selectedEditorial]);
 
+useEffect(() => {
+  console.log("totalpages", totalPages);
+  console.log("totalitems", totalItems);
+  console.log("totallist", list)
+}, [totalPages, totalItems, list])
+
   if (error) {
     toast(`Error al buscar los libros`)
   }
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
+      <div >
       <div className="absolute m-4 right-4">
         <SortingComponent handleSorting={handleSorting} />
       </div>
@@ -137,11 +145,12 @@ function Cards() {
           />
         </div>
       </div>
-      <div className=" mt-20 w-3/4 p-4">
+      </div>
+      <div className=" mt-20 w-full p-4">
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
             {Array.isArray(list) &&
               list.map((product) => (
                 <div key={product.id} className="p-4">

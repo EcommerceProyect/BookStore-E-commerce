@@ -37,6 +37,14 @@ export const authorSlice = createSlice({
         state.allAuthors[allAuthorIndex].name = action.payload.name;
       }
     },
+    deleteAuthorList: (state, action) => {
+      state.authors = state.authors.filter(
+        (authors) => authors.id !== action.payload,
+      );
+      state.allAuthors = state.allAuthors.filter(
+        (authors) => authors.id !== action.payload,
+      );
+    },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
@@ -61,6 +69,7 @@ export const {
   updateAuthorList,
   setCurrentPage,
   setTotalItems,
+  deleteAuthorList,
 } = authorSlice.actions;
 
 export default authorSlice.reducer;

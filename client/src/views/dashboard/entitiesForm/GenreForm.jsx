@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { updateGenre } from '../../../redux/services/updateGenre';
 import { fetchGenres } from '../../../redux/services/getGenres';
 
+import DeleteConfirmationModal from './deleteModal';
+import { deleteGenre } from '../../../redux/services/deleteGenre';
+
 const GenreForm = ({ setToast }) => {
   const dispatch = useDispatch();
   const allGenres = useSelector((state) => state.genres.allGenres);
@@ -12,6 +15,8 @@ const GenreForm = ({ setToast }) => {
 
   const [editedGenres, setEditedGenres] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [genreToDelete, setGenreToDelete] = useState(null);
 
   const itemsPerPage = 50;
   const totalPages = Math.ceil(totalItemsFromState / itemsPerPage);
@@ -46,6 +51,27 @@ const GenreForm = ({ setToast }) => {
         setToast('error', response.data.message);
       }
     }
+  };
+
+  const handleDeleteClick = (genre) => {
+    setShowDeleteModal(true);
+    setGenreToDelete(genre);
+  };
+
+  const handleConfirmDelete = async (id) => {
+    const response = await dispatch(deleteGenre(id));
+    setShowDeleteModal(false);
+    console.log(response);
+    if (response.data.message === 'Género eliminado exitosamente') {
+      setToast('success', response.data.message);
+    } else {
+      setToast('error', response.data.message);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setGenreToDelete(null);
+    setShowDeleteModal(false);
   };
 
   const filteredGenres = allGenres.filter((genre) =>
@@ -107,11 +133,11 @@ const GenreForm = ({ setToast }) => {
         {filteredGenres.map((genre) => (
           <div
             key={genre.id}
-            className="flex items-center justify-between mt-6"
+            className="flex items-center justify-between mt-6 space-x-4"
           >
             <input
               type="text"
-              className="w-3/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="flex-1 py-2 px-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={
                 editedGenres[genre.id] !== undefined
                   ? editedGenres[genre.id]
@@ -119,13 +145,19 @@ const GenreForm = ({ setToast }) => {
               }
               onChange={(e) => handleInputChange(genre.id, e.target.value)}
             />
-
             <button
               type="button"
-              class="h-full w-1/5 focus:outline-none text-white bg-accents hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              className="py-2 px-4 text-white bg-accents hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
               onClick={() => handleEditClick(genre.id)}
             >
               Editar
+            </button>
+            <button
+              type="button"
+              className="py-2 px-4 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              onClick={() => handleDeleteClick(genre)}
+            >
+              Eliminar
             </button>
           </div>
         ))}
@@ -167,6 +199,13 @@ const GenreForm = ({ setToast }) => {
           </ul>
         </nav>
       </div>
+      <DeleteConfirmationModal
+        showDeleteModal={showDeleteModal}
+        handleCancelDelete={handleCancelDelete}
+        handleConfirmDelete={handleConfirmDelete}
+        type={'género'}
+        entity={genreToDelete}
+      />
     </div>
   );
 };

@@ -8,11 +8,13 @@ import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData?.response);
   const orders = useSelector((state) => state.userData.orders);
+  console.log(orders);
 
   const formattedDateString =
     userData && userData.createdAt
       ? new Date(userData.createdAt).toLocaleDateString('en-GB')
       : '';
+
   const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
 
   useEffect(() => {
@@ -89,7 +91,7 @@ const Profile = () => {
         <div className="flex-grow p-5 flex flex-col md:pl-8">
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Nombre</p>
+              <p className="text-textDark text-lg font-bold mb-2">Nombre de usuario</p>
               <p className="text-textDark">
                 {/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
                   userData.name,
@@ -99,7 +101,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Apellido</p>
+              <p className="text-textDark text-lg font-bold mb-2">Nombre completo</p>
               <p className="text-textDark">
                 {userData.last_name ? userData.last_name : '...'}
               </p>
@@ -185,33 +187,39 @@ const Profile = () => {
           <div>
             <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
             <div className="flex overflow-x-auto p-4">
-              {booksReviewsByUser?.map((review) => {
-                return (
-                  <div key={review.id} className="max-w-xs mx-2">
-                    <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
-                      <div className="relative p-4">
-                        <div className="w-32 h-32 mx-auto">
-                          <img
-                            className="rounded-lg shadow-md object-contain w-full h-full"
-                            src={review.image}
-                            alt={`Foto de ${review.title}`}
-                          />
-                        </div>
+            {Array.isArray(booksReviewsByUser) ? (
+              booksReviewsByUser.map((review) => (
+                <div key={review.id} className="max-w-xs mx-2">
+                  <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
+                    <div className="relative p-4">
+                      <div className="w-32 h-32 mx-auto">
+                        <img
+                          className="rounded-lg shadow-md object-contain w-full h-full"
+                          src={review.image}
+                          alt={`Foto de ${review.title}`}
+                        />
                       </div>
+                    </div>
 
-                      <div className="px-4 pb-4">
-                        <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
-                          {review.title}
-                        </h5>
+                    <div className="px-4 pb-4">
+                      <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
+                        {review.title}
+                      </h5>
 
-                        <div className="flex items-center justify-between">
-                          <ReviewsProfile rating={review.rating} productId={review.id} userId={userData.id} />
-                        </div>
+                      <div className="flex items-center justify-between">
+                        <ReviewsProfile
+                          rating={review.rating}
+                          productId={review.id}
+                          userId={userData.id}
+                        />
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))
+            ) : (
+              <p className="text-textDark">...</p>
+            )}
             </div>
           </div>
         </div>

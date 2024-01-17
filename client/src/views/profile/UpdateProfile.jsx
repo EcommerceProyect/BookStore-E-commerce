@@ -183,7 +183,7 @@ const UpdateProfile = () => {
           </div>
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="name" value="Nombre" />
+              <Label htmlFor="name" value="Nombre de usuario" />
             </div>
             <TextInput
               id="name"
@@ -198,7 +198,7 @@ const UpdateProfile = () => {
 
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="last_name" value="Apellido"></Label>
+              <Label htmlFor="last_name" value="Nombre completo"></Label>
             </div>
             <TextInput
               id="last_name"

@@ -5,6 +5,9 @@ import { updateAuthor } from '../../../redux/services/updateAuthor';
 import { setCurrentPage } from '../../../redux/slices/authors';
 import { fetchAuthors } from '../../../redux/services/getAuthors';
 
+import DeleteConfirmationModal from './deleteModal';
+import { deleteAuthor } from '../../../redux/services/deleteAuthor';
+
 const AuthorForm = ({ setToast }) => {
   const dispatch = useDispatch();
   const allAuthors = useSelector((state) => state.authors.allAuthors);
@@ -13,6 +16,8 @@ const AuthorForm = ({ setToast }) => {
 
   const [editedAuthors, setEditedAuthors] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [authorToDelete, setAuthorToDelete] = useState(null);
 
   const itemsPerPage = 50;
   const totalPages = Math.ceil(totalItemsFromState / itemsPerPage);
@@ -46,6 +51,26 @@ const AuthorForm = ({ setToast }) => {
         setToast('error', response.data.message);
       }
     }
+  };
+
+  const handleDeleteClick = (author) => {
+    setShowDeleteModal(true);
+    setAuthorToDelete(author);
+  };
+
+  const handleConfirmDelete = async (id) => {
+    const response = await dispatch(deleteAuthor(id));
+    setShowDeleteModal(false);
+    if (response.data.message === 'Autor eliminado exitosamente') {
+      setToast('success', response.data.message);
+    } else {
+      setToast('error', response.data.message);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setAuthorToDelete(null);
+    setShowDeleteModal(false);
   };
 
   const filteredAuthors = allAuthors.filter((author) =>
@@ -107,11 +132,11 @@ const AuthorForm = ({ setToast }) => {
         {filteredAuthors.map((author) => (
           <div
             key={author.id}
-            className="flex items-center justify-between mt-6"
+            className="flex items-center justify-between mt-6 space-x-4"
           >
             <input
               type="text"
-              className="w-3/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="flex-1 py-2 px-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={
                 editedAuthors[author.id] !== undefined
                   ? editedAuthors[author.id]
@@ -121,10 +146,17 @@ const AuthorForm = ({ setToast }) => {
             />
             <button
               type="button"
-              class="h-full w-1/5 focus:outline-none text-white bg-accents hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              className="py-2 px-4 text-white bg-accents hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
               onClick={() => handleEditClick(author.id)}
             >
               Editar
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDeleteClick(author)}
+              className="py-2 px-4 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            >
+              Eliminar
             </button>
           </div>
         ))}
@@ -166,6 +198,13 @@ const AuthorForm = ({ setToast }) => {
           </ul>
         </nav>
       </div>
+      <DeleteConfirmationModal
+        showDeleteModal={showDeleteModal}
+        handleCancelDelete={handleCancelDelete}
+        handleConfirmDelete={handleConfirmDelete}
+        type={'autor'}
+        entity={authorToDelete}
+      />
     </div>
   );
 };

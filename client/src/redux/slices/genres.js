@@ -38,6 +38,14 @@ export const genreSlice = createSlice({
         state.allGenres[allGenreIndex].name = action.payload.name;
       }
     },
+    deleteGenreList: (state, action) => {
+      state.genres = state.genres.filter(
+        (genres) => genres.id !== action.payload,
+      );
+      state.allGenres = state.allGenres.filter(
+        (genres) => genres.id !== action.payload,
+      );
+    },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
@@ -62,6 +70,7 @@ export const {
   updateGenreList,
   setCurrentPage,
   setTotalItems,
+  deleteGenreList,
 } = genreSlice.actions;
 
 export default genreSlice.reducer;

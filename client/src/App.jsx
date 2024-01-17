@@ -27,9 +27,20 @@ import { debounce, isEmpty } from 'lodash';
 import EditEntities from './views/dashboard/EditEntities';
 import EditBook from './components/createBook/EditBook';
 
+import { Toaster, toast } from 'sonner';
+
+
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [user, setUser] = useState({});
+
+  const setToast = (type, value) => {
+    if (type === 'success') {
+      toast.success(value);
+    } else if (type === 'error') {
+      toast.error(value);
+    }
+  }
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.userData);
@@ -94,13 +105,14 @@ function App() {
           <Navbar
             openLoginModal={openLoginModal}
             openRegistrationModal={openRegistrationModal}
+            setToast={setToast}
           />
 
           <Routes>
             {/* auth */}
             <Route
               path="/redirect"
-              element={<RegisterAuth openLoginModal={openLoginModal} />}
+              element={<RegisterAuth openLoginModal={openLoginModal} setToast={setToast} />}
             />
             {/* auth */}
             <Route path="/" element={<Home />} />
@@ -126,6 +138,7 @@ function App() {
           {showLoginModal && <LoginModal onClose={closeLoginModal} />}
         </>
       )}
+      <Toaster richColors/>
     </div>
   );
 }
