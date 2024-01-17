@@ -4,6 +4,7 @@ import { useDispatch,useSelector } from "react-redux";
 import {React,useEffect,useState} from 'react';
 import getOrdersByUserId from '../../../redux/services/getOrdersByUserId';
 import ModalOrdersDetailUser from "./modalOrdersDetailUser.jsx";
+import { resetUserAdminOrders } from '../../../redux/slices/userOrdersAdmin.js';
 
 function ModalDetailUser({ isOpen, user, onCancel }) {
 
@@ -37,6 +38,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const closeOrderDetailsModal = () => {
     setSelectedOrder(null);
+    dispatch(resetUserAdminOrders());
   };
 
 
