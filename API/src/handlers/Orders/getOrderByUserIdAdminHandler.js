@@ -1,9 +1,9 @@
 const {getOrderByUserIdController} = require("../../controllers/Orders/getOrderByUserIdController");
 
-const getOrderByUserIdHandler = async (req, res) => {
+const getOrderByUserIdAdminHandler = async (req, res) => {
 
     const {page} = req.query;
-    const id = req.auth.payload.sub;
+    const id = req.params.id;
     console.log(id);
     try {
         const orders = await getOrderByUserIdController(id,page);
@@ -20,4 +20,4 @@ const getOrderByUserIdHandler = async (req, res) => {
 };
 
 
-module.exports = {getOrderByUserIdHandler}
+module.exports = {getOrderByUserIdAdminHandler}

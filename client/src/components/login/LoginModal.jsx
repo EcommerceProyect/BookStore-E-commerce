@@ -8,8 +8,8 @@ const LoginModal = ({ onClose }) => {
   const handleGoogleLogin = async () => {
     try {
       let webAuth = new auth0.WebAuth({
-        domain:       `${DOMAIN}`,
-        clientID:     `${CLIENT_ID}`
+        domain:`${DOMAIN}`,
+        clientID:`${CLIENT_ID}`
       });
     
       // Calculate URL to redirect to

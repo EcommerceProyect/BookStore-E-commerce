@@ -20,6 +20,7 @@ import { HiOutlineSortDescending } from "react-icons/hi";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaCheck } from 'react-icons/fa';
 import { MdBlock, MdPersonOutline } from 'react-icons/md';
+import { resetUserAdminOrders } from '../../redux/slices/userOrdersAdmin';
 
 
 function Users() {
@@ -112,6 +113,8 @@ const handleModalAdmin = (userId) => {
   };
 
   const handleCloseDetail = () =>{
+    //reset del estado local de userOrdersAdmin
+    dispatch(resetUserAdminOrders());
     setShowUserModal(false)
   }
 

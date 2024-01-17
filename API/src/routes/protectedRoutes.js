@@ -49,6 +49,8 @@ const {
   deleteEditorialHandler
 } = require("../handlers/SoftDelete/deleteEditorial");
 const { deleteGenreHandler } = require("../handlers/SoftDelete/deleteGenre");
+const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
+const { getOrderByUserIdAdminHandler } = require("../handlers/Orders/getOrderByUserIdAdminHandler");
 
 router.use(cors());
 
@@ -169,10 +171,15 @@ restoreProduct);
 //Orders
 
 router.get(
-  "/authorized/orders/:id?",
+  "/authorized/orders",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
 );
+
+router.get("/authorized/orders",checkPermissions(["admin:edit"]), getOrdersHandler);
+
+router.get("/authorized/adminOrders/:id",checkPermissions(["admin:edit"]), getOrderByUserIdAdminHandler);
+
 
 //Reviews
 
