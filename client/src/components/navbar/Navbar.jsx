@@ -20,6 +20,8 @@ import AuthLogin from '../Auth/auth0Login';
 import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 import handleLogout from '../Auth/handleLogout';
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+
 
 const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
   const { cart } = useSelector((state) => state.products);
@@ -37,12 +39,38 @@ const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
     }
   }, [userData]);
 
+  const [theme, setTheme] = useState("light")
+
+  useEffect(() => {
+    if (theme == "dark") {
+      document.querySelector("html").classList.add('dark')
+    } else {
+      document.querySelector("html").classList.remove("dark")
+    }
+  }, [theme])
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+      if (storedTheme === 'dark') {
+        document.querySelector('html').classList.add('dark');
+      }
+    }
+  }, []);
+
+  const handleChangeTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
   return (
     <nav className=" bg-primary p-3">
       <div className="flex items-center justify-between gap-2">
         <Link to="/">
           <div title="Home" className="left-0">
-            <img src={Logo} alt="Logo" className="ml-10" />
+            <img src={Logo} alt="Logo" className="ml-10 transform transition-transform duration-300 ease-in-out hover:scale-105" />
           </div>
         </Link>
 
@@ -115,6 +143,11 @@ const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
             </div>
           )}
           <SearchButton />
+          {theme === 'dark' ? (
+            <MdOutlineDarkMode title="Modo Oscuro" className='text-textLight cursor-pointer' size={25} onClick={handleChangeTheme} />
+          ) : (
+            <MdOutlineLightMode title="Modo Claro" className='text-textLight cursor-pointer' size={25} onClick={handleChangeTheme} />
+          )}
         </div>
       </div>
     </nav>

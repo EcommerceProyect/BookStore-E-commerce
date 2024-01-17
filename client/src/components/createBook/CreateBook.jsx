@@ -238,7 +238,7 @@ const CreateBook = () => {
             </Alert>
           )}
 
-          <Button className="bg-accents" type="submit" disabled={loading || error === "El libro no pudo ser creado correctamente"}>
+          <Button className="bg-accents dark:bg-primary" type="submit" disabled={loading || error === "El libro no pudo ser creado correctamente"}>
             Crear libro
           </Button>
 

@@ -69,7 +69,7 @@ const LoginAuth = ({ setToast }) => {
   return (
     <div className="Challenges-body">
       {challengesData !== 'none' && challengesData !== null ? (
-        <h5 className="Content">Bienvenido {challengesData}</h5>
+        <h5 className="Content text-textLight">Bienvenido {challengesData}</h5>
       ) : null}
     </div>
   );

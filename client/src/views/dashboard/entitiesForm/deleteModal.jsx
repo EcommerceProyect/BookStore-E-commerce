@@ -65,13 +65,13 @@ const DeleteConfirmationModal = ({
               </button>
             </div>
             <div className="p-4 md:p-5">
-              <p className=" text-lg text-center text-textDark pb-4">
+              <p className="dark:text-gray-100/85 text-lg text-center text-textDark pb-4">
                 {confirmationText}
               </p>
               <button
                 onClick={() => handleConfirmDelete(entity.id)}
                 type="submit"
-                className="w-full text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="w-full text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Eliminar
               </button>
