@@ -13,9 +13,10 @@ import { useParams } from 'react-router-dom';
 import RatingStarsAverage from './RatingStarsAverage';
 import RatingStarsSetter from './RatingStarsSetter';
 import { API_BOOKS,APIDOMAIN } from '../../vars';
-import { Toaster } from 'sonner';
+import { Toaster, toast } from 'sonner';
 
 function Detail() {
+  const token = localStorage.getItem('actualT');
   const { detailProduct } = useSelector((state) => state.products);
   const { cart } = useSelector((state) => state.products);
   const { userCart } = useSelector((state) => state.cart);
@@ -90,7 +91,8 @@ function Detail() {
   };
 
   const checkOut = () => {
-    axios
+    if(token){
+      axios
       .post(`${API_BOOKS}/mercadoPago/create-order`, {
         books: [
           {
@@ -107,6 +109,12 @@ function Detail() {
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
+    }else{
+      toast.error(
+        'Debe iniciar sesión para poder continuar con la compra',
+      )
+    }
+    
       
   };
 
@@ -228,6 +236,7 @@ function Detail() {
                 </button> */}
               </div>
               <div className="flex justify-around mt-5 mb-5">
+          
                 {detailProduct?.ISBN?.stock > 0 ? (
                   <>
                     <button
@@ -236,12 +245,15 @@ function Detail() {
                     >
                       Agregar al carrito
                     </button>
-                    <button
-                      className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                      onClick={checkOut}
-                    >
-                      Comprar ahora
-                    </button>
+                    
+                        <button
+                        className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                        onClick={checkOut}
+                      >
+                        Comprar ahora
+                      </button>
+                    
+                  
                   </>
                 ) : (
                   <>
