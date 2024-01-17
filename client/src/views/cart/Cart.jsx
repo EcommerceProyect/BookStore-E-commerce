@@ -177,7 +177,7 @@ const Cart = () => {
         </ol>
       </nav>
       <div className="flex flex-col">
-        <h1 className="p-4 text-3xl font-bold">Tu carrito de compras</h1>
+        <h1 className="p-4 text-3xl font-bold dark:text-textLight">Tu carrito de compras</h1>
 
         {cart.length === 0 ? (
           <NoProducts />
@@ -191,47 +191,47 @@ const Cart = () => {
                 <img
                   src={image}
                   alt={title}
-                  className="w-36 bg-slate-400 p-4"
+                  className="w-36 dark:bg-bgDark bg-slate-400 p-4"
                 />
 
                 <div className="flex flex-col pl-4 w-60">
-                  <h5 className="text-left text-xl font-semibold tracking-tight text-textDark">
+                  <h5 className="dark:text-gray-100/85 text-left text-xl font-semibold tracking-tight text-textDark">
                     {title}
                   </h5>
                   <span>
                     {Authors.map((author) => (
                       <div
                         key={author.id}
-                        className="text-textDark font-thin text-xs"
+                        className="dark:text-gray-100/85 text-textDark font-thin text-xs"
                       >
                         Autor: {author.name}
                       </div>
                     ))}
                   </span>
-                  <span className="text-textDark font-thin text-xs">
+                  <span className="dark:text-gray-100/85 text-textDark font-thin text-xs">
                     ISBN: {ISBN.name}
                   </span>
-                  <span className="text-textDark font-thin text-xs">
+                  <span className="dark:text-gray-100/85 text-textDark font-thin text-xs">
                     Stock: {ISBN.stock}
                   </span>
                   <div className="flex gap-2 my-1 p-1">
                     <button onClick={() => decrement(id)}>
-                      <CiSquareMinus size={30} className="text-textGray" />
+                      <CiSquareMinus size={30} className="dark:text-gray-100/85 text-textGray" />
                     </button>
-                    <span>{quantity || 1}</span>
+                    <span className='dark:text-gray-100/85'>{quantity || 1}</span>
                     <button onClick={() => increment(id)}>
-                      <CiSquarePlus size={30} className="text-textGray" />
+                      <CiSquarePlus size={30} className="dark:text-gray-100/85 text-textGray" />
                     </button>
                   </div>
                   {sureDelete[id] ? (
                     <div className="text-textGray">
-                      <span className="flex w-96">
+                      <span className="dark:text-gray-100/85 flex w-96">
                         ¿Seguro que desea eliminar este producto del carrito?
                       </span>
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleDelete(id)}
-                          className="w-16"
+                          className="dark:text-gray-100/85 w-16"
                         >
                           Si
                         </button>
@@ -239,7 +239,7 @@ const Cart = () => {
                           onClick={() =>
                             setSureDelete((prev) => ({ ...prev, [id]: false }))
                           }
-                          className="w-16"
+                          className="dark:text-gray-100/85 w-16"
                         >
                           No
                         </button>
@@ -254,32 +254,32 @@ const Cart = () => {
                         }
                         className="flex gap-1 text-textGray"
                       >
-                        <LuTrash2 className=" mt-1" />
-                        <span>Eliminar del carrito</span>
+                        <LuTrash2 className=" mt-1 dark:text-gray-100/85" />
+                        <span className='dark:text-gray-100/85'>Eliminar del carrito</span>
                       </button>
                     </div>
                   )}
                 </div>
                 <div className="flex ml-16 gap-16">
                   <div className="flex flex-col">
-                    <span className="text-textGray">Valor unitario</span>
-                    <span className="font-sans font-semibold">${price}</span>
+                    <span className="text-textGray dark:text-gray-100/85">Valor unitario</span>
+                    <span className="font-sans font-semibold dark:text-gray-100/85">${price}</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-textGray">Valor total</span>
-                    <span className="font-sans font-semibold">
+                    <span className="text-textGray dark:text-gray-100/85">Valor total</span>
+                    <span className="font-sans font-semibold dark:text-gray-100/85">
                       ${Number(price) * quantity || price}
                     </span>
                   </div>
                 </div>
               </div>
             ))}
-            <div className="bg-gray-200 absolute p-10 top-44 right-12 w-72 rounded-sm">
+            <div className="dark:bg-gray-900/20 bg-gray-200 absolute p-10 top-44 right-12 w-72 rounded-sm">
               <div className="flex justify-between p-2">
-                <span className="font-sans font-semibold text-lg text-textDark">
+                <span className="dark:text-gray-100/85 font-sans font-semibold text-lg text-textDark">
                   Total:
                 </span>
-                <span className="font-sans font-semibold text-lg text-textDark">
+                <span className="dark:text-gray-100/85 font-sans font-semibold text-lg text-textDark">
                   $ {totalAmount}
                 </span>
               </div>
@@ -291,7 +291,7 @@ const Cart = () => {
                         ? checkOut
                         : () => toast.error('Uno de los libros no tiene stock')
                     }
-                    className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center"
                   >
                     <span className="flex w-32">Continuar compra</span>
                   </button>

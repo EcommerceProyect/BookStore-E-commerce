@@ -7,16 +7,16 @@ const Home = () => {
 
   return (
     <div>
-      <h2 className="my-5 text-textDark font-bold text-center text-lg">
+      <h2 className="dark:text-textLight my-5 text-textDark font-bold text-center text-lg">
         Últimos libros agregados
       </h2>
       <CarouselComponent />
       <hr className="bg-gray-700"></hr>
       <div className="my-10">
-        <p class="font-serif text-center text-3xl">
+        <p class="dark:text-gray-100/85 text-textDark font-serif text-center text-3xl">
           "Un libro es un regalo que puedes abrir una y otra vez."
           <br />
-          <cite className="px-4 mb-10 text-base leading-7 text-textGray">
+          <cite className="dark:text-gray-100/85 px-4 mb-10 text-base leading-7 text-textGray">
             Garrison Keillor
           </cite>
         </p>
@@ -30,7 +30,7 @@ const Home = () => {
             alt="libreria"
           />
         </div>
-        <div className="col-span-1 flex flex-col justify-between px-8 pb-5">
+        <div className="dark:text-gray-100/85 col-span-1 flex flex-col justify-between px-8 pb-5">
           <p className="leading-relaxed">
             En Librería Apolo, te invitamos a explorar nuestra amplia selección
             de libros que abarca desde cautivadoras novelas, enriquecedores

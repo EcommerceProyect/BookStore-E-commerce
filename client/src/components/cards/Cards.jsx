@@ -149,12 +149,12 @@ function Cards() {
       </div>
       <div className=" mt-20 w-full p-4">
         {loading ? (
-          <div>Loading...</div>
+          <div className='text-center dark:text-textLight'>Cargando...</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
             {Array.isArray(list) &&
               list.map((product) => (
-                <div key={product.id} className="p-4">
+                <div key={product.id} className="p-4 transform transition-transform duration-300 ease-in-out hover:scale-105">
                   <Card
                     id={product.id}
                     image={product.image || 'Imagen no disponible'}
@@ -177,7 +177,7 @@ function Cards() {
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Previous
               </button>
@@ -186,7 +186,7 @@ function Cards() {
               <li key={i}>
                 <button
                   onClick={() => dispatch(setCurrentPage(i))}
-                  className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+                  className={`dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
                     currentPage === i ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                 >
@@ -198,7 +198,7 @@ function Cards() {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages - 1}
-                className="flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Next
               </button>

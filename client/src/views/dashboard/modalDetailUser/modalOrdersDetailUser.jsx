@@ -4,7 +4,7 @@ const ModalOrdersDetailUser = ({ order, onClose }) => {
 
     return (
         <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
-          <div className="relative w-full max-w-md mx-auto bg-white rounded-lg shadow-lg">
+          <div className="dark:bg-gray-900 relative w-full max-w-md mx-auto bg-white rounded-lg shadow-lg">
             <div className="p-4 text-center">
               <button
                 type="button"
@@ -13,7 +13,7 @@ const ModalOrdersDetailUser = ({ order, onClose }) => {
               >
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5"
+                  className=" dark:text-textLight w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -26,15 +26,15 @@ const ModalOrdersDetailUser = ({ order, onClose }) => {
                 </svg>
                 <span className="sr-only">Close modal</span>
               </button>
-              <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Detalles del pedido</h5>
+              <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-textLight">Detalles del pedido</h5>
                 {order && order.productsDetails ?
                 order.productsDetails.map((product) =>
                   <fieldset className="border-2 rounded p-6">
-                    <legend>ISBN : {product.product.ISBN.name}</legend>
+                    <legend className=" dark:text-textLight p-3">ISBN : {product.product.ISBN.name}</legend>
                     <ul>
-                        <li>ID : {product.product.id}</li>
-                        <li>Name : {product.product.title}</li>
-                        <li>Quantity : {product.quantity}</li>
+                        <li className="dark:text-textLight">ID : {product.product.id}</li>
+                        <li className="dark:text-textLight">Nombre : {product.product.title}</li>
+                        <li className="dark:text-textLight">Cantidad : {product.quantity}</li>
                     </ul>
                   </fieldset>
                   ) : <span>Este usuario no tiene ordenes</span>

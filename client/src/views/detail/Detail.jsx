@@ -112,7 +112,7 @@ function Detail() {
 
   return (
     <div>
-      <section class="text-textGray body-font overflow-hidden bg-white py-2">
+      <section class="dark:bg-bgDark text-textGray body-font overflow-hidden bg-white py-2">
         <div class="container px-5 py-24 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img
@@ -121,14 +121,14 @@ function Detail() {
               src={detailProduct?.image}
             />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h1 class="text-textDark text-2xl title-font font-bold mb-1 pb-2">
+              <h1 class="dark:text-textLight text-textDark text-2xl title-font font-bold mb-1 pb-2">
                 {detailProduct?.title || 'Título no disponible.'}
               </h1>
-              <h2 class="text-sm title-font text-textGray tracking-widest pb-1">
+              <h2 class="dark:text-gray-100/85 text-sm title-font text-textGray tracking-widest pb-1">
                 {detailProduct?.Authors.map((author) => author.name) ||
                   'Autor no disponible.'}
               </h2>
-              <span>Stock disponible: {detailProduct?.ISBN.stock}</span>
+              <span className='dark:text-gray-100/85'>Stock disponible: {detailProduct?.ISBN.stock}</span>
               <div>
                 <RatingStarsAverage productId={id} />
               </div>
@@ -193,23 +193,23 @@ function Detail() {
                   <span class="text-gray-600 ml-3">4 Reviews</span>
                 </span>
               </div> */}
-              <p class="leading-relaxed py-1">
+              <p class="dark:text-gray-100/85 leading-relaxed py-1">
                 {detailProduct?.synopsis || 'Sinopsis no disponible.'}
               </p>
               <hr></hr>
-              <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
+              <h2 class="dark:text-gray-100/85 text-sm title-font text-gray-800 tracking-widest py-1">
                 Género:{' '}
                 {detailProduct?.Genres.map((genre) => genre.name).join(', ') ||
                   'Género no disponible.'}
               </h2>
-              <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
+              <h2 class="dark:text-gray-100/85 text-sm title-font text-gray-800 tracking-widest py-1">
                 Editorial: {detailProduct?.Editorial?.name || 'Editorial no disponible.'}
               </h2>
-              <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
+              <h2 class="dark:text-gray-100/85 text-sm title-font text-gray-800 tracking-widest py-1">
                 ISBN: {detailProduct?.ISBN?.name || 'ISBN no disponible.'}
               </h2>
               <div class="flex pt-4">
-                <span class="text-left text-2xl font-medium text-textDark dark:text-black">
+                <span class="dark:text-textLight text-left text-2xl font-medium text-textDark ">
                   Precio: ${detailProduct?.price || 'Precio no disponible.'}
                 </span>
 
@@ -227,7 +227,7 @@ function Detail() {
                   </svg>
                 </button> */}
               </div>
-              <div className="flex justify-around mt-5 mb-5">
+              <div className="dark:text-gray-100/85 flex justify-around mt-5 mb-5">
                 {detailProduct?.ISBN?.stock > 0 ? (
                   <>
                     <button
@@ -237,7 +237,7 @@ function Detail() {
                       Agregar al carrito
                     </button>
                     <button
-                      className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                      className="text-white bg-accents py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
                       onClick={checkOut}
                     >
                       Comprar ahora
