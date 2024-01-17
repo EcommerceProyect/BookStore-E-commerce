@@ -38,7 +38,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const closeOrderDetailsModal = () => {
     setSelectedOrder(null);
-    dispatch(resetUserAdminOrders());
+    
   };
 
 
