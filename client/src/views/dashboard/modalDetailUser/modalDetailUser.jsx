@@ -16,16 +16,21 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
-  
   useEffect(() => {
-    if (allOrders && user && user.id) {
-      dispatch(getOrdersByUserId(user.id));
+
+    if(allOrders && user && user.id){
+      
+      dispatch(getOrdersByUserId(user.id))
+      
     }
-  }, [user]);
+
+  },[user])
 
   useEffect(() => {
-    if (loading === false)setUserOrders(allOrders);
-  }, [allOrders]);
+
+    if(loading == false) setUserOrders(allOrders)
+
+  },[allOrders]);
 
   const openOrderDetailsModal = (order) => {
     setSelectedOrder(order);
@@ -33,7 +38,6 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const closeOrderDetailsModal = () => {
     setSelectedOrder(null);
-    setUserOrders(null);
     dispatch(resetUserAdminOrders());
   };
 
@@ -78,7 +82,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
             {selectedOrder && (
               <ModalOrdersDetailUser order={selectedOrder} onClose={closeOrderDetailsModal} />
             )}
-            {userOrders.length > 0 ? (userOrders.map((order, key) => (
+            {userOrders.length > 0 && !loading ? (userOrders.map((order, key) => (
                 <li key={key} className="flex items-center">
                   {/* ... Your existing order details */}
                   <button onClick={() => openOrderDetailsModal(order)}>Order : {order.shippingAddress} Total Amount : {order.totalAmount}</button>
