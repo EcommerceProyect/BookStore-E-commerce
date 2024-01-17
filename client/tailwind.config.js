@@ -6,9 +6,11 @@ export default {
     './node_modules/flowbite-react/lib/esm/**/*.js',
     './node_modules/flowbite/**/*.js',
   ],
+  "darkMode": "class",
   theme: {
     extend: {
       colors: {
+        bgDark: "#343541",
         primary: '#590925', //navbar y footer
         accents: '#E71D36', //botones
         textLight: '#F6F8FF',

@@ -83,7 +83,7 @@ function App() {
 
 
   return (
-    <div>
+    <div className='dark:bg-bgDark'>
       {pathname === '/success' ? (
         <PaymentSuccess />
       ) : pathname === '/failure' ? (

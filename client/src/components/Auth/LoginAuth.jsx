@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserData } from '../../redux/slices/userData';
+// import { setUserData } from '../../redux/slices/userData';
 import { APIDOMAIN } from '../../vars';
 import { fetchUserData } from '../../redux/services/userData';
 

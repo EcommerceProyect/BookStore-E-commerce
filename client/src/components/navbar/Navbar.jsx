@@ -20,6 +20,8 @@ import AuthLogin from '../Auth/auth0Login';
 import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 import handleLogout from '../Auth/handleLogout';
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+
 
 const Navbar = ({ openLoginModal, openRegistrationModal }) => {
   const { cart } = useSelector((state) => state.products);
@@ -36,6 +38,32 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
       setAdmin(false);
     }
   }, [userData]);
+
+  const [theme, setTheme] = useState("light")
+
+  useEffect(() => {
+    if (theme == "dark") {
+      document.querySelector("html").classList.add('dark')
+    } else {
+      document.querySelector("html").classList.remove("dark")
+    }
+  }, [theme])
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+      if (storedTheme === 'dark') {
+        document.querySelector('html').classList.add('dark');
+      }
+    }
+  }, []);
+
+  const handleChangeTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   return (
     <nav className=" bg-primary p-3">
@@ -115,6 +143,11 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
             </div>
           )}
           <SearchButton />
+          {theme === 'dark' ? (
+            <MdOutlineDarkMode title="Modo Oscuro" className='text-textLight cursor-pointer' size={25} onClick={handleChangeTheme} />
+          ) : (
+            <MdOutlineLightMode title="Modo Claro" className='text-textLight cursor-pointer' size={25} onClick={handleChangeTheme} />
+          )}
         </div>
       </div>
     </nav>

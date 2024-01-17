@@ -30,7 +30,7 @@ const customTheme = {
     },
   },
   control: {
-    base: 'inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10',
+    base: 'dark:bg-textLight inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10',
     icon: 'h-5 w-5 text-black dark:text-gray-800 sm:h-6 sm:w-6',
   },
   scrollContainer: {
@@ -58,7 +58,7 @@ const CarouselComponent = () => {
   return (
     <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 my-4">
       {loading ? (
-        <div className="text-center h-full">Loading...</div>
+        <div className="dark:text-textLight text-center h-full">Loading...</div>
       ) : (
         <Carousel slide={true} theme={customTheme} slideInterval={6000}>
           {carouselProducts.map((product) => {
