@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { setBooksByTitle, setCurrentPage } from '../../redux/slices/products';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getProducts } from '../../redux/services/getAllProducts';
 import { Toaster, toast } from 'sonner';
@@ -10,8 +10,10 @@ import { Toaster, toast } from 'sonner';
 const SearchButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { booksByTitle } = useSelector((state) => state.products);
   const { list } = useSelector((state) => state.products);
+
 
   
 
@@ -21,8 +23,7 @@ const SearchButton = () => {
 
     dispatch(setBooksByTitle(searchTerm));
     navigate('/products');
-    if (!list) {
-      console.log(list);
+    if (list && list.length > 0) {
       toast('No se han encontrado resultados');
     }
   };
@@ -32,6 +33,16 @@ const SearchButton = () => {
     dispatch(setCurrentPage(0));
 
   }, [booksByTitle]);
+
+
+  useEffect(() => {
+
+    if(location.pathname !== "/products"){
+      console.log(location.pathname);
+      dispatch(setBooksByTitle(""));
+    }
+
+  },[location.pathname])
 
   return (
     <form onSubmit={handleSearchClick} className="flex items-center ml-auto">

@@ -229,7 +229,7 @@ function ProductList() {
 
             <div className="flow-root">
               <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                {list.map((product) => (
+                {list?.map((product) => (
                   <div key={product.id} className="p-4 flex justify-between items-center">
                     <div >
                       <ListChild
