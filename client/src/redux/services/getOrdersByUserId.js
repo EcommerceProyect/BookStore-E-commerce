@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { APIDOMAIN, API_BOOKS } from '../../vars';
-import { UserAdminOrderStart, getUserAdminOrdersError, setUserAdminOrders } from '../slices/userOrdersAdmin';
+import { UserAdminOrderStart, getUserAdminOrdersError, resetUserAdminOrders, setUserAdminOrders } from '../slices/userOrdersAdmin';
 
 const getOrdersByUserId = (userId) => async (dispatch) => {
   const token = localStorage.getItem('actualT');
@@ -38,6 +38,7 @@ const getOrdersByUserId = (userId) => async (dispatch) => {
     dispatch(setUserAdminOrders(flattenedProducts));
   } catch (error) {
     dispatch(getUserAdminOrdersError(error.message));
+    dispatch(resetUserAdminOrders());
     console.error(error);
   }
 };

@@ -17,7 +17,6 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
-
     if(allOrders && user && user.id){
       
       dispatch(getOrdersByUserId(user.id))
@@ -88,10 +87,14 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
                   <button onClick={() => openOrderDetailsModal(order)}>Order : {order.shippingAddress} Total Amount : {order.totalAmount}</button>
                 </li>
               ))
-            ) : (
-              <li>
-                <p>Cargando...</p>
-              </li>
+            ) : ( loading==true && !error ? (              
+            <li>
+              <p>Cargando...</p>
+            </li>) :
+            <div>
+              <h1>El usuario no tiene ordenes</h1>
+            </div>
+
             )}
           </div>
         </div>

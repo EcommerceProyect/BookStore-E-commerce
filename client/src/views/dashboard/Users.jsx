@@ -40,9 +40,6 @@ function Users() {
   const hasUserActiveFailure = useSelector((state) => state.user.userActiveFailure);
 
 
-
-  
-
   useEffect(() => {
     dispatch(getUsers());
     if(showUserModel == false){
