@@ -38,7 +38,6 @@ const SearchButton = () => {
   useEffect(() => {
 
     if(location.pathname !== "/products"){
-      console.log(location.pathname);
       dispatch(setBooksByTitle(""));
     }
 
