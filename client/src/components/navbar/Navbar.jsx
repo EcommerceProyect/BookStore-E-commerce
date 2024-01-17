@@ -23,7 +23,7 @@ import handleLogout from '../Auth/handleLogout';
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 
-const Navbar = ({ openLoginModal, openRegistrationModal }) => {
+const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
   const { cart } = useSelector((state) => state.products);
   const userData = useSelector((state) => state.userData?.userData);
 
@@ -78,7 +78,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           {/* auth */}
 
           <div>
-            <LoginAuth />
+            <LoginAuth setToast={setToast}/>
           </div>
 
           {/* auth */}

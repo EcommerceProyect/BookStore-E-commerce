@@ -12,7 +12,6 @@ function RatingStarsAverage(productId) {
     const showAverage = async () => {
       try {
         const starsAverage = await getRatingStarsAverage(productId);
-        console.log('el promedio es', starsAverage.data.averageRating);
         setRatingValue(starsAverage);
       } catch (error) {
         console.log(error.message);
@@ -22,13 +21,16 @@ function RatingStarsAverage(productId) {
   }, [productId]);
 
   return (
-    <Rating
-      readonly={true}
-      //{promedio de calificaciones}
-      initialValue={ratingValue.data.averageRating}
-      SVGstyle={{ display: 'inline-block' }}
-      size={25}
-    />
+    <div>
+      <Rating
+        readonly={true}
+        //{promedio de calificaciones}
+        initialValue={ratingValue.data.averageRating}
+        SVGstyle={{ display: 'inline-block' }}
+        size={25}
+      />
+      <p>Valoración: {Number(ratingValue.data.averageRating)}</p>
+    </div>
   );
 }
 export default RatingStarsAverage;

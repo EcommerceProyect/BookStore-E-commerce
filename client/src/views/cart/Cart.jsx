@@ -23,6 +23,7 @@ import { API_BOOKS } from '../../vars';
 import { Toaster, toast } from 'sonner';
 
 const Cart = () => {
+  const [totalAmount, setTotalAmount] = useState(0);
   const { cart } = useSelector((state) => state.products);
   const { userData } = useSelector((state) => state.userData);
   const { userCart, cartProducts } = useSelector((state) => state.cart);
@@ -30,9 +31,15 @@ const Cart = () => {
 
   const [quantity, setQuantity] = useState(
     Array.isArray(cart)
-      ? Object.fromEntries(cart.map(({ id }) => [id, 1]))
+      ? Object.fromEntries(cart.map(({ id }) => {
+        const cartQuantity = cart.find(
+          product => product.id === id
+        ).quantity
+        return [id, cartQuantity || 1]
+      }))
       : {},
   );
+  console.log("quantity:", quantity);
   const [user, setUser] = useState({});
   useEffect(() => {
     if (!isEmpty(userData)) {
@@ -54,32 +61,38 @@ const Cart = () => {
   };
 
   const increment = (id) => {
-    const currentQuantity = quantity[id];
+    const product = cart.find((product) => product.id === id);
+    
+    const currentQuantity = product.quantity || 0;
 
-    const stock = cart.find((product) => product.id === id)?.ISBN.stock || 0;
+    const stock = product.ISBN.stock || 0;
 
     if (currentQuantity < stock) {
-      handleQuantityChange(id, (quantity[id] || 1) + 1);
+      handleQuantityChange(id, (currentQuantity || 1) + 1);
       dispatch(
         incrementProductCartQuantity(
           user.id || '',
           id,
-          (quantity[id] || 1) + 1,
+          (currentQuantity || 1) + 1,
         ),
       );
     }
   };
 
   const decrement = (id) => {
-    if (quantity[id] > 1) {
-      handleQuantityChange(id, quantity[id] - 1);
+    const product = cart.find((product) => product.id === id);
+
+    if (product.quantity > 1) {
+      handleQuantityChange(id, product.quantity - 1);
       dispatch(
-        decrementProductCartQuantity(user.id || '', id, quantity[id] - 1),
+        decrementProductCartQuantity(user.id || '', id, product.quantity - 1),
       );
     }
   };
 
   const isStockAvailable = cart.every((product) => product.ISBN.stock > 0);
+
+  const token = localStorage.getItem('actualT');
   const handleDelete = async (id) => {
     try {
       await dispatch(deleteProduct(user.id || '', id));
@@ -89,11 +102,9 @@ const Cart = () => {
   };
   const checkOut = () => {
     const cartId = userCart;
-    const totalAmount = 500;
     const books = cart.map((product) => ({
       id: product.id,
       title: product.title,
-      // image: product.image,
       price: Number(product.price),
       quantity: quantity[product.id] || 1,
     }));
@@ -102,7 +113,6 @@ const Cart = () => {
       .post(`${API_BOOKS}/mercadoPago/create-order`, {
         books,
         cartId,
-        totalAmount,
       })
       .then((response) => {
         window.location.href = response.data;
@@ -113,12 +123,15 @@ const Cart = () => {
     // console.log(actualStock);
   };
 
-  const totalAmount = cart.reduce((acc, { price, id }) => {
-    return acc + Number(price) * (quantity[id] || 1);
-  }, 0);
+  useEffect(() => {
+    const amount = cart.reduce((acc, { price, quantity }) => {
+      return acc + Number(price) * (quantity || 1);
+    }, 0);
+    setTotalAmount(amount);
+  },[cart]);
 
   return (
-    <div>
+    <div style={{ minHeight: '65.5vh' }}>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse p-2">
           <li className="inline-flex items-center">
@@ -170,7 +183,7 @@ const Cart = () => {
           <NoProducts />
         ) : (
           <div>
-            {cart.map(({ id, image, title, price, ISBN, Authors }) => (
+            {cart.map(({ id, image, title, price, ISBN, Authors, quantity }) => (
               <div
                 key={id}
                 className="flex items-start py-4 px-2 my-4 mx-2 w-2/3 border-b border-gray-400"
@@ -205,15 +218,15 @@ const Cart = () => {
                     <button onClick={() => decrement(id)}>
                       <CiSquareMinus size={30} className="text-textGray" />
                     </button>
-                    <span>{quantity[id] || 1}</span>
+                    <span>{quantity || 1}</span>
                     <button onClick={() => increment(id)}>
                       <CiSquarePlus size={30} className="text-textGray" />
                     </button>
                   </div>
                   {sureDelete[id] ? (
                     <div className="text-textGray">
-                      <span className="flex w-80">
-                        ¿Seguro que desea eliminar este producto?
+                      <span className="flex w-96">
+                        ¿Seguro que desea eliminar este producto del carrito?
                       </span>
                       <div className="flex gap-2">
                         <button
@@ -242,7 +255,7 @@ const Cart = () => {
                         className="flex gap-1 text-textGray"
                       >
                         <LuTrash2 className=" mt-1" />
-                        <span>Eliminar este producto</span>
+                        <span>Eliminar del carrito</span>
                       </button>
                     </div>
                   )}
@@ -255,7 +268,7 @@ const Cart = () => {
                   <div className="flex flex-col">
                     <span className="text-textGray">Valor total</span>
                     <span className="font-sans font-semibold">
-                      ${Number(price) * quantity[id] || price}
+                      ${Number(price) * quantity || price}
                     </span>
                   </div>
                 </div>
@@ -271,19 +284,29 @@ const Cart = () => {
                 </span>
               </div>
               <div className=" p-2 mt-8 flex justify-center">
-                <button
-                  onClick={
-                    isStockAvailable
-                      ? checkOut
-                      : () =>
-                          toast.error(
-                            'Uno de los libros no tiene stock disponible',
-                          )
-                  }
-                  className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  <span className="flex w-32">Continuar compra</span>
-                </button>
+                {token ? (
+                  <button
+                    onClick={
+                      isStockAvailable
+                        ? checkOut
+                        : () => toast.error('Uno de los libros no tiene stock')
+                    }
+                    className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    <span className="flex w-32">Continuar compra</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      toast.error(
+                        'Debe iniciar sesión para poder continuar con la compra',
+                      )
+                    }
+                    className="text-white bg-accents active:translate-y-2 active:transform active:bg-red-700 font-medium shadow-sm shadow-black rounded-lg text-base px-16 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    <span className="flex w-32">Continuar compra</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

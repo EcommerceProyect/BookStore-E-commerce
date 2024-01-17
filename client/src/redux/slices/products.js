@@ -18,7 +18,7 @@ const initialState = {
   totalItems: null,
   carouselProducts: [],
   booksByTitle: [],
-  currentPage: 0,
+  currentPage: 0, 
 };
 
 export const productSlice = createSlice({
@@ -34,6 +34,7 @@ export const productSlice = createSlice({
     },
     setProductList: (state, action) => {
       state.loading = false;
+      state.error = null;
       state.list = action.payload;
     },
     setCurrentPage: (state, action) => {
@@ -48,6 +49,7 @@ export const productSlice = createSlice({
     },
     addToProductList: (state, action) => {
       state.productList = [state.productList, action.payload];
+      state.loading = false;
     },
     modifyProductList: (state, action) => {
       const { id, updatedProduct } = action.payload;
@@ -83,13 +85,27 @@ export const productSlice = createSlice({
       );
       const productWithQuantity = { ...action.payload, quantity: 1 };
 
+      console.log(action.payload.ISBN.stock);
+      console.log(productWithQuantity)
+
+
       if (!existingProduct) {
-        toast.success('Agregado al carrito exitosamente');
-        state.cart.push(productWithQuantity);
-        state.cartCount += 1;
-        localStorage.setItem('cart', JSON.stringify(state.cart));
+        if (action.payload.ISBN.stock > productWithQuantity.quantity || action.payload.ISBN.stock === productWithQuantity.quantity) {
+          toast.success('Agregado al carrito exitosamente');
+          state.cart.push(productWithQuantity);
+          state.cartCount += 1;
+          localStorage.setItem('cart', JSON.stringify(state.cart));
+        } else {
+          toast.error('No hay suficiente stock para agregar el producto')
+        }
       } else {
-        toast.warning('El producto ya se encuentra en el carrito');
+        if (action.payload.ISBN.stock > productWithQuantity.quantity || action.payload.ISBN.stock === productWithQuantity.quantity) {
+          toast.success('Agregado al carrito exitosamente');
+          existingProduct.quantity += 1;
+          localStorage.setItem('cart', JSON.stringify(state.cart));
+        } else {
+          toast.error('No hay suficiente stock para agregar el producto')
+        }
       }
     },
     removeFromCart: (state, action) => {

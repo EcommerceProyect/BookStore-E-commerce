@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { addToProductList } from '../slices/products'
+import { addToProductList, setProductDetailError, setProductListError, setProductListLoading } from '../slices/products'
 import {
   APIDOMAIN
 } from '../../vars';
@@ -16,6 +16,7 @@ export const postProduct = (product) => {
         dispatch(addToProductList(product))
         return response
       }else{
+        dispatch(setProductListError("El libro no pudo ser creado correctamente"))
         throw new Error("No se tiene el token de acceso")
       }
 

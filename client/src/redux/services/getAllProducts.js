@@ -8,7 +8,7 @@ import {
 import { API_BOOKS } from '../../vars';
 
 const apiUrl = `${API_BOOKS}/ebook/products`;
-// const apiUrl = 'http://localhost:3002/ebook/products';
+
 export const getProducts =
   (page, sortField, sortAction, deleteFilter = false) => async (dispatch, getState) => {
     dispatch(setProductListLoading());
@@ -57,19 +57,21 @@ export const getProducts =
       }
 
       if (queryParams.length > 0) {
-        url += `/filterPrueba?${queryParams.join('&')}&page=${page}`;
+        url += `/filterPrueba?${queryParams.join('&')}&page=${page || 0}`;
       } else {
-        url += `?page=${page}`;
+        url += `?page=${page || 0}`;
       }
 
+      console.log(url)
       const response = await axios.get(url);
+      console.log(response.data.data)
+      console.log(response.data.detailedResults)
       dispatch(
         setTotalItems(response.data.count || response.data.numberOfResults),
       );
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
-      console.log(url);
     } catch (error) {
       dispatch(setProductListError(error.message));
     }

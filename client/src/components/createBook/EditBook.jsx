@@ -115,6 +115,8 @@ const EditBook = () => {
         return <div>Loading...</div>;
     }
 
+    console.log(allAuthors)
+
     return (
         <div className="flex ">
             <Dashboard />
@@ -198,7 +200,7 @@ const EditBook = () => {
                             name="autor"
                             isMulti
                             onChange={handleSelectChange}
-                            options={allAuthors.map((autor) => ({ value: autor, label: autor }))}
+                            options={allAuthors.map((autor) => ({ value: autor.name, label: autor.name }))}
                             value={values.autor}
                         />
                     </div>
@@ -216,7 +218,7 @@ const EditBook = () => {
                             name="genre"
                             isMulti
                             onChange={handleSelectChange}
-                            options={allGenres.map((genre) => ({ value: genre, label: genre }))}
+                            options={allGenres.map((genre) => ({ value: genre.name, label: genre.name }))}
                             value={values.genre}
                         />
                     </div>
@@ -240,8 +242,8 @@ const EditBook = () => {
                                 handleSelectChange(newSelection);
                             }}
                             options={allEditorial.map((editorial) => ({
-                                value: editorial,
-                                label: editorial,
+                                value: editorial.name,
+                                label: editorial.name,
                             }))}
                             value={values.editorial ? { value: values.editorial.label, label: values.editorial.label } : null}
                         />

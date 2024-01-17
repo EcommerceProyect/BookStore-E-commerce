@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { APIDOMAIN } from '../../vars';
 import { fetchUserData } from '../../redux/services/userData';
 
-const LoginAuth = () => {
+const LoginAuth = ({ setToast }) => {
   const location = useLocation();
   const { search } = location;
   const { code } = queryString.parse(search);
@@ -37,7 +37,11 @@ const LoginAuth = () => {
           );
 
           const data = await response.json();
+          console.log(data)
           setChallengesData(data.response.name);
+          if (data !== null || data !== "none") {
+            setToast("success", "La sesión fue iniciada correctamente")
+          }
           console.log('Data user: ', data);
           localStorage.setItem('actualT', data.token);
         } catch (error) {
@@ -45,6 +49,7 @@ const LoginAuth = () => {
             'Error in the request:',
             error.response ? error.response.data : error.message,
           );
+          setToast("error", "Hubo un error iniciando la sesión, porfavor intente nuevamente.")
         }
       }
     };
@@ -63,7 +68,7 @@ const LoginAuth = () => {
 
   return (
     <div className="Challenges-body">
-      {challengesData !== 'none' ? (
+      {challengesData !== 'none' && challengesData !== null ? (
         <h5 className="Content">Bienvenido {challengesData}</h5>
       ) : null}
     </div>

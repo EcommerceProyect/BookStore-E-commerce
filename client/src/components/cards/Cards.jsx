@@ -7,15 +7,18 @@ import GenreFilter from './filters/Genres';
 import AuthorFilter from './filters/Authors';
 import EditorialFilter from './filters/Editorial';
 import SortingComponent from './sort/Sort';
-import { Toaster } from 'sonner';
+import { Toaster, toast } from 'sonner';
+import { Toast } from 'flowbite-react';
+
+import { ITEMS_PER_PAGE } from "../../vars";
 
 function Cards() {
+
   const dispatch = useDispatch();
 
   const { list, loading, error, orderOption, currentPage } = useSelector(
     (state) => state.products,
   );
-
   const [totalItems, setTotalItems] = useState(0);
 
   const selectedGenre = useSelector(
@@ -28,11 +31,14 @@ function Cards() {
     (state) => state.editorial.selectedEditorial,
   );
 
-  const itemsPerPage = 50;
+  const itemsPerPage = ITEMS_PER_PAGE;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
   const [sortAction, setSortAction] = useState(null);
+
+  //variable para verificar si useEffect de abajo paso
+  const [isStarted,setIsStated] = useState(false);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -62,6 +68,7 @@ function Cards() {
 
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         let total = 0;
         let filters = {};
@@ -79,9 +86,10 @@ function Cards() {
         }
 
         await dispatch(getProducts(currentPage, sortField, sortAction));
-      } catch (error) {
-        console.error('Error fetching data: ', error);
+      } catch (err) {
+        console.error('Error fetching data: ', err);
       }
+      setIsStated(true);
     };
     fetchData();
   }, [
@@ -95,23 +103,25 @@ function Cards() {
   ]);
 
   useEffect(() => {
-  dispatch(setCurrentPage(0));
-}, [selectedGenre]);
+    dispatch(setCurrentPage(0));
+  }, [selectedGenre]);
 
-useEffect(() => {
-  dispatch(setCurrentPage(0)); 
-}, [selectedAuthor]);
+  useEffect(() => {
+    dispatch(setCurrentPage(0));
+  }, [selectedAuthor]);
 
-useEffect(() => {
-  dispatch(setCurrentPage(0));
-}, [selectedEditorial]);
+  useEffect(() => {
+    dispatch(setCurrentPage(0));
+  }, [selectedEditorial]);
 
-  if (error) {
-    return <div>Error: {error}</div>;
+
+  if (isStarted && loading === false && error) {
+    toast(`Error al buscar los libros`)
   }
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
+      <div >
       <div className="absolute m-4 right-4">
         <SortingComponent handleSorting={handleSorting} />
       </div>
@@ -136,13 +146,12 @@ useEffect(() => {
           />
         </div>
       </div>
-      <div className=" mt-20 w-3/4 p-4">
+      </div>
+      <div className=" mt-20 w-full p-4">
         {loading ? (
           <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error}</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
             {Array.isArray(list) &&
               list.map((product) => (
                 <div key={product.id} className="p-4">
@@ -157,7 +166,6 @@ useEffect(() => {
                   />
                 </div>
               ))}
-            <Toaster richColors duration={2000} />
           </div>
         )}
         <nav

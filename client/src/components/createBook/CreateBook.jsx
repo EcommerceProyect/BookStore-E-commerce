@@ -28,6 +28,7 @@ const CreateBook = () => {
     handleSubmit,
     handleSelectChange,
     handleImageChange,
+    resetValues
   } = useForm(validationSchema);
 
   const { allAuthors } = useSelector((state) => state.authors);
@@ -44,6 +45,8 @@ const CreateBook = () => {
   useEffect(() => {
     dispatch(fetchEditorial());
   }, [dispatch]);
+
+  const { loading, error } = useSelector((state) => state.products);
 
   return (
     <div className="flex ">
@@ -235,9 +238,15 @@ const CreateBook = () => {
             </Alert>
           )}
 
-          <Button className="bg-accents" type="submit">
+          <Button className="bg-accents" type="submit" disabled={loading || error === "El libro no pudo ser creado correctamente"}>
             Crear libro
           </Button>
+
+          {error && 
+          <div className="mb-2 block">
+              <p className='bg-accents text-lg'>Hubo un error creando el libro, porfavor, refresque la página.</p>
+          </div>
+          }
         </form>
         <Toaster closeButton={true} duration={4000} />
       </div>

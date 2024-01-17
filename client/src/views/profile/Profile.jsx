@@ -8,11 +8,13 @@ import { getReviewsByUserId } from '../../redux/services/getReviewsByUserId';
 const Profile = () => {
   const userData = useSelector((state) => state.userData.userData?.response);
   const orders = useSelector((state) => state.userData.orders);
+  console.log(orders);
 
   const formattedDateString =
     userData && userData.createdAt
       ? new Date(userData.createdAt).toLocaleDateString('en-GB')
       : '';
+
   const [booksReviewsByUser, setBooksReviewsByUser] = useState([]);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const Profile = () => {
   }, [booksReviewsByUser, userData]); // Add userData.id to the dependency array
 
   return userData ? (
-    <div>
+    <div className="container mx-auto mt-8 mb-8">
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse p-2">
           <li className="inline-flex items-center">
@@ -71,25 +73,25 @@ const Profile = () => {
           </li>
         </ol>
       </nav>
-      <div className="overflow-x-hidden min-h-90 flex-grow w-full bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col md:flex-row">
-        <div className="md:w-1/3 flex flex-col items-center justify-center p-5 border-b md:border-b-0 md:border-r border-gray-400 dark:border-gray-700">
+      <div className="border overflow-x-hidden min-h-90 flex-grow w-full bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-gray-400 flex flex-col md:flex-row">
+        <div className="md:w-1/5 flex flex-col items-center justify-top p-5 border-b md:border-b-0 md:border-r border-gray-400">
           <img
-            className="rounded-full w-full h-1/2 md:w-64 md:h-64 object-cover mb-4"
+            className="rounded-full w-full h-1/2 md:w-48 md:h-48 object-cover mb-0"
             src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
             alt="Foto de usuario"
           />
           <a
             href="/profile/edit"
-            className=" w-1/2 text-white bg-accents hover:bg-red-800 hover:cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mt-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            className=" w-4/5 text-white bg-accents hover:bg-red-800 hover:cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mt-0 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           >
             Editar perfil
           </a>
         </div>
 
-        <div className="flex-grow p-5 flex flex-col">
+        <div className="flex-grow p-5 flex flex-col md:pl-8">
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Nombre</p>
+              <p className="text-textDark text-lg font-bold mb-2">Nombre de usuario</p>
               <p className="text-textDark">
                 {/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
                   userData.name,
@@ -99,7 +101,7 @@ const Profile = () => {
               </p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Apellido</p>
+              <p className="text-textDark text-lg font-bold mb-2">Nombre completo</p>
               <p className="text-textDark">
                 {userData.last_name ? userData.last_name : '...'}
               </p>
@@ -185,33 +187,39 @@ const Profile = () => {
           <div>
             <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
             <div className="flex overflow-x-auto p-4">
-              {booksReviewsByUser?.map((review) => {
-                return (
-                  <div key={review.id} className="max-w-xs mx-2">
-                    <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
-                      <div className="relative p-4">
-                        <div className="w-32 h-32 mx-auto">
-                          <img
-                            className="rounded-lg shadow-md object-contain w-full h-full"
-                            src={review.image}
-                            alt={`Foto de ${review.title}`}
-                          />
-                        </div>
+            {Array.isArray(booksReviewsByUser) ? (
+              booksReviewsByUser.map((review) => (
+                <div key={review.id} className="max-w-xs mx-2">
+                  <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
+                    <div className="relative p-4">
+                      <div className="w-32 h-32 mx-auto">
+                        <img
+                          className="rounded-lg shadow-md object-contain w-full h-full"
+                          src={review.image}
+                          alt={`Foto de ${review.title}`}
+                        />
                       </div>
+                    </div>
 
-                      <div className="px-4 pb-4">
-                        <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
-                          {review.title}
-                        </h5>
+                    <div className="px-4 pb-4">
+                      <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
+                        {review.title}
+                      </h5>
 
-                        <div className="flex items-center justify-between">
-                          <ReviewsProfile rating={review.rating} productId={review.id} userId={userData.id} />
-                        </div>
+                      <div className="flex items-center justify-between">
+                        <ReviewsProfile
+                          rating={review.rating}
+                          productId={review.id}
+                          userId={userData.id}
+                        />
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))
+            ) : (
+              <p className="text-textDark">...</p>
+            )}
             </div>
           </div>
         </div>
