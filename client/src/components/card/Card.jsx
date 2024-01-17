@@ -33,14 +33,14 @@ function Card({
 
   const { cart } = useSelector((state) => state.products);
   const { userData } = useSelector((state) => state.userData);
-  
+
   useEffect(() => {
-    if(!isEmpty(userData)){
-      if(!isEmpty(userData.response)){
+    if (!isEmpty(userData)) {
+      if (!isEmpty(userData.response)) {
         setUser(userData.response);
       }
     }
-  },[userData])
+  }, [userData]);
   const handleCart = () => {
     if (ISBN.stock === 0) {
       console.log('No se pueden agregar productos sin stock');

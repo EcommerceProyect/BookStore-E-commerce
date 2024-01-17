@@ -40,7 +40,7 @@ const Cart = () => {
         setUser(userData.response);
       }
     }
-    console.log("carrito:", userCart)
+    console.log('carrito:', userCart);
   }, [userData]);
   const [sureDelete, setSureDelete] = useState(
     Object.fromEntries(cart.map(({ id }) => [id, false])),

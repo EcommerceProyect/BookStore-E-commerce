@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'sonner';
 
-
-
 export const getCartFromLocalStorage = () => {
   const cart = localStorage.getItem('cart');
   return cart ? JSON.parse(cart) : [];
 };
+
 const initialState = {
   list: [],
   loading: false,
@@ -51,7 +50,7 @@ export const productSlice = createSlice({
     },
     modifyProductList: (state, action) => {
       const { id, updatedProduct } = action.payload;
-      const index = state.list.findIndex(product => product.id === id);
+      const index = state.list.findIndex((product) => product.id === id);
       if (index !== -1) {
         state.list[index] = { ...state.list[index], ...updatedProduct };
         toast.success('Producto actualizado exitosamente');
@@ -179,7 +178,7 @@ export const {
   decrementCartQuantityt,
   setCurrentPage,
   setCart,
-  modifyProductList
+  modifyProductList,
 } = productSlice.actions;
 
 export default productSlice.reducer;
