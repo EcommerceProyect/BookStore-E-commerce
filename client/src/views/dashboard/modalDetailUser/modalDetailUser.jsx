@@ -16,21 +16,16 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
+  
   useEffect(() => {
-
-    if(allOrders && user && user.id){
-      
-      dispatch(getOrdersByUserId(user.id))
-      
+    if (allOrders && user && user.id) {
+      dispatch(getOrdersByUserId(user.id));
     }
-
-  },[user])
+  }, [user]);
 
   useEffect(() => {
-
-    if(loading == false) setUserOrders(allOrders)
-
-  },[allOrders]);
+    if (loading === false)setUserOrders(allOrders);
+  }, [allOrders]);
 
   const openOrderDetailsModal = (order) => {
     setSelectedOrder(order);
@@ -38,6 +33,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const closeOrderDetailsModal = () => {
     setSelectedOrder(null);
+    setUserOrders(null);
     dispatch(resetUserAdminOrders());
   };
 

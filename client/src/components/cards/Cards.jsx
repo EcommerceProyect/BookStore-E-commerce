@@ -10,6 +10,8 @@ import SortingComponent from './sort/Sort';
 import { Toaster, toast } from 'sonner';
 import { Toast } from 'flowbite-react';
 
+import { ITEMS_PER_PAGE } from "../../vars";
+
 function Cards() {
 
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ function Cards() {
     (state) => state.editorial.selectedEditorial,
   );
 
-  const itemsPerPage = 50;
+  const itemsPerPage = ITEMS_PER_PAGE;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
