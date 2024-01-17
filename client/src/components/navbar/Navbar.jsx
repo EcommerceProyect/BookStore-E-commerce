@@ -66,7 +66,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
   };
 
   return (
-    <nav className=" bg-primary p-3">
+    <nav className="w-full bg-primary p-3 ">
       <div className="flex items-center justify-between gap-2">
         <Link to="/">
           <div title="Home" className="left-0">
