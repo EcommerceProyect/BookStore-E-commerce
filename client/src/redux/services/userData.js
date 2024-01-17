@@ -11,11 +11,8 @@ export const fetchUserData = (token) => async (dispatch) => {
       `${APIDOMAIN}/authorized?route=profile&token=${token}`,
     );
 
-    console.log(response);
-
     const userData = { ...response.data };
     const decodedToken = jwtDecode(userData.token);
-    console.log(decodedToken);
 
     const hasAdminEdit = decodedToken.permissions.includes('admin:edit');
 
@@ -28,10 +25,7 @@ export const fetchUserData = (token) => async (dispatch) => {
     dispatch(setUserData(userData));
     dispatch(getCartFromApi(userData.response.id));
     dispatch(getOrders(userData.id));
-    console.log(
-      'Data del usuario desde la petición con role agregado: ',
-      userData,
-    );
+
   } catch (error) {
     console.error('Error fetching user data:', error);
   }

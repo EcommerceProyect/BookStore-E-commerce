@@ -12,7 +12,6 @@ function RatingStarsAverage(productId) {
     const showAverage = async () => {
       try {
         const starsAverage = await getRatingStarsAverage(productId);
-        console.log('el promedio es', starsAverage.data.averageRating);
         setRatingValue(starsAverage);
       } catch (error) {
         console.log(error.message);

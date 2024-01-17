@@ -9,7 +9,7 @@ export const getCartFromApi = (userId) => async (dispatch) => {
   if (token !== null) {
     try {
       //consultar al backend para traer el carrito,
-
+      console.log("CART FROM LOCALSTORAGE");
       if (cartFromLocalStorage.length > 0) {
         await dispatch(createCart(userId || ''));
         await Promise.all(
@@ -26,6 +26,7 @@ export const getCartFromApi = (userId) => async (dispatch) => {
       const cartFromBackend = response.data;
       if(Array.isArray(cartFromBackend)){
         dispatch(setCart(cartFromBackend));
+        localStorage.setItem('cart', JSON.stringify(cartFromBackend));
       }else{
         dispatch(setCart([]));
       }

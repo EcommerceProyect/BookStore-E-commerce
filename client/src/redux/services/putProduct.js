@@ -7,7 +7,7 @@ export const putProduct = (formattedData, id) => {
   return async (dispatch) => {
     try {
       const token =localStorage.getItem("actualT");
-      console.log("formatted data en peticion put",formattedData);
+      
       if(token){
       const response = await axios.put(
         `${APIDOMAIN}/authorized/${id}?route=products&token=${token}`,

@@ -14,6 +14,7 @@ export const deleteProduct= (productId) => {
           const response = await axios.delete(
             `${APIDOMAIN}/authorized/${productId}?route=products&token=${token}`
           );
+          console.log(response)
           dispatch(deleteProductSuccess(productId));
 
           return response;

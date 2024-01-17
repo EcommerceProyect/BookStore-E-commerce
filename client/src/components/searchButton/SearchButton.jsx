@@ -5,29 +5,35 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getProducts } from '../../redux/services/getAllProducts';
-
-
+import { Toaster, toast } from 'sonner';
 
 const SearchButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {booksByTitle} = useSelector((state)=>state.products);
+  const { booksByTitle } = useSelector((state) => state.products);
+  const { list } = useSelector((state) => state.products);
+
+  
 
   const handleSearchClick = (event) => {
     event.preventDefault();
     const searchTerm = event.target[0].value;
 
     dispatch(setBooksByTitle(searchTerm));
-    navigate("/products")
+    navigate('/products');
+    if (!list) {
+      console.log(list);
+      toast('No se han encontrado resultados');
+    }
   };
 
-  useEffect(()=>{
-    dispatch(getProducts(0)) //página inicial 0
-    dispatch(setCurrentPage(0))
-  },[booksByTitle])
+  useEffect(() => {
+    dispatch(getProducts(0)); //página inicial 0
+    dispatch(setCurrentPage(0));
+
+  }, [booksByTitle]);
 
   return (
-  
     <form onSubmit={handleSearchClick} className="flex items-center ml-auto">
       <div className={'w-52'}>
         <input
@@ -36,7 +42,7 @@ const SearchButton = () => {
           className="rounded-md border border-black mx-1 py-1 px-2 bg-textLight "
         />
       </div>
-      
+
       <div>
         <button
           type="submit"
@@ -44,10 +50,9 @@ const SearchButton = () => {
         >
           <FaMagnifyingGlass />
         </button>
-     </div>
-     
-    </form> 
-    
+      </div>
+      <Toaster richColors duration={1500} closeButton={false} visibleToasts={1} />
+    </form>
   );
 };
 

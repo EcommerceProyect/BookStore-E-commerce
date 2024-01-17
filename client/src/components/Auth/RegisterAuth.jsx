@@ -27,8 +27,10 @@ const RegisterAuth = ({ openLoginModal }) => {
           });
 
           const data = await response.json();
+          console.log(data)
+          //El usuario ya existe o hubo algun error en la api
           if (data.id_user) setChallengesData(JSON.stringify(data.id_user));
-          else setChallengesData(JSON.stringify(data));
+          else setChallengesData('error');
         } catch (error) {
           console.error(
             'Error in the request:',
@@ -47,11 +49,25 @@ const RegisterAuth = ({ openLoginModal }) => {
 
   return (
     <div>
-      {challengesData !== 'none' ? (
+      {challengesData !== 'none' && challengesData !== null && challengesData !== "error" ? (
         <div className="my-10 text-center h-[61.4vh] flex flex-col justify-center items-center">
           <div className="text-6xl">
             <p className="mb-4">Bienvenido!</p>
             <p className="mb-4">Ya puedes iniciar sesión</p>
+          </div>
+          <button
+            type="button"
+            className=" mt-4 w-1/3 text-white bg-accents hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            onClick={openLoginModal}
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      ) : challengesData === "error" ? (
+        <div className="my-10 text-center h-[61.4vh] flex flex-col justify-center items-center">
+          <div className="text-6xl">
+            <p className="mb-6">Error en el registro</p>
+            <p className="mb-4">El usuario ya existe</p>
           </div>
           <button
             type="button"

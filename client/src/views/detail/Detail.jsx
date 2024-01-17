@@ -1,26 +1,26 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProductDetails } from '../../redux/services/getProductDetail';
-import getUserBuyedProduct from '../../redux/services/getUserBuyedProduct';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetails } from "../../redux/services/getProductDetail";
+import getUserBuyedProduct from "../../redux/services/getUserBuyedProduct";
 import {
   setProductDetailLoading,
   setProductDetail,
   setProductDetailError,
-} from '../../redux/slices/products';
-import { addToCart } from '../../redux/slices/products';
-import { useParams } from 'react-router-dom';
-import RatingStarsAverage from './RatingStarsAverage';
-import RatingStarsSetter from './RatingStarsSetter';
-import { API_BOOKS } from '../../vars';
-import { Toaster } from 'sonner';
+} from "../../redux/slices/products";
+import { addToCart } from "../../redux/slices/products";
+import { useParams } from "react-router-dom";
+import RatingStarsAverage from "./RatingStarsAverage";
+import RatingStarsSetter from "./RatingStarsSetter";
+import { API_BOOKS, APIDOMAIN } from "../../vars";
+import { Toaster } from "sonner";
 
 function Detail() {
   const { detailProduct } = useSelector((state) => state.products);
   const { cart } = useSelector((state) => state.products);
   const { userCart } = useSelector((state) => state.cart);
   const [userBuyedProduct, setUserBuyedProduct] = useState(false);
-  const [orderId, setOrderId] = useState('');
+  const [orderId, setOrderId] = useState("");
   const userId = useSelector((state) => state.userData.userData?.response.id);
   const dispatch = useDispatch();
 
@@ -37,10 +37,10 @@ function Detail() {
 
         if (success) {
           setUserBuyedProduct(true);
-          console.log('userBuyedProduct', userBuyedProduct);
+          console.log("userBuyedProduct", userBuyedProduct);
         } else {
           setUserBuyedProduct(false);
-          console.log('userBuyedProduct', userBuyedProduct);
+          console.log("userBuyedProduct", userBuyedProduct);
         }
       } catch (error) {
         dispatch(setProductDetailError(error.message));
@@ -54,25 +54,22 @@ function Detail() {
     const getOrder = async () => {
       try {
         let contador = 0;
-        let aux = '';
-
-        while (aux === '') {
+        let aux = "";
+        const token = localStorage.getItem("actualT");
+        while (aux === "") {
           const { data } = await axios.get(
-            `${API_BOOKS}/ebook/orders/${userId}?page=${contador}`,
+            `${APIDOMAIN}/authorized/?route=orders&token=${token}&page=${contador}`
           );
 
           if (!data.orders) return false;
-          console.log('data', data.orders);
 
           data.orders.forEach((order) => {
             const exist = order.OrderDetail.find(
-              (detail) => detail.ProductId == id,
+              (detail) => detail.ProductId == id
             );
-            console.log('algo', exist || 'a');
 
             if (exist) {
               aux = order.order.id;
-              console.log('bandera', aux);
               return false;
             }
           });
@@ -80,7 +77,6 @@ function Detail() {
         }
 
         setOrderId((prevOrderId) => aux || prevOrderId);
-        console.log('OrderId', orderId);
       } catch (error) {
         console.log(error.message);
       }
@@ -107,11 +103,10 @@ function Detail() {
       })
       .then((response) => {
         window.location.href = response.data;
-        localStorage.setItem('cart', JSON.stringify([]));
+        localStorage.setItem("cart", JSON.stringify([]));
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
-    // console.log(actualStock);
   };
 
   return (
@@ -126,11 +121,11 @@ function Detail() {
             />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 class="text-textDark text-2xl title-font font-bold mb-1 pb-2">
-                {detailProduct?.title || 'Título no disponible.'}
+                {detailProduct?.title || "Título no disponible."}
               </h1>
               <h2 class="text-sm title-font text-textGray tracking-widest pb-1">
                 {detailProduct?.Authors.map((author) => author.name) ||
-                  'Autor no disponible.'}
+                  "Autor no disponible."}
               </h2>
               <span>Stock disponible: {detailProduct?.ISBN.stock}</span>
               <div>
@@ -198,23 +193,24 @@ function Detail() {
                 </span>
               </div> */}
               <p class="leading-relaxed py-1">
-                {detailProduct?.synopsis || 'Sinopsis no disponible.'}
+                {detailProduct?.synopsis || "Sinopsis no disponible."}
               </p>
               <hr></hr>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
-                Género:{' '}
-                {detailProduct?.Genres.map((genre) => genre.name).join(', ') ||
-                  'Género no disponible.'}
+                Género:{" "}
+                {detailProduct?.Genres.map((genre) => genre.name).join(", ") ||
+                  "Género no disponible."}
               </h2>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
-                Editorial: {detailProduct?.Editorial.name}
+                Editorial:{" "}
+                {detailProduct?.Editorial?.name || "Editorial no disponible."}
               </h2>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
-                ISBN: {detailProduct?.ISBN?.name || 'ISBN no disponible.'}
+                ISBN: {detailProduct?.ISBN?.name || "ISBN no disponible."}
               </h2>
               <div class="flex pt-4">
                 <span class="text-left text-2xl font-medium text-textDark dark:text-black">
-                  Precio: ${detailProduct?.price || 'Precio no disponible.'}
+                  Precio: ${detailProduct?.price || "Precio no disponible."}
                 </span>
 
                 {/* Botón de favorito
@@ -232,19 +228,39 @@ function Detail() {
                 </button> */}
               </div>
               <div className="flex justify-around mt-5 mb-5">
-                <button
-                  onClick={cartHandler}
-                  class="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                >
-                  Agregar al carrito
-                </button>
-                <button
-                  className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                  onClick={checkOut}
-                >
-                  Comprar ahora
-                </button>
+                {detailProduct?.ISBN?.stock > 0 ? (
+                  <>
+                    <button
+                      onClick={cartHandler}
+                      className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                    >
+                      Agregar al carrito
+                    </button>
+                    <button
+                      className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                      onClick={checkOut}
+                    >
+                      Comprar ahora
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      disabled
+                      className="text-gray-500 bg-gray-300 font-medium px-6 py-2 text-center rounded focus:outline-none border-0"
+                    >
+                      Stock agotado
+                    </button>
+                    <button
+                      disabled
+                      className="text-gray-500 bg-gray-300 font-medium px-6 py-2 text-center rounded focus:outline-none border-0"
+                    >
+                      Stock agotado
+                    </button>
+                  </>
+                )}
               </div>
+
               {userBuyedProduct ? (
                 <RatingStarsSetter
                   productId={id}
@@ -252,13 +268,13 @@ function Detail() {
                   orderId={orderId}
                 />
               ) : (
-                'No has adquirido este libro.'
+                "No has adquirido este libro."
               )}
             </div>
           </div>
         </div>
       </section>
-      <Toaster richColors />
+      <Toaster richColors duration={1500} />
     </div>
   );
 }

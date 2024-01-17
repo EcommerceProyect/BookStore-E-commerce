@@ -23,6 +23,7 @@ import { API_BOOKS } from '../../vars';
 import { Toaster, toast } from 'sonner';
 
 const Cart = () => {
+  const [totalAmount, setTotalAmount] = useState(0);
   const { cart } = useSelector((state) => state.products);
   const { userData } = useSelector((state) => state.userData);
   const { userCart, cartProducts } = useSelector((state) => state.cart);
@@ -30,9 +31,15 @@ const Cart = () => {
 
   const [quantity, setQuantity] = useState(
     Array.isArray(cart)
-      ? Object.fromEntries(cart.map(({ id }) => [id, 1]))
+      ? Object.fromEntries(cart.map(({ id }) => {
+        const cartQuantity = cart.find(
+          product => product.id === id
+        ).quantity
+        return [id, cartQuantity || 1]
+      }))
       : {},
   );
+  console.log("quantity:", quantity);
   const [user, setUser] = useState({});
   useEffect(() => {
     if (!isEmpty(userData)) {
@@ -54,27 +61,31 @@ const Cart = () => {
   };
 
   const increment = (id) => {
-    const currentQuantity = quantity[id];
+    const product = cart.find((product) => product.id === id);
+    
+    const currentQuantity = product.quantity || 0;
 
-    const stock = cart.find((product) => product.id === id)?.ISBN.stock || 0;
+    const stock = product.ISBN.stock || 0;
 
     if (currentQuantity < stock) {
-      handleQuantityChange(id, (quantity[id] || 1) + 1);
+      handleQuantityChange(id, (currentQuantity || 1) + 1);
       dispatch(
         incrementProductCartQuantity(
           user.id || '',
           id,
-          (quantity[id] || 1) + 1,
+          (currentQuantity || 1) + 1,
         ),
       );
     }
   };
 
   const decrement = (id) => {
-    if (quantity[id] > 1) {
-      handleQuantityChange(id, quantity[id] - 1);
+    const product = cart.find((product) => product.id === id);
+
+    if (product.quantity > 1) {
+      handleQuantityChange(id, product.quantity - 1);
       dispatch(
-        decrementProductCartQuantity(user.id || '', id, quantity[id] - 1),
+        decrementProductCartQuantity(user.id || '', id, product.quantity - 1),
       );
     }
   };
@@ -112,12 +123,15 @@ const Cart = () => {
     // console.log(actualStock);
   };
 
-  const totalAmount = cart.reduce((acc, { price, id }) => {
-    return acc + Number(price) * (quantity[id] || 1);
-  }, 0);
+  useEffect(() => {
+    const amount = cart.reduce((acc, { price, quantity }) => {
+      return acc + Number(price) * (quantity || 1);
+    }, 0);
+    setTotalAmount(amount);
+  },[cart]);
 
   return (
-    <div>
+    <div style={{ minHeight: '65.5vh' }}>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse p-2">
           <li className="inline-flex items-center">
@@ -169,7 +183,7 @@ const Cart = () => {
           <NoProducts />
         ) : (
           <div>
-            {cart.map(({ id, image, title, price, ISBN, Authors }) => (
+            {cart.map(({ id, image, title, price, ISBN, Authors, quantity }) => (
               <div
                 key={id}
                 className="flex items-start py-4 px-2 my-4 mx-2 w-2/3 border-b border-gray-400"
@@ -204,7 +218,7 @@ const Cart = () => {
                     <button onClick={() => decrement(id)}>
                       <CiSquareMinus size={30} className="text-textGray" />
                     </button>
-                    <span>{quantity[id] || 1}</span>
+                    <span>{quantity || 1}</span>
                     <button onClick={() => increment(id)}>
                       <CiSquarePlus size={30} className="text-textGray" />
                     </button>
@@ -254,7 +268,7 @@ const Cart = () => {
                   <div className="flex flex-col">
                     <span className="text-textGray">Valor total</span>
                     <span className="font-sans font-semibold">
-                      ${Number(price) * quantity[id] || price}
+                      ${Number(price) * quantity || price}
                     </span>
                   </div>
                 </div>

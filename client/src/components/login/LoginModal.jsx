@@ -8,8 +8,8 @@ const LoginModal = ({ onClose }) => {
   const handleGoogleLogin = async () => {
     try {
       let webAuth = new auth0.WebAuth({
-        domain:       `${DOMAIN}`,
-        clientID:     `${CLIENT_ID}`
+        domain:`${DOMAIN}`,
+        clientID:`${CLIENT_ID}`
       });
     
       // Calculate URL to redirect to
@@ -98,7 +98,7 @@ const LoginModal = ({ onClose }) => {
                 />
                 <span>Iniciar sesión con Google</span>
               </button>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300 ">
+              <div className=" text-lg font-medium text-gray-500 dark:text-gray-300 ">
                 No estás registrado?{' '}
                 <a
                   onClick={() => onClose(true)}

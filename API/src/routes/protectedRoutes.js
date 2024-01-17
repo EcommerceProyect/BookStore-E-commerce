@@ -24,10 +24,11 @@ const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
 const { createProductReview } = require("../handlers/Reviews/createReviews");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
 const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+const {
+  getProductReviewsAverageRatingHandler
+} = require("../handlers/Reviews/getReviewsAverage");
 const { restoreProduct } = require("../handlers/restoreProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
-const { getDandNoDProductsHandler } = require("../handlers/Products/getDandNoDProductsHandler");
 const {
   updateGenreHandler
 } = require("../handlers/UpdateInfoHandler/updateGenreHandler");
@@ -43,6 +44,13 @@ const {
 const {
   updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+const { deleteAuthorHandler } = require("../handlers/SoftDelete/deleteAuthor");
+const {
+  deleteEditorialHandler
+} = require("../handlers/SoftDelete/deleteEditorial");
+const { deleteGenreHandler } = require("../handlers/SoftDelete/deleteGenre");
+const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
+const { getOrderByUserIdAdminHandler } = require("../handlers/Orders/getOrderByUserIdAdminHandler");
 
 router.use(cors());
 
@@ -103,6 +111,7 @@ router.get("/authorized", checkPermissions(["user:edit"]), async (req, res) => {
 router.get("/authorized/check", (req, res) => {
   res.status(200).json({ message: "El usuario esta autenticado" });
 });
+
 router.get(
   "/authorized/profile",
   checkPermissions(["user:edit"]),
@@ -149,27 +158,28 @@ router.put(
   updateProductHandler
 );
 
-router.delete("/authorized/products/:id",
-checkPermissions(["admin:edit"]),
-deleteProduct)
+router.delete(
+  "/authorized/products/:id",
+  checkPermissions(["admin:edit"]),
+  deleteProduct
+);
 
 router.patch("/authorized/products/:id",
 checkPermissions(["admin:edit"]),
 restoreProduct);
 
-
-router.get("/authorized/allProducts",
-checkPermissions(["admin:edit"]),
-getDandNoDProductsHandler);
-
-
 //Orders
 
 router.get(
-  "/authorized/orders/:id?",
+  "/authorized/orders",
   checkPermissions(["user:edit"]),
   getOrderByUserIdHandler
 );
+
+router.get("/authorized/orders",checkPermissions(["admin:edit"]), getOrdersHandler);
+
+router.get("/authorized/adminOrders/:id",checkPermissions(["admin:edit"]), getOrderByUserIdAdminHandler);
+
 
 //Reviews
 
@@ -230,6 +240,22 @@ router.put(
   "/authorized/ISBN/:id",
   checkPermissions(["admin:edit"]),
   updateISBNHandler
+);
+
+router.delete(
+  "/authorized/authorDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteAuthorHandler
+);
+router.delete(
+  "/authorized/editorialDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteEditorialHandler
+);
+router.delete(
+  "/authorized/genreDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteGenreHandler
 );
 
 module.exports = router;

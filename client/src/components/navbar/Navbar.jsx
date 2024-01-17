@@ -21,7 +21,7 @@ import LoginAuth from '../Auth/LoginAuth';
 import RegisterAuth from '../Auth/RegisterAuth';
 import handleLogout from '../Auth/handleLogout';
 
-const Navbar = ({ openLoginModal, openRegistrationModal }) => {
+const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
   const { cart } = useSelector((state) => state.products);
   const userData = useSelector((state) => state.userData?.userData);
 
@@ -50,7 +50,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal }) => {
           {/* auth */}
 
           <div>
-            <LoginAuth />
+            <LoginAuth setToast={setToast}/>
           </div>
 
           {/* auth */}
