@@ -82,7 +82,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
             {selectedOrder && (
               <ModalOrdersDetailUser order={selectedOrder} onClose={closeOrderDetailsModal} />
             )}
-            {userOrders.length > 0 && !loading ? (userOrders.map((order, key) => (
+            {userOrders.length > 0 && !loading && isOpen ? (userOrders.map((order, key) => (
                 <li key={key} className="flex items-center">
                   {/* ... Your existing order details */}
                   <button onClick={() => openOrderDetailsModal(order)}>Order : {order.shippingAddress} Total Amount : {order.totalAmount}</button>
