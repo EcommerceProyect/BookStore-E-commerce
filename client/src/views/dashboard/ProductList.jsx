@@ -193,7 +193,7 @@ function ProductList() {
       <div className="flex">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:py-24 lg:px-8">
-          <div className="w-usersWidthm bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-usersWidthm bg-white rounded-lg border shadow-md dark:bg-gray-900/20 ">
             <div className="p-8 flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                 Libros Registrados
@@ -241,16 +241,16 @@ function ProductList() {
                       />
                     </div>
                     <Link to={`/dashboard/editBook/${product.id}`}>
-                    <FaRegEdit className="w-7 h-7"> 
+                    <FaRegEdit className="dark:text-textLight w-7 h-7"> 
                     onClick={() => handleEdit(product.id)}
                     
                     </FaRegEdit>
                     </Link>
                     {product.deletedAt !== null ? (<MdLibraryAdd  onClick={() => handleActive(product.id)}
-                      className="w-7 h-7 cursor-pointer" />) : (
+                      className="dark:text-textLight w-7 h-7 cursor-pointer" />) : (
                     <MdAutoDelete
                       onClick={() => handleDelete(product.id)}
-                      className="w-7 h-7 cursor-pointer"
+                      className="dark:text-textLight w-7 h-7 cursor-pointer"
                     />
                     )}
                   </div>
@@ -266,7 +266,7 @@ function ProductList() {
                   <button
                     onClick={handlePrevPage}
                     disabled={currentPage === 0}
-                    className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     Previous
                   </button>
@@ -275,7 +275,7 @@ function ProductList() {
                   <li key={i}>
                     <button
                       onClick={() => dispatch(setCurrentPage(i))}
-                      className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'text-blue-600 bg-blue-50' : ''
+                      className={`dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'text-blue-600 bg-blue-50' : ''
                         }`}
                     >
                       {i + 1}
@@ -287,7 +287,7 @@ function ProductList() {
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages - 1}
-                    className="flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     Next
                   </button>

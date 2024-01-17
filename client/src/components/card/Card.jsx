@@ -67,10 +67,10 @@ function Card({
   };
 
   return (
-    <div class="relative w-full max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:border-gray-700">
+    <div class="w-80 h-100 dark:bg-gray-900/20 relative max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:border-gray-700">
       <div class="relative p-8">
         <Link to={`/detail/${id}`}>
-          <div className="w-60 h-60">
+          <div className="dark:bg-bgDark w-60 h-60">
             <img
               className="rounded-lg shadow-md object-contain w-full h-full"
               src={image}
@@ -82,7 +82,7 @@ function Card({
 
       <div class="px-5 pb-5">
         <Link to={`/detail/${id}`}>
-          <h5 class="text-left text-xl font-semibold tracking-tight text-textDark dark:text-black">
+          <h5 class="dark:text-textLight text-left text-xl font-semibold tracking-tight text-textDark">
             {title}
           </h5>
         </Link>
@@ -121,7 +121,7 @@ function Card({
           </span> */}
         </div>
         <div class="flex items-center justify-between">
-          <span class="text-left text-2xl font-bold text-textDark dark:text-black">
+          <span class="dark:text-textLight text-left text-2xl font-bold text-textDark ">
             ${price}
           </span>
           {ISBN.stock === 0 || ISBN.stock < 0 ? (
@@ -134,7 +134,7 @@ function Card({
           ) : (
             <button
               onClick={handleCart}
-              class="text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
             >
               Agregar al carrito
             </button>

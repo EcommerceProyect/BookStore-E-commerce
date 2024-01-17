@@ -95,7 +95,7 @@ const Registration = ({ onClose }) => {
               </button>
               <div className="flex items-center justify-center">
                 <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
-                <p className="mx-4">o</p>
+                <p className="mx-4 dark:text-textLight">o</p>
                 <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
               </div>
               <form className="space-y-4" action="#">
@@ -174,7 +174,7 @@ const Registration = ({ onClose }) => {
                 <button
                   onClick={handleSubmit}
                   type="submit"
-                  className="w-full text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="w-full text-white bg-accents hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
                   Registrar{' '}
                 </button>
@@ -183,7 +183,7 @@ const Registration = ({ onClose }) => {
                   <a
                     href="#"
                     onClick={() => onClose(true)}
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                    className=""
                   >
                     Iniciar sesión
                   </a>

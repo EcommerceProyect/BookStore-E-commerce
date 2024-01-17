@@ -10,15 +10,15 @@ const SortingComponent = ({ handleSorting }) => {
 
   return (
     <div>
-      <label className=' pr-4'>Ordenar por:</label>
-      <select value={selectedOption} onChange={(e) => handleSort(e.target.value)}>
-        <option value="">Seleccionar</option>
-        <option value="title_ASC">Orden alfabético (A-Z)</option>
-        <option value="title_DESC">Orden alfabético (Z-A)</option>
-        <option value="price_ASC">Precio (ascendente)</option>
-        <option value="price_DESC">Precio (descendente)</option>
-        <option value="date_ASC">Fecha de publicación (ascendente)</option>
-        <option value="date_DESC">Fecha de publicación (descendente)</option>
+      <label className=' pr-4 dark:text-textLight'>Ordenar por:</label>
+      <select className='dark:bg-gray-900/20 dark:border-none dark:text-textLight' value={selectedOption} onChange={(e) => handleSort(e.target.value)}>
+        <option className='dark:text-textDark' value="">Seleccionar</option>
+        <option className='dark:text-textDark' value="title_ASC">Orden alfabético (A-Z)</option>
+        <option className='dark:text-textDark' value="title_DESC">Orden alfabético (Z-A)</option>
+        <option className='dark:text-textDark' value="price_ASC">Precio (ascendente)</option>
+        <option className='dark:text-textDark' value="price_DESC">Precio (descendente)</option>
+        <option className='dark:text-textDark' value="date_ASC">Fecha de publicación (ascendente)</option>
+        <option className='dark:text-textDark' value="date_DESC">Fecha de publicación (descendente)</option>
       </select>
     </div>
   );

@@ -32,7 +32,7 @@ function GenreFilter({ currentPage, setCurrentPage }) {
   // console.log(filteredGenres);
 
   return (
-    <div className="flex">
+    <div className="flex dark:text-textLight">
       <div className="w-60 pt-5 pl-5">
         <h2 className="">Género</h2>
         <input
@@ -40,10 +40,10 @@ function GenreFilter({ currentPage, setCurrentPage }) {
           placeholder="Filtrar géneros"
           value={filterValue}
           onChange={(e) => setFilterValue(e.target.value)}
-          className="border border-gray-300 p-1 rounded mt-2 mb-2"
+          className="dark:bg-gray-900/20 dark:border-none border border-gray-300 p-1 rounded mt-2 mb-2"
         />
         <div className="grid w-auto max-h-52 overflow-y-auto overflow-x-hidden">
-          <span className="border-b-2 mb-3"></span>
+          <span className="dark:border-gray-900/20 border-b-2 mb-3"></span>
           {filteredGenres.map((genre) => (
             <div key={genre.id} className="flex items-center mb-4 pr-8">
               <input
@@ -51,11 +51,11 @@ function GenreFilter({ currentPage, setCurrentPage }) {
                 onChange={(event) => handleGenreChange(event, genre.name)}
                 type="checkbox"
                 value={genre}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-4 h-4 dark:border-gray-900/20 bg-gray-100 border-none rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 appearance-none checked:bg-primary checked:border-primary"
               />
               <label
                 htmlFor={`genre-${genre.name}`}
-                className="ms-2 text-sm font-medium text-black dark:text-gray-500"
+                className="dark:text-textLight ms-2 text-sm font-medium text-black"
                 style={{ wordWrap: 'break-word', width: '120px' }}
               >
                 {genre.name}
