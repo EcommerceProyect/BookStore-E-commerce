@@ -6,7 +6,7 @@ import { fetchOrders } from '../../redux/services/orderService';
 import { getProducts } from '../../redux/services/getAllProducts';
 import { getUsersStart } from '../../redux/slices/userList';
 import { getUsers } from '../../redux/services/getUsers'
-import SalesChart from './salesChart';
+import SalesChart from './SalesChart';
 import UsersChart from './UsersChart';
 export default function Statistics() {
     const dispatch = useDispatch();
