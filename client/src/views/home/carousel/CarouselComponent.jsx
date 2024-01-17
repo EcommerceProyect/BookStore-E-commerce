@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getLastProducts } from '../../../redux/services/getLastProducts';
 import { Carousel } from 'flowbite-react';
 
+import { ITEMS_PER_PAGE } from '../../../vars';
+
 import { Link } from 'react-router-dom';
 
 const customTheme = {
@@ -46,8 +48,8 @@ const CarouselComponent = () => {
     (state) => state.products.carouselProducts,
   );
   const totalItems = useSelector((state) => state.products.totalItems);
-  const itemsPerPage = 2;
-  const totalPages = Math.ceil(totalItems / itemsPerPage) -1;
+
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) - 1;
 
   useEffect(() => {
     if(totalPages>=0){
