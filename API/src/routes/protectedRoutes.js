@@ -24,7 +24,9 @@ const { getAllReviewsHandler } = require("../handlers/Reviews/getReviews");
 const { createProductReview } = require("../handlers/Reviews/createReviews");
 const { updateReviewHandler } = require("../handlers/Reviews/updateReviews");
 const { deleteReviewHandler } = require("../handlers/Reviews/deleteReviews");
-const { getProductReviewsAverageRatingHandler } = require("../handlers/Reviews/getReviewsAverage");
+const {
+  getProductReviewsAverageRatingHandler
+} = require("../handlers/Reviews/getReviewsAverage");
 const { restoreProduct } = require("../handlers/restoreProduct");
 const { deleteProduct } = require("../handlers/deleteProduct");
 const {
@@ -42,6 +44,11 @@ const {
 const {
   updateISBNHandler
 } = require("../handlers/UpdateInfoHandler/updateISBNHandler");
+const { deleteAuthorHandler } = require("../handlers/SoftDelete/deleteAuthor");
+const {
+  deleteEditorialHandler
+} = require("../handlers/SoftDelete/deleteEditorial");
+const { deleteGenreHandler } = require("../handlers/SoftDelete/deleteGenre");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const { getOrderByUserIdAdminHandler } = require("../handlers/Orders/getOrderByUserIdAdminHandler");
 
@@ -151,9 +158,11 @@ router.put(
   updateProductHandler
 );
 
-router.delete("/authorized/products/:id",
-checkPermissions(["admin:edit"]),
-deleteProduct)
+router.delete(
+  "/authorized/products/:id",
+  checkPermissions(["admin:edit"]),
+  deleteProduct
+);
 
 router.patch("/authorized/products/:id",
 checkPermissions(["admin:edit"]),
@@ -231,6 +240,22 @@ router.put(
   "/authorized/ISBN/:id",
   checkPermissions(["admin:edit"]),
   updateISBNHandler
+);
+
+router.delete(
+  "/authorized/authorDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteAuthorHandler
+);
+router.delete(
+  "/authorized/editorialDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteEditorialHandler
+);
+router.delete(
+  "/authorized/genreDelete/:id",
+  checkPermissions(["admin:edit"]),
+  deleteGenreHandler
 );
 
 module.exports = router;

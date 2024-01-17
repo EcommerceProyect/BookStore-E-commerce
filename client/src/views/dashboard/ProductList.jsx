@@ -69,7 +69,6 @@ function ProductList() {
       setActiveProductId(null);
     }
   };
-
   
   const handleCancelDelete = () => {
     setShowModal(false);

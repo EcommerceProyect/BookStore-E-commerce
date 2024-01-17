@@ -4,6 +4,7 @@ export const validationSchema = (values) => {
   //Reglas de validación
 
   //Título 
+  console.log(values)
   if (!/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,;:'"!?¿¡()-]{1,70}$/.test(values.title)) {
     errors.title = 'El título debe tener entre 1 y 70 caracteres.';
   }
@@ -37,7 +38,7 @@ export const validationSchema = (values) => {
   }
 
   // Editorial
-  if (!values.editorial) {
+  if (!values.editorial && values.editorial.length < 1) {
     errors.editorial = 'La editorial es obligatoria';
   }
 
@@ -49,7 +50,7 @@ if (!isbnRegex.test(values.ISBNname)) {
 }
 
 
-  if (!values.ISBNname) {
+  if (!values.ISBNname && values.ISBNname.length < 1) {
     errors.ISBNname = 'El ISBN es obligatorio';
   }
 

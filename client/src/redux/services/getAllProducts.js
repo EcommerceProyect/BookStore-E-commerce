@@ -62,7 +62,10 @@ export const getProducts =
         url += `?page=${page || 0}`;
       }
 
+      console.log(url)
       const response = await axios.get(url);
+      console.log(response.data.data)
+      console.log(response.data.detailedResults)
       dispatch(
         setTotalItems(response.data.count || response.data.numberOfResults),
       );

@@ -203,7 +203,7 @@ function Detail() {
                   'Género no disponible.'}
               </h2>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
-                Editorial: {detailProduct?.Editorial.name}
+                Editorial: {detailProduct?.Editorial?.name || 'Editorial no disponible.'}
               </h2>
               <h2 class="text-sm title-font text-gray-800 tracking-widest py-1">
                 ISBN: {detailProduct?.ISBN?.name || 'ISBN no disponible.'}
@@ -228,19 +228,39 @@ function Detail() {
                 </button> */}
               </div>
               <div className="flex justify-around mt-5 mb-5">
-                <button
-                  onClick={cartHandler}
-                  class="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                >
-                  Agregar al carrito
-                </button>
-                <button
-                  className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                  onClick={checkOut}
-                >
-                  Comprar ahora
-                </button>
+                {detailProduct?.ISBN?.stock > 0 ? (
+                  <>
+                    <button
+                      onClick={cartHandler}
+                      className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                    >
+                      Agregar al carrito
+                    </button>
+                    <button
+                      className="text-white bg-accents border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                      onClick={checkOut}
+                    >
+                      Comprar ahora
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      disabled
+                      className="text-gray-500 bg-gray-300 font-medium px-6 py-2 text-center rounded focus:outline-none border-0"
+                    >
+                      Stock agotado
+                    </button>
+                    <button
+                      disabled
+                      className="text-gray-500 bg-gray-300 font-medium px-6 py-2 text-center rounded focus:outline-none border-0"
+                    >
+                      Stock agotado
+                    </button>
+                  </>
+                )}
               </div>
+
               {userBuyedProduct ? (
                 <RatingStarsSetter
                   productId={id}

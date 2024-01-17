@@ -4,6 +4,9 @@ import { updateEditorial } from '../../../redux/services/updateEditorial';
 
 import { fetchEditorial } from '../../../redux/services/getEditorial';
 
+import DeleteConfirmationModal from './deleteModal';
+import { deleteEditorial } from '../../../redux/services/deleteEditorial';
+
 const EditorialForm = ({ setToast }) => {
   const dispatch = useDispatch();
   const allEditorials = useSelector((state) => state.editorial.allEditorial);
@@ -14,6 +17,8 @@ const EditorialForm = ({ setToast }) => {
 
   const [editedEditorials, setEditedEditorials] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [editorialToDelete, setEditorialToDelete] = useState(null);
 
   const itemsPerPage = 50;
   const totalPages = Math.ceil(totalItemsFromState / itemsPerPage);
@@ -47,6 +52,27 @@ const EditorialForm = ({ setToast }) => {
         setToast('error', response.data.message);
       }
     }
+  };
+
+  const handleDeleteClick = (editorial) => {
+    setShowDeleteModal(true);
+    setEditorialToDelete(editorial);
+  };
+
+  const handleConfirmDelete = async (id) => {
+    const response = await dispatch(deleteEditorial(id));
+    setShowDeleteModal(false);
+    console.log(response);
+    if (response.data.message === 'Editorial eliminada exitosamente') {
+      setToast('success', response.data.message);
+    } else {
+      setToast('error', response.data.message);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setEditorialToDelete(null);
+    setShowDeleteModal(false);
   };
 
   const filteredEditorials = allEditorials.filter((editorial) =>
@@ -107,11 +133,11 @@ const EditorialForm = ({ setToast }) => {
         {filteredEditorials.map((editorial) => (
           <div
             key={editorial.id}
-            className="flex items-center justify-between mt-6"
+            className="flex items-center justify-between mt-6 space-x-4"
           >
             <input
               type="text"
-              className="w-3/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="flex-1 py-2 px-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={
                 editedEditorials[editorial.id] !== undefined
                   ? editedEditorials[editorial.id]
@@ -121,10 +147,17 @@ const EditorialForm = ({ setToast }) => {
             />
             <button
               type="button"
-              class="h-full w-1/5 focus:outline-none text-white bg-accents hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              className="py-2 px-4 text-white bg-accents hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
               onClick={() => handleEditClick(editorial.id)}
             >
               Editar
+            </button>
+            <button
+              type="button"
+              className="py-2 px-4 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              onClick={() => handleDeleteClick(editorial)}
+            >
+              Eliminar
             </button>
           </div>
         ))}
@@ -166,6 +199,13 @@ const EditorialForm = ({ setToast }) => {
           </ul>
         </nav>
       </div>
+      <DeleteConfirmationModal
+        showDeleteModal={showDeleteModal}
+        handleCancelDelete={handleCancelDelete}
+        handleConfirmDelete={handleConfirmDelete}
+        type={'editorial'}
+        entity={editorialToDelete}
+      />
     </div>
   );
 };
