@@ -16,6 +16,8 @@ import { deleteProduct } from '../../redux/services/deleteProduct';
 import ActiveModal from './productModal/activeModal';
 import { activeProduct } from '../../redux/services/activeProduct';
 
+import { ITEMS_PER_PAGE } from "../../vars";
+
 function ProductList() {
   const dispatch = useDispatch();
 
@@ -35,7 +37,7 @@ function ProductList() {
     (state) => state.editorial.selectedEditorial,
   );
 
-  const itemsPerPage = 50;
+  const itemsPerPage = ITEMS_PER_PAGE;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
@@ -64,8 +66,7 @@ function ProductList() {
       await dispatch(deleteProduct(deleteProductId));
       await dispatch(getProducts());
       setShowModal(false);
-      setDeleteProductId(null);
-      console.log(list)
+      setActiveProductId(null);
     }
   };
   
@@ -147,6 +148,7 @@ function ProductList() {
     selectedGenre,
     sortField,
     sortAction,
+    totalItemsFromState
   ]);
 
   if (error) {

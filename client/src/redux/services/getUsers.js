@@ -15,7 +15,7 @@ export const getUsers = (page) => {
 
         const users = response.data;
 
-        console.log("Datos de usuarios recibidos:", users);
+        // console.log("Datos de usuarios recibidos:", users);
 
         dispatch(getUsersSuccess(users));
         return response;

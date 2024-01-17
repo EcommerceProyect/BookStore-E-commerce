@@ -40,12 +40,13 @@ function Users() {
   const hasUserActiveFailure = useSelector((state) => state.user.userActiveFailure);
 
 
-
-  
-
   useEffect(() => {
     dispatch(getUsers());
-  }, [dispatch]);
+    if(showUserModel == false){
+      setSelectedUser(null);
+      console.log(selectedUser);
+    }
+  }, [dispatch,showUserModel]);
 
   const [hoverIndex, setHoverIndex] = useState(null);
   const handleDeleteUser = (userId) => {
@@ -73,9 +74,8 @@ const handleModalAdmin = (userId) => {
   };
 
   const handleUserDetail = (user) => {
-    setSelectedUser(user);
     setShowUserModal(true);
-    console.log(user);
+    setSelectedUser(user);
   };
 
   const handleConfirmDelete = async () => {
@@ -115,7 +115,9 @@ const handleModalAdmin = (userId) => {
   const handleCloseDetail = () =>{
     //reset del estado local de userOrdersAdmin
     dispatch(resetUserAdminOrders());
-    setShowUserModal(false)
+    setShowUserModal(false);
+    setSelectedUser(null);
+    console.log(selectedUser);
   }
 
   const [sortBy, setSortBy] = useState(null);
@@ -307,7 +309,7 @@ const handleModalAdmin = (userId) => {
             <ConfirmModalActive isOpen={showModalB} onCancel={handleCancelActive} onConfirm={handleConfirmActiveUser}/>
             <ConfirmModal isOpen={showModal} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete} />
           </ul>
-          <ModalDetailUser isOpen={showUserModel} onCancel={handleCloseDetail}   user={selectedUser} />
+          <ModalDetailUser isOpen={showUserModel} onCancel={() => handleCloseDetail()}   user={selectedUser} />
         </div>
       </div>
     </div>

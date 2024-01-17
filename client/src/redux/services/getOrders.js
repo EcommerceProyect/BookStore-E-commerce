@@ -31,7 +31,6 @@ const getOrders = () => async (dispatch) => {
 
     const flattenedProducts = allProducts.flat();
 
-    console.log(flattenedProducts,"ordersss");
     dispatch(setOrders(flattenedProducts));
   } catch (error) {
     console.error(error);

@@ -10,15 +10,15 @@ import SortingComponent from './sort/Sort';
 import { Toaster, toast } from 'sonner';
 import { Toast } from 'flowbite-react';
 
-import { ITEMS_PER_PAGE as itemsPerPage } from '../../vars';
+import { ITEMS_PER_PAGE } from "../../vars";
 
 function Cards() {
+
   const dispatch = useDispatch();
 
   const { list, loading, error, orderOption, currentPage } = useSelector(
     (state) => state.products,
   );
-
   const [totalItems, setTotalItems] = useState(0);
 
   const selectedGenre = useSelector(
@@ -31,10 +31,14 @@ function Cards() {
     (state) => state.editorial.selectedEditorial,
   );
 
+  const itemsPerPage = ITEMS_PER_PAGE;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
   const [sortAction, setSortAction] = useState(null);
+
+  //variable para verificar si useEffect de abajo paso
+  const [isStarted,setIsStated] = useState(false);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -64,6 +68,7 @@ function Cards() {
 
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         let total = 0;
         let filters = {};
@@ -81,9 +86,10 @@ function Cards() {
         }
 
         await dispatch(getProducts(currentPage, sortField, sortAction));
-      } catch (error) {
-        console.error('Error fetching data: ', error);
+      } catch (err) {
+        console.error('Error fetching data: ', err);
       }
+      setIsStated(true);
     };
     fetchData();
   }, [
@@ -108,13 +114,8 @@ function Cards() {
     dispatch(setCurrentPage(0));
   }, [selectedEditorial]);
 
-useEffect(() => {
-  console.log("totalpages", totalPages);
-  console.log("totalitems", totalItems);
-  console.log("totallist", list)
-}, [totalPages, totalItems, list])
 
-  if (error) {
+  if (isStarted && loading === false && error) {
     toast(`Error al buscar los libros`)
   }
 

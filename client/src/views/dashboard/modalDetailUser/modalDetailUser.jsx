@@ -4,6 +4,7 @@ import { useDispatch,useSelector } from "react-redux";
 import {React,useEffect,useState} from 'react';
 import getOrdersByUserId from '../../../redux/services/getOrdersByUserId';
 import ModalOrdersDetailUser from "./modalOrdersDetailUser.jsx";
+import { resetUserAdminOrders } from '../../../redux/slices/userOrdersAdmin.js';
 
 function ModalDetailUser({ isOpen, user, onCancel }) {
 
@@ -16,7 +17,6 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
-
     if(allOrders && user && user.id){
       
       dispatch(getOrdersByUserId(user.id))
@@ -27,9 +27,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   useEffect(() => {
 
-
     if(loading == false) setUserOrders(allOrders)
-    console.log(allOrders, "SOY EL USER ORDERS");
 
   },[allOrders]);
 
@@ -39,6 +37,7 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
 
   const closeOrderDetailsModal = () => {
     setSelectedOrder(null);
+    
   };
 
 
@@ -82,16 +81,20 @@ function ModalDetailUser({ isOpen, user, onCancel }) {
             {selectedOrder && (
               <ModalOrdersDetailUser order={selectedOrder} onClose={closeOrderDetailsModal} />
             )}
-            {userOrders.length > 0 ? (userOrders.map((order, key) => (
+            {userOrders.length > 0 && !loading && isOpen ? (userOrders.map((order, key) => (
                 <li key={key} className="flex items-center">
                   {/* ... Your existing order details */}
                   <button onClick={() => openOrderDetailsModal(order)}>Order : {order.shippingAddress} Total Amount : {order.totalAmount}</button>
                 </li>
               ))
-            ) : (
-              <li>
-                <p>Cargando...</p>
-              </li>
+            ) : ( loading==true && !error ? (              
+            <li>
+              <p>Cargando...</p>
+            </li>) :
+            <div>
+              <h1>El usuario no tiene ordenes</h1>
+            </div>
+
             )}
           </div>
         </div>

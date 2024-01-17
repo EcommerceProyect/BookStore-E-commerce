@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { APIDOMAIN, API_BOOKS } from '../../vars';
-import { UserAdminOrderStart, getUserAdminOrdersError, setUserAdminOrders } from '../slices/userOrdersAdmin';
+import { UserAdminOrderStart, getUserAdminOrdersError, resetUserAdminOrders, setUserAdminOrders } from '../slices/userOrdersAdmin';
 
 const getOrdersByUserId = (userId) => async (dispatch) => {
   const token = localStorage.getItem('actualT');
@@ -26,20 +26,19 @@ const getOrdersByUserId = (userId) => async (dispatch) => {
             responseProduct.data.orderDate = new Date(
               o.createdAt,
             ).toLocaleDateString('en-GB');
-            console.log({product:responseProduct.data,quantity:o.quantity});
             return {product:responseProduct.data,quantity:o.quantity};
           }),
         ),totalAmount:order.order.totalAmount,shippingAddress:order.order.shippingAddress,orderId:order.order.id};
       }),
     );
-    console.log(allProducts);
+    
       //retorno un obj con dos propiedades que contiene  los detalles del producto y su order detail
     const flattenedProducts = allProducts.flat();
 
-    console.log(sortedOrders,"AdiminOrdersss");
     dispatch(setUserAdminOrders(flattenedProducts));
   } catch (error) {
     dispatch(getUserAdminOrdersError(error.message));
+    dispatch(resetUserAdminOrders());
     console.error(error);
   }
 };

@@ -47,7 +47,6 @@ const UpdateProfile = () => {
     };
 
     const response = await dispatch(updateUser(updatedUser));
-    console.log(response.data.message);
 
     if (response.data.message === 'Usuario actualizado con éxito') {
       toast.success('Usuario actualizado con éxito');

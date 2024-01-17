@@ -29,7 +29,7 @@ function GenreFilter({ currentPage, setCurrentPage }) {
     genre.name.toLowerCase().includes(filterValue.toLowerCase()),
   );
 
-  console.log(filteredGenres);
+  // console.log(filteredGenres);
 
   return (
     <div className="flex">

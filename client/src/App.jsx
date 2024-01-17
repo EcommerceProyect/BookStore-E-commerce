@@ -61,7 +61,7 @@ function App() {
 
   useEffect(() => {
     if (!isEmpty(user)) {
-      console.log('USER', user);
+      // console.log('USER', user);
       createCartFn(user.id || '');
     }
   }, [user]);

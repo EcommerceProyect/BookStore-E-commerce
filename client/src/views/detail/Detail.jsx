@@ -62,17 +62,14 @@ function Detail() {
           );
 
           if (!data.orders) return false;
-          console.log('data', data.orders);
 
           data.orders.forEach((order) => {
             const exist = order.OrderDetail.find(
               (detail) => detail.ProductId == id,
             );
-            console.log('algo', exist || 'a');
 
             if (exist) {
               aux = order.order.id;
-              console.log('bandera', aux);
               return false;
             }
           });
@@ -80,7 +77,6 @@ function Detail() {
         }
 
         setOrderId((prevOrderId) => aux || prevOrderId);
-        console.log('OrderId', orderId);
       } catch (error) {
         console.log(error.message);
       }
@@ -111,7 +107,7 @@ function Detail() {
         console.log(response.data);
       })
       .catch((error) => console.log(error.message));
-    // console.log(actualStock);
+      
   };
 
   return (

@@ -8,7 +8,7 @@ import {
 import { API_BOOKS } from '../../vars';
 
 const apiUrl = `${API_BOOKS}/ebook/products`;
-// const apiUrl = 'http://localhost:3002/ebook/products';
+
 export const getProducts =
   (page, sortField, sortAction, deleteFilter = false) => async (dispatch, getState) => {
     dispatch(setProductListLoading());
@@ -57,12 +57,9 @@ export const getProducts =
       }
 
       if (queryParams.length > 0) {
-        url += `/filterPrueba?${queryParams.join('&')}&page=${page}`;
+        url += `/filterPrueba?${queryParams.join('&')}&page=${page || 0}`;
       } else {
-        if (!page) {
-          page = 0;
-        }
-        url += `?page=${page}`;
+        url += `?page=${page || 0}`;
       }
 
       console.log(url)
@@ -75,7 +72,6 @@ export const getProducts =
       dispatch(
         setProductList(response.data.detailedResults || response.data.data),
       );
-      console.log(url);
     } catch (error) {
       dispatch(setProductListError(error.message));
     }
