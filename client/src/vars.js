@@ -12,4 +12,4 @@ export const REDIRECT_URI = 'http://localhost:5173';
 export const APIDOMAIN = 'http://localhost:3001';
 export const API_BOOKS = 'http://localhost:5433';
 
-export const ITEMS_PER_PAGE = 10;
+export const ITEMS_PER_PAGE = 8;

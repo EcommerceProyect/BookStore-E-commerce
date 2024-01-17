@@ -8,7 +8,18 @@ import { setProductListLoading } from '../../redux/slices/products';
 export const useForm = (validationSchema) => {
   const dispatch = useDispatch();
 
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    title: "",
+    price: "",
+    image: {},
+    releaseDate: '',
+    autor: [],
+    genre: [],
+    editorial: "",
+    ISBNname: '',
+    stock: '',
+    synopsis: '',
+  });
   const [errors, setErrors] = useState({});
 
   // Handlers
@@ -65,8 +76,20 @@ export const useForm = (validationSchema) => {
   };
 
   const resetValues = () => {
-    setValues({});
-  }
+    console.log(values)
+    setValues({
+      title: "",
+      price: "",
+      image: null,
+      releaseDate: '',
+      autor: [],
+      genre: [],
+      editorial: '',
+      ISBNname: '',
+      stock: '',
+      synopsis: '',
+    })
+}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -76,8 +99,6 @@ export const useForm = (validationSchema) => {
     if (Object.keys(newErrors).length === 0) {
       await dispatch(setProductListLoading())
       handleCloudinaryUpload();
-      console.log(values);
-      setValues({});
     }
   };
 
@@ -92,6 +113,7 @@ export const useForm = (validationSchema) => {
             (response.status === 201 || response.status === 200)
           ) {
             toast('Libro creado exitosamente.');
+            resetValues()
           } else {
             toast('Error creando el libro.');
           }
@@ -103,6 +125,8 @@ export const useForm = (validationSchema) => {
 
     fetchData();
   }, [values.image]);
+
+
 
   return {
     values,

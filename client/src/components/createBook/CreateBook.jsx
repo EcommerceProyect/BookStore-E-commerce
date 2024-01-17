@@ -27,7 +27,8 @@ const CreateBook = () => {
     handleChange,
     handleSubmit,
     handleSelectChange,
-    handleImageChange
+    handleImageChange,
+    resetValues
   } = useForm(validationSchema);
 
   const { allAuthors } = useSelector((state) => state.authors);

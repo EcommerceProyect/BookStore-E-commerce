@@ -9,6 +9,8 @@ import EditorialFilter from './filters/Editorial';
 import SortingComponent from './sort/Sort';
 import { Toaster } from 'sonner';
 
+import { ITEMS_PER_PAGE as itemsPerPage } from '../../vars';
+
 function Cards() {
   const dispatch = useDispatch();
 
@@ -28,7 +30,6 @@ function Cards() {
     (state) => state.editorial.selectedEditorial,
   );
 
-  const itemsPerPage = 50;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const totalItemsFromState = useSelector((state) => state.products.totalItems);
   const [sortField, setSortField] = useState(null);
@@ -105,6 +106,12 @@ useEffect(() => {
 useEffect(() => {
   dispatch(setCurrentPage(0));
 }, [selectedEditorial]);
+
+useEffect(() => {
+  console.log("totalpages", totalPages);
+  console.log("totalitems", totalItems);
+  console.log("totallist", list)
+}, [totalPages, totalItems, list])
 
   if (error) {
     return <div>Error: {error}</div>;
