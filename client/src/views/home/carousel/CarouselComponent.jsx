@@ -18,8 +18,8 @@ const customTheme = {
   },
   indicators: {
     active: {
-      off: 'bg-white/50 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-800',
-      on: 'bg-white dark:bg-gray-800',
+      off: 'bg-black/50 hover:bg-white dark:bg-gray-500/50 dark:hover:bg-gray-500',
+      on: 'bg-black dark:bg-white',
     },
     base: 'h-3 w-3 rounded-full',
     wrapper: 'absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3',
@@ -60,7 +60,7 @@ const CarouselComponent = () => {
   return (
     <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 my-4">
       {loading ? (
-        <div className="dark:text-textLight text-center h-full">Loading...</div>
+        <div className="dark:text-textLight text-center h-full">Cargando...</div>
       ) : (
         <Carousel slide={true} theme={customTheme} slideInterval={6000}>
           {carouselProducts.map((product) => {
@@ -68,7 +68,7 @@ const CarouselComponent = () => {
               <Link to={`/detail/${product.id}`}>
                 <div
                   key={product.id}
-                  className=" flex h-full items-center justify-center bg-white-400 dark:bg-gray-700 dark:text-white"
+                  className="dark:bg-bgDark flex h-full items-center justify-center bg-white-400 dark:text-white"
                 >
                   <CardCarousel
                     id={product.id}

@@ -70,7 +70,7 @@ const Navbar = ({ openLoginModal, openRegistrationModal, setToast }) => {
       <div className="flex items-center justify-between gap-2">
         <Link to="/">
           <div title="Home" className="left-0">
-            <img src={Logo} alt="Logo" className="ml-10" />
+            <img src={Logo} alt="Logo" className="ml-10 transform transition-transform duration-300 ease-in-out hover:scale-105" />
           </div>
         </Link>
 

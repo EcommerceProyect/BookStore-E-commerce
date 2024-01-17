@@ -189,7 +189,7 @@ const handleModalAdmin = (userId) => {
     <div className="flex">
       <Dashboard />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:py-24 lg:px-8">
-        <div className="w-usersWidthm bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-usersWidthm bg-white rounded-lg border shadow-md dark:bg-gray-900/20">
           <div className="p-8 flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
               Usuarios Registrados

@@ -6,7 +6,7 @@ export default {
     './node_modules/flowbite-react/lib/esm/**/*.js',
     './node_modules/flowbite/**/*.js',
   ],
-  "darkMode": "class",
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -19,6 +19,9 @@ export default {
       },
       width: {
         usersWidthm: '50rem',
+      },
+      height: {
+        100: "30rem"
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],

@@ -42,7 +42,7 @@ const UsersChart = ({ registrations }) => {
 
   return (
     <div className="w-full overflow-x-auto relative">
-      <MdArrowBackIos onClick={handleScrollLeft} className="z-10 cursor-pointer absolute left-6 bottom-3"/>
+      <MdArrowBackIos onClick={handleScrollLeft} className="dark:text-textLight z-10 cursor-pointer absolute left-6 bottom-3"/>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={chartData.slice(scrollPosition * 10, (scrollPosition + 1) * 10)}
@@ -51,11 +51,11 @@ const UsersChart = ({ registrations }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" label={{ value: 'Fecha', position: 'insideBottom', dy: 10 }} />
           <YAxis label={{ value: 'Número de Registros', position: 'insideTop', angle: -90, dx: -40, dy: 100 }} />
-          <Tooltip />
+          <Tooltip/>
           <Bar dataKey="Registros" fill="#590925" />
         </BarChart>
       </ResponsiveContainer>
-      <MdArrowForwardIos onClick={handleScrollRight} className="z-10 cursor-pointer absolute right-0 bottom-3"/>
+      <MdArrowForwardIos onClick={handleScrollRight} className="dark:text-textLight z-10 cursor-pointer absolute right-0 bottom-3"/>
     </div>
   );
 };
