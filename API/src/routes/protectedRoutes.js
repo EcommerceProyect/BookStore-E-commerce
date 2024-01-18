@@ -51,6 +51,7 @@ const {
 const { deleteGenreHandler } = require("../handlers/SoftDelete/deleteGenre");
 const { getOrdersHandler } = require("../handlers/Orders/getOrdersHandler");
 const { getOrderByUserIdAdminHandler } = require("../handlers/Orders/getOrderByUserIdAdminHandler");
+const axios = require("axios");
 
 router.use(cors());
 
@@ -61,7 +62,11 @@ const jwtCheck = auth({
 });
 
 //middleware
-const checkPermissions = (requiredPermissions) => (req, res, next) => {
+const {CLIENT_SECRET,API_DOMAIN,CLIENT_ID} = process.env;
+
+const checkPermissions = (requiredPermissions) => async (req, res, next) => {
+
+
   const userPermissions = req.auth.payload.permissions || [];
 
   if (
@@ -71,7 +76,46 @@ const checkPermissions = (requiredPermissions) => (req, res, next) => {
   ) {
     // El usuario tiene al menos uno de los permisos requeridos
     console.log("es admin");
-    next();
+
+    let options = {
+      method: 'POST',
+      url: `https://${API_DOMAIN}/oauth/token`,
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+      data: new URLSearchParams({
+          grant_type: 'client_credentials',
+          client_id: `${CLIENT_ID}`,
+          client_secret: `${CLIENT_SECRET}`,
+          audience: `https://${API_DOMAIN}/api/v2/`
+      })
+    };
+  
+    const responseToken = await axios.request(options);
+
+    let myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${responseToken.data.access_token}`);
+
+    let requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+        
+    const id = req.auth.payload.sub;
+
+    const permissionsResponse = await fetch(`https://${API_DOMAIN}/api/v2/users/${id}/permissions`, requestOptions)
+    
+    const permissionTxt = await permissionsResponse.text();
+    
+    if(requiredPermissions.some((permission) => permissionTxt.includes(permission))){
+
+      next();
+    }else{
+      console.log("Nope");
+      res
+      .status(403)
+      .json({ error: "Forbidden", message: "Insufficient permissions in the actual Token" });
+    }
   } else {
     // El usuario no tiene los permisos necesarios
     res
