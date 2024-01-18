@@ -151,23 +151,30 @@ function Cards() {
         {loading ? (
           <div className='text-center dark:text-textLight'>Cargando...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
-            {Array.isArray(list) &&
-              list.map((product) => (
-                <div key={product.id} className="p-4 transform transition-transform duration-300 ease-in-out hover:scale-105">
-                  <Card
-                    id={product.id}
-                    image={product.image || 'Imagen no disponible'}
-                    title={product.title || 'Título no disponible'}
-                    Genres={product.Genres || 'Género no disponible'}
-                    Authors={product.Authors || 'Autor no disponible'}
-                    price={product.price || 'Precio no disponible'}
-                    ISBN={product.ISBN}
-                  />
+          Array.isArray(list) && list.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
+                {list.map((product) => (
+                  <div key={product.id} className="p-4 transform transition-transform duration-300 ease-in-out hover:scale-105">
+                    <Card
+                      id={product.id}
+                      image={product.image || 'Imagen no disponible'}
+                      title={product.title || 'Título no disponible'}
+                      Genres={product.Genres || 'Género no disponible'}
+                      Authors={product.Authors || 'Autor no disponible'}
+                      price={product.price || 'Precio no disponible'}
+                      ISBN={product.ISBN}
+                    />
+                  </div>
+                ))}
+            </div>
+            ) : (
+              <div className='h-full flex flex-col items-center justify-center'>
+                <div className='h-1/2 border-8 w-1/2 flex flex-col items-center justify-center rounded-3xl border-neutral-700 dark:border-neutral-100  dark:text-gray-100'>
+                  <p className='text-center text-3xl font-bold pb-10'>No se encontraron libros con los filtros aplicados</p>
                 </div>
-              ))}
-          </div>
-        )}
+              </div>
+            )
+          )}
         <nav
           className="flex justify-center p-5"
           aria-label="Page navigation example"

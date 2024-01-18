@@ -22,9 +22,9 @@ import { useParams } from 'react-router-dom';
 import { putProduct } from '../../redux/services/putProduct';
 
 const EditBook = () => {
+    
     const dispatch = useDispatch();
     const { id } = useParams();
-
 
     const [initialValues, setInitialValues] = useState({});
     useEffect(() => {
