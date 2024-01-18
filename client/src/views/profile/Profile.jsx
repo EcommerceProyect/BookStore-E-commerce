@@ -74,7 +74,7 @@ const Profile = () => {
         </ol>
       </nav>
       <div className="dark:bg-gray-900/20 dark:border-textLight border overflow-x-hidden min-h-90 flex-grow w-full bg-white rounded-lg shadow dark:bg-gray-800 border-gray-400 flex flex-col md:flex-row">
-        <div className="md:w-1/5 flex flex-col items-center justify-top p-5 border-b md:border-b-0 md:border-r border-gray-400">
+        <div className="md:w-1/5 flex flex-col items-center justify-center p-5 border-b md:border-b-0 md:border-r border-gray-400">
           <img
             className="rounded-full w-full h-1/2 md:w-48 md:h-48 object-cover mb-0"
             src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
