@@ -112,7 +112,7 @@ const EditBook = () => {
     }, [dispatch])
 
     if (!detailProduct) {
-        return <div>Loading...</div>;
+        return <div>Cargando...</div>;
     }
 
     console.log(allAuthors)
@@ -202,6 +202,7 @@ const EditBook = () => {
                             onChange={handleSelectChange}
                             options={allAuthors.map((autor) => ({ value: autor.name, label: autor.name }))}
                             value={values.autor}
+                            
                         />
                     </div>
                     {errors.autor && (
@@ -306,7 +307,7 @@ const EditBook = () => {
                             <span className="font-medium">{errors.synopsis}</span>
                         </Alert>
                     )}
-                    <Button onClick={(event) => handleEditSubmit(event, putProduct, id)}>Guardar cambios</Button>
+                    <Button className="bg-primary dark:bg-primary" onClick={(event) => handleEditSubmit(event, putProduct, id)}>Guardar cambios</Button>
                 </form>
                 <Toaster closeButton={true} duration={4000} />
             </div>

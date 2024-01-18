@@ -29,7 +29,7 @@ function RatingStarsAverage(productId) {
         SVGstyle={{ display: 'inline-block' }}
         size={25}
       />
-      <p>Valoración: {Number(ratingValue.data.averageRating)}</p>
+      <p className='dark:text-gray-100/30'>Valoración: {Number(ratingValue.data.averageRating)}</p>
     </div>
   );
 }

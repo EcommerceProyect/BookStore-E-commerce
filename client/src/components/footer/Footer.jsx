@@ -6,12 +6,12 @@ import { FiMail } from 'react-icons/fi';
 
 const Footer = () => {
   return (
-    <footer className="px-3 pt-4 lg:px-9 border-t-2 bg-primary flex flex-col w-full relative bottom-0">
+    <footer className="px-3 pt-4 lg:px-9  bg-primary flex flex-col w-full relative bottom-0">
       <div className=" grid gap-10 row-gap-6 mb-8 sm:grid-cols-1 lg:grid-cols-3 mt-2 p-3 h-auto">
         <div className="grid justify-center self-center">
           <a href="#" className=" justify-self-center inline-flex items-center">
             <div title="Home" className="left-0">
-              <img src={Logo} alt="Logo" className="ml-10" />
+              <img src={Logo} alt="Logo" className="ml-10 transform transition-transform duration-300 ease-in-out hover:scale-105" />
             </div>
           </a>
           <Link to="/aboutUs">

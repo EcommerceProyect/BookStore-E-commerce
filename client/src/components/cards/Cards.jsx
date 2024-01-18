@@ -10,6 +10,8 @@ import SortingComponent from './sort/Sort';
 import { Toaster, toast } from 'sonner';
 import { Toast } from 'flowbite-react';
 
+import { HiOutlineEmojiSad } from "react-icons/hi";
+
 import { ITEMS_PER_PAGE } from "../../vars";
 
 function Cards() {
@@ -149,12 +151,12 @@ function Cards() {
       </div>
       <div className=" mt-20 w-full p-4">
         {loading ? (
-          <div>Loading...</div>
+          <div className='text-center dark:text-textLight'>Cargando...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
-            {Array.isArray(list) &&
-              list.map((product) => (
-                <div key={product.id} className="p-4">
+          Array.isArray(list) && list.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
+              {list.map((product) => (
+                <div key={product.id} className="p-4 transform transition-transform duration-300 ease-in-out hover:scale-105">
                   <Card
                     id={product.id}
                     image={product.image || 'Imagen no disponible'}
@@ -166,7 +168,15 @@ function Cards() {
                   />
                 </div>
               ))}
-          </div>
+            </div>
+          ) : (
+            <div className='h-full flex flex-col items-center justify-center'>
+              <div className='h-1/2 border-8 w-1/2 flex flex-col items-center justify-center rounded-3xl border-neutral-700 dark:border-neutral-100  dark:text-gray-100'>
+                <p className='text-center text-3xl font-bold pb-10'>No se encontraron libros con los filtros aplicados</p>
+                <HiOutlineEmojiSad size={50}/>
+              </div>
+            </div>
+          )
         )}
         <nav
           className="flex justify-center p-5"
@@ -177,7 +187,7 @@ function Cards() {
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 ms-0 leading-tight text-textGray bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Previous
               </button>
@@ -186,7 +196,7 @@ function Cards() {
               <li key={i}>
                 <button
                   onClick={() => dispatch(setCurrentPage(i))}
-                  className={`flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+                  className={`dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
                     currentPage === i ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                 >
@@ -198,7 +208,7 @@ function Cards() {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages - 1}
-                className="flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="dark:bg-gray-900/20 flex items-center justify-center px-3 h-8 leading-tight text-textGray bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Next
               </button>

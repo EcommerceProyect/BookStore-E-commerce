@@ -83,7 +83,7 @@ const LoginModal = ({ onClose }) => {
               </button>
               <div className="flex items-center justify-center mb-4">
                 <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
-                <p className="mx-4">o</p>
+                <p className="mx-4 dark:text-textLight">o</p>
                 <div className="border-t border-b border-slate-200 dark:border-slate-700 flex-grow"></div>
               </div>
               <button

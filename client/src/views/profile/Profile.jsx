@@ -73,8 +73,8 @@ const Profile = () => {
           </li>
         </ol>
       </nav>
-      <div className="border overflow-x-hidden min-h-90 flex-grow w-full bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-gray-400 flex flex-col md:flex-row">
-        <div className="md:w-1/5 flex flex-col items-center justify-top p-5 border-b md:border-b-0 md:border-r border-gray-400">
+      <div className="dark:bg-gray-900/20 dark:border-textLight border overflow-x-hidden min-h-90 flex-grow w-full bg-white rounded-lg shadow dark:bg-gray-800 border-gray-400 flex flex-col md:flex-row">
+        <div className="md:w-1/5 flex flex-col items-center justify-center p-5 border-b md:border-b-0 md:border-r border-gray-400">
           <img
             className="rounded-full w-full h-1/2 md:w-48 md:h-48 object-cover mb-0"
             src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
@@ -91,8 +91,8 @@ const Profile = () => {
         <div className="flex-grow p-5 flex flex-col md:pl-8">
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Nombre de usuario</p>
-              <p className="text-textDark">
+              <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">Nombre de usuario</p>
+              <p className="text-textDark dark:text-gray-100/85">
                 {/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
                   userData.name,
                 )
@@ -101,37 +101,37 @@ const Profile = () => {
               </p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Nombre completo</p>
-              <p className="text-textDark">
+              <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">Nombre completo</p>
+              <p className="text-textDark dark:text-gray-100/85">
                 {userData.last_name ? userData.last_name : '...'}
               </p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Correo</p>
-              <p className="text-textDark">{userData.email}</p>
+              <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">Correo</p>
+              <p className="text-textDark dark:text-gray-100/85">{userData.email}</p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">Teléfono</p>
-              <p className="text-textDark">
+              <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">Teléfono</p>
+              <p className="text-textDark dark:text-gray-100/85">
                 {userData.phone ? userData.phone : '...'}
               </p>
             </div>
             <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-textDark text-lg font-bold mb-2">
+              <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">
                 Fecha de creación
               </p>
-              <p className="text-textDark">{formattedDateString}</p>
+              <p className="text-textDark dark:text-gray-100/85">{formattedDateString}</p>
             </div>{' '}
-            <p className="text-textDark text-lg font-bold mb-2">
+            <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">
               Tipo de usuario
             </p>
-            <p className="text-textDark">
+            <p className="text-textDark dark:text-gray-100/85">
               {userData.role === 'user' ? 'Cliente' : 'Administrador'}
             </p>
           </div>
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-            <p className="text-textDark text-lg font-bold mb-2">Registro</p>
-            <p className="text-textDark">
+            <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">Registro</p>
+            <p className="text-textDark dark:text-gray-100/85">
               {userData.id && userData.id.startsWith('google-oauth2|')
                 ? 'Mediante Google'
                 : 'Manual'}
@@ -139,7 +139,7 @@ const Profile = () => {
           </div>
 
           <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-            <p className="text-textDark text-lg font-bold mb-2">
+            <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">
               Últimas compras{' '}
             </p>
             {Array.isArray(orders) ? (
@@ -147,7 +147,7 @@ const Profile = () => {
                 {orders?.map((p) => (
                   <Link to={`/detail/${p.id}`}>
                     <div className="max-w-xs mx-2" key={p.id}>
-                      <div className="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
+                      <div className="dark:bg-gray-900/20 dark:border-none relative max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700">
                         <div className="relative p-4">
                           <div className="w-32 h-32 mx-auto">
                             <img
@@ -160,17 +160,17 @@ const Profile = () => {
 
                         <div className="px-4 pb-4">
                           <div className="flex items-center justify-between">
-                            <span className="text-left text-sm font-bold text-textGray dark:text-black">
+                            <span className="dark:text-gray-100/85 text-left text-sm font-bold text-textGray dark:text-black">
                               Fecha de compra: {p.orderDate}
                             </span>
                           </div>
 
-                          <h5 className="text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
+                          <h5 className="dark:text-gray-100/85 text-left text-lg font-semibold tracking-tight text-textDark dark:text-black">
                             {p.title}
                           </h5>
 
                           <div className="flex items-center justify-between">
-                            <span className="text-left text-lg font-bold text-textDark dark:text-black">
+                            <span className="dark:text-gray-100/85 text-left text-lg font-bold text-textDark dark:text-black">
                               ${p.price}
                             </span>
                           </div>
@@ -185,7 +185,7 @@ const Profile = () => {
             )}
           </div>
           <div>
-            <p className="text-textDark text-lg font-bold mb-2">Mis reseñas</p>
+            <p className="text-textDark text-lg font-bold mb-2 dark:text-textLight">Mis reseñas</p>
             <div className="flex overflow-x-auto p-4">
             {Array.isArray(booksReviewsByUser) ? (
               booksReviewsByUser.map((review) => (
