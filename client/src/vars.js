@@ -4,7 +4,7 @@ export const SCOPE = 'user:edit read:roles update:users create:role_members';
 export const CLIENT_ID = 'V1mOd1KV60WmMBdH9Lgw8vWWCEH7koDY';
 export const RESPONSE_TYPE = 'code';
 
-export const REDIRECT_URI = 'https://bookstore-e-commerce-z27y.onrender.com';
+export const REDIRECT_URI = 'https://book-store-e-commerce-git-nico-nicolaselozanos-projects.vercel.app';
 export const APIDOMAIN = 'https://api-books-auth0.onrender.com';
 export const API_BOOKS = 'https://bookstore-e-commerce.onrender.com';
 
