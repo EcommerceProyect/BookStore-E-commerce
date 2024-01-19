@@ -25,10 +25,9 @@ export default defineConfig({
     terserOptions: {
       compress: {
         drop_console: true,
-        // Ajusta otras opciones según tus necesidades
       },
     },
-    chunkSizeWarningLimit: 600, // Ajusta según tus necesidades
+    chunkSizeWarningLimit: 500, 
     esbuild: {
       memoryLimit: 500,
       bundle: true,
