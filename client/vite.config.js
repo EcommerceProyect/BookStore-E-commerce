@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
@@ -17,4 +17,17 @@ export default defineConfig({
       '@dashboard/productList': path.resolve(__dirname, 'src/views/dashboard/productList'),
     },
   },
-})
+  optimizeDeps: {
+    keepNames: true,
+  },
+  build: {
+    sourcemap: false,
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        // Ajusta otras opciones según tus necesidades
+      },
+    },
+    chunkSizeWarningLimit: 600, // Ajusta según tus necesidades
+  },
+});
