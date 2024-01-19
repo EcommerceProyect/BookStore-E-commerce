@@ -29,5 +29,9 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 600, // Ajusta según tus necesidades
+    esbuild: {
+      memoryLimit: 500,
+      bundle: true,
+    },
   },
 });
