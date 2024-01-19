@@ -29,6 +29,8 @@ import EditBook from './components/createBook/EditBook';
 
 import { Toaster, toast } from 'sonner';
 
+import { useGlobalSWR  } from "./redux/services/fetcher/swr-config";
+
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -91,7 +93,10 @@ function App() {
   };
 
  
+  const { data, error } = useGlobalSWR('/api/data');
 
+  if (error) return <div>Error al cargar datos</div>;
+  if (!data) return <div>Cargando...</div>;
 
   return (
     <div className='dark:bg-bgDark'>
