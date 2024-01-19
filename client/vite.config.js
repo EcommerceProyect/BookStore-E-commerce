@@ -16,21 +16,5 @@ export default defineConfig({
       '@createProduct/CreateProduct': path.resolve(__dirname, 'src/views/createProduct/CreateProduct.jsx'),
       '@dashboard/productList': path.resolve(__dirname, 'src/views/dashboard/productList'),
     },
-  },
-  optimizeDeps: {
-    keepNames: true,
-  },
-  build: {
-    sourcemap: false,
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
-    chunkSizeWarningLimit: 500, 
-    esbuild: {
-      memoryLimit: 500,
-      bundle: true,
-    },
-  },
+  }
 });
