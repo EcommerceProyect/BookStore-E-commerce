@@ -16,5 +16,9 @@ export default defineConfig({
       '@createProduct/CreateProduct': path.resolve(__dirname, 'src/views/createProduct/CreateProduct.jsx'),
       '@dashboard/productList': path.resolve(__dirname, 'src/views/dashboard/productList'),
     },
-  }
+  },  
+  build: {
+    chunkSizeWarningLimit: 2000, // Ajusta el límite de advertencia de tamaño del fragmento
+    // Otras configuraciones...
+  },
 });

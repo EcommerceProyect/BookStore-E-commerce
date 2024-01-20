@@ -7,6 +7,7 @@ import { Carousel } from 'flowbite-react';
 import { ITEMS_PER_PAGE } from '../../../vars';
 
 import { Link } from 'react-router-dom';
+import { debounce } from 'lodash';
 
 const customTheme = {
   root: {
@@ -52,9 +53,13 @@ const CarouselComponent = () => {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) - 1;
 
   useEffect(() => {
-    if (totalPages >= 0) {
-      dispatch(getLastProducts(totalPages, 5));
-    }
+    const fnLastProducts = debounce(() => {
+      if (totalPages >= 0 && loading === false) {
+        dispatch(getLastProducts(totalPages, 5));
+      }
+    },2000)
+
+    fnLastProducts();
   }, [dispatch, totalPages]);
 
   return (

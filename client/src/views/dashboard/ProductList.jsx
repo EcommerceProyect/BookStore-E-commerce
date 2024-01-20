@@ -62,7 +62,7 @@ function ProductList() {
   };
 
   const handleConfirmDelete = async () => {
-    if (deleteProductId) {
+    if (deleteProductId ) {
       await dispatch(deleteProduct(deleteProductId));
       await dispatch(getProducts());
       setShowModal(false);

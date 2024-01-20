@@ -11,7 +11,7 @@ const SearchButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { booksByTitle } = useSelector((state) => state.products);
+  const { booksByTitle,loading } = useSelector((state) => state.products);
   const { list } = useSelector((state) => state.products);
 
 
@@ -29,9 +29,10 @@ const SearchButton = () => {
   };
 
   useEffect(() => {
-    dispatch(getProducts(0)); //página inicial 0
-    dispatch(setCurrentPage(0));
-
+    if(loading === false){
+      dispatch(getProducts(0)); //página inicial 0
+      dispatch(setCurrentPage(0));
+    }
   }, [booksByTitle]);
 
 
