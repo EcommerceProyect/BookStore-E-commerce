@@ -1,5 +1,5 @@
 # E-commerce
-Proyecto de E-Commerce grupal, con temática de venta de libros. Cuenta con funcionalidades como: visualición, búsqueda y filtrado de productos, pasarela de pagos, rol de usuario cliente y administrador, panel de administrador desde el cual se puede visualizar y editar productor y administrar usuarios. 
+Proyecto de E-Commerce grupal, con temática de venta de libros. Cuenta con funcionalidades como: visualización, búsqueda y filtrado de productos, pasarela de pagos, rol de usuario cliente y administrador, panel de administrador desde el cual se puede visualizar y editar productos y administrar usuarios. 
 
 Tecnologías: Javascript, Node.Js, React, Redux Toolkit, Auth0, Tailwind.css, Cloudinary, Express.js, Mercado Pago, Nodemailer, Sequelize.
 
